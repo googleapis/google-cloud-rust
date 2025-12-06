@@ -64,18 +64,36 @@ impl ListCryptoKeysRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCryptoKeysRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ListCryptoKeysRequest;
+    /// let x = ListCryptoKeysRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCryptoKeysRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ListCryptoKeysRequest;
+    /// let x = ListCryptoKeysRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCryptoKeysRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ListCryptoKeysRequest;
+    /// let x = ListCryptoKeysRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -113,6 +131,17 @@ impl ListCryptoKeysResponse {
     }
 
     /// Sets the value of [crypto_keys][crate::model::ListCryptoKeysResponse::crypto_keys].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ListCryptoKeysResponse;
+    /// use kms::model::CryptoKey;
+    /// let x = ListCryptoKeysResponse::new()
+    ///     .set_crypto_keys([
+    ///         CryptoKey::default()/* use setters */,
+    ///         CryptoKey::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_crypto_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -124,6 +153,12 @@ impl ListCryptoKeysResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCryptoKeysResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ListCryptoKeysResponse;
+    /// let x = ListCryptoKeysResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -172,6 +207,12 @@ impl GetProtectedResourcesSummaryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProtectedResourcesSummaryRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::GetProtectedResourcesSummaryRequest;
+    /// let x = GetProtectedResourcesSummaryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -220,24 +261,51 @@ impl ProtectedResourcesSummary {
     }
 
     /// Sets the value of [name][crate::model::ProtectedResourcesSummary::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResourcesSummary;
+    /// let x = ProtectedResourcesSummary::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [resource_count][crate::model::ProtectedResourcesSummary::resource_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResourcesSummary;
+    /// let x = ProtectedResourcesSummary::new().set_resource_count(42);
+    /// ```
     pub fn set_resource_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.resource_count = v.into();
         self
     }
 
     /// Sets the value of [project_count][crate::model::ProtectedResourcesSummary::project_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResourcesSummary;
+    /// let x = ProtectedResourcesSummary::new().set_project_count(42);
+    /// ```
     pub fn set_project_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.project_count = v.into();
         self
     }
 
     /// Sets the value of [resource_types][crate::model::ProtectedResourcesSummary::resource_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResourcesSummary;
+    /// let x = ProtectedResourcesSummary::new().set_resource_types([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_resource_types<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -250,6 +318,15 @@ impl ProtectedResourcesSummary {
     }
 
     /// Sets the value of [cloud_products][crate::model::ProtectedResourcesSummary::cloud_products].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResourcesSummary;
+    /// let x = ProtectedResourcesSummary::new().set_cloud_products([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_cloud_products<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -262,6 +339,15 @@ impl ProtectedResourcesSummary {
     }
 
     /// Sets the value of [locations][crate::model::ProtectedResourcesSummary::locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResourcesSummary;
+    /// let x = ProtectedResourcesSummary::new().set_locations([
+    ///     ("key0", 123),
+    ///     ("key1", 456),
+    /// ]);
+    /// ```
     pub fn set_locations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -339,30 +425,60 @@ impl SearchProtectedResourcesRequest {
     }
 
     /// Sets the value of [scope][crate::model::SearchProtectedResourcesRequest::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::SearchProtectedResourcesRequest;
+    /// let x = SearchProtectedResourcesRequest::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [crypto_key][crate::model::SearchProtectedResourcesRequest::crypto_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::SearchProtectedResourcesRequest;
+    /// let x = SearchProtectedResourcesRequest::new().set_crypto_key("example");
+    /// ```
     pub fn set_crypto_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchProtectedResourcesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::SearchProtectedResourcesRequest;
+    /// let x = SearchProtectedResourcesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchProtectedResourcesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::SearchProtectedResourcesRequest;
+    /// let x = SearchProtectedResourcesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [resource_types][crate::model::SearchProtectedResourcesRequest::resource_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::SearchProtectedResourcesRequest;
+    /// let x = SearchProtectedResourcesRequest::new().set_resource_types(["a", "b", "c"]);
+    /// ```
     pub fn set_resource_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -403,6 +519,17 @@ impl SearchProtectedResourcesResponse {
     }
 
     /// Sets the value of [protected_resources][crate::model::SearchProtectedResourcesResponse::protected_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::SearchProtectedResourcesResponse;
+    /// use google_cloud_kms_inventory_v1::model::ProtectedResource;
+    /// let x = SearchProtectedResourcesResponse::new()
+    ///     .set_protected_resources([
+    ///         ProtectedResource::default()/* use setters */,
+    ///         ProtectedResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_protected_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -414,6 +541,12 @@ impl SearchProtectedResourcesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchProtectedResourcesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::SearchProtectedResourcesResponse;
+    /// let x = SearchProtectedResourcesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -499,42 +632,87 @@ impl ProtectedResource {
     }
 
     /// Sets the value of [name][crate::model::ProtectedResource::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
+    /// let x = ProtectedResource::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::ProtectedResource::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
+    /// let x = ProtectedResource::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::ProtectedResource::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
+    /// let x = ProtectedResource::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [cloud_product][crate::model::ProtectedResource::cloud_product].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
+    /// let x = ProtectedResource::new().set_cloud_product("example");
+    /// ```
     pub fn set_cloud_product<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cloud_product = v.into();
         self
     }
 
     /// Sets the value of [resource_type][crate::model::ProtectedResource::resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
+    /// let x = ProtectedResource::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::ProtectedResource::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
+    /// let x = ProtectedResource::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::ProtectedResource::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
+    /// let x = ProtectedResource::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -547,6 +725,12 @@ impl ProtectedResource {
     }
 
     /// Sets the value of [crypto_key_version][crate::model::ProtectedResource::crypto_key_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
+    /// let x = ProtectedResource::new().set_crypto_key_version("example");
+    /// ```
     pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -556,6 +740,12 @@ impl ProtectedResource {
     }
 
     /// Sets the value of [crypto_key_versions][crate::model::ProtectedResource::crypto_key_versions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
+    /// let x = ProtectedResource::new().set_crypto_key_versions(["a", "b", "c"]);
+    /// ```
     pub fn set_crypto_key_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -567,6 +757,13 @@ impl ProtectedResource {
     }
 
     /// Sets the value of [create_time][crate::model::ProtectedResource::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
+    /// use wkt::Timestamp;
+    /// let x = ProtectedResource::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -576,6 +773,14 @@ impl ProtectedResource {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ProtectedResource::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResource;
+    /// use wkt::Timestamp;
+    /// let x = ProtectedResource::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ProtectedResource::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

@@ -58,6 +58,12 @@ impl ResourceOwners {
     }
 
     /// Sets the value of [resource_owners][crate::model::ResourceOwners::resource_owners].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceOwners;
+    /// let x = ResourceOwners::new().set_resource_owners(["a", "b", "c"]);
+    /// ```
     pub fn set_resource_owners<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -92,6 +98,13 @@ impl AnalyzeIamPolicyLongrunningMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::AnalyzeIamPolicyLongrunningMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyLongrunningMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AnalyzeIamPolicyLongrunningMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -101,6 +114,14 @@ impl AnalyzeIamPolicyLongrunningMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AnalyzeIamPolicyLongrunningMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyLongrunningMetadata;
+    /// use wkt::Timestamp;
+    /// let x = AnalyzeIamPolicyLongrunningMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AnalyzeIamPolicyLongrunningMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -188,12 +209,25 @@ impl ExportAssetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ExportAssetsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsRequest;
+    /// let x = ExportAssetsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [read_time][crate::model::ExportAssetsRequest::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ExportAssetsRequest::new().set_read_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_read_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -203,6 +237,14 @@ impl ExportAssetsRequest {
     }
 
     /// Sets or clears the value of [read_time][crate::model::ExportAssetsRequest::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ExportAssetsRequest::new().set_or_clear_read_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportAssetsRequest::new().set_or_clear_read_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -212,6 +254,12 @@ impl ExportAssetsRequest {
     }
 
     /// Sets the value of [asset_types][crate::model::ExportAssetsRequest::asset_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsRequest;
+    /// let x = ExportAssetsRequest::new().set_asset_types(["a", "b", "c"]);
+    /// ```
     pub fn set_asset_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -223,6 +271,15 @@ impl ExportAssetsRequest {
     }
 
     /// Sets the value of [content_type][crate::model::ExportAssetsRequest::content_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsRequest;
+    /// use google_cloud_asset_v1::model::ContentType;
+    /// let x0 = ExportAssetsRequest::new().set_content_type(ContentType::Resource);
+    /// let x1 = ExportAssetsRequest::new().set_content_type(ContentType::IamPolicy);
+    /// let x2 = ExportAssetsRequest::new().set_content_type(ContentType::OrgPolicy);
+    /// ```
     pub fn set_content_type<T: std::convert::Into<crate::model::ContentType>>(
         mut self,
         v: T,
@@ -232,6 +289,13 @@ impl ExportAssetsRequest {
     }
 
     /// Sets the value of [output_config][crate::model::ExportAssetsRequest::output_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsRequest;
+    /// use google_cloud_asset_v1::model::OutputConfig;
+    /// let x = ExportAssetsRequest::new().set_output_config(OutputConfig::default()/* use setters */);
+    /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -241,6 +305,14 @@ impl ExportAssetsRequest {
     }
 
     /// Sets or clears the value of [output_config][crate::model::ExportAssetsRequest::output_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsRequest;
+    /// use google_cloud_asset_v1::model::OutputConfig;
+    /// let x = ExportAssetsRequest::new().set_or_clear_output_config(Some(OutputConfig::default()/* use setters */));
+    /// let x = ExportAssetsRequest::new().set_or_clear_output_config(None::<OutputConfig>);
+    /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -250,6 +322,12 @@ impl ExportAssetsRequest {
     }
 
     /// Sets the value of [relationship_types][crate::model::ExportAssetsRequest::relationship_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsRequest;
+    /// let x = ExportAssetsRequest::new().set_relationship_types(["a", "b", "c"]);
+    /// ```
     pub fn set_relationship_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -299,6 +377,13 @@ impl ExportAssetsResponse {
     }
 
     /// Sets the value of [read_time][crate::model::ExportAssetsResponse::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsResponse;
+    /// use wkt::Timestamp;
+    /// let x = ExportAssetsResponse::new().set_read_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_read_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -308,6 +393,14 @@ impl ExportAssetsResponse {
     }
 
     /// Sets or clears the value of [read_time][crate::model::ExportAssetsResponse::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsResponse;
+    /// use wkt::Timestamp;
+    /// let x = ExportAssetsResponse::new().set_or_clear_read_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExportAssetsResponse::new().set_or_clear_read_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -317,6 +410,13 @@ impl ExportAssetsResponse {
     }
 
     /// Sets the value of [output_config][crate::model::ExportAssetsResponse::output_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsResponse;
+    /// use google_cloud_asset_v1::model::OutputConfig;
+    /// let x = ExportAssetsResponse::new().set_output_config(OutputConfig::default()/* use setters */);
+    /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -326,6 +426,14 @@ impl ExportAssetsResponse {
     }
 
     /// Sets or clears the value of [output_config][crate::model::ExportAssetsResponse::output_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsResponse;
+    /// use google_cloud_asset_v1::model::OutputConfig;
+    /// let x = ExportAssetsResponse::new().set_or_clear_output_config(Some(OutputConfig::default()/* use setters */));
+    /// let x = ExportAssetsResponse::new().set_or_clear_output_config(None::<OutputConfig>);
+    /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputConfig>,
@@ -335,6 +443,13 @@ impl ExportAssetsResponse {
     }
 
     /// Sets the value of [output_result][crate::model::ExportAssetsResponse::output_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsResponse;
+    /// use google_cloud_asset_v1::model::OutputResult;
+    /// let x = ExportAssetsResponse::new().set_output_result(OutputResult::default()/* use setters */);
+    /// ```
     pub fn set_output_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutputResult>,
@@ -344,6 +459,14 @@ impl ExportAssetsResponse {
     }
 
     /// Sets or clears the value of [output_result][crate::model::ExportAssetsResponse::output_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ExportAssetsResponse;
+    /// use google_cloud_asset_v1::model::OutputResult;
+    /// let x = ExportAssetsResponse::new().set_or_clear_output_result(Some(OutputResult::default()/* use setters */));
+    /// let x = ExportAssetsResponse::new().set_or_clear_output_result(None::<OutputResult>);
+    /// ```
     pub fn set_or_clear_output_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutputResult>,
@@ -437,12 +560,25 @@ impl ListAssetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAssetsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [read_time][crate::model::ListAssetsRequest::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListAssetsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListAssetsRequest::new().set_read_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_read_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -452,6 +588,14 @@ impl ListAssetsRequest {
     }
 
     /// Sets or clears the value of [read_time][crate::model::ListAssetsRequest::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListAssetsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListAssetsRequest::new().set_or_clear_read_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ListAssetsRequest::new().set_or_clear_read_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -461,6 +605,12 @@ impl ListAssetsRequest {
     }
 
     /// Sets the value of [asset_types][crate::model::ListAssetsRequest::asset_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_asset_types(["a", "b", "c"]);
+    /// ```
     pub fn set_asset_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -472,6 +622,15 @@ impl ListAssetsRequest {
     }
 
     /// Sets the value of [content_type][crate::model::ListAssetsRequest::content_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListAssetsRequest;
+    /// use google_cloud_asset_v1::model::ContentType;
+    /// let x0 = ListAssetsRequest::new().set_content_type(ContentType::Resource);
+    /// let x1 = ListAssetsRequest::new().set_content_type(ContentType::IamPolicy);
+    /// let x2 = ListAssetsRequest::new().set_content_type(ContentType::OrgPolicy);
+    /// ```
     pub fn set_content_type<T: std::convert::Into<crate::model::ContentType>>(
         mut self,
         v: T,
@@ -481,18 +640,36 @@ impl ListAssetsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListAssetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAssetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [relationship_types][crate::model::ListAssetsRequest::relationship_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListAssetsRequest;
+    /// let x = ListAssetsRequest::new().set_relationship_types(["a", "b", "c"]);
+    /// ```
     pub fn set_relationship_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -534,6 +711,13 @@ impl ListAssetsResponse {
     }
 
     /// Sets the value of [read_time][crate::model::ListAssetsResponse::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListAssetsResponse;
+    /// use wkt::Timestamp;
+    /// let x = ListAssetsResponse::new().set_read_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_read_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -543,6 +727,14 @@ impl ListAssetsResponse {
     }
 
     /// Sets or clears the value of [read_time][crate::model::ListAssetsResponse::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListAssetsResponse;
+    /// use wkt::Timestamp;
+    /// let x = ListAssetsResponse::new().set_or_clear_read_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ListAssetsResponse::new().set_or_clear_read_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -552,6 +744,17 @@ impl ListAssetsResponse {
     }
 
     /// Sets the value of [assets][crate::model::ListAssetsResponse::assets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListAssetsResponse;
+    /// use google_cloud_asset_v1::model::Asset;
+    /// let x = ListAssetsResponse::new()
+    ///     .set_assets([
+    ///         Asset::default()/* use setters */,
+    ///         Asset::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_assets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -563,6 +766,12 @@ impl ListAssetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAssetsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListAssetsResponse;
+    /// let x = ListAssetsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -647,12 +856,24 @@ impl BatchGetAssetsHistoryRequest {
     }
 
     /// Sets the value of [parent][crate::model::BatchGetAssetsHistoryRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BatchGetAssetsHistoryRequest;
+    /// let x = BatchGetAssetsHistoryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [asset_names][crate::model::BatchGetAssetsHistoryRequest::asset_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BatchGetAssetsHistoryRequest;
+    /// let x = BatchGetAssetsHistoryRequest::new().set_asset_names(["a", "b", "c"]);
+    /// ```
     pub fn set_asset_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -664,6 +885,15 @@ impl BatchGetAssetsHistoryRequest {
     }
 
     /// Sets the value of [content_type][crate::model::BatchGetAssetsHistoryRequest::content_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BatchGetAssetsHistoryRequest;
+    /// use google_cloud_asset_v1::model::ContentType;
+    /// let x0 = BatchGetAssetsHistoryRequest::new().set_content_type(ContentType::Resource);
+    /// let x1 = BatchGetAssetsHistoryRequest::new().set_content_type(ContentType::IamPolicy);
+    /// let x2 = BatchGetAssetsHistoryRequest::new().set_content_type(ContentType::OrgPolicy);
+    /// ```
     pub fn set_content_type<T: std::convert::Into<crate::model::ContentType>>(
         mut self,
         v: T,
@@ -673,6 +903,13 @@ impl BatchGetAssetsHistoryRequest {
     }
 
     /// Sets the value of [read_time_window][crate::model::BatchGetAssetsHistoryRequest::read_time_window].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BatchGetAssetsHistoryRequest;
+    /// use google_cloud_asset_v1::model::TimeWindow;
+    /// let x = BatchGetAssetsHistoryRequest::new().set_read_time_window(TimeWindow::default()/* use setters */);
+    /// ```
     pub fn set_read_time_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -682,6 +919,14 @@ impl BatchGetAssetsHistoryRequest {
     }
 
     /// Sets or clears the value of [read_time_window][crate::model::BatchGetAssetsHistoryRequest::read_time_window].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BatchGetAssetsHistoryRequest;
+    /// use google_cloud_asset_v1::model::TimeWindow;
+    /// let x = BatchGetAssetsHistoryRequest::new().set_or_clear_read_time_window(Some(TimeWindow::default()/* use setters */));
+    /// let x = BatchGetAssetsHistoryRequest::new().set_or_clear_read_time_window(None::<TimeWindow>);
+    /// ```
     pub fn set_or_clear_read_time_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -691,6 +936,12 @@ impl BatchGetAssetsHistoryRequest {
     }
 
     /// Sets the value of [relationship_types][crate::model::BatchGetAssetsHistoryRequest::relationship_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BatchGetAssetsHistoryRequest;
+    /// let x = BatchGetAssetsHistoryRequest::new().set_relationship_types(["a", "b", "c"]);
+    /// ```
     pub fn set_relationship_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -724,6 +975,17 @@ impl BatchGetAssetsHistoryResponse {
     }
 
     /// Sets the value of [assets][crate::model::BatchGetAssetsHistoryResponse::assets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BatchGetAssetsHistoryResponse;
+    /// use google_cloud_asset_v1::model::TemporalAsset;
+    /// let x = BatchGetAssetsHistoryResponse::new()
+    ///     .set_assets([
+    ///         TemporalAsset::default()/* use setters */,
+    ///         TemporalAsset::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_assets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -771,18 +1033,37 @@ impl CreateFeedRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateFeedRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::CreateFeedRequest;
+    /// let x = CreateFeedRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [feed_id][crate::model::CreateFeedRequest::feed_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::CreateFeedRequest;
+    /// let x = CreateFeedRequest::new().set_feed_id("example");
+    /// ```
     pub fn set_feed_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.feed_id = v.into();
         self
     }
 
     /// Sets the value of [feed][crate::model::CreateFeedRequest::feed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::CreateFeedRequest;
+    /// use google_cloud_asset_v1::model::Feed;
+    /// let x = CreateFeedRequest::new().set_feed(Feed::default()/* use setters */);
+    /// ```
     pub fn set_feed<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Feed>,
@@ -792,6 +1073,14 @@ impl CreateFeedRequest {
     }
 
     /// Sets or clears the value of [feed][crate::model::CreateFeedRequest::feed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::CreateFeedRequest;
+    /// use google_cloud_asset_v1::model::Feed;
+    /// let x = CreateFeedRequest::new().set_or_clear_feed(Some(Feed::default()/* use setters */));
+    /// let x = CreateFeedRequest::new().set_or_clear_feed(None::<Feed>);
+    /// ```
     pub fn set_or_clear_feed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Feed>,
@@ -826,6 +1115,12 @@ impl GetFeedRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFeedRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::GetFeedRequest;
+    /// let x = GetFeedRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -856,6 +1151,12 @@ impl ListFeedsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFeedsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListFeedsRequest;
+    /// let x = ListFeedsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -883,6 +1184,17 @@ impl ListFeedsResponse {
     }
 
     /// Sets the value of [feeds][crate::model::ListFeedsResponse::feeds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListFeedsResponse;
+    /// use google_cloud_asset_v1::model::Feed;
+    /// let x = ListFeedsResponse::new()
+    ///     .set_feeds([
+    ///         Feed::default()/* use setters */,
+    ///         Feed::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_feeds<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -925,6 +1237,13 @@ impl UpdateFeedRequest {
     }
 
     /// Sets the value of [feed][crate::model::UpdateFeedRequest::feed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::UpdateFeedRequest;
+    /// use google_cloud_asset_v1::model::Feed;
+    /// let x = UpdateFeedRequest::new().set_feed(Feed::default()/* use setters */);
+    /// ```
     pub fn set_feed<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Feed>,
@@ -934,6 +1253,14 @@ impl UpdateFeedRequest {
     }
 
     /// Sets or clears the value of [feed][crate::model::UpdateFeedRequest::feed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::UpdateFeedRequest;
+    /// use google_cloud_asset_v1::model::Feed;
+    /// let x = UpdateFeedRequest::new().set_or_clear_feed(Some(Feed::default()/* use setters */));
+    /// let x = UpdateFeedRequest::new().set_or_clear_feed(None::<Feed>);
+    /// ```
     pub fn set_or_clear_feed<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Feed>,
@@ -943,6 +1270,13 @@ impl UpdateFeedRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFeedRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::UpdateFeedRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFeedRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -952,6 +1286,14 @@ impl UpdateFeedRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFeedRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::UpdateFeedRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateFeedRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateFeedRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -985,6 +1327,12 @@ impl DeleteFeedRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFeedRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::DeleteFeedRequest;
+    /// let x = DeleteFeedRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1016,6 +1364,14 @@ impl OutputConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::OutputConfig;
+    /// use google_cloud_asset_v1::model::GcsDestination;
+    /// let x = OutputConfig::new().set_destination(Some(
+    ///     google_cloud_asset_v1::model::output_config::Destination::GcsDestination(GcsDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::output_config::Destination>>,
     >(
@@ -1046,6 +1402,15 @@ impl OutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::OutputConfig;
+    /// use google_cloud_asset_v1::model::GcsDestination;
+    /// let x = OutputConfig::new().set_gcs_destination(GcsDestination::default()/* use setters */);
+    /// assert!(x.gcs_destination().is_some());
+    /// assert!(x.bigquery_destination().is_none());
+    /// ```
     pub fn set_gcs_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::GcsDestination>>,
     >(
@@ -1078,6 +1443,15 @@ impl OutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::OutputConfig;
+    /// use google_cloud_asset_v1::model::BigQueryDestination;
+    /// let x = OutputConfig::new().set_bigquery_destination(BigQueryDestination::default()/* use setters */);
+    /// assert!(x.bigquery_destination().is_some());
+    /// assert!(x.gcs_destination().is_none());
+    /// ```
     pub fn set_bigquery_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::BigQueryDestination>>,
     >(
@@ -1133,6 +1507,14 @@ impl OutputResult {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::OutputResult;
+    /// use google_cloud_asset_v1::model::GcsOutputResult;
+    /// let x = OutputResult::new().set_result(Some(
+    ///     google_cloud_asset_v1::model::output_result::Result::GcsResult(GcsOutputResult::default().into())));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::output_result::Result>>,
     >(
@@ -1161,6 +1543,14 @@ impl OutputResult {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::OutputResult;
+    /// use google_cloud_asset_v1::model::GcsOutputResult;
+    /// let x = OutputResult::new().set_gcs_result(GcsOutputResult::default()/* use setters */);
+    /// assert!(x.gcs_result().is_some());
+    /// ```
     pub fn set_gcs_result<T: std::convert::Into<std::boxed::Box<crate::model::GcsOutputResult>>>(
         mut self,
         v: T,
@@ -1208,6 +1598,12 @@ impl GcsOutputResult {
     }
 
     /// Sets the value of [uris][crate::model::GcsOutputResult::uris].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::GcsOutputResult;
+    /// let x = GcsOutputResult::new().set_uris(["a", "b", "c"]);
+    /// ```
     pub fn set_uris<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1244,6 +1640,13 @@ impl GcsDestination {
     ///
     /// Note that all the setters affecting `object_uri` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::GcsDestination;
+    /// use google_cloud_asset_v1::model::gcs_destination::ObjectUri;
+    /// let x = GcsDestination::new().set_object_uri(Some(ObjectUri::Uri("example".to_string())));
+    /// ```
     pub fn set_object_uri<
         T: std::convert::Into<std::option::Option<crate::model::gcs_destination::ObjectUri>>,
     >(
@@ -1270,6 +1673,14 @@ impl GcsDestination {
     ///
     /// Note that all the setters affecting `object_uri` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::GcsDestination;
+    /// let x = GcsDestination::new().set_uri("example");
+    /// assert!(x.uri().is_some());
+    /// assert!(x.uri_prefix().is_none());
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object_uri =
             std::option::Option::Some(crate::model::gcs_destination::ObjectUri::Uri(v.into()));
@@ -1292,6 +1703,14 @@ impl GcsDestination {
     ///
     /// Note that all the setters affecting `object_uri` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::GcsDestination;
+    /// let x = GcsDestination::new().set_uri_prefix("example");
+    /// assert!(x.uri_prefix().is_some());
+    /// assert!(x.uri().is_none());
+    /// ```
     pub fn set_uri_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object_uri = std::option::Option::Some(
             crate::model::gcs_destination::ObjectUri::UriPrefix(v.into()),
@@ -1420,24 +1839,49 @@ impl BigQueryDestination {
     }
 
     /// Sets the value of [dataset][crate::model::BigQueryDestination::dataset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BigQueryDestination;
+    /// let x = BigQueryDestination::new().set_dataset("example");
+    /// ```
     pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset = v.into();
         self
     }
 
     /// Sets the value of [table][crate::model::BigQueryDestination::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BigQueryDestination;
+    /// let x = BigQueryDestination::new().set_table("example");
+    /// ```
     pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::BigQueryDestination::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BigQueryDestination;
+    /// let x = BigQueryDestination::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
     }
 
     /// Sets the value of [partition_spec][crate::model::BigQueryDestination::partition_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BigQueryDestination;
+    /// use google_cloud_asset_v1::model::PartitionSpec;
+    /// let x = BigQueryDestination::new().set_partition_spec(PartitionSpec::default()/* use setters */);
+    /// ```
     pub fn set_partition_spec<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PartitionSpec>,
@@ -1447,6 +1891,14 @@ impl BigQueryDestination {
     }
 
     /// Sets or clears the value of [partition_spec][crate::model::BigQueryDestination::partition_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BigQueryDestination;
+    /// use google_cloud_asset_v1::model::PartitionSpec;
+    /// let x = BigQueryDestination::new().set_or_clear_partition_spec(Some(PartitionSpec::default()/* use setters */));
+    /// let x = BigQueryDestination::new().set_or_clear_partition_spec(None::<PartitionSpec>);
+    /// ```
     pub fn set_or_clear_partition_spec<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PartitionSpec>,
@@ -1456,6 +1908,12 @@ impl BigQueryDestination {
     }
 
     /// Sets the value of [separate_tables_per_asset_type][crate::model::BigQueryDestination::separate_tables_per_asset_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BigQueryDestination;
+    /// let x = BigQueryDestination::new().set_separate_tables_per_asset_type(true);
+    /// ```
     pub fn set_separate_tables_per_asset_type<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.separate_tables_per_asset_type = v.into();
         self
@@ -1484,6 +1942,14 @@ impl PartitionSpec {
     }
 
     /// Sets the value of [partition_key][crate::model::PartitionSpec::partition_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::PartitionSpec;
+    /// use google_cloud_asset_v1::model::partition_spec::PartitionKey;
+    /// let x0 = PartitionSpec::new().set_partition_key(PartitionKey::ReadTime);
+    /// let x1 = PartitionSpec::new().set_partition_key(PartitionKey::RequestTime);
+    /// ```
     pub fn set_partition_key<T: std::convert::Into<crate::model::partition_spec::PartitionKey>>(
         mut self,
         v: T,
@@ -1665,6 +2131,12 @@ impl PubsubDestination {
     }
 
     /// Sets the value of [topic][crate::model::PubsubDestination::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::PubsubDestination;
+    /// let x = PubsubDestination::new().set_topic("example");
+    /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
         self
@@ -1696,6 +2168,14 @@ impl FeedOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::FeedOutputConfig;
+    /// use google_cloud_asset_v1::model::PubsubDestination;
+    /// let x = FeedOutputConfig::new().set_destination(Some(
+    ///     google_cloud_asset_v1::model::feed_output_config::Destination::PubsubDestination(PubsubDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::feed_output_config::Destination>>,
     >(
@@ -1726,6 +2206,14 @@ impl FeedOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::FeedOutputConfig;
+    /// use google_cloud_asset_v1::model::PubsubDestination;
+    /// let x = FeedOutputConfig::new().set_pubsub_destination(PubsubDestination::default()/* use setters */);
+    /// assert!(x.pubsub_destination().is_some());
+    /// ```
     pub fn set_pubsub_destination<
         T: std::convert::Into<std::boxed::Box<crate::model::PubsubDestination>>,
     >(
@@ -1844,12 +2332,24 @@ impl Feed {
     }
 
     /// Sets the value of [name][crate::model::Feed::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Feed;
+    /// let x = Feed::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [asset_names][crate::model::Feed::asset_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Feed;
+    /// let x = Feed::new().set_asset_names(["a", "b", "c"]);
+    /// ```
     pub fn set_asset_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1861,6 +2361,12 @@ impl Feed {
     }
 
     /// Sets the value of [asset_types][crate::model::Feed::asset_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Feed;
+    /// let x = Feed::new().set_asset_types(["a", "b", "c"]);
+    /// ```
     pub fn set_asset_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1872,6 +2378,15 @@ impl Feed {
     }
 
     /// Sets the value of [content_type][crate::model::Feed::content_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Feed;
+    /// use google_cloud_asset_v1::model::ContentType;
+    /// let x0 = Feed::new().set_content_type(ContentType::Resource);
+    /// let x1 = Feed::new().set_content_type(ContentType::IamPolicy);
+    /// let x2 = Feed::new().set_content_type(ContentType::OrgPolicy);
+    /// ```
     pub fn set_content_type<T: std::convert::Into<crate::model::ContentType>>(
         mut self,
         v: T,
@@ -1881,6 +2396,13 @@ impl Feed {
     }
 
     /// Sets the value of [feed_output_config][crate::model::Feed::feed_output_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Feed;
+    /// use google_cloud_asset_v1::model::FeedOutputConfig;
+    /// let x = Feed::new().set_feed_output_config(FeedOutputConfig::default()/* use setters */);
+    /// ```
     pub fn set_feed_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::FeedOutputConfig>,
@@ -1890,6 +2412,14 @@ impl Feed {
     }
 
     /// Sets or clears the value of [feed_output_config][crate::model::Feed::feed_output_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Feed;
+    /// use google_cloud_asset_v1::model::FeedOutputConfig;
+    /// let x = Feed::new().set_or_clear_feed_output_config(Some(FeedOutputConfig::default()/* use setters */));
+    /// let x = Feed::new().set_or_clear_feed_output_config(None::<FeedOutputConfig>);
+    /// ```
     pub fn set_or_clear_feed_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::FeedOutputConfig>,
@@ -1899,6 +2429,13 @@ impl Feed {
     }
 
     /// Sets the value of [condition][crate::model::Feed::condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Feed;
+    /// use gtype::model::Expr;
+    /// let x = Feed::new().set_condition(Expr::default()/* use setters */);
+    /// ```
     pub fn set_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -1908,6 +2445,14 @@ impl Feed {
     }
 
     /// Sets or clears the value of [condition][crate::model::Feed::condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Feed;
+    /// use gtype::model::Expr;
+    /// let x = Feed::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
+    /// let x = Feed::new().set_or_clear_condition(None::<Expr>);
+    /// ```
     pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -1917,6 +2462,12 @@ impl Feed {
     }
 
     /// Sets the value of [relationship_types][crate::model::Feed::relationship_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Feed;
+    /// let x = Feed::new().set_relationship_types(["a", "b", "c"]);
+    /// ```
     pub fn set_relationship_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2124,18 +2675,36 @@ impl SearchAllResourcesRequest {
     }
 
     /// Sets the value of [scope][crate::model::SearchAllResourcesRequest::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllResourcesRequest;
+    /// let x = SearchAllResourcesRequest::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::SearchAllResourcesRequest::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllResourcesRequest;
+    /// let x = SearchAllResourcesRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [asset_types][crate::model::SearchAllResourcesRequest::asset_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllResourcesRequest;
+    /// let x = SearchAllResourcesRequest::new().set_asset_types(["a", "b", "c"]);
+    /// ```
     pub fn set_asset_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2147,24 +2716,49 @@ impl SearchAllResourcesRequest {
     }
 
     /// Sets the value of [page_size][crate::model::SearchAllResourcesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllResourcesRequest;
+    /// let x = SearchAllResourcesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchAllResourcesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllResourcesRequest;
+    /// let x = SearchAllResourcesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::SearchAllResourcesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllResourcesRequest;
+    /// let x = SearchAllResourcesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [read_mask][crate::model::SearchAllResourcesRequest::read_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllResourcesRequest;
+    /// use wkt::FieldMask;
+    /// let x = SearchAllResourcesRequest::new().set_read_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_read_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2174,6 +2768,14 @@ impl SearchAllResourcesRequest {
     }
 
     /// Sets or clears the value of [read_mask][crate::model::SearchAllResourcesRequest::read_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllResourcesRequest;
+    /// use wkt::FieldMask;
+    /// let x = SearchAllResourcesRequest::new().set_or_clear_read_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = SearchAllResourcesRequest::new().set_or_clear_read_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2211,6 +2813,17 @@ impl SearchAllResourcesResponse {
     }
 
     /// Sets the value of [results][crate::model::SearchAllResourcesResponse::results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllResourcesResponse;
+    /// use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = SearchAllResourcesResponse::new()
+    ///     .set_results([
+    ///         ResourceSearchResult::default()/* use setters */,
+    ///         ResourceSearchResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2222,6 +2835,12 @@ impl SearchAllResourcesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchAllResourcesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllResourcesResponse;
+    /// let x = SearchAllResourcesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2364,30 +2983,60 @@ impl SearchAllIamPoliciesRequest {
     }
 
     /// Sets the value of [scope][crate::model::SearchAllIamPoliciesRequest::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllIamPoliciesRequest;
+    /// let x = SearchAllIamPoliciesRequest::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::SearchAllIamPoliciesRequest::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllIamPoliciesRequest;
+    /// let x = SearchAllIamPoliciesRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchAllIamPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllIamPoliciesRequest;
+    /// let x = SearchAllIamPoliciesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchAllIamPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllIamPoliciesRequest;
+    /// let x = SearchAllIamPoliciesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [asset_types][crate::model::SearchAllIamPoliciesRequest::asset_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllIamPoliciesRequest;
+    /// let x = SearchAllIamPoliciesRequest::new().set_asset_types(["a", "b", "c"]);
+    /// ```
     pub fn set_asset_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2399,6 +3048,12 @@ impl SearchAllIamPoliciesRequest {
     }
 
     /// Sets the value of [order_by][crate::model::SearchAllIamPoliciesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllIamPoliciesRequest;
+    /// let x = SearchAllIamPoliciesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2433,6 +3088,17 @@ impl SearchAllIamPoliciesResponse {
     }
 
     /// Sets the value of [results][crate::model::SearchAllIamPoliciesResponse::results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllIamPoliciesResponse;
+    /// use google_cloud_asset_v1::model::IamPolicySearchResult;
+    /// let x = SearchAllIamPoliciesResponse::new()
+    ///     .set_results([
+    ///         IamPolicySearchResult::default()/* use setters */,
+    ///         IamPolicySearchResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2444,6 +3110,12 @@ impl SearchAllIamPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchAllIamPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SearchAllIamPoliciesResponse;
+    /// let x = SearchAllIamPoliciesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2516,12 +3188,25 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets the value of [scope][crate::model::IamPolicyAnalysisQuery::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// let x = IamPolicyAnalysisQuery::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [resource_selector][crate::model::IamPolicyAnalysisQuery::resource_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_query::ResourceSelector;
+    /// let x = IamPolicyAnalysisQuery::new().set_resource_selector(ResourceSelector::default()/* use setters */);
+    /// ```
     pub fn set_resource_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::ResourceSelector>,
@@ -2531,6 +3216,14 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets or clears the value of [resource_selector][crate::model::IamPolicyAnalysisQuery::resource_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_query::ResourceSelector;
+    /// let x = IamPolicyAnalysisQuery::new().set_or_clear_resource_selector(Some(ResourceSelector::default()/* use setters */));
+    /// let x = IamPolicyAnalysisQuery::new().set_or_clear_resource_selector(None::<ResourceSelector>);
+    /// ```
     pub fn set_or_clear_resource_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::ResourceSelector>,
@@ -2540,6 +3233,13 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets the value of [identity_selector][crate::model::IamPolicyAnalysisQuery::identity_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_query::IdentitySelector;
+    /// let x = IamPolicyAnalysisQuery::new().set_identity_selector(IdentitySelector::default()/* use setters */);
+    /// ```
     pub fn set_identity_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::IdentitySelector>,
@@ -2549,6 +3249,14 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets or clears the value of [identity_selector][crate::model::IamPolicyAnalysisQuery::identity_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_query::IdentitySelector;
+    /// let x = IamPolicyAnalysisQuery::new().set_or_clear_identity_selector(Some(IdentitySelector::default()/* use setters */));
+    /// let x = IamPolicyAnalysisQuery::new().set_or_clear_identity_selector(None::<IdentitySelector>);
+    /// ```
     pub fn set_or_clear_identity_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::IdentitySelector>,
@@ -2558,6 +3266,13 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets the value of [access_selector][crate::model::IamPolicyAnalysisQuery::access_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_query::AccessSelector;
+    /// let x = IamPolicyAnalysisQuery::new().set_access_selector(AccessSelector::default()/* use setters */);
+    /// ```
     pub fn set_access_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::AccessSelector>,
@@ -2567,6 +3282,14 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets or clears the value of [access_selector][crate::model::IamPolicyAnalysisQuery::access_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_query::AccessSelector;
+    /// let x = IamPolicyAnalysisQuery::new().set_or_clear_access_selector(Some(AccessSelector::default()/* use setters */));
+    /// let x = IamPolicyAnalysisQuery::new().set_or_clear_access_selector(None::<AccessSelector>);
+    /// ```
     pub fn set_or_clear_access_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::AccessSelector>,
@@ -2576,6 +3299,13 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets the value of [options][crate::model::IamPolicyAnalysisQuery::options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_query::Options;
+    /// let x = IamPolicyAnalysisQuery::new().set_options(Options::default()/* use setters */);
+    /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::Options>,
@@ -2585,6 +3315,14 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets or clears the value of [options][crate::model::IamPolicyAnalysisQuery::options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_query::Options;
+    /// let x = IamPolicyAnalysisQuery::new().set_or_clear_options(Some(Options::default()/* use setters */));
+    /// let x = IamPolicyAnalysisQuery::new().set_or_clear_options(None::<Options>);
+    /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::Options>,
@@ -2594,6 +3332,13 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets the value of [condition_context][crate::model::IamPolicyAnalysisQuery::condition_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_query::ConditionContext;
+    /// let x = IamPolicyAnalysisQuery::new().set_condition_context(ConditionContext::default()/* use setters */);
+    /// ```
     pub fn set_condition_context<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::ConditionContext>,
@@ -2603,6 +3348,14 @@ impl IamPolicyAnalysisQuery {
     }
 
     /// Sets or clears the value of [condition_context][crate::model::IamPolicyAnalysisQuery::condition_context].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_query::ConditionContext;
+    /// let x = IamPolicyAnalysisQuery::new().set_or_clear_condition_context(Some(ConditionContext::default()/* use setters */));
+    /// let x = IamPolicyAnalysisQuery::new().set_or_clear_condition_context(None::<ConditionContext>);
+    /// ```
     pub fn set_or_clear_condition_context<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_query::ConditionContext>,
@@ -2644,6 +3397,12 @@ pub mod iam_policy_analysis_query {
         }
 
         /// Sets the value of [full_resource_name][crate::model::iam_policy_analysis_query::ResourceSelector::full_resource_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_query::ResourceSelector;
+        /// let x = ResourceSelector::new().set_full_resource_name("example");
+        /// ```
         pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -2688,6 +3447,12 @@ pub mod iam_policy_analysis_query {
         }
 
         /// Sets the value of [identity][crate::model::iam_policy_analysis_query::IdentitySelector::identity].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_query::IdentitySelector;
+        /// let x = IdentitySelector::new().set_identity("example");
+        /// ```
         pub fn set_identity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.identity = v.into();
             self
@@ -2723,6 +3488,12 @@ pub mod iam_policy_analysis_query {
         }
 
         /// Sets the value of [roles][crate::model::iam_policy_analysis_query::AccessSelector::roles].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_query::AccessSelector;
+        /// let x = AccessSelector::new().set_roles(["a", "b", "c"]);
+        /// ```
         pub fn set_roles<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2734,6 +3505,12 @@ pub mod iam_policy_analysis_query {
         }
 
         /// Sets the value of [permissions][crate::model::iam_policy_analysis_query::AccessSelector::permissions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_query::AccessSelector;
+        /// let x = AccessSelector::new().set_permissions(["a", "b", "c"]);
+        /// ```
         pub fn set_permissions<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2873,36 +3650,72 @@ pub mod iam_policy_analysis_query {
         }
 
         /// Sets the value of [expand_groups][crate::model::iam_policy_analysis_query::Options::expand_groups].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_query::Options;
+        /// let x = Options::new().set_expand_groups(true);
+        /// ```
         pub fn set_expand_groups<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.expand_groups = v.into();
             self
         }
 
         /// Sets the value of [expand_roles][crate::model::iam_policy_analysis_query::Options::expand_roles].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_query::Options;
+        /// let x = Options::new().set_expand_roles(true);
+        /// ```
         pub fn set_expand_roles<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.expand_roles = v.into();
             self
         }
 
         /// Sets the value of [expand_resources][crate::model::iam_policy_analysis_query::Options::expand_resources].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_query::Options;
+        /// let x = Options::new().set_expand_resources(true);
+        /// ```
         pub fn set_expand_resources<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.expand_resources = v.into();
             self
         }
 
         /// Sets the value of [output_resource_edges][crate::model::iam_policy_analysis_query::Options::output_resource_edges].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_query::Options;
+        /// let x = Options::new().set_output_resource_edges(true);
+        /// ```
         pub fn set_output_resource_edges<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.output_resource_edges = v.into();
             self
         }
 
         /// Sets the value of [output_group_edges][crate::model::iam_policy_analysis_query::Options::output_group_edges].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_query::Options;
+        /// let x = Options::new().set_output_group_edges(true);
+        /// ```
         pub fn set_output_group_edges<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.output_group_edges = v.into();
             self
         }
 
         /// Sets the value of [analyze_service_account_impersonation][crate::model::iam_policy_analysis_query::Options::analyze_service_account_impersonation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_query::Options;
+        /// let x = Options::new().set_analyze_service_account_impersonation(true);
+        /// ```
         pub fn set_analyze_service_account_impersonation<T: std::convert::Into<bool>>(
             mut self,
             v: T,
@@ -2939,6 +3752,14 @@ pub mod iam_policy_analysis_query {
         ///
         /// Note that all the setters affecting `time_context` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_query::ConditionContext;
+        /// use wkt::Timestamp;
+        /// let x = ConditionContext::new().set_time_context(Some(
+        ///     google_cloud_asset_v1::model::iam_policy_analysis_query::condition_context::TimeContext::AccessTime(Timestamp::default().into())));
+        /// ```
         pub fn set_time_context<
             T: std::convert::Into<
                     std::option::Option<
@@ -2969,6 +3790,14 @@ pub mod iam_policy_analysis_query {
         ///
         /// Note that all the setters affecting `time_context` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_query::ConditionContext;
+        /// use wkt::Timestamp;
+        /// let x = ConditionContext::new().set_access_time(Timestamp::default()/* use setters */);
+        /// assert!(x.access_time().is_some());
+        /// ```
         pub fn set_access_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -3055,6 +3884,13 @@ impl AnalyzeIamPolicyRequest {
     }
 
     /// Sets the value of [analysis_query][crate::model::AnalyzeIamPolicyRequest::analysis_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyRequest;
+    /// use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// let x = AnalyzeIamPolicyRequest::new().set_analysis_query(IamPolicyAnalysisQuery::default()/* use setters */);
+    /// ```
     pub fn set_analysis_query<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
@@ -3064,6 +3900,14 @@ impl AnalyzeIamPolicyRequest {
     }
 
     /// Sets or clears the value of [analysis_query][crate::model::AnalyzeIamPolicyRequest::analysis_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyRequest;
+    /// use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// let x = AnalyzeIamPolicyRequest::new().set_or_clear_analysis_query(Some(IamPolicyAnalysisQuery::default()/* use setters */));
+    /// let x = AnalyzeIamPolicyRequest::new().set_or_clear_analysis_query(None::<IamPolicyAnalysisQuery>);
+    /// ```
     pub fn set_or_clear_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
@@ -3073,6 +3917,12 @@ impl AnalyzeIamPolicyRequest {
     }
 
     /// Sets the value of [saved_analysis_query][crate::model::AnalyzeIamPolicyRequest::saved_analysis_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyRequest;
+    /// let x = AnalyzeIamPolicyRequest::new().set_saved_analysis_query("example");
+    /// ```
     pub fn set_saved_analysis_query<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3082,6 +3932,13 @@ impl AnalyzeIamPolicyRequest {
     }
 
     /// Sets the value of [execution_timeout][crate::model::AnalyzeIamPolicyRequest::execution_timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyRequest;
+    /// use wkt::Duration;
+    /// let x = AnalyzeIamPolicyRequest::new().set_execution_timeout(Duration::default()/* use setters */);
+    /// ```
     pub fn set_execution_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3091,6 +3948,14 @@ impl AnalyzeIamPolicyRequest {
     }
 
     /// Sets or clears the value of [execution_timeout][crate::model::AnalyzeIamPolicyRequest::execution_timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyRequest;
+    /// use wkt::Duration;
+    /// let x = AnalyzeIamPolicyRequest::new().set_or_clear_execution_timeout(Some(Duration::default()/* use setters */));
+    /// let x = AnalyzeIamPolicyRequest::new().set_or_clear_execution_timeout(None::<Duration>);
+    /// ```
     pub fn set_or_clear_execution_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3144,6 +4009,13 @@ impl AnalyzeIamPolicyResponse {
     }
 
     /// Sets the value of [main_analysis][crate::model::AnalyzeIamPolicyResponse::main_analysis].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyResponse;
+    /// use google_cloud_asset_v1::model::analyze_iam_policy_response::IamPolicyAnalysis;
+    /// let x = AnalyzeIamPolicyResponse::new().set_main_analysis(IamPolicyAnalysis::default()/* use setters */);
+    /// ```
     pub fn set_main_analysis<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::analyze_iam_policy_response::IamPolicyAnalysis>,
@@ -3153,6 +4025,14 @@ impl AnalyzeIamPolicyResponse {
     }
 
     /// Sets or clears the value of [main_analysis][crate::model::AnalyzeIamPolicyResponse::main_analysis].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyResponse;
+    /// use google_cloud_asset_v1::model::analyze_iam_policy_response::IamPolicyAnalysis;
+    /// let x = AnalyzeIamPolicyResponse::new().set_or_clear_main_analysis(Some(IamPolicyAnalysis::default()/* use setters */));
+    /// let x = AnalyzeIamPolicyResponse::new().set_or_clear_main_analysis(None::<IamPolicyAnalysis>);
+    /// ```
     pub fn set_or_clear_main_analysis<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::analyze_iam_policy_response::IamPolicyAnalysis>,
@@ -3162,6 +4042,17 @@ impl AnalyzeIamPolicyResponse {
     }
 
     /// Sets the value of [service_account_impersonation_analysis][crate::model::AnalyzeIamPolicyResponse::service_account_impersonation_analysis].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyResponse;
+    /// use google_cloud_asset_v1::model::analyze_iam_policy_response::IamPolicyAnalysis;
+    /// let x = AnalyzeIamPolicyResponse::new()
+    ///     .set_service_account_impersonation_analysis([
+    ///         IamPolicyAnalysis::default()/* use setters */,
+    ///         IamPolicyAnalysis::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_service_account_impersonation_analysis<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3173,6 +4064,12 @@ impl AnalyzeIamPolicyResponse {
     }
 
     /// Sets the value of [fully_explored][crate::model::AnalyzeIamPolicyResponse::fully_explored].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyResponse;
+    /// let x = AnalyzeIamPolicyResponse::new().set_fully_explored(true);
+    /// ```
     pub fn set_fully_explored<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.fully_explored = v.into();
         self
@@ -3223,6 +4120,13 @@ pub mod analyze_iam_policy_response {
         }
 
         /// Sets the value of [analysis_query][crate::model::analyze_iam_policy_response::IamPolicyAnalysis::analysis_query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_iam_policy_response::IamPolicyAnalysis;
+        /// use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+        /// let x = IamPolicyAnalysis::new().set_analysis_query(IamPolicyAnalysisQuery::default()/* use setters */);
+        /// ```
         pub fn set_analysis_query<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
@@ -3232,6 +4136,14 @@ pub mod analyze_iam_policy_response {
         }
 
         /// Sets or clears the value of [analysis_query][crate::model::analyze_iam_policy_response::IamPolicyAnalysis::analysis_query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_iam_policy_response::IamPolicyAnalysis;
+        /// use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+        /// let x = IamPolicyAnalysis::new().set_or_clear_analysis_query(Some(IamPolicyAnalysisQuery::default()/* use setters */));
+        /// let x = IamPolicyAnalysis::new().set_or_clear_analysis_query(None::<IamPolicyAnalysisQuery>);
+        /// ```
         pub fn set_or_clear_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
@@ -3241,6 +4153,17 @@ pub mod analyze_iam_policy_response {
         }
 
         /// Sets the value of [analysis_results][crate::model::analyze_iam_policy_response::IamPolicyAnalysis::analysis_results].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_iam_policy_response::IamPolicyAnalysis;
+        /// use google_cloud_asset_v1::model::IamPolicyAnalysisResult;
+        /// let x = IamPolicyAnalysis::new()
+        ///     .set_analysis_results([
+        ///         IamPolicyAnalysisResult::default()/* use setters */,
+        ///         IamPolicyAnalysisResult::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_analysis_results<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3252,12 +4175,29 @@ pub mod analyze_iam_policy_response {
         }
 
         /// Sets the value of [fully_explored][crate::model::analyze_iam_policy_response::IamPolicyAnalysis::fully_explored].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_iam_policy_response::IamPolicyAnalysis;
+        /// let x = IamPolicyAnalysis::new().set_fully_explored(true);
+        /// ```
         pub fn set_fully_explored<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.fully_explored = v.into();
             self
         }
 
         /// Sets the value of [non_critical_errors][crate::model::analyze_iam_policy_response::IamPolicyAnalysis::non_critical_errors].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_iam_policy_response::IamPolicyAnalysis;
+        /// use google_cloud_asset_v1::model::IamPolicyAnalysisState;
+        /// let x = IamPolicyAnalysis::new()
+        ///     .set_non_critical_errors([
+        ///         IamPolicyAnalysisState::default()/* use setters */,
+        ///         IamPolicyAnalysisState::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_non_critical_errors<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3296,6 +4236,14 @@ impl IamPolicyAnalysisOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisOutputConfig;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_output_config::GcsDestination;
+    /// let x = IamPolicyAnalysisOutputConfig::new().set_destination(Some(
+    ///     google_cloud_asset_v1::model::iam_policy_analysis_output_config::Destination::GcsDestination(GcsDestination::default().into())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<
                 std::option::Option<crate::model::iam_policy_analysis_output_config::Destination>,
@@ -3330,6 +4278,15 @@ impl IamPolicyAnalysisOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisOutputConfig;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_output_config::GcsDestination;
+    /// let x = IamPolicyAnalysisOutputConfig::new().set_gcs_destination(GcsDestination::default()/* use setters */);
+    /// assert!(x.gcs_destination().is_some());
+    /// assert!(x.bigquery_destination().is_none());
+    /// ```
     pub fn set_gcs_destination<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::iam_policy_analysis_output_config::GcsDestination>,
@@ -3366,6 +4323,15 @@ impl IamPolicyAnalysisOutputConfig {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisOutputConfig;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_output_config::BigQueryDestination;
+    /// let x = IamPolicyAnalysisOutputConfig::new().set_bigquery_destination(BigQueryDestination::default()/* use setters */);
+    /// assert!(x.bigquery_destination().is_some());
+    /// assert!(x.gcs_destination().is_none());
+    /// ```
     pub fn set_bigquery_destination<
         T: std::convert::Into<
                 std::boxed::Box<
@@ -3420,6 +4386,12 @@ pub mod iam_policy_analysis_output_config {
         }
 
         /// Sets the value of [uri][crate::model::iam_policy_analysis_output_config::GcsDestination::uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_output_config::GcsDestination;
+        /// let x = GcsDestination::new().set_uri("example");
+        /// ```
         pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uri = v.into();
             self
@@ -3483,12 +4455,24 @@ pub mod iam_policy_analysis_output_config {
         }
 
         /// Sets the value of [dataset][crate::model::iam_policy_analysis_output_config::BigQueryDestination::dataset].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_output_config::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_dataset("example");
+        /// ```
         pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.dataset = v.into();
             self
         }
 
         /// Sets the value of [table_prefix][crate::model::iam_policy_analysis_output_config::BigQueryDestination::table_prefix].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_output_config::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_table_prefix("example");
+        /// ```
         pub fn set_table_prefix<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3498,12 +4482,25 @@ pub mod iam_policy_analysis_output_config {
         }
 
         /// Sets the value of [partition_key][crate::model::iam_policy_analysis_output_config::BigQueryDestination::partition_key].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_output_config::BigQueryDestination;
+        /// use google_cloud_asset_v1::model::iam_policy_analysis_output_config::big_query_destination::PartitionKey;
+        /// let x0 = BigQueryDestination::new().set_partition_key(PartitionKey::RequestTime);
+        /// ```
         pub fn set_partition_key<T: std::convert::Into<crate::model::iam_policy_analysis_output_config::big_query_destination::PartitionKey>>(mut self, v: T) -> Self{
             self.partition_key = v.into();
             self
         }
 
         /// Sets the value of [write_disposition][crate::model::iam_policy_analysis_output_config::BigQueryDestination::write_disposition].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_output_config::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_write_disposition("example");
+        /// ```
         pub fn set_write_disposition<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3714,6 +4711,13 @@ impl AnalyzeIamPolicyLongrunningRequest {
     }
 
     /// Sets the value of [analysis_query][crate::model::AnalyzeIamPolicyLongrunningRequest::analysis_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyLongrunningRequest;
+    /// use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// let x = AnalyzeIamPolicyLongrunningRequest::new().set_analysis_query(IamPolicyAnalysisQuery::default()/* use setters */);
+    /// ```
     pub fn set_analysis_query<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
@@ -3723,6 +4727,14 @@ impl AnalyzeIamPolicyLongrunningRequest {
     }
 
     /// Sets or clears the value of [analysis_query][crate::model::AnalyzeIamPolicyLongrunningRequest::analysis_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyLongrunningRequest;
+    /// use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+    /// let x = AnalyzeIamPolicyLongrunningRequest::new().set_or_clear_analysis_query(Some(IamPolicyAnalysisQuery::default()/* use setters */));
+    /// let x = AnalyzeIamPolicyLongrunningRequest::new().set_or_clear_analysis_query(None::<IamPolicyAnalysisQuery>);
+    /// ```
     pub fn set_or_clear_analysis_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IamPolicyAnalysisQuery>,
@@ -3732,6 +4744,12 @@ impl AnalyzeIamPolicyLongrunningRequest {
     }
 
     /// Sets the value of [saved_analysis_query][crate::model::AnalyzeIamPolicyLongrunningRequest::saved_analysis_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyLongrunningRequest;
+    /// let x = AnalyzeIamPolicyLongrunningRequest::new().set_saved_analysis_query("example");
+    /// ```
     pub fn set_saved_analysis_query<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3741,6 +4759,13 @@ impl AnalyzeIamPolicyLongrunningRequest {
     }
 
     /// Sets the value of [output_config][crate::model::AnalyzeIamPolicyLongrunningRequest::output_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyLongrunningRequest;
+    /// use google_cloud_asset_v1::model::IamPolicyAnalysisOutputConfig;
+    /// let x = AnalyzeIamPolicyLongrunningRequest::new().set_output_config(IamPolicyAnalysisOutputConfig::default()/* use setters */);
+    /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IamPolicyAnalysisOutputConfig>,
@@ -3750,6 +4775,14 @@ impl AnalyzeIamPolicyLongrunningRequest {
     }
 
     /// Sets or clears the value of [output_config][crate::model::AnalyzeIamPolicyLongrunningRequest::output_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeIamPolicyLongrunningRequest;
+    /// use google_cloud_asset_v1::model::IamPolicyAnalysisOutputConfig;
+    /// let x = AnalyzeIamPolicyLongrunningRequest::new().set_or_clear_output_config(Some(IamPolicyAnalysisOutputConfig::default()/* use setters */));
+    /// let x = AnalyzeIamPolicyLongrunningRequest::new().set_or_clear_output_config(None::<IamPolicyAnalysisOutputConfig>);
+    /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IamPolicyAnalysisOutputConfig>,
@@ -3832,18 +4865,37 @@ impl SavedQuery {
     }
 
     /// Sets the value of [name][crate::model::SavedQuery::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SavedQuery;
+    /// let x = SavedQuery::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::SavedQuery::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SavedQuery;
+    /// let x = SavedQuery::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::SavedQuery::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SavedQuery;
+    /// use wkt::Timestamp;
+    /// let x = SavedQuery::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3853,6 +4905,14 @@ impl SavedQuery {
     }
 
     /// Sets or clears the value of [create_time][crate::model::SavedQuery::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SavedQuery;
+    /// use wkt::Timestamp;
+    /// let x = SavedQuery::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SavedQuery::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3862,12 +4922,25 @@ impl SavedQuery {
     }
 
     /// Sets the value of [creator][crate::model::SavedQuery::creator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SavedQuery;
+    /// let x = SavedQuery::new().set_creator("example");
+    /// ```
     pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.creator = v.into();
         self
     }
 
     /// Sets the value of [last_update_time][crate::model::SavedQuery::last_update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SavedQuery;
+    /// use wkt::Timestamp;
+    /// let x = SavedQuery::new().set_last_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3877,6 +4950,14 @@ impl SavedQuery {
     }
 
     /// Sets or clears the value of [last_update_time][crate::model::SavedQuery::last_update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SavedQuery;
+    /// use wkt::Timestamp;
+    /// let x = SavedQuery::new().set_or_clear_last_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SavedQuery::new().set_or_clear_last_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3886,12 +4967,27 @@ impl SavedQuery {
     }
 
     /// Sets the value of [last_updater][crate::model::SavedQuery::last_updater].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SavedQuery;
+    /// let x = SavedQuery::new().set_last_updater("example");
+    /// ```
     pub fn set_last_updater<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_updater = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::SavedQuery::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SavedQuery;
+    /// let x = SavedQuery::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3904,6 +5000,13 @@ impl SavedQuery {
     }
 
     /// Sets the value of [content][crate::model::SavedQuery::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SavedQuery;
+    /// use google_cloud_asset_v1::model::saved_query::QueryContent;
+    /// let x = SavedQuery::new().set_content(QueryContent::default()/* use setters */);
+    /// ```
     pub fn set_content<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::saved_query::QueryContent>,
@@ -3913,6 +5016,14 @@ impl SavedQuery {
     }
 
     /// Sets or clears the value of [content][crate::model::SavedQuery::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::SavedQuery;
+    /// use google_cloud_asset_v1::model::saved_query::QueryContent;
+    /// let x = SavedQuery::new().set_or_clear_content(Some(QueryContent::default()/* use setters */));
+    /// let x = SavedQuery::new().set_or_clear_content(None::<QueryContent>);
+    /// ```
     pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::saved_query::QueryContent>,
@@ -3952,6 +5063,14 @@ pub mod saved_query {
         ///
         /// Note that all the setters affecting `query_content` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::saved_query::QueryContent;
+        /// use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+        /// let x = QueryContent::new().set_query_content(Some(
+        ///     google_cloud_asset_v1::model::saved_query::query_content::QueryContent::IamPolicyAnalysisQuery(IamPolicyAnalysisQuery::default().into())));
+        /// ```
         pub fn set_query_content<
             T: std::convert::Into<
                     std::option::Option<crate::model::saved_query::query_content::QueryContent>,
@@ -3984,6 +5103,14 @@ pub mod saved_query {
         ///
         /// Note that all the setters affecting `query_content` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::saved_query::QueryContent;
+        /// use google_cloud_asset_v1::model::IamPolicyAnalysisQuery;
+        /// let x = QueryContent::new().set_iam_policy_analysis_query(IamPolicyAnalysisQuery::default()/* use setters */);
+        /// assert!(x.iam_policy_analysis_query().is_some());
+        /// ```
         pub fn set_iam_policy_analysis_query<
             T: std::convert::Into<std::boxed::Box<crate::model::IamPolicyAnalysisQuery>>,
         >(
@@ -4062,12 +5189,25 @@ impl CreateSavedQueryRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSavedQueryRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::CreateSavedQueryRequest;
+    /// let x = CreateSavedQueryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [saved_query][crate::model::CreateSavedQueryRequest::saved_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::CreateSavedQueryRequest;
+    /// use google_cloud_asset_v1::model::SavedQuery;
+    /// let x = CreateSavedQueryRequest::new().set_saved_query(SavedQuery::default()/* use setters */);
+    /// ```
     pub fn set_saved_query<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SavedQuery>,
@@ -4077,6 +5217,14 @@ impl CreateSavedQueryRequest {
     }
 
     /// Sets or clears the value of [saved_query][crate::model::CreateSavedQueryRequest::saved_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::CreateSavedQueryRequest;
+    /// use google_cloud_asset_v1::model::SavedQuery;
+    /// let x = CreateSavedQueryRequest::new().set_or_clear_saved_query(Some(SavedQuery::default()/* use setters */));
+    /// let x = CreateSavedQueryRequest::new().set_or_clear_saved_query(None::<SavedQuery>);
+    /// ```
     pub fn set_or_clear_saved_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SavedQuery>,
@@ -4086,6 +5234,12 @@ impl CreateSavedQueryRequest {
     }
 
     /// Sets the value of [saved_query_id][crate::model::CreateSavedQueryRequest::saved_query_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::CreateSavedQueryRequest;
+    /// let x = CreateSavedQueryRequest::new().set_saved_query_id("example");
+    /// ```
     pub fn set_saved_query_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.saved_query_id = v.into();
         self
@@ -4118,6 +5272,12 @@ impl GetSavedQueryRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSavedQueryRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::GetSavedQueryRequest;
+    /// let x = GetSavedQueryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4170,24 +5330,48 @@ impl ListSavedQueriesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSavedQueriesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListSavedQueriesRequest;
+    /// let x = ListSavedQueriesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListSavedQueriesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListSavedQueriesRequest;
+    /// let x = ListSavedQueriesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSavedQueriesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListSavedQueriesRequest;
+    /// let x = ListSavedQueriesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSavedQueriesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListSavedQueriesRequest;
+    /// let x = ListSavedQueriesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4220,6 +5404,17 @@ impl ListSavedQueriesResponse {
     }
 
     /// Sets the value of [saved_queries][crate::model::ListSavedQueriesResponse::saved_queries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListSavedQueriesResponse;
+    /// use google_cloud_asset_v1::model::SavedQuery;
+    /// let x = ListSavedQueriesResponse::new()
+    ///     .set_saved_queries([
+    ///         SavedQuery::default()/* use setters */,
+    ///         SavedQuery::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_saved_queries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4231,6 +5426,12 @@ impl ListSavedQueriesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSavedQueriesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ListSavedQueriesResponse;
+    /// let x = ListSavedQueriesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4283,6 +5484,13 @@ impl UpdateSavedQueryRequest {
     }
 
     /// Sets the value of [saved_query][crate::model::UpdateSavedQueryRequest::saved_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::UpdateSavedQueryRequest;
+    /// use google_cloud_asset_v1::model::SavedQuery;
+    /// let x = UpdateSavedQueryRequest::new().set_saved_query(SavedQuery::default()/* use setters */);
+    /// ```
     pub fn set_saved_query<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SavedQuery>,
@@ -4292,6 +5500,14 @@ impl UpdateSavedQueryRequest {
     }
 
     /// Sets or clears the value of [saved_query][crate::model::UpdateSavedQueryRequest::saved_query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::UpdateSavedQueryRequest;
+    /// use google_cloud_asset_v1::model::SavedQuery;
+    /// let x = UpdateSavedQueryRequest::new().set_or_clear_saved_query(Some(SavedQuery::default()/* use setters */));
+    /// let x = UpdateSavedQueryRequest::new().set_or_clear_saved_query(None::<SavedQuery>);
+    /// ```
     pub fn set_or_clear_saved_query<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SavedQuery>,
@@ -4301,6 +5517,13 @@ impl UpdateSavedQueryRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSavedQueryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::UpdateSavedQueryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSavedQueryRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4310,6 +5533,14 @@ impl UpdateSavedQueryRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSavedQueryRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::UpdateSavedQueryRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSavedQueryRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSavedQueryRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4346,6 +5577,12 @@ impl DeleteSavedQueryRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSavedQueryRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::DeleteSavedQueryRequest;
+    /// let x = DeleteSavedQueryRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4388,12 +5625,24 @@ impl AnalyzeMoveRequest {
     }
 
     /// Sets the value of [resource][crate::model::AnalyzeMoveRequest::resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeMoveRequest;
+    /// let x = AnalyzeMoveRequest::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [destination_parent][crate::model::AnalyzeMoveRequest::destination_parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeMoveRequest;
+    /// let x = AnalyzeMoveRequest::new().set_destination_parent("example");
+    /// ```
     pub fn set_destination_parent<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4403,6 +5652,14 @@ impl AnalyzeMoveRequest {
     }
 
     /// Sets the value of [view][crate::model::AnalyzeMoveRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeMoveRequest;
+    /// use google_cloud_asset_v1::model::analyze_move_request::AnalysisView;
+    /// let x0 = AnalyzeMoveRequest::new().set_view(AnalysisView::Full);
+    /// let x1 = AnalyzeMoveRequest::new().set_view(AnalysisView::Basic);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::analyze_move_request::AnalysisView>>(
         mut self,
         v: T,
@@ -4576,6 +5833,17 @@ impl AnalyzeMoveResponse {
     }
 
     /// Sets the value of [move_analysis][crate::model::AnalyzeMoveResponse::move_analysis].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeMoveResponse;
+    /// use google_cloud_asset_v1::model::MoveAnalysis;
+    /// let x = AnalyzeMoveResponse::new()
+    ///     .set_move_analysis([
+    ///         MoveAnalysis::default()/* use setters */,
+    ///         MoveAnalysis::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_move_analysis<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4612,6 +5880,12 @@ impl MoveAnalysis {
     }
 
     /// Sets the value of [display_name][crate::model::MoveAnalysis::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::MoveAnalysis;
+    /// let x = MoveAnalysis::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -4621,6 +5895,14 @@ impl MoveAnalysis {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::MoveAnalysis;
+    /// use google_cloud_asset_v1::model::MoveAnalysisResult;
+    /// let x = MoveAnalysis::new().set_result(Some(
+    ///     google_cloud_asset_v1::model::move_analysis::Result::Analysis(MoveAnalysisResult::default().into())));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::move_analysis::Result>>,
     >(
@@ -4649,6 +5931,15 @@ impl MoveAnalysis {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::MoveAnalysis;
+    /// use google_cloud_asset_v1::model::MoveAnalysisResult;
+    /// let x = MoveAnalysis::new().set_analysis(MoveAnalysisResult::default()/* use setters */);
+    /// assert!(x.analysis().is_some());
+    /// assert!(x.error().is_none());
+    /// ```
     pub fn set_analysis<
         T: std::convert::Into<std::boxed::Box<crate::model::MoveAnalysisResult>>,
     >(
@@ -4676,6 +5967,15 @@ impl MoveAnalysis {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::MoveAnalysis;
+    /// use rpc::model::Status;
+    /// let x = MoveAnalysis::new().set_error(Status::default()/* use setters */);
+    /// assert!(x.error().is_some());
+    /// assert!(x.analysis().is_none());
+    /// ```
     pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -4729,6 +6029,17 @@ impl MoveAnalysisResult {
     }
 
     /// Sets the value of [blockers][crate::model::MoveAnalysisResult::blockers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::MoveAnalysisResult;
+    /// use google_cloud_asset_v1::model::MoveImpact;
+    /// let x = MoveAnalysisResult::new()
+    ///     .set_blockers([
+    ///         MoveImpact::default()/* use setters */,
+    ///         MoveImpact::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_blockers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4740,6 +6051,17 @@ impl MoveAnalysisResult {
     }
 
     /// Sets the value of [warnings][crate::model::MoveAnalysisResult::warnings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::MoveAnalysisResult;
+    /// use google_cloud_asset_v1::model::MoveImpact;
+    /// let x = MoveAnalysisResult::new()
+    ///     .set_warnings([
+    ///         MoveImpact::default()/* use setters */,
+    ///         MoveImpact::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_warnings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4773,6 +6095,12 @@ impl MoveImpact {
     }
 
     /// Sets the value of [detail][crate::model::MoveImpact::detail].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::MoveImpact;
+    /// let x = MoveImpact::new().set_detail("example");
+    /// ```
     pub fn set_detail<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.detail = v.into();
         self
@@ -4802,6 +6130,13 @@ impl QueryAssetsOutputConfig {
     }
 
     /// Sets the value of [bigquery_destination][crate::model::QueryAssetsOutputConfig::bigquery_destination].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsOutputConfig;
+    /// use google_cloud_asset_v1::model::query_assets_output_config::BigQueryDestination;
+    /// let x = QueryAssetsOutputConfig::new().set_bigquery_destination(BigQueryDestination::default()/* use setters */);
+    /// ```
     pub fn set_bigquery_destination<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::query_assets_output_config::BigQueryDestination>,
@@ -4811,6 +6146,14 @@ impl QueryAssetsOutputConfig {
     }
 
     /// Sets or clears the value of [bigquery_destination][crate::model::QueryAssetsOutputConfig::bigquery_destination].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsOutputConfig;
+    /// use google_cloud_asset_v1::model::query_assets_output_config::BigQueryDestination;
+    /// let x = QueryAssetsOutputConfig::new().set_or_clear_bigquery_destination(Some(BigQueryDestination::default()/* use setters */));
+    /// let x = QueryAssetsOutputConfig::new().set_or_clear_bigquery_destination(None::<BigQueryDestination>);
+    /// ```
     pub fn set_or_clear_bigquery_destination<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::query_assets_output_config::BigQueryDestination>,
@@ -4866,18 +6209,36 @@ pub mod query_assets_output_config {
         }
 
         /// Sets the value of [dataset][crate::model::query_assets_output_config::BigQueryDestination::dataset].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::query_assets_output_config::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_dataset("example");
+        /// ```
         pub fn set_dataset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.dataset = v.into();
             self
         }
 
         /// Sets the value of [table][crate::model::query_assets_output_config::BigQueryDestination::table].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::query_assets_output_config::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_table("example");
+        /// ```
         pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.table = v.into();
             self
         }
 
         /// Sets the value of [write_disposition][crate::model::query_assets_output_config::BigQueryDestination::write_disposition].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::query_assets_output_config::BigQueryDestination;
+        /// let x = BigQueryDestination::new().set_write_disposition("example");
+        /// ```
         pub fn set_write_disposition<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4967,24 +6328,49 @@ impl QueryAssetsRequest {
     }
 
     /// Sets the value of [parent][crate::model::QueryAssetsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// let x = QueryAssetsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::QueryAssetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// let x = QueryAssetsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::QueryAssetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// let x = QueryAssetsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [timeout][crate::model::QueryAssetsRequest::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// use wkt::Duration;
+    /// let x = QueryAssetsRequest::new().set_timeout(Duration::default()/* use setters */);
+    /// ```
     pub fn set_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4994,6 +6380,14 @@ impl QueryAssetsRequest {
     }
 
     /// Sets or clears the value of [timeout][crate::model::QueryAssetsRequest::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// use wkt::Duration;
+    /// let x = QueryAssetsRequest::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+    /// let x = QueryAssetsRequest::new().set_or_clear_timeout(None::<Duration>);
+    /// ```
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5003,6 +6397,13 @@ impl QueryAssetsRequest {
     }
 
     /// Sets the value of [output_config][crate::model::QueryAssetsRequest::output_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// use google_cloud_asset_v1::model::QueryAssetsOutputConfig;
+    /// let x = QueryAssetsRequest::new().set_output_config(QueryAssetsOutputConfig::default()/* use setters */);
+    /// ```
     pub fn set_output_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::QueryAssetsOutputConfig>,
@@ -5012,6 +6413,14 @@ impl QueryAssetsRequest {
     }
 
     /// Sets or clears the value of [output_config][crate::model::QueryAssetsRequest::output_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// use google_cloud_asset_v1::model::QueryAssetsOutputConfig;
+    /// let x = QueryAssetsRequest::new().set_or_clear_output_config(Some(QueryAssetsOutputConfig::default()/* use setters */));
+    /// let x = QueryAssetsRequest::new().set_or_clear_output_config(None::<QueryAssetsOutputConfig>);
+    /// ```
     pub fn set_or_clear_output_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::QueryAssetsOutputConfig>,
@@ -5024,6 +6433,13 @@ impl QueryAssetsRequest {
     ///
     /// Note that all the setters affecting `query` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// use google_cloud_asset_v1::model::query_assets_request::Query;
+    /// let x = QueryAssetsRequest::new().set_query(Some(Query::Statement("example".to_string())));
+    /// ```
     pub fn set_query<
         T: std::convert::Into<std::option::Option<crate::model::query_assets_request::Query>>,
     >(
@@ -5050,6 +6466,14 @@ impl QueryAssetsRequest {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// let x = QueryAssetsRequest::new().set_statement("example");
+    /// assert!(x.statement().is_some());
+    /// assert!(x.job_reference().is_none());
+    /// ```
     pub fn set_statement<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = std::option::Option::Some(
             crate::model::query_assets_request::Query::Statement(v.into()),
@@ -5075,6 +6499,14 @@ impl QueryAssetsRequest {
     ///
     /// Note that all the setters affecting `query` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// let x = QueryAssetsRequest::new().set_job_reference("example");
+    /// assert!(x.job_reference().is_some());
+    /// assert!(x.statement().is_none());
+    /// ```
     pub fn set_job_reference<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = std::option::Option::Some(
             crate::model::query_assets_request::Query::JobReference(v.into()),
@@ -5086,6 +6518,14 @@ impl QueryAssetsRequest {
     ///
     /// Note that all the setters affecting `time` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// use google_cloud_asset_v1::model::TimeWindow;
+    /// let x = QueryAssetsRequest::new().set_time(Some(
+    ///     google_cloud_asset_v1::model::query_assets_request::Time::ReadTimeWindow(TimeWindow::default().into())));
+    /// ```
     pub fn set_time<
         T: std::convert::Into<std::option::Option<crate::model::query_assets_request::Time>>,
     >(
@@ -5116,6 +6556,15 @@ impl QueryAssetsRequest {
     ///
     /// Note that all the setters affecting `time` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// use google_cloud_asset_v1::model::TimeWindow;
+    /// let x = QueryAssetsRequest::new().set_read_time_window(TimeWindow::default()/* use setters */);
+    /// assert!(x.read_time_window().is_some());
+    /// assert!(x.read_time().is_none());
+    /// ```
     pub fn set_read_time_window<
         T: std::convert::Into<std::boxed::Box<crate::model::TimeWindow>>,
     >(
@@ -5144,6 +6593,15 @@ impl QueryAssetsRequest {
     ///
     /// Note that all the setters affecting `time` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsRequest;
+    /// use wkt::Timestamp;
+    /// let x = QueryAssetsRequest::new().set_read_time(Timestamp::default()/* use setters */);
+    /// assert!(x.read_time().is_some());
+    /// assert!(x.read_time_window().is_none());
+    /// ```
     pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -5225,12 +6683,24 @@ impl QueryAssetsResponse {
     }
 
     /// Sets the value of [job_reference][crate::model::QueryAssetsResponse::job_reference].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsResponse;
+    /// let x = QueryAssetsResponse::new().set_job_reference("example");
+    /// ```
     pub fn set_job_reference<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_reference = v.into();
         self
     }
 
     /// Sets the value of [done][crate::model::QueryAssetsResponse::done].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsResponse;
+    /// let x = QueryAssetsResponse::new().set_done(true);
+    /// ```
     pub fn set_done<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.done = v.into();
         self
@@ -5240,6 +6710,14 @@ impl QueryAssetsResponse {
     ///
     /// Note that all the setters affecting `response` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsResponse;
+    /// use rpc::model::Status;
+    /// let x = QueryAssetsResponse::new().set_response(Some(
+    ///     google_cloud_asset_v1::model::query_assets_response::Response::Error(Status::default().into())));
+    /// ```
     pub fn set_response<
         T: std::convert::Into<std::option::Option<crate::model::query_assets_response::Response>>,
     >(
@@ -5266,6 +6744,16 @@ impl QueryAssetsResponse {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsResponse;
+    /// use rpc::model::Status;
+    /// let x = QueryAssetsResponse::new().set_error(Status::default()/* use setters */);
+    /// assert!(x.error().is_some());
+    /// assert!(x.query_result().is_none());
+    /// assert!(x.output_config().is_none());
+    /// ```
     pub fn set_error<T: std::convert::Into<std::boxed::Box<rpc::model::Status>>>(
         mut self,
         v: T,
@@ -5294,6 +6782,16 @@ impl QueryAssetsResponse {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsResponse;
+    /// use google_cloud_asset_v1::model::QueryResult;
+    /// let x = QueryAssetsResponse::new().set_query_result(QueryResult::default()/* use setters */);
+    /// assert!(x.query_result().is_some());
+    /// assert!(x.error().is_none());
+    /// assert!(x.output_config().is_none());
+    /// ```
     pub fn set_query_result<T: std::convert::Into<std::boxed::Box<crate::model::QueryResult>>>(
         mut self,
         v: T,
@@ -5324,6 +6822,16 @@ impl QueryAssetsResponse {
     ///
     /// Note that all the setters affecting `response` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryAssetsResponse;
+    /// use google_cloud_asset_v1::model::QueryAssetsOutputConfig;
+    /// let x = QueryAssetsResponse::new().set_output_config(QueryAssetsOutputConfig::default()/* use setters */);
+    /// assert!(x.output_config().is_some());
+    /// assert!(x.error().is_none());
+    /// assert!(x.query_result().is_none());
+    /// ```
     pub fn set_output_config<
         T: std::convert::Into<std::boxed::Box<crate::model::QueryAssetsOutputConfig>>,
     >(
@@ -5391,6 +6899,17 @@ impl QueryResult {
     }
 
     /// Sets the value of [rows][crate::model::QueryResult::rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryResult;
+    /// use wkt::Struct;
+    /// let x = QueryResult::new()
+    ///     .set_rows([
+    ///         Struct::default()/* use setters */,
+    ///         Struct::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rows<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5402,6 +6921,13 @@ impl QueryResult {
     }
 
     /// Sets the value of [schema][crate::model::QueryResult::schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryResult;
+    /// use google_cloud_asset_v1::model::TableSchema;
+    /// let x = QueryResult::new().set_schema(TableSchema::default()/* use setters */);
+    /// ```
     pub fn set_schema<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TableSchema>,
@@ -5411,6 +6937,14 @@ impl QueryResult {
     }
 
     /// Sets or clears the value of [schema][crate::model::QueryResult::schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryResult;
+    /// use google_cloud_asset_v1::model::TableSchema;
+    /// let x = QueryResult::new().set_or_clear_schema(Some(TableSchema::default()/* use setters */));
+    /// let x = QueryResult::new().set_or_clear_schema(None::<TableSchema>);
+    /// ```
     pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TableSchema>,
@@ -5420,12 +6954,24 @@ impl QueryResult {
     }
 
     /// Sets the value of [next_page_token][crate::model::QueryResult::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryResult;
+    /// let x = QueryResult::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_rows][crate::model::QueryResult::total_rows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::QueryResult;
+    /// let x = QueryResult::new().set_total_rows(42);
+    /// ```
     pub fn set_total_rows<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_rows = v.into();
         self
@@ -5454,6 +7000,17 @@ impl TableSchema {
     }
 
     /// Sets the value of [fields][crate::model::TableSchema::fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TableSchema;
+    /// use google_cloud_asset_v1::model::TableFieldSchema;
+    /// let x = TableSchema::new()
+    ///     .set_fields([
+    ///         TableFieldSchema::default()/* use setters */,
+    ///         TableFieldSchema::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5515,24 +7072,52 @@ impl TableFieldSchema {
     }
 
     /// Sets the value of [field][crate::model::TableFieldSchema::field].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TableFieldSchema;
+    /// let x = TableFieldSchema::new().set_field("example");
+    /// ```
     pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.field = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::TableFieldSchema::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TableFieldSchema;
+    /// let x = TableFieldSchema::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [mode][crate::model::TableFieldSchema::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TableFieldSchema;
+    /// let x = TableFieldSchema::new().set_mode("example");
+    /// ```
     pub fn set_mode<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mode = v.into();
         self
     }
 
     /// Sets the value of [fields][crate::model::TableFieldSchema::fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TableFieldSchema;
+    /// let x = TableFieldSchema::new()
+    ///     .set_fields([
+    ///         TableFieldSchema::default()/* use setters */,
+    ///         TableFieldSchema::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5586,12 +7171,24 @@ impl BatchGetEffectiveIamPoliciesRequest {
     }
 
     /// Sets the value of [scope][crate::model::BatchGetEffectiveIamPoliciesRequest::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BatchGetEffectiveIamPoliciesRequest;
+    /// let x = BatchGetEffectiveIamPoliciesRequest::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [names][crate::model::BatchGetEffectiveIamPoliciesRequest::names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BatchGetEffectiveIamPoliciesRequest;
+    /// let x = BatchGetEffectiveIamPoliciesRequest::new().set_names(["a", "b", "c"]);
+    /// ```
     pub fn set_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5637,6 +7234,17 @@ impl BatchGetEffectiveIamPoliciesResponse {
     }
 
     /// Sets the value of [policy_results][crate::model::BatchGetEffectiveIamPoliciesResponse::policy_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::BatchGetEffectiveIamPoliciesResponse;
+    /// use google_cloud_asset_v1::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy;
+    /// let x = BatchGetEffectiveIamPoliciesResponse::new()
+    ///     .set_policy_results([
+    ///         EffectiveIamPolicy::default()/* use setters */,
+    ///         EffectiveIamPolicy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_policy_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5665,7 +7273,7 @@ pub mod batch_get_effective_iam_policies_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EffectiveIamPolicy {
-
+    
         /// The [full_resource_name]
         /// (<https://cloud.google.com/asset-inventory/docs/resource-name-format>)
         /// for which the
@@ -5677,7 +7285,7 @@ pub mod batch_get_effective_iam_policies_response {
         /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesRequest.names]: crate::model::BatchGetEffectiveIamPoliciesRequest::names
         /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.policies]: crate::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy::policies
         pub full_resource_name: std::string::String,
-
+    
         /// The effective policies for the
         /// [full_resource_name][google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.full_resource_name].
         ///
@@ -5703,7 +7311,7 @@ pub mod batch_get_effective_iam_policies_response {
         /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.PolicyInfo.attached_resource]: crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo::attached_resource
         /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.full_resource_name]: crate::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy::full_resource_name
         pub policies: std::vec::Vec<crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo>,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5713,6 +7321,12 @@ pub mod batch_get_effective_iam_policies_response {
         }
 
         /// Sets the value of [full_resource_name][crate::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy::full_resource_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy;
+        /// let x = EffectiveIamPolicy::new().set_full_resource_name("example");
+        /// ```
         pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5722,6 +7336,17 @@ pub mod batch_get_effective_iam_policies_response {
         }
 
         /// Sets the value of [policies][crate::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy::policies].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy;
+        /// use google_cloud_asset_v1::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo;
+        /// let x = EffectiveIamPolicy::new()
+        ///     .set_policies([
+        ///         PolicyInfo::default()/* use setters */,
+        ///         PolicyInfo::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_policies<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5770,6 +7395,12 @@ pub mod batch_get_effective_iam_policies_response {
             }
 
             /// Sets the value of [attached_resource][crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo::attached_resource].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_asset_v1::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo;
+            /// let x = PolicyInfo::new().set_attached_resource("example");
+            /// ```
             pub fn set_attached_resource<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -5779,6 +7410,13 @@ pub mod batch_get_effective_iam_policies_response {
             }
 
             /// Sets the value of [policy][crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo::policy].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_asset_v1::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo;
+            /// use iam_v1::model::Policy;
+            /// let x = PolicyInfo::new().set_policy(Policy::default()/* use setters */);
+            /// ```
             pub fn set_policy<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<iam_v1::model::Policy>,
@@ -5788,6 +7426,14 @@ pub mod batch_get_effective_iam_policies_response {
             }
 
             /// Sets or clears the value of [policy][crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo::policy].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_asset_v1::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo;
+            /// use iam_v1::model::Policy;
+            /// let x = PolicyInfo::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
+            /// let x = PolicyInfo::new().set_or_clear_policy(None::<Policy>);
+            /// ```
             pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<iam_v1::model::Policy>,
@@ -5856,6 +7502,12 @@ impl AnalyzerOrgPolicy {
     }
 
     /// Sets the value of [attached_resource][crate::model::AnalyzerOrgPolicy::attached_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+    /// let x = AnalyzerOrgPolicy::new().set_attached_resource("example");
+    /// ```
     pub fn set_attached_resource<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5865,6 +7517,12 @@ impl AnalyzerOrgPolicy {
     }
 
     /// Sets the value of [applied_resource][crate::model::AnalyzerOrgPolicy::applied_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+    /// let x = AnalyzerOrgPolicy::new().set_applied_resource("example");
+    /// ```
     pub fn set_applied_resource<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5874,6 +7532,17 @@ impl AnalyzerOrgPolicy {
     }
 
     /// Sets the value of [rules][crate::model::AnalyzerOrgPolicy::rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+    /// use google_cloud_asset_v1::model::analyzer_org_policy::Rule;
+    /// let x = AnalyzerOrgPolicy::new()
+    ///     .set_rules([
+    ///         Rule::default()/* use setters */,
+    ///         Rule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5885,12 +7554,24 @@ impl AnalyzerOrgPolicy {
     }
 
     /// Sets the value of [inherit_from_parent][crate::model::AnalyzerOrgPolicy::inherit_from_parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+    /// let x = AnalyzerOrgPolicy::new().set_inherit_from_parent(true);
+    /// ```
     pub fn set_inherit_from_parent<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.inherit_from_parent = v.into();
         self
     }
 
     /// Sets the value of [reset][crate::model::AnalyzerOrgPolicy::reset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+    /// let x = AnalyzerOrgPolicy::new().set_reset(true);
+    /// ```
     pub fn set_reset<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reset = v.into();
         self
@@ -5951,6 +7632,13 @@ pub mod analyzer_org_policy {
         }
 
         /// Sets the value of [condition][crate::model::analyzer_org_policy::Rule::condition].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy::Rule;
+        /// use gtype::model::Expr;
+        /// let x = Rule::new().set_condition(Expr::default()/* use setters */);
+        /// ```
         pub fn set_condition<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::Expr>,
@@ -5960,6 +7648,14 @@ pub mod analyzer_org_policy {
         }
 
         /// Sets or clears the value of [condition][crate::model::analyzer_org_policy::Rule::condition].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy::Rule;
+        /// use gtype::model::Expr;
+        /// let x = Rule::new().set_or_clear_condition(Some(Expr::default()/* use setters */));
+        /// let x = Rule::new().set_or_clear_condition(None::<Expr>);
+        /// ```
         pub fn set_or_clear_condition<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::Expr>,
@@ -5969,6 +7665,13 @@ pub mod analyzer_org_policy {
         }
 
         /// Sets the value of [condition_evaluation][crate::model::analyzer_org_policy::Rule::condition_evaluation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy::Rule;
+        /// use google_cloud_asset_v1::model::ConditionEvaluation;
+        /// let x = Rule::new().set_condition_evaluation(ConditionEvaluation::default()/* use setters */);
+        /// ```
         pub fn set_condition_evaluation<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::ConditionEvaluation>,
@@ -5978,6 +7681,14 @@ pub mod analyzer_org_policy {
         }
 
         /// Sets or clears the value of [condition_evaluation][crate::model::analyzer_org_policy::Rule::condition_evaluation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy::Rule;
+        /// use google_cloud_asset_v1::model::ConditionEvaluation;
+        /// let x = Rule::new().set_or_clear_condition_evaluation(Some(ConditionEvaluation::default()/* use setters */));
+        /// let x = Rule::new().set_or_clear_condition_evaluation(None::<ConditionEvaluation>);
+        /// ```
         pub fn set_or_clear_condition_evaluation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConditionEvaluation>,
@@ -5990,6 +7701,13 @@ pub mod analyzer_org_policy {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy::Rule;
+        /// use google_cloud_asset_v1::model::analyzer_org_policy::rule::Kind;
+        /// let x = Rule::new().set_kind(Some(Kind::AllowAll(true)));
+        /// ```
         pub fn set_kind<
             T: std::convert::Into<std::option::Option<crate::model::analyzer_org_policy::rule::Kind>>,
         >(
@@ -6022,6 +7740,17 @@ pub mod analyzer_org_policy {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy::Rule;
+        /// use google_cloud_asset_v1::model::analyzer_org_policy::rule::StringValues;
+        /// let x = Rule::new().set_values(StringValues::default()/* use setters */);
+        /// assert!(x.values().is_some());
+        /// assert!(x.allow_all().is_none());
+        /// assert!(x.deny_all().is_none());
+        /// assert!(x.enforce().is_none());
+        /// ```
         pub fn set_values<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::analyzer_org_policy::rule::StringValues>,
@@ -6054,6 +7783,16 @@ pub mod analyzer_org_policy {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy::Rule;
+        /// let x = Rule::new().set_allow_all(true);
+        /// assert!(x.allow_all().is_some());
+        /// assert!(x.values().is_none());
+        /// assert!(x.deny_all().is_none());
+        /// assert!(x.enforce().is_none());
+        /// ```
         pub fn set_allow_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
                 crate::model::analyzer_org_policy::rule::Kind::AllowAll(v.into()),
@@ -6079,6 +7818,16 @@ pub mod analyzer_org_policy {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy::Rule;
+        /// let x = Rule::new().set_deny_all(true);
+        /// assert!(x.deny_all().is_some());
+        /// assert!(x.values().is_none());
+        /// assert!(x.allow_all().is_none());
+        /// assert!(x.enforce().is_none());
+        /// ```
         pub fn set_deny_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
                 crate::model::analyzer_org_policy::rule::Kind::DenyAll(v.into()),
@@ -6104,6 +7853,16 @@ pub mod analyzer_org_policy {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy::Rule;
+        /// let x = Rule::new().set_enforce(true);
+        /// assert!(x.enforce().is_some());
+        /// assert!(x.values().is_none());
+        /// assert!(x.allow_all().is_none());
+        /// assert!(x.deny_all().is_none());
+        /// ```
         pub fn set_enforce<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
                 crate::model::analyzer_org_policy::rule::Kind::Enforce(v.into()),
@@ -6142,6 +7901,12 @@ pub mod analyzer_org_policy {
             }
 
             /// Sets the value of [allowed_values][crate::model::analyzer_org_policy::rule::StringValues::allowed_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_asset_v1::model::analyzer_org_policy::rule::StringValues;
+            /// let x = StringValues::new().set_allowed_values(["a", "b", "c"]);
+            /// ```
             pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -6153,6 +7918,12 @@ pub mod analyzer_org_policy {
             }
 
             /// Sets the value of [denied_values][crate::model::analyzer_org_policy::rule::StringValues::denied_values].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_asset_v1::model::analyzer_org_policy::rule::StringValues;
+            /// let x = StringValues::new().set_denied_values(["a", "b", "c"]);
+            /// ```
             pub fn set_denied_values<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -6209,6 +7980,14 @@ impl AnalyzerOrgPolicyConstraint {
     ///
     /// Note that all the setters affecting `constraint_definition` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzerOrgPolicyConstraint;
+    /// use google_cloud_asset_v1::model::analyzer_org_policy_constraint::Constraint;
+    /// let x = AnalyzerOrgPolicyConstraint::new().set_constraint_definition(Some(
+    ///     google_cloud_asset_v1::model::analyzer_org_policy_constraint::ConstraintDefinition::GoogleDefinedConstraint(Constraint::default().into())));
+    /// ```
     pub fn set_constraint_definition<
         T: std::convert::Into<
                 std::option::Option<
@@ -6243,6 +8022,15 @@ impl AnalyzerOrgPolicyConstraint {
     ///
     /// Note that all the setters affecting `constraint_definition` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzerOrgPolicyConstraint;
+    /// use google_cloud_asset_v1::model::analyzer_org_policy_constraint::Constraint;
+    /// let x = AnalyzerOrgPolicyConstraint::new().set_google_defined_constraint(Constraint::default()/* use setters */);
+    /// assert!(x.google_defined_constraint().is_some());
+    /// assert!(x.custom_constraint().is_none());
+    /// ```
     pub fn set_google_defined_constraint<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::analyzer_org_policy_constraint::Constraint>,
@@ -6279,6 +8067,15 @@ impl AnalyzerOrgPolicyConstraint {
     ///
     /// Note that all the setters affecting `constraint_definition` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzerOrgPolicyConstraint;
+    /// use google_cloud_asset_v1::model::analyzer_org_policy_constraint::CustomConstraint;
+    /// let x = AnalyzerOrgPolicyConstraint::new().set_custom_constraint(CustomConstraint::default()/* use setters */);
+    /// assert!(x.custom_constraint().is_some());
+    /// assert!(x.google_defined_constraint().is_none());
+    /// ```
     pub fn set_custom_constraint<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::analyzer_org_policy_constraint::CustomConstraint>,
@@ -6345,12 +8142,24 @@ pub mod analyzer_org_policy_constraint {
         }
 
         /// Sets the value of [name][crate::model::analyzer_org_policy_constraint::Constraint::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::Constraint;
+        /// let x = Constraint::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [display_name][crate::model::analyzer_org_policy_constraint::Constraint::display_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::Constraint;
+        /// let x = Constraint::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6360,12 +8169,26 @@ pub mod analyzer_org_policy_constraint {
         }
 
         /// Sets the value of [description][crate::model::analyzer_org_policy_constraint::Constraint::description].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::Constraint;
+        /// let x = Constraint::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [constraint_default][crate::model::analyzer_org_policy_constraint::Constraint::constraint_default].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::Constraint;
+        /// use google_cloud_asset_v1::model::analyzer_org_policy_constraint::constraint::ConstraintDefault;
+        /// let x0 = Constraint::new().set_constraint_default(ConstraintDefault::Allow);
+        /// let x1 = Constraint::new().set_constraint_default(ConstraintDefault::Deny);
+        /// ```
         pub fn set_constraint_default<
             T: std::convert::Into<
                     crate::model::analyzer_org_policy_constraint::constraint::ConstraintDefault,
@@ -6382,6 +8205,14 @@ pub mod analyzer_org_policy_constraint {
         ///
         /// Note that all the setters affecting `constraint_type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::Constraint;
+        /// use google_cloud_asset_v1::model::analyzer_org_policy_constraint::constraint::ListConstraint;
+        /// let x = Constraint::new().set_constraint_type(Some(
+        ///     google_cloud_asset_v1::model::analyzer_org_policy_constraint::constraint::ConstraintType::ListConstraint(ListConstraint::default().into())));
+        /// ```
         pub fn set_constraint_type<
             T: std::convert::Into<
                     std::option::Option<
@@ -6418,6 +8249,15 @@ pub mod analyzer_org_policy_constraint {
         ///
         /// Note that all the setters affecting `constraint_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::Constraint;
+        /// use google_cloud_asset_v1::model::analyzer_org_policy_constraint::constraint::ListConstraint;
+        /// let x = Constraint::new().set_list_constraint(ListConstraint::default()/* use setters */);
+        /// assert!(x.list_constraint().is_some());
+        /// assert!(x.boolean_constraint().is_none());
+        /// ```
         pub fn set_list_constraint<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -6458,6 +8298,15 @@ pub mod analyzer_org_policy_constraint {
         ///
         /// Note that all the setters affecting `constraint_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::Constraint;
+        /// use google_cloud_asset_v1::model::analyzer_org_policy_constraint::constraint::BooleanConstraint;
+        /// let x = Constraint::new().set_boolean_constraint(BooleanConstraint::default()/* use setters */);
+        /// assert!(x.boolean_constraint().is_some());
+        /// assert!(x.list_constraint().is_none());
+        /// ```
         pub fn set_boolean_constraint<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -6513,12 +8362,24 @@ pub mod analyzer_org_policy_constraint {
             }
 
             /// Sets the value of [supports_in][crate::model::analyzer_org_policy_constraint::constraint::ListConstraint::supports_in].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::constraint::ListConstraint;
+            /// let x = ListConstraint::new().set_supports_in(true);
+            /// ```
             pub fn set_supports_in<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.supports_in = v.into();
                 self
             }
 
             /// Sets the value of [supports_under][crate::model::analyzer_org_policy_constraint::constraint::ListConstraint::supports_under].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::constraint::ListConstraint;
+            /// let x = ListConstraint::new().set_supports_under(true);
+            /// ```
             pub fn set_supports_under<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.supports_under = v.into();
                 self
@@ -6763,12 +8624,24 @@ pub mod analyzer_org_policy_constraint {
         }
 
         /// Sets the value of [name][crate::model::analyzer_org_policy_constraint::CustomConstraint::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::CustomConstraint;
+        /// let x = CustomConstraint::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [resource_types][crate::model::analyzer_org_policy_constraint::CustomConstraint::resource_types].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::CustomConstraint;
+        /// let x = CustomConstraint::new().set_resource_types(["a", "b", "c"]);
+        /// ```
         pub fn set_resource_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6780,6 +8653,17 @@ pub mod analyzer_org_policy_constraint {
         }
 
         /// Sets the value of [method_types][crate::model::analyzer_org_policy_constraint::CustomConstraint::method_types].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::CustomConstraint;
+        /// use google_cloud_asset_v1::model::analyzer_org_policy_constraint::custom_constraint::MethodType;
+        /// let x = CustomConstraint::new().set_method_types([
+        ///     MethodType::Create,
+        ///     MethodType::Update,
+        ///     MethodType::Delete,
+        /// ]);
+        /// ```
         pub fn set_method_types<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6793,12 +8677,26 @@ pub mod analyzer_org_policy_constraint {
         }
 
         /// Sets the value of [condition][crate::model::analyzer_org_policy_constraint::CustomConstraint::condition].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::CustomConstraint;
+        /// let x = CustomConstraint::new().set_condition("example");
+        /// ```
         pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.condition = v.into();
             self
         }
 
         /// Sets the value of [action_type][crate::model::analyzer_org_policy_constraint::CustomConstraint::action_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::CustomConstraint;
+        /// use google_cloud_asset_v1::model::analyzer_org_policy_constraint::custom_constraint::ActionType;
+        /// let x0 = CustomConstraint::new().set_action_type(ActionType::Allow);
+        /// let x1 = CustomConstraint::new().set_action_type(ActionType::Deny);
+        /// ```
         pub fn set_action_type<
             T: std::convert::Into<
                     crate::model::analyzer_org_policy_constraint::custom_constraint::ActionType,
@@ -6812,6 +8710,12 @@ pub mod analyzer_org_policy_constraint {
         }
 
         /// Sets the value of [display_name][crate::model::analyzer_org_policy_constraint::CustomConstraint::display_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::CustomConstraint;
+        /// let x = CustomConstraint::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6821,6 +8725,12 @@ pub mod analyzer_org_policy_constraint {
         }
 
         /// Sets the value of [description][crate::model::analyzer_org_policy_constraint::CustomConstraint::description].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyzer_org_policy_constraint::CustomConstraint;
+        /// let x = CustomConstraint::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
@@ -7198,24 +9108,48 @@ impl AnalyzeOrgPoliciesRequest {
     }
 
     /// Sets the value of [scope][crate::model::AnalyzeOrgPoliciesRequest::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPoliciesRequest;
+    /// let x = AnalyzeOrgPoliciesRequest::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [constraint][crate::model::AnalyzeOrgPoliciesRequest::constraint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPoliciesRequest;
+    /// let x = AnalyzeOrgPoliciesRequest::new().set_constraint("example");
+    /// ```
     pub fn set_constraint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.constraint = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::AnalyzeOrgPoliciesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPoliciesRequest;
+    /// let x = AnalyzeOrgPoliciesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::AnalyzeOrgPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPoliciesRequest;
+    /// let x = AnalyzeOrgPoliciesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -7225,6 +9159,13 @@ impl AnalyzeOrgPoliciesRequest {
     }
 
     /// Sets or clears the value of [page_size][crate::model::AnalyzeOrgPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPoliciesRequest;
+    /// let x = AnalyzeOrgPoliciesRequest::new().set_or_clear_page_size(Some(42));
+    /// let x = AnalyzeOrgPoliciesRequest::new().set_or_clear_page_size(None::<i32>);
+    /// ```
     pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -7234,6 +9175,12 @@ impl AnalyzeOrgPoliciesRequest {
     }
 
     /// Sets the value of [page_token][crate::model::AnalyzeOrgPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPoliciesRequest;
+    /// let x = AnalyzeOrgPoliciesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7281,6 +9228,17 @@ impl AnalyzeOrgPoliciesResponse {
     }
 
     /// Sets the value of [org_policy_results][crate::model::AnalyzeOrgPoliciesResponse::org_policy_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPoliciesResponse;
+    /// use google_cloud_asset_v1::model::analyze_org_policies_response::OrgPolicyResult;
+    /// let x = AnalyzeOrgPoliciesResponse::new()
+    ///     .set_org_policy_results([
+    ///         OrgPolicyResult::default()/* use setters */,
+    ///         OrgPolicyResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_org_policy_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7292,6 +9250,13 @@ impl AnalyzeOrgPoliciesResponse {
     }
 
     /// Sets the value of [constraint][crate::model::AnalyzeOrgPoliciesResponse::constraint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPoliciesResponse;
+    /// use google_cloud_asset_v1::model::AnalyzerOrgPolicyConstraint;
+    /// let x = AnalyzeOrgPoliciesResponse::new().set_constraint(AnalyzerOrgPolicyConstraint::default()/* use setters */);
+    /// ```
     pub fn set_constraint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnalyzerOrgPolicyConstraint>,
@@ -7301,6 +9266,14 @@ impl AnalyzeOrgPoliciesResponse {
     }
 
     /// Sets or clears the value of [constraint][crate::model::AnalyzeOrgPoliciesResponse::constraint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPoliciesResponse;
+    /// use google_cloud_asset_v1::model::AnalyzerOrgPolicyConstraint;
+    /// let x = AnalyzeOrgPoliciesResponse::new().set_or_clear_constraint(Some(AnalyzerOrgPolicyConstraint::default()/* use setters */));
+    /// let x = AnalyzeOrgPoliciesResponse::new().set_or_clear_constraint(None::<AnalyzerOrgPolicyConstraint>);
+    /// ```
     pub fn set_or_clear_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnalyzerOrgPolicyConstraint>,
@@ -7310,6 +9283,12 @@ impl AnalyzeOrgPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::AnalyzeOrgPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPoliciesResponse;
+    /// let x = AnalyzeOrgPoliciesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7388,6 +9367,13 @@ pub mod analyze_org_policies_response {
         }
 
         /// Sets the value of [consolidated_policy][crate::model::analyze_org_policies_response::OrgPolicyResult::consolidated_policy].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policies_response::OrgPolicyResult;
+        /// use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+        /// let x = OrgPolicyResult::new().set_consolidated_policy(AnalyzerOrgPolicy::default()/* use setters */);
+        /// ```
         pub fn set_consolidated_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::AnalyzerOrgPolicy>,
@@ -7397,6 +9383,14 @@ pub mod analyze_org_policies_response {
         }
 
         /// Sets or clears the value of [consolidated_policy][crate::model::analyze_org_policies_response::OrgPolicyResult::consolidated_policy].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policies_response::OrgPolicyResult;
+        /// use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+        /// let x = OrgPolicyResult::new().set_or_clear_consolidated_policy(Some(AnalyzerOrgPolicy::default()/* use setters */));
+        /// let x = OrgPolicyResult::new().set_or_clear_consolidated_policy(None::<AnalyzerOrgPolicy>);
+        /// ```
         pub fn set_or_clear_consolidated_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AnalyzerOrgPolicy>,
@@ -7406,6 +9400,17 @@ pub mod analyze_org_policies_response {
         }
 
         /// Sets the value of [policy_bundle][crate::model::analyze_org_policies_response::OrgPolicyResult::policy_bundle].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policies_response::OrgPolicyResult;
+        /// use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+        /// let x = OrgPolicyResult::new()
+        ///     .set_policy_bundle([
+        ///         AnalyzerOrgPolicy::default()/* use setters */,
+        ///         AnalyzerOrgPolicy::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_policy_bundle<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7417,12 +9422,24 @@ pub mod analyze_org_policies_response {
         }
 
         /// Sets the value of [project][crate::model::analyze_org_policies_response::OrgPolicyResult::project].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policies_response::OrgPolicyResult;
+        /// let x = OrgPolicyResult::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [folders][crate::model::analyze_org_policies_response::OrgPolicyResult::folders].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policies_response::OrgPolicyResult;
+        /// let x = OrgPolicyResult::new().set_folders(["a", "b", "c"]);
+        /// ```
         pub fn set_folders<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7434,6 +9451,12 @@ pub mod analyze_org_policies_response {
         }
 
         /// Sets the value of [organization][crate::model::analyze_org_policies_response::OrgPolicyResult::organization].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policies_response::OrgPolicyResult;
+        /// let x = OrgPolicyResult::new().set_organization("example");
+        /// ```
         pub fn set_organization<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7505,24 +9528,48 @@ impl AnalyzeOrgPolicyGovernedContainersRequest {
     }
 
     /// Sets the value of [scope][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedContainersRequest;
+    /// let x = AnalyzeOrgPolicyGovernedContainersRequest::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::constraint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedContainersRequest;
+    /// let x = AnalyzeOrgPolicyGovernedContainersRequest::new().set_constraint("example");
+    /// ```
     pub fn set_constraint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.constraint = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedContainersRequest;
+    /// let x = AnalyzeOrgPolicyGovernedContainersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedContainersRequest;
+    /// let x = AnalyzeOrgPolicyGovernedContainersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -7532,6 +9579,13 @@ impl AnalyzeOrgPolicyGovernedContainersRequest {
     }
 
     /// Sets or clears the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedContainersRequest;
+    /// let x = AnalyzeOrgPolicyGovernedContainersRequest::new().set_or_clear_page_size(Some(42));
+    /// let x = AnalyzeOrgPolicyGovernedContainersRequest::new().set_or_clear_page_size(None::<i32>);
+    /// ```
     pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -7541,6 +9595,12 @@ impl AnalyzeOrgPolicyGovernedContainersRequest {
     }
 
     /// Sets the value of [page_token][crate::model::AnalyzeOrgPolicyGovernedContainersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedContainersRequest;
+    /// let x = AnalyzeOrgPolicyGovernedContainersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7583,6 +9643,17 @@ impl AnalyzeOrgPolicyGovernedContainersResponse {
     }
 
     /// Sets the value of [governed_containers][crate::model::AnalyzeOrgPolicyGovernedContainersResponse::governed_containers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedContainersResponse;
+    /// use google_cloud_asset_v1::model::analyze_org_policy_governed_containers_response::GovernedContainer;
+    /// let x = AnalyzeOrgPolicyGovernedContainersResponse::new()
+    ///     .set_governed_containers([
+    ///         GovernedContainer::default()/* use setters */,
+    ///         GovernedContainer::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_governed_containers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7596,6 +9667,13 @@ impl AnalyzeOrgPolicyGovernedContainersResponse {
     }
 
     /// Sets the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedContainersResponse::constraint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedContainersResponse;
+    /// use google_cloud_asset_v1::model::AnalyzerOrgPolicyConstraint;
+    /// let x = AnalyzeOrgPolicyGovernedContainersResponse::new().set_constraint(AnalyzerOrgPolicyConstraint::default()/* use setters */);
+    /// ```
     pub fn set_constraint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnalyzerOrgPolicyConstraint>,
@@ -7605,6 +9683,14 @@ impl AnalyzeOrgPolicyGovernedContainersResponse {
     }
 
     /// Sets or clears the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedContainersResponse::constraint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedContainersResponse;
+    /// use google_cloud_asset_v1::model::AnalyzerOrgPolicyConstraint;
+    /// let x = AnalyzeOrgPolicyGovernedContainersResponse::new().set_or_clear_constraint(Some(AnalyzerOrgPolicyConstraint::default()/* use setters */));
+    /// let x = AnalyzeOrgPolicyGovernedContainersResponse::new().set_or_clear_constraint(None::<AnalyzerOrgPolicyConstraint>);
+    /// ```
     pub fn set_or_clear_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnalyzerOrgPolicyConstraint>,
@@ -7614,6 +9700,12 @@ impl AnalyzeOrgPolicyGovernedContainersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::AnalyzeOrgPolicyGovernedContainersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedContainersResponse;
+    /// let x = AnalyzeOrgPolicyGovernedContainersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7713,6 +9805,12 @@ pub mod analyze_org_policy_governed_containers_response {
         }
 
         /// Sets the value of [full_resource_name][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::full_resource_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_containers_response::GovernedContainer;
+        /// let x = GovernedContainer::new().set_full_resource_name("example");
+        /// ```
         pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7722,12 +9820,25 @@ pub mod analyze_org_policy_governed_containers_response {
         }
 
         /// Sets the value of [parent][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::parent].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_containers_response::GovernedContainer;
+        /// let x = GovernedContainer::new().set_parent("example");
+        /// ```
         pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.parent = v.into();
             self
         }
 
         /// Sets the value of [consolidated_policy][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::consolidated_policy].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_containers_response::GovernedContainer;
+        /// use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+        /// let x = GovernedContainer::new().set_consolidated_policy(AnalyzerOrgPolicy::default()/* use setters */);
+        /// ```
         pub fn set_consolidated_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::AnalyzerOrgPolicy>,
@@ -7737,6 +9848,14 @@ pub mod analyze_org_policy_governed_containers_response {
         }
 
         /// Sets or clears the value of [consolidated_policy][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::consolidated_policy].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_containers_response::GovernedContainer;
+        /// use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+        /// let x = GovernedContainer::new().set_or_clear_consolidated_policy(Some(AnalyzerOrgPolicy::default()/* use setters */));
+        /// let x = GovernedContainer::new().set_or_clear_consolidated_policy(None::<AnalyzerOrgPolicy>);
+        /// ```
         pub fn set_or_clear_consolidated_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AnalyzerOrgPolicy>,
@@ -7746,6 +9865,17 @@ pub mod analyze_org_policy_governed_containers_response {
         }
 
         /// Sets the value of [policy_bundle][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::policy_bundle].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_containers_response::GovernedContainer;
+        /// use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+        /// let x = GovernedContainer::new()
+        ///     .set_policy_bundle([
+        ///         AnalyzerOrgPolicy::default()/* use setters */,
+        ///         AnalyzerOrgPolicy::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_policy_bundle<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7757,12 +9887,24 @@ pub mod analyze_org_policy_governed_containers_response {
         }
 
         /// Sets the value of [project][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::project].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_containers_response::GovernedContainer;
+        /// let x = GovernedContainer::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [folders][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::folders].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_containers_response::GovernedContainer;
+        /// let x = GovernedContainer::new().set_folders(["a", "b", "c"]);
+        /// ```
         pub fn set_folders<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7774,6 +9916,12 @@ pub mod analyze_org_policy_governed_containers_response {
         }
 
         /// Sets the value of [organization][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::organization].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_containers_response::GovernedContainer;
+        /// let x = GovernedContainer::new().set_organization("example");
+        /// ```
         pub fn set_organization<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -7783,6 +9931,17 @@ pub mod analyze_org_policy_governed_containers_response {
         }
 
         /// Sets the value of [effective_tags][crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::effective_tags].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_containers_response::GovernedContainer;
+        /// use google_cloud_asset_v1::model::EffectiveTagDetails;
+        /// let x = GovernedContainer::new()
+        ///     .set_effective_tags([
+        ///         EffectiveTagDetails::default()/* use setters */,
+        ///         EffectiveTagDetails::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_effective_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -7873,24 +10032,48 @@ impl AnalyzeOrgPolicyGovernedAssetsRequest {
     }
 
     /// Sets the value of [scope][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedAssetsRequest;
+    /// let x = AnalyzeOrgPolicyGovernedAssetsRequest::new().set_scope("example");
+    /// ```
     pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.scope = v.into();
         self
     }
 
     /// Sets the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::constraint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedAssetsRequest;
+    /// let x = AnalyzeOrgPolicyGovernedAssetsRequest::new().set_constraint("example");
+    /// ```
     pub fn set_constraint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.constraint = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedAssetsRequest;
+    /// let x = AnalyzeOrgPolicyGovernedAssetsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedAssetsRequest;
+    /// let x = AnalyzeOrgPolicyGovernedAssetsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -7900,6 +10083,13 @@ impl AnalyzeOrgPolicyGovernedAssetsRequest {
     }
 
     /// Sets or clears the value of [page_size][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedAssetsRequest;
+    /// let x = AnalyzeOrgPolicyGovernedAssetsRequest::new().set_or_clear_page_size(Some(42));
+    /// let x = AnalyzeOrgPolicyGovernedAssetsRequest::new().set_or_clear_page_size(None::<i32>);
+    /// ```
     pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -7909,6 +10099,12 @@ impl AnalyzeOrgPolicyGovernedAssetsRequest {
     }
 
     /// Sets the value of [page_token][crate::model::AnalyzeOrgPolicyGovernedAssetsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedAssetsRequest;
+    /// let x = AnalyzeOrgPolicyGovernedAssetsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7950,6 +10146,17 @@ impl AnalyzeOrgPolicyGovernedAssetsResponse {
     }
 
     /// Sets the value of [governed_assets][crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::governed_assets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedAssetsResponse;
+    /// use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedAsset;
+    /// let x = AnalyzeOrgPolicyGovernedAssetsResponse::new()
+    ///     .set_governed_assets([
+    ///         GovernedAsset::default()/* use setters */,
+    ///         GovernedAsset::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_governed_assets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7963,6 +10170,13 @@ impl AnalyzeOrgPolicyGovernedAssetsResponse {
     }
 
     /// Sets the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::constraint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedAssetsResponse;
+    /// use google_cloud_asset_v1::model::AnalyzerOrgPolicyConstraint;
+    /// let x = AnalyzeOrgPolicyGovernedAssetsResponse::new().set_constraint(AnalyzerOrgPolicyConstraint::default()/* use setters */);
+    /// ```
     pub fn set_constraint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnalyzerOrgPolicyConstraint>,
@@ -7972,6 +10186,14 @@ impl AnalyzeOrgPolicyGovernedAssetsResponse {
     }
 
     /// Sets or clears the value of [constraint][crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::constraint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedAssetsResponse;
+    /// use google_cloud_asset_v1::model::AnalyzerOrgPolicyConstraint;
+    /// let x = AnalyzeOrgPolicyGovernedAssetsResponse::new().set_or_clear_constraint(Some(AnalyzerOrgPolicyConstraint::default()/* use setters */));
+    /// let x = AnalyzeOrgPolicyGovernedAssetsResponse::new().set_or_clear_constraint(None::<AnalyzerOrgPolicyConstraint>);
+    /// ```
     pub fn set_or_clear_constraint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnalyzerOrgPolicyConstraint>,
@@ -7981,6 +10203,12 @@ impl AnalyzeOrgPolicyGovernedAssetsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AnalyzeOrgPolicyGovernedAssetsResponse;
+    /// let x = AnalyzeOrgPolicyGovernedAssetsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -8070,6 +10298,12 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets the value of [full_resource_name][crate::model::analyze_org_policy_governed_assets_response::GovernedResource::full_resource_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedResource;
+        /// let x = GovernedResource::new().set_full_resource_name("example");
+        /// ```
         pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8079,18 +10313,36 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets the value of [parent][crate::model::analyze_org_policy_governed_assets_response::GovernedResource::parent].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedResource;
+        /// let x = GovernedResource::new().set_parent("example");
+        /// ```
         pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.parent = v.into();
             self
         }
 
         /// Sets the value of [project][crate::model::analyze_org_policy_governed_assets_response::GovernedResource::project].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedResource;
+        /// let x = GovernedResource::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [folders][crate::model::analyze_org_policy_governed_assets_response::GovernedResource::folders].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedResource;
+        /// let x = GovernedResource::new().set_folders(["a", "b", "c"]);
+        /// ```
         pub fn set_folders<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8102,6 +10354,12 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets the value of [organization][crate::model::analyze_org_policy_governed_assets_response::GovernedResource::organization].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedResource;
+        /// let x = GovernedResource::new().set_organization("example");
+        /// ```
         pub fn set_organization<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8111,12 +10369,29 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets the value of [asset_type][crate::model::analyze_org_policy_governed_assets_response::GovernedResource::asset_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedResource;
+        /// let x = GovernedResource::new().set_asset_type("example");
+        /// ```
         pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.asset_type = v.into();
             self
         }
 
         /// Sets the value of [effective_tags][crate::model::analyze_org_policy_governed_assets_response::GovernedResource::effective_tags].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedResource;
+        /// use google_cloud_asset_v1::model::EffectiveTagDetails;
+        /// let x = GovernedResource::new()
+        ///     .set_effective_tags([
+        ///         EffectiveTagDetails::default()/* use setters */,
+        ///         EffectiveTagDetails::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_effective_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8187,6 +10462,12 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets the value of [attached_resource][crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::attached_resource].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy;
+        /// let x = GovernedIamPolicy::new().set_attached_resource("example");
+        /// ```
         pub fn set_attached_resource<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8196,6 +10477,13 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets the value of [policy][crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::policy].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy;
+        /// use iam_v1::model::Policy;
+        /// let x = GovernedIamPolicy::new().set_policy(Policy::default()/* use setters */);
+        /// ```
         pub fn set_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
@@ -8205,6 +10493,14 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets or clears the value of [policy][crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::policy].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy;
+        /// use iam_v1::model::Policy;
+        /// let x = GovernedIamPolicy::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
+        /// let x = GovernedIamPolicy::new().set_or_clear_policy(None::<Policy>);
+        /// ```
         pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<iam_v1::model::Policy>,
@@ -8214,12 +10510,24 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets the value of [project][crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::project].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy;
+        /// let x = GovernedIamPolicy::new().set_project("example");
+        /// ```
         pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.project = v.into();
             self
         }
 
         /// Sets the value of [folders][crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::folders].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy;
+        /// let x = GovernedIamPolicy::new().set_folders(["a", "b", "c"]);
+        /// ```
         pub fn set_folders<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8231,6 +10539,12 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets the value of [organization][crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::organization].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy;
+        /// let x = GovernedIamPolicy::new().set_organization("example");
+        /// ```
         pub fn set_organization<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -8240,6 +10554,12 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets the value of [asset_type][crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::asset_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy;
+        /// let x = GovernedIamPolicy::new().set_asset_type("example");
+        /// ```
         pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.asset_type = v.into();
             self
@@ -8260,7 +10580,7 @@ pub mod analyze_org_policy_governed_assets_response {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct GovernedAsset {
-
+    
         /// The consolidated policy for the analyzed asset. The consolidated
         /// policy is computed by merging and evaluating
         /// [AnalyzeOrgPolicyGovernedAssetsResponse.GovernedAsset.policy_bundle][google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsResponse.GovernedAsset.policy_bundle].
@@ -8269,7 +10589,7 @@ pub mod analyze_org_policy_governed_assets_response {
         ///
         /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsResponse.GovernedAsset.policy_bundle]: crate::model::analyze_org_policy_governed_assets_response::GovernedAsset::policy_bundle
         pub consolidated_policy: std::option::Option<crate::model::AnalyzerOrgPolicy>,
-
+    
         /// The ordered list of all organization policies from the
         /// [consolidated_policy.attached_resource][google.cloud.asset.v1.AnalyzerOrgPolicy.attached_resource]
         /// to the scope specified in the request.
@@ -8279,9 +10599,9 @@ pub mod analyze_org_policy_governed_assets_response {
         ///
         /// [google.cloud.asset.v1.AnalyzerOrgPolicy.attached_resource]: crate::model::AnalyzerOrgPolicy::attached_resource
         pub policy_bundle: std::vec::Vec<crate::model::AnalyzerOrgPolicy>,
-
+    
         pub governed_asset: std::option::Option<crate::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset>,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8291,6 +10611,13 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets the value of [consolidated_policy][crate::model::analyze_org_policy_governed_assets_response::GovernedAsset::consolidated_policy].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedAsset;
+        /// use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+        /// let x = GovernedAsset::new().set_consolidated_policy(AnalyzerOrgPolicy::default()/* use setters */);
+        /// ```
         pub fn set_consolidated_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::AnalyzerOrgPolicy>,
@@ -8300,6 +10627,14 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets or clears the value of [consolidated_policy][crate::model::analyze_org_policy_governed_assets_response::GovernedAsset::consolidated_policy].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedAsset;
+        /// use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+        /// let x = GovernedAsset::new().set_or_clear_consolidated_policy(Some(AnalyzerOrgPolicy::default()/* use setters */));
+        /// let x = GovernedAsset::new().set_or_clear_consolidated_policy(None::<AnalyzerOrgPolicy>);
+        /// ```
         pub fn set_or_clear_consolidated_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::AnalyzerOrgPolicy>,
@@ -8309,6 +10644,17 @@ pub mod analyze_org_policy_governed_assets_response {
         }
 
         /// Sets the value of [policy_bundle][crate::model::analyze_org_policy_governed_assets_response::GovernedAsset::policy_bundle].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedAsset;
+        /// use google_cloud_asset_v1::model::AnalyzerOrgPolicy;
+        /// let x = GovernedAsset::new()
+        ///     .set_policy_bundle([
+        ///         AnalyzerOrgPolicy::default()/* use setters */,
+        ///         AnalyzerOrgPolicy::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_policy_bundle<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8323,6 +10669,14 @@ pub mod analyze_org_policy_governed_assets_response {
         ///
         /// Note that all the setters affecting `governed_asset` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedAsset;
+        /// use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedResource;
+        /// let x = GovernedAsset::new().set_governed_asset(Some(
+        ///     google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset::GovernedResource(GovernedResource::default().into())));
+        /// ```
         pub fn set_governed_asset<T: std::convert::Into<std::option::Option<crate::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset>>>(mut self, v: T) -> Self
         {
             self.governed_asset = v.into();
@@ -8351,6 +10705,15 @@ pub mod analyze_org_policy_governed_assets_response {
         ///
         /// Note that all the setters affecting `governed_asset` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedAsset;
+        /// use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedResource;
+        /// let x = GovernedAsset::new().set_governed_resource(GovernedResource::default()/* use setters */);
+        /// assert!(x.governed_resource().is_some());
+        /// assert!(x.governed_iam_policy().is_none());
+        /// ```
         pub fn set_governed_resource<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -8391,6 +10754,15 @@ pub mod analyze_org_policy_governed_assets_response {
         ///
         /// Note that all the setters affecting `governed_asset` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedAsset;
+        /// use google_cloud_asset_v1::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy;
+        /// let x = GovernedAsset::new().set_governed_iam_policy(GovernedIamPolicy::default()/* use setters */);
+        /// assert!(x.governed_iam_policy().is_some());
+        /// assert!(x.governed_resource().is_none());
+        /// ```
         pub fn set_governed_iam_policy<T: std::convert::Into<std::boxed::Box<crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy>>>(mut self, v: T) -> Self{
             self.governed_asset = std::option::Option::Some(
                 crate::model::analyze_org_policy_governed_assets_response::governed_asset::GovernedAsset::GovernedIamPolicy(
@@ -8469,6 +10841,13 @@ impl TemporalAsset {
     }
 
     /// Sets the value of [window][crate::model::TemporalAsset::window].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TemporalAsset;
+    /// use google_cloud_asset_v1::model::TimeWindow;
+    /// let x = TemporalAsset::new().set_window(TimeWindow::default()/* use setters */);
+    /// ```
     pub fn set_window<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -8478,6 +10857,14 @@ impl TemporalAsset {
     }
 
     /// Sets or clears the value of [window][crate::model::TemporalAsset::window].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TemporalAsset;
+    /// use google_cloud_asset_v1::model::TimeWindow;
+    /// let x = TemporalAsset::new().set_or_clear_window(Some(TimeWindow::default()/* use setters */));
+    /// let x = TemporalAsset::new().set_or_clear_window(None::<TimeWindow>);
+    /// ```
     pub fn set_or_clear_window<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TimeWindow>,
@@ -8487,12 +10874,25 @@ impl TemporalAsset {
     }
 
     /// Sets the value of [deleted][crate::model::TemporalAsset::deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TemporalAsset;
+    /// let x = TemporalAsset::new().set_deleted(true);
+    /// ```
     pub fn set_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deleted = v.into();
         self
     }
 
     /// Sets the value of [asset][crate::model::TemporalAsset::asset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TemporalAsset;
+    /// use google_cloud_asset_v1::model::Asset;
+    /// let x = TemporalAsset::new().set_asset(Asset::default()/* use setters */);
+    /// ```
     pub fn set_asset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -8502,6 +10902,14 @@ impl TemporalAsset {
     }
 
     /// Sets or clears the value of [asset][crate::model::TemporalAsset::asset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TemporalAsset;
+    /// use google_cloud_asset_v1::model::Asset;
+    /// let x = TemporalAsset::new().set_or_clear_asset(Some(Asset::default()/* use setters */));
+    /// let x = TemporalAsset::new().set_or_clear_asset(None::<Asset>);
+    /// ```
     pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -8511,6 +10919,15 @@ impl TemporalAsset {
     }
 
     /// Sets the value of [prior_asset_state][crate::model::TemporalAsset::prior_asset_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TemporalAsset;
+    /// use google_cloud_asset_v1::model::temporal_asset::PriorAssetState;
+    /// let x0 = TemporalAsset::new().set_prior_asset_state(PriorAssetState::Present);
+    /// let x1 = TemporalAsset::new().set_prior_asset_state(PriorAssetState::Invalid);
+    /// let x2 = TemporalAsset::new().set_prior_asset_state(PriorAssetState::DoesNotExist);
+    /// ```
     pub fn set_prior_asset_state<
         T: std::convert::Into<crate::model::temporal_asset::PriorAssetState>,
     >(
@@ -8522,6 +10939,13 @@ impl TemporalAsset {
     }
 
     /// Sets the value of [prior_asset][crate::model::TemporalAsset::prior_asset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TemporalAsset;
+    /// use google_cloud_asset_v1::model::Asset;
+    /// let x = TemporalAsset::new().set_prior_asset(Asset::default()/* use setters */);
+    /// ```
     pub fn set_prior_asset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -8531,6 +10955,14 @@ impl TemporalAsset {
     }
 
     /// Sets or clears the value of [prior_asset][crate::model::TemporalAsset::prior_asset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TemporalAsset;
+    /// use google_cloud_asset_v1::model::Asset;
+    /// let x = TemporalAsset::new().set_or_clear_prior_asset(Some(Asset::default()/* use setters */));
+    /// let x = TemporalAsset::new().set_or_clear_prior_asset(None::<Asset>);
+    /// ```
     pub fn set_or_clear_prior_asset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Asset>,
@@ -8718,6 +11150,13 @@ impl TimeWindow {
     }
 
     /// Sets the value of [start_time][crate::model::TimeWindow::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8727,6 +11166,14 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [start_time][crate::model::TimeWindow::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeWindow::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8736,6 +11183,13 @@ impl TimeWindow {
     }
 
     /// Sets the value of [end_time][crate::model::TimeWindow::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8745,6 +11199,14 @@ impl TimeWindow {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TimeWindow::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::TimeWindow;
+    /// use wkt::Timestamp;
+    /// let x = TimeWindow::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TimeWindow::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8778,6 +11240,14 @@ impl AssetEnrichment {
     ///
     /// Note that all the setters affecting `enrichment_data` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AssetEnrichment;
+    /// use google_cloud_asset_v1::model::ResourceOwners;
+    /// let x = AssetEnrichment::new().set_enrichment_data(Some(
+    ///     google_cloud_asset_v1::model::asset_enrichment::EnrichmentData::ResourceOwners(ResourceOwners::default().into())));
+    /// ```
     pub fn set_enrichment_data<
         T: std::convert::Into<std::option::Option<crate::model::asset_enrichment::EnrichmentData>>,
     >(
@@ -8808,6 +11278,14 @@ impl AssetEnrichment {
     ///
     /// Note that all the setters affecting `enrichment_data` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AssetEnrichment;
+    /// use google_cloud_asset_v1::model::ResourceOwners;
+    /// let x = AssetEnrichment::new().set_resource_owners(ResourceOwners::default()/* use setters */);
+    /// assert!(x.resource_owners().is_some());
+    /// ```
     pub fn set_resource_owners<
         T: std::convert::Into<std::boxed::Box<crate::model::ResourceOwners>>,
     >(
@@ -8933,6 +11411,13 @@ impl Asset {
     }
 
     /// Sets the value of [update_time][crate::model::Asset::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use wkt::Timestamp;
+    /// let x = Asset::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8942,6 +11427,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Asset::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use wkt::Timestamp;
+    /// let x = Asset::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8951,18 +11444,37 @@ impl Asset {
     }
 
     /// Sets the value of [name][crate::model::Asset::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// let x = Asset::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [asset_type][crate::model::Asset::asset_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// let x = Asset::new().set_asset_type("example");
+    /// ```
     pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_type = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::Asset::resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use google_cloud_asset_v1::model::Resource;
+    /// let x = Asset::new().set_resource(Resource::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Resource>,
@@ -8972,6 +11484,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [resource][crate::model::Asset::resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use google_cloud_asset_v1::model::Resource;
+    /// let x = Asset::new().set_or_clear_resource(Some(Resource::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_resource(None::<Resource>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Resource>,
@@ -8981,6 +11501,13 @@ impl Asset {
     }
 
     /// Sets the value of [iam_policy][crate::model::Asset::iam_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use iam_v1::model::Policy;
+    /// let x = Asset::new().set_iam_policy(Policy::default()/* use setters */);
+    /// ```
     pub fn set_iam_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
@@ -8990,6 +11517,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [iam_policy][crate::model::Asset::iam_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use iam_v1::model::Policy;
+    /// let x = Asset::new().set_or_clear_iam_policy(Some(Policy::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_iam_policy(None::<Policy>);
+    /// ```
     pub fn set_or_clear_iam_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
@@ -8999,6 +11534,17 @@ impl Asset {
     }
 
     /// Sets the value of [org_policy][crate::model::Asset::org_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use orgpolicy_v1::model::Policy;
+    /// let x = Asset::new()
+    ///     .set_org_policy([
+    ///         Policy::default()/* use setters */,
+    ///         Policy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_org_policy<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9010,6 +11556,13 @@ impl Asset {
     }
 
     /// Sets the value of [os_inventory][crate::model::Asset::os_inventory].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use osconfig_v1::model::Inventory;
+    /// let x = Asset::new().set_os_inventory(Inventory::default()/* use setters */);
+    /// ```
     pub fn set_os_inventory<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<osconfig_v1::model::Inventory>,
@@ -9019,6 +11572,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [os_inventory][crate::model::Asset::os_inventory].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use osconfig_v1::model::Inventory;
+    /// let x = Asset::new().set_or_clear_os_inventory(Some(Inventory::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_os_inventory(None::<Inventory>);
+    /// ```
     pub fn set_or_clear_os_inventory<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<osconfig_v1::model::Inventory>,
@@ -9028,6 +11589,13 @@ impl Asset {
     }
 
     /// Sets the value of [related_assets][crate::model::Asset::related_assets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use google_cloud_asset_v1::model::RelatedAssets;
+    /// let x = Asset::new().set_related_assets(RelatedAssets::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_related_assets<T>(mut self, v: T) -> Self
     where
@@ -9038,6 +11606,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [related_assets][crate::model::Asset::related_assets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use google_cloud_asset_v1::model::RelatedAssets;
+    /// let x = Asset::new().set_or_clear_related_assets(Some(RelatedAssets::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_related_assets(None::<RelatedAssets>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_related_assets<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -9048,6 +11624,13 @@ impl Asset {
     }
 
     /// Sets the value of [related_asset][crate::model::Asset::related_asset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use google_cloud_asset_v1::model::RelatedAsset;
+    /// let x = Asset::new().set_related_asset(RelatedAsset::default()/* use setters */);
+    /// ```
     pub fn set_related_asset<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RelatedAsset>,
@@ -9057,6 +11640,14 @@ impl Asset {
     }
 
     /// Sets or clears the value of [related_asset][crate::model::Asset::related_asset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use google_cloud_asset_v1::model::RelatedAsset;
+    /// let x = Asset::new().set_or_clear_related_asset(Some(RelatedAsset::default()/* use setters */));
+    /// let x = Asset::new().set_or_clear_related_asset(None::<RelatedAsset>);
+    /// ```
     pub fn set_or_clear_related_asset<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RelatedAsset>,
@@ -9066,6 +11657,12 @@ impl Asset {
     }
 
     /// Sets the value of [ancestors][crate::model::Asset::ancestors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// let x = Asset::new().set_ancestors(["a", "b", "c"]);
+    /// ```
     pub fn set_ancestors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9080,6 +11677,14 @@ impl Asset {
     ///
     /// Note that all the setters affecting `access_context_policy` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use accesscontextmanager_v1::model::AccessPolicy;
+    /// let x = Asset::new().set_access_context_policy(Some(
+    ///     google_cloud_asset_v1::model::asset::AccessContextPolicy::AccessPolicy(AccessPolicy::default().into())));
+    /// ```
     pub fn set_access_context_policy<
         T: std::convert::Into<std::option::Option<crate::model::asset::AccessContextPolicy>>,
     >(
@@ -9110,6 +11715,16 @@ impl Asset {
     ///
     /// Note that all the setters affecting `access_context_policy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use accesscontextmanager_v1::model::AccessPolicy;
+    /// let x = Asset::new().set_access_policy(AccessPolicy::default()/* use setters */);
+    /// assert!(x.access_policy().is_some());
+    /// assert!(x.access_level().is_none());
+    /// assert!(x.service_perimeter().is_none());
+    /// ```
     pub fn set_access_policy<
         T: std::convert::Into<std::boxed::Box<accesscontextmanager_v1::model::AccessPolicy>>,
     >(
@@ -9142,6 +11757,16 @@ impl Asset {
     ///
     /// Note that all the setters affecting `access_context_policy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use accesscontextmanager_v1::model::AccessLevel;
+    /// let x = Asset::new().set_access_level(AccessLevel::default()/* use setters */);
+    /// assert!(x.access_level().is_some());
+    /// assert!(x.access_policy().is_none());
+    /// assert!(x.service_perimeter().is_none());
+    /// ```
     pub fn set_access_level<
         T: std::convert::Into<std::boxed::Box<accesscontextmanager_v1::model::AccessLevel>>,
     >(
@@ -9175,6 +11800,16 @@ impl Asset {
     ///
     /// Note that all the setters affecting `access_context_policy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Asset;
+    /// use accesscontextmanager_v1::model::ServicePerimeter;
+    /// let x = Asset::new().set_service_perimeter(ServicePerimeter::default()/* use setters */);
+    /// assert!(x.service_perimeter().is_some());
+    /// assert!(x.access_policy().is_none());
+    /// assert!(x.access_level().is_none());
+    /// ```
     pub fn set_service_perimeter<
         T: std::convert::Into<std::boxed::Box<accesscontextmanager_v1::model::ServicePerimeter>>,
     >(
@@ -9274,12 +11909,24 @@ impl Resource {
     }
 
     /// Sets the value of [version][crate::model::Resource::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Resource;
+    /// let x = Resource::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [discovery_document_uri][crate::model::Resource::discovery_document_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Resource;
+    /// let x = Resource::new().set_discovery_document_uri("example");
+    /// ```
     pub fn set_discovery_document_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9289,24 +11936,49 @@ impl Resource {
     }
 
     /// Sets the value of [discovery_name][crate::model::Resource::discovery_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Resource;
+    /// let x = Resource::new().set_discovery_name("example");
+    /// ```
     pub fn set_discovery_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.discovery_name = v.into();
         self
     }
 
     /// Sets the value of [resource_url][crate::model::Resource::resource_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Resource;
+    /// let x = Resource::new().set_resource_url("example");
+    /// ```
     pub fn set_resource_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_url = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::Resource::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Resource;
+    /// let x = Resource::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [data][crate::model::Resource::data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Resource;
+    /// use wkt::Struct;
+    /// let x = Resource::new().set_data(Struct::default()/* use setters */);
+    /// ```
     pub fn set_data<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -9316,6 +11988,14 @@ impl Resource {
     }
 
     /// Sets or clears the value of [data][crate::model::Resource::data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Resource;
+    /// use wkt::Struct;
+    /// let x = Resource::new().set_or_clear_data(Some(Struct::default()/* use setters */));
+    /// let x = Resource::new().set_or_clear_data(None::<Struct>);
+    /// ```
     pub fn set_or_clear_data<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -9325,6 +12005,12 @@ impl Resource {
     }
 
     /// Sets the value of [location][crate::model::Resource::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Resource;
+    /// let x = Resource::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -9360,6 +12046,13 @@ impl RelatedAssets {
     }
 
     /// Sets the value of [relationship_attributes][crate::model::RelatedAssets::relationship_attributes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelatedAssets;
+    /// use google_cloud_asset_v1::model::RelationshipAttributes;
+    /// let x = RelatedAssets::new().set_relationship_attributes(RelationshipAttributes::default()/* use setters */);
+    /// ```
     pub fn set_relationship_attributes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RelationshipAttributes>,
@@ -9369,6 +12062,14 @@ impl RelatedAssets {
     }
 
     /// Sets or clears the value of [relationship_attributes][crate::model::RelatedAssets::relationship_attributes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelatedAssets;
+    /// use google_cloud_asset_v1::model::RelationshipAttributes;
+    /// let x = RelatedAssets::new().set_or_clear_relationship_attributes(Some(RelationshipAttributes::default()/* use setters */));
+    /// let x = RelatedAssets::new().set_or_clear_relationship_attributes(None::<RelationshipAttributes>);
+    /// ```
     pub fn set_or_clear_relationship_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RelationshipAttributes>,
@@ -9378,6 +12079,17 @@ impl RelatedAssets {
     }
 
     /// Sets the value of [assets][crate::model::RelatedAssets::assets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelatedAssets;
+    /// use google_cloud_asset_v1::model::RelatedAsset;
+    /// let x = RelatedAssets::new()
+    ///     .set_assets([
+    ///         RelatedAsset::default()/* use setters */,
+    ///         RelatedAsset::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_assets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9426,12 +12138,24 @@ impl RelationshipAttributes {
     }
 
     /// Sets the value of [r#type][crate::model::RelationshipAttributes::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelationshipAttributes;
+    /// let x = RelationshipAttributes::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [source_resource_type][crate::model::RelationshipAttributes::source_resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelationshipAttributes;
+    /// let x = RelationshipAttributes::new().set_source_resource_type("example");
+    /// ```
     pub fn set_source_resource_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9441,6 +12165,12 @@ impl RelationshipAttributes {
     }
 
     /// Sets the value of [target_resource_type][crate::model::RelationshipAttributes::target_resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelationshipAttributes;
+    /// let x = RelationshipAttributes::new().set_target_resource_type("example");
+    /// ```
     pub fn set_target_resource_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9450,6 +12180,12 @@ impl RelationshipAttributes {
     }
 
     /// Sets the value of [action][crate::model::RelationshipAttributes::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelationshipAttributes;
+    /// let x = RelationshipAttributes::new().set_action("example");
+    /// ```
     pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
@@ -9509,18 +12245,36 @@ impl RelatedAsset {
     }
 
     /// Sets the value of [asset][crate::model::RelatedAsset::asset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelatedAsset;
+    /// let x = RelatedAsset::new().set_asset("example");
+    /// ```
     pub fn set_asset<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset = v.into();
         self
     }
 
     /// Sets the value of [asset_type][crate::model::RelatedAsset::asset_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelatedAsset;
+    /// let x = RelatedAsset::new().set_asset_type("example");
+    /// ```
     pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_type = v.into();
         self
     }
 
     /// Sets the value of [ancestors][crate::model::RelatedAsset::ancestors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelatedAsset;
+    /// let x = RelatedAsset::new().set_ancestors(["a", "b", "c"]);
+    /// ```
     pub fn set_ancestors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9532,6 +12286,12 @@ impl RelatedAsset {
     }
 
     /// Sets the value of [relationship_type][crate::model::RelatedAsset::relationship_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelatedAsset;
+    /// let x = RelatedAsset::new().set_relationship_type("example");
+    /// ```
     pub fn set_relationship_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -9574,6 +12334,12 @@ impl Tag {
     }
 
     /// Sets the value of [tag_key][crate::model::Tag::tag_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Tag;
+    /// let x = Tag::new().set_tag_key("example");
+    /// ```
     pub fn set_tag_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9583,6 +12349,13 @@ impl Tag {
     }
 
     /// Sets or clears the value of [tag_key][crate::model::Tag::tag_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Tag;
+    /// let x = Tag::new().set_or_clear_tag_key(Some("example"));
+    /// let x = Tag::new().set_or_clear_tag_key(None::<String>);
+    /// ```
     pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9592,6 +12365,12 @@ impl Tag {
     }
 
     /// Sets the value of [tag_key_id][crate::model::Tag::tag_key_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Tag;
+    /// let x = Tag::new().set_tag_key_id("example");
+    /// ```
     pub fn set_tag_key_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9601,6 +12380,13 @@ impl Tag {
     }
 
     /// Sets or clears the value of [tag_key_id][crate::model::Tag::tag_key_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Tag;
+    /// let x = Tag::new().set_or_clear_tag_key_id(Some("example"));
+    /// let x = Tag::new().set_or_clear_tag_key_id(None::<String>);
+    /// ```
     pub fn set_or_clear_tag_key_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9610,6 +12396,12 @@ impl Tag {
     }
 
     /// Sets the value of [tag_value][crate::model::Tag::tag_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Tag;
+    /// let x = Tag::new().set_tag_value("example");
+    /// ```
     pub fn set_tag_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9619,6 +12411,13 @@ impl Tag {
     }
 
     /// Sets or clears the value of [tag_value][crate::model::Tag::tag_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Tag;
+    /// let x = Tag::new().set_or_clear_tag_value(Some("example"));
+    /// let x = Tag::new().set_or_clear_tag_value(None::<String>);
+    /// ```
     pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9628,6 +12427,12 @@ impl Tag {
     }
 
     /// Sets the value of [tag_value_id][crate::model::Tag::tag_value_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Tag;
+    /// let x = Tag::new().set_tag_value_id("example");
+    /// ```
     pub fn set_tag_value_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9637,6 +12442,13 @@ impl Tag {
     }
 
     /// Sets or clears the value of [tag_value_id][crate::model::Tag::tag_value_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::Tag;
+    /// let x = Tag::new().set_or_clear_tag_value_id(Some("example"));
+    /// let x = Tag::new().set_or_clear_tag_value_id(None::<String>);
+    /// ```
     pub fn set_or_clear_tag_value_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9687,6 +12499,12 @@ impl EffectiveTagDetails {
     }
 
     /// Sets the value of [attached_resource][crate::model::EffectiveTagDetails::attached_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::EffectiveTagDetails;
+    /// let x = EffectiveTagDetails::new().set_attached_resource("example");
+    /// ```
     pub fn set_attached_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9696,6 +12514,13 @@ impl EffectiveTagDetails {
     }
 
     /// Sets or clears the value of [attached_resource][crate::model::EffectiveTagDetails::attached_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::EffectiveTagDetails;
+    /// let x = EffectiveTagDetails::new().set_or_clear_attached_resource(Some("example"));
+    /// let x = EffectiveTagDetails::new().set_or_clear_attached_resource(None::<String>);
+    /// ```
     pub fn set_or_clear_attached_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -9705,6 +12530,17 @@ impl EffectiveTagDetails {
     }
 
     /// Sets the value of [effective_tags][crate::model::EffectiveTagDetails::effective_tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::EffectiveTagDetails;
+    /// use google_cloud_asset_v1::model::Tag;
+    /// let x = EffectiveTagDetails::new()
+    ///     .set_effective_tags([
+    ///         Tag::default()/* use setters */,
+    ///         Tag::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_effective_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10120,24 +12956,48 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [name][crate::model::ResourceSearchResult::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [asset_type][crate::model::ResourceSearchResult::asset_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_asset_type("example");
+    /// ```
     pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_type = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::ResourceSearchResult::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [folders][crate::model::ResourceSearchResult::folders].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_folders(["a", "b", "c"]);
+    /// ```
     pub fn set_folders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10149,30 +13009,63 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [organization][crate::model::ResourceSearchResult::organization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_organization("example");
+    /// ```
     pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.organization = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ResourceSearchResult::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::ResourceSearchResult::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::ResourceSearchResult::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::ResourceSearchResult::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10185,6 +13078,12 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [network_tags][crate::model::ResourceSearchResult::network_tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_network_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_network_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10196,6 +13095,12 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [kms_key][crate::model::ResourceSearchResult::kms_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_kms_key("example");
+    /// ```
     #[deprecated]
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
@@ -10203,6 +13108,12 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [kms_keys][crate::model::ResourceSearchResult::kms_keys].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_kms_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_kms_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10214,6 +13125,13 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [create_time][crate::model::ResourceSearchResult::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// use wkt::Timestamp;
+    /// let x = ResourceSearchResult::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10223,6 +13141,14 @@ impl ResourceSearchResult {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ResourceSearchResult::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// use wkt::Timestamp;
+    /// let x = ResourceSearchResult::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ResourceSearchResult::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10232,6 +13158,13 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [update_time][crate::model::ResourceSearchResult::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// use wkt::Timestamp;
+    /// let x = ResourceSearchResult::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10241,6 +13174,14 @@ impl ResourceSearchResult {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ResourceSearchResult::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// use wkt::Timestamp;
+    /// let x = ResourceSearchResult::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ResourceSearchResult::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10250,12 +13191,25 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [state][crate::model::ResourceSearchResult::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_state("example");
+    /// ```
     pub fn set_state<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [additional_attributes][crate::model::ResourceSearchResult::additional_attributes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// use wkt::Struct;
+    /// let x = ResourceSearchResult::new().set_additional_attributes(Struct::default()/* use setters */);
+    /// ```
     pub fn set_additional_attributes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -10265,6 +13219,14 @@ impl ResourceSearchResult {
     }
 
     /// Sets or clears the value of [additional_attributes][crate::model::ResourceSearchResult::additional_attributes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// use wkt::Struct;
+    /// let x = ResourceSearchResult::new().set_or_clear_additional_attributes(Some(Struct::default()/* use setters */));
+    /// let x = ResourceSearchResult::new().set_or_clear_additional_attributes(None::<Struct>);
+    /// ```
     pub fn set_or_clear_additional_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -10274,6 +13236,12 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [parent_full_resource_name][crate::model::ResourceSearchResult::parent_full_resource_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_parent_full_resource_name("example");
+    /// ```
     pub fn set_parent_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10283,6 +13251,17 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [versioned_resources][crate::model::ResourceSearchResult::versioned_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// use google_cloud_asset_v1::model::VersionedResource;
+    /// let x = ResourceSearchResult::new()
+    ///     .set_versioned_resources([
+    ///         VersionedResource::default()/* use setters */,
+    ///         VersionedResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_versioned_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10294,6 +13273,17 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [attached_resources][crate::model::ResourceSearchResult::attached_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// use google_cloud_asset_v1::model::AttachedResource;
+    /// let x = ResourceSearchResult::new()
+    ///     .set_attached_resources([
+    ///         AttachedResource::default()/* use setters */,
+    ///         AttachedResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_attached_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10305,6 +13295,16 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [relationships][crate::model::ResourceSearchResult::relationships].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// use google_cloud_asset_v1::model::RelatedResources;
+    /// let x = ResourceSearchResult::new().set_relationships([
+    ///     ("key0", RelatedResources::default()/* use setters */),
+    ///     ("key1", RelatedResources::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_relationships<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10317,6 +13317,12 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [tag_keys][crate::model::ResourceSearchResult::tag_keys].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_tag_keys(["a", "b", "c"]);
+    /// ```
     #[deprecated]
     pub fn set_tag_keys<T, V>(mut self, v: T) -> Self
     where
@@ -10329,6 +13335,12 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [tag_values][crate::model::ResourceSearchResult::tag_values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_tag_values(["a", "b", "c"]);
+    /// ```
     #[deprecated]
     pub fn set_tag_values<T, V>(mut self, v: T) -> Self
     where
@@ -10341,6 +13353,12 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [tag_value_ids][crate::model::ResourceSearchResult::tag_value_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_tag_value_ids(["a", "b", "c"]);
+    /// ```
     #[deprecated]
     pub fn set_tag_value_ids<T, V>(mut self, v: T) -> Self
     where
@@ -10353,6 +13371,17 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [tags][crate::model::ResourceSearchResult::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// use google_cloud_asset_v1::model::Tag;
+    /// let x = ResourceSearchResult::new()
+    ///     .set_tags([
+    ///         Tag::default()/* use setters */,
+    ///         Tag::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10364,6 +13393,17 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [effective_tags][crate::model::ResourceSearchResult::effective_tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// use google_cloud_asset_v1::model::EffectiveTagDetails;
+    /// let x = ResourceSearchResult::new()
+    ///     .set_effective_tags([
+    ///         EffectiveTagDetails::default()/* use setters */,
+    ///         EffectiveTagDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_effective_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10375,6 +13415,17 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [enrichments][crate::model::ResourceSearchResult::enrichments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// use google_cloud_asset_v1::model::AssetEnrichment;
+    /// let x = ResourceSearchResult::new()
+    ///     .set_enrichments([
+    ///         AssetEnrichment::default()/* use setters */,
+    ///         AssetEnrichment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_enrichments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10386,6 +13437,12 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [parent_asset_type][crate::model::ResourceSearchResult::parent_asset_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_parent_asset_type("example");
+    /// ```
     pub fn set_parent_asset_type<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10395,6 +13452,15 @@ impl ResourceSearchResult {
     }
 
     /// Sets the value of [scc_security_marks][crate::model::ResourceSearchResult::scc_security_marks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ResourceSearchResult;
+    /// let x = ResourceSearchResult::new().set_scc_security_marks([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_scc_security_marks<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10449,12 +13515,25 @@ impl VersionedResource {
     }
 
     /// Sets the value of [version][crate::model::VersionedResource::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::VersionedResource;
+    /// let x = VersionedResource::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::VersionedResource::resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::VersionedResource;
+    /// use wkt::Struct;
+    /// let x = VersionedResource::new().set_resource(Struct::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -10464,6 +13543,14 @@ impl VersionedResource {
     }
 
     /// Sets or clears the value of [resource][crate::model::VersionedResource::resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::VersionedResource;
+    /// use wkt::Struct;
+    /// let x = VersionedResource::new().set_or_clear_resource(Some(Struct::default()/* use setters */));
+    /// let x = VersionedResource::new().set_or_clear_resource(None::<Struct>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -10507,12 +13594,29 @@ impl AttachedResource {
     }
 
     /// Sets the value of [asset_type][crate::model::AttachedResource::asset_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AttachedResource;
+    /// let x = AttachedResource::new().set_asset_type("example");
+    /// ```
     pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_type = v.into();
         self
     }
 
     /// Sets the value of [versioned_resources][crate::model::AttachedResource::versioned_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::AttachedResource;
+    /// use google_cloud_asset_v1::model::VersionedResource;
+    /// let x = AttachedResource::new()
+    ///     .set_versioned_resources([
+    ///         VersionedResource::default()/* use setters */,
+    ///         VersionedResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_versioned_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10546,6 +13650,17 @@ impl RelatedResources {
     }
 
     /// Sets the value of [related_resources][crate::model::RelatedResources::related_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelatedResources;
+    /// use google_cloud_asset_v1::model::RelatedResource;
+    /// let x = RelatedResources::new()
+    ///     .set_related_resources([
+    ///         RelatedResource::default()/* use setters */,
+    ///         RelatedResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_related_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10583,12 +13698,24 @@ impl RelatedResource {
     }
 
     /// Sets the value of [asset_type][crate::model::RelatedResource::asset_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelatedResource;
+    /// let x = RelatedResource::new().set_asset_type("example");
+    /// ```
     pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_type = v.into();
         self
     }
 
     /// Sets the value of [full_resource_name][crate::model::RelatedResource::full_resource_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::RelatedResource;
+    /// let x = RelatedResource::new().set_full_resource_name("example");
+    /// ```
     pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10690,24 +13817,48 @@ impl IamPolicySearchResult {
     }
 
     /// Sets the value of [resource][crate::model::IamPolicySearchResult::resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicySearchResult;
+    /// let x = IamPolicySearchResult::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [asset_type][crate::model::IamPolicySearchResult::asset_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicySearchResult;
+    /// let x = IamPolicySearchResult::new().set_asset_type("example");
+    /// ```
     pub fn set_asset_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.asset_type = v.into();
         self
     }
 
     /// Sets the value of [project][crate::model::IamPolicySearchResult::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicySearchResult;
+    /// let x = IamPolicySearchResult::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [folders][crate::model::IamPolicySearchResult::folders].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicySearchResult;
+    /// let x = IamPolicySearchResult::new().set_folders(["a", "b", "c"]);
+    /// ```
     pub fn set_folders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10719,12 +13870,25 @@ impl IamPolicySearchResult {
     }
 
     /// Sets the value of [organization][crate::model::IamPolicySearchResult::organization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicySearchResult;
+    /// let x = IamPolicySearchResult::new().set_organization("example");
+    /// ```
     pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.organization = v.into();
         self
     }
 
     /// Sets the value of [policy][crate::model::IamPolicySearchResult::policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicySearchResult;
+    /// use iam_v1::model::Policy;
+    /// let x = IamPolicySearchResult::new().set_policy(Policy::default()/* use setters */);
+    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
@@ -10734,6 +13898,14 @@ impl IamPolicySearchResult {
     }
 
     /// Sets or clears the value of [policy][crate::model::IamPolicySearchResult::policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicySearchResult;
+    /// use iam_v1::model::Policy;
+    /// let x = IamPolicySearchResult::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
+    /// let x = IamPolicySearchResult::new().set_or_clear_policy(None::<Policy>);
+    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::Policy>,
@@ -10743,6 +13915,13 @@ impl IamPolicySearchResult {
     }
 
     /// Sets the value of [explanation][crate::model::IamPolicySearchResult::explanation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicySearchResult;
+    /// use google_cloud_asset_v1::model::iam_policy_search_result::Explanation;
+    /// let x = IamPolicySearchResult::new().set_explanation(Explanation::default()/* use setters */);
+    /// ```
     pub fn set_explanation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_search_result::Explanation>,
@@ -10752,6 +13931,14 @@ impl IamPolicySearchResult {
     }
 
     /// Sets or clears the value of [explanation][crate::model::IamPolicySearchResult::explanation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicySearchResult;
+    /// use google_cloud_asset_v1::model::iam_policy_search_result::Explanation;
+    /// let x = IamPolicySearchResult::new().set_or_clear_explanation(Some(Explanation::default()/* use setters */));
+    /// let x = IamPolicySearchResult::new().set_or_clear_explanation(None::<Explanation>);
+    /// ```
     pub fn set_or_clear_explanation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_search_result::Explanation>,
@@ -10797,6 +13984,16 @@ pub mod iam_policy_search_result {
         }
 
         /// Sets the value of [matched_permissions][crate::model::iam_policy_search_result::Explanation::matched_permissions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_search_result::Explanation;
+        /// use google_cloud_asset_v1::model::iam_policy_search_result::explanation::Permissions;
+        /// let x = Explanation::new().set_matched_permissions([
+        ///     ("key0", Permissions::default()/* use setters */),
+        ///     ("key1", Permissions::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_matched_permissions<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10836,6 +14033,12 @@ pub mod iam_policy_search_result {
             }
 
             /// Sets the value of [permissions][crate::model::iam_policy_search_result::explanation::Permissions::permissions].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_asset_v1::model::iam_policy_search_result::explanation::Permissions;
+            /// let x = Permissions::new().set_permissions(["a", "b", "c"]);
+            /// ```
             pub fn set_permissions<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -10881,12 +14084,27 @@ impl IamPolicyAnalysisState {
     }
 
     /// Sets the value of [code][crate::model::IamPolicyAnalysisState::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisState;
+    /// use rpc::model::Code;
+    /// let x0 = IamPolicyAnalysisState::new().set_code(Code::Cancelled);
+    /// let x1 = IamPolicyAnalysisState::new().set_code(Code::Unknown);
+    /// let x2 = IamPolicyAnalysisState::new().set_code(Code::InvalidArgument);
+    /// ```
     pub fn set_code<T: std::convert::Into<rpc::model::Code>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
 
     /// Sets the value of [cause][crate::model::IamPolicyAnalysisState::cause].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisState;
+    /// let x = IamPolicyAnalysisState::new().set_cause("example");
+    /// ```
     pub fn set_cause<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cause = v.into();
         self
@@ -10915,6 +14133,15 @@ impl ConditionEvaluation {
     }
 
     /// Sets the value of [evaluation_value][crate::model::ConditionEvaluation::evaluation_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::ConditionEvaluation;
+    /// use google_cloud_asset_v1::model::condition_evaluation::EvaluationValue;
+    /// let x0 = ConditionEvaluation::new().set_evaluation_value(EvaluationValue::True);
+    /// let x1 = ConditionEvaluation::new().set_evaluation_value(EvaluationValue::False);
+    /// let x2 = ConditionEvaluation::new().set_evaluation_value(EvaluationValue::Conditional);
+    /// ```
     pub fn set_evaluation_value<
         T: std::convert::Into<crate::model::condition_evaluation::EvaluationValue>,
     >(
@@ -11128,6 +14355,12 @@ impl IamPolicyAnalysisResult {
     }
 
     /// Sets the value of [attached_resource_full_name][crate::model::IamPolicyAnalysisResult::attached_resource_full_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisResult;
+    /// let x = IamPolicyAnalysisResult::new().set_attached_resource_full_name("example");
+    /// ```
     pub fn set_attached_resource_full_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -11137,6 +14370,13 @@ impl IamPolicyAnalysisResult {
     }
 
     /// Sets the value of [iam_binding][crate::model::IamPolicyAnalysisResult::iam_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisResult;
+    /// use iam_v1::model::Binding;
+    /// let x = IamPolicyAnalysisResult::new().set_iam_binding(Binding::default()/* use setters */);
+    /// ```
     pub fn set_iam_binding<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<iam_v1::model::Binding>,
@@ -11146,6 +14386,14 @@ impl IamPolicyAnalysisResult {
     }
 
     /// Sets or clears the value of [iam_binding][crate::model::IamPolicyAnalysisResult::iam_binding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisResult;
+    /// use iam_v1::model::Binding;
+    /// let x = IamPolicyAnalysisResult::new().set_or_clear_iam_binding(Some(Binding::default()/* use setters */));
+    /// let x = IamPolicyAnalysisResult::new().set_or_clear_iam_binding(None::<Binding>);
+    /// ```
     pub fn set_or_clear_iam_binding<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<iam_v1::model::Binding>,
@@ -11155,6 +14403,17 @@ impl IamPolicyAnalysisResult {
     }
 
     /// Sets the value of [access_control_lists][crate::model::IamPolicyAnalysisResult::access_control_lists].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisResult;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_result::AccessControlList;
+    /// let x = IamPolicyAnalysisResult::new()
+    ///     .set_access_control_lists([
+    ///         AccessControlList::default()/* use setters */,
+    ///         AccessControlList::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_access_control_lists<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -11166,6 +14425,13 @@ impl IamPolicyAnalysisResult {
     }
 
     /// Sets the value of [identity_list][crate::model::IamPolicyAnalysisResult::identity_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisResult;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_result::IdentityList;
+    /// let x = IamPolicyAnalysisResult::new().set_identity_list(IdentityList::default()/* use setters */);
+    /// ```
     pub fn set_identity_list<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_result::IdentityList>,
@@ -11175,6 +14441,14 @@ impl IamPolicyAnalysisResult {
     }
 
     /// Sets or clears the value of [identity_list][crate::model::IamPolicyAnalysisResult::identity_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisResult;
+    /// use google_cloud_asset_v1::model::iam_policy_analysis_result::IdentityList;
+    /// let x = IamPolicyAnalysisResult::new().set_or_clear_identity_list(Some(IdentityList::default()/* use setters */));
+    /// let x = IamPolicyAnalysisResult::new().set_or_clear_identity_list(None::<IdentityList>);
+    /// ```
     pub fn set_or_clear_identity_list<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::iam_policy_analysis_result::IdentityList>,
@@ -11184,6 +14458,12 @@ impl IamPolicyAnalysisResult {
     }
 
     /// Sets the value of [fully_explored][crate::model::IamPolicyAnalysisResult::fully_explored].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_asset_v1::model::IamPolicyAnalysisResult;
+    /// let x = IamPolicyAnalysisResult::new().set_fully_explored(true);
+    /// ```
     pub fn set_fully_explored<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.fully_explored = v.into();
         self
@@ -11221,6 +14501,12 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets the value of [full_resource_name][crate::model::iam_policy_analysis_result::Resource::full_resource_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Resource;
+        /// let x = Resource::new().set_full_resource_name("example");
+        /// ```
         pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -11230,6 +14516,13 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets the value of [analysis_state][crate::model::iam_policy_analysis_result::Resource::analysis_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Resource;
+        /// use google_cloud_asset_v1::model::IamPolicyAnalysisState;
+        /// let x = Resource::new().set_analysis_state(IamPolicyAnalysisState::default()/* use setters */);
+        /// ```
         pub fn set_analysis_state<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::IamPolicyAnalysisState>,
@@ -11239,6 +14532,14 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets or clears the value of [analysis_state][crate::model::iam_policy_analysis_result::Resource::analysis_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Resource;
+        /// use google_cloud_asset_v1::model::IamPolicyAnalysisState;
+        /// let x = Resource::new().set_or_clear_analysis_state(Some(IamPolicyAnalysisState::default()/* use setters */));
+        /// let x = Resource::new().set_or_clear_analysis_state(None::<IamPolicyAnalysisState>);
+        /// ```
         pub fn set_or_clear_analysis_state<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::IamPolicyAnalysisState>,
@@ -11273,6 +14574,13 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets the value of [analysis_state][crate::model::iam_policy_analysis_result::Access::analysis_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Access;
+        /// use google_cloud_asset_v1::model::IamPolicyAnalysisState;
+        /// let x = Access::new().set_analysis_state(IamPolicyAnalysisState::default()/* use setters */);
+        /// ```
         pub fn set_analysis_state<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::IamPolicyAnalysisState>,
@@ -11282,6 +14590,14 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets or clears the value of [analysis_state][crate::model::iam_policy_analysis_result::Access::analysis_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Access;
+        /// use google_cloud_asset_v1::model::IamPolicyAnalysisState;
+        /// let x = Access::new().set_or_clear_analysis_state(Some(IamPolicyAnalysisState::default()/* use setters */));
+        /// let x = Access::new().set_or_clear_analysis_state(None::<IamPolicyAnalysisState>);
+        /// ```
         pub fn set_or_clear_analysis_state<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::IamPolicyAnalysisState>,
@@ -11294,6 +14610,13 @@ pub mod iam_policy_analysis_result {
         ///
         /// Note that all the setters affecting `oneof_access` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Access;
+        /// use google_cloud_asset_v1::model::iam_policy_analysis_result::access::OneofAccess;
+        /// let x = Access::new().set_oneof_access(Some(OneofAccess::Role("example".to_string())));
+        /// ```
         pub fn set_oneof_access<
             T: std::convert::Into<
                     std::option::Option<
@@ -11326,6 +14649,14 @@ pub mod iam_policy_analysis_result {
         ///
         /// Note that all the setters affecting `oneof_access` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Access;
+        /// let x = Access::new().set_role("example");
+        /// assert!(x.role().is_some());
+        /// assert!(x.permission().is_none());
+        /// ```
         pub fn set_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.oneof_access = std::option::Option::Some(
                 crate::model::iam_policy_analysis_result::access::OneofAccess::Role(v.into()),
@@ -11351,6 +14682,14 @@ pub mod iam_policy_analysis_result {
         ///
         /// Note that all the setters affecting `oneof_access` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Access;
+        /// let x = Access::new().set_permission("example");
+        /// assert!(x.permission().is_some());
+        /// assert!(x.role().is_none());
+        /// ```
         pub fn set_permission<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.oneof_access = std::option::Option::Some(
                 crate::model::iam_policy_analysis_result::access::OneofAccess::Permission(v.into()),
@@ -11409,12 +14748,25 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets the value of [name][crate::model::iam_policy_analysis_result::Identity::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Identity;
+        /// let x = Identity::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [analysis_state][crate::model::iam_policy_analysis_result::Identity::analysis_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Identity;
+        /// use google_cloud_asset_v1::model::IamPolicyAnalysisState;
+        /// let x = Identity::new().set_analysis_state(IamPolicyAnalysisState::default()/* use setters */);
+        /// ```
         pub fn set_analysis_state<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::IamPolicyAnalysisState>,
@@ -11424,6 +14776,14 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets or clears the value of [analysis_state][crate::model::iam_policy_analysis_result::Identity::analysis_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Identity;
+        /// use google_cloud_asset_v1::model::IamPolicyAnalysisState;
+        /// let x = Identity::new().set_or_clear_analysis_state(Some(IamPolicyAnalysisState::default()/* use setters */));
+        /// let x = Identity::new().set_or_clear_analysis_state(None::<IamPolicyAnalysisState>);
+        /// ```
         pub fn set_or_clear_analysis_state<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::IamPolicyAnalysisState>,
@@ -11460,12 +14820,24 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets the value of [source_node][crate::model::iam_policy_analysis_result::Edge::source_node].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Edge;
+        /// let x = Edge::new().set_source_node("example");
+        /// ```
         pub fn set_source_node<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.source_node = v.into();
             self
         }
 
         /// Sets the value of [target_node][crate::model::iam_policy_analysis_result::Edge::target_node].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::Edge;
+        /// let x = Edge::new().set_target_node("example");
+        /// ```
         pub fn set_target_node<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.target_node = v.into();
             self
@@ -11535,6 +14907,17 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets the value of [resources][crate::model::iam_policy_analysis_result::AccessControlList::resources].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::AccessControlList;
+        /// use google_cloud_asset_v1::model::iam_policy_analysis_result::Resource;
+        /// let x = AccessControlList::new()
+        ///     .set_resources([
+        ///         Resource::default()/* use setters */,
+        ///         Resource::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_resources<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11546,6 +14929,17 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets the value of [accesses][crate::model::iam_policy_analysis_result::AccessControlList::accesses].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::AccessControlList;
+        /// use google_cloud_asset_v1::model::iam_policy_analysis_result::Access;
+        /// let x = AccessControlList::new()
+        ///     .set_accesses([
+        ///         Access::default()/* use setters */,
+        ///         Access::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_accesses<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11557,6 +14951,17 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets the value of [resource_edges][crate::model::iam_policy_analysis_result::AccessControlList::resource_edges].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::AccessControlList;
+        /// use google_cloud_asset_v1::model::iam_policy_analysis_result::Edge;
+        /// let x = AccessControlList::new()
+        ///     .set_resource_edges([
+        ///         Edge::default()/* use setters */,
+        ///         Edge::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_resource_edges<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11568,6 +14973,13 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets the value of [condition_evaluation][crate::model::iam_policy_analysis_result::AccessControlList::condition_evaluation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::AccessControlList;
+        /// use google_cloud_asset_v1::model::ConditionEvaluation;
+        /// let x = AccessControlList::new().set_condition_evaluation(ConditionEvaluation::default()/* use setters */);
+        /// ```
         pub fn set_condition_evaluation<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::ConditionEvaluation>,
@@ -11577,6 +14989,14 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets or clears the value of [condition_evaluation][crate::model::iam_policy_analysis_result::AccessControlList::condition_evaluation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::AccessControlList;
+        /// use google_cloud_asset_v1::model::ConditionEvaluation;
+        /// let x = AccessControlList::new().set_or_clear_condition_evaluation(Some(ConditionEvaluation::default()/* use setters */));
+        /// let x = AccessControlList::new().set_or_clear_condition_evaluation(None::<ConditionEvaluation>);
+        /// ```
         pub fn set_or_clear_condition_evaluation<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::ConditionEvaluation>,
@@ -11628,6 +15048,17 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets the value of [identities][crate::model::iam_policy_analysis_result::IdentityList::identities].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::IdentityList;
+        /// use google_cloud_asset_v1::model::iam_policy_analysis_result::Identity;
+        /// let x = IdentityList::new()
+        ///     .set_identities([
+        ///         Identity::default()/* use setters */,
+        ///         Identity::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_identities<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -11639,6 +15070,17 @@ pub mod iam_policy_analysis_result {
         }
 
         /// Sets the value of [group_edges][crate::model::iam_policy_analysis_result::IdentityList::group_edges].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_asset_v1::model::iam_policy_analysis_result::IdentityList;
+        /// use google_cloud_asset_v1::model::iam_policy_analysis_result::Edge;
+        /// let x = IdentityList::new()
+        ///     .set_group_edges([
+        ///         Edge::default()/* use setters */,
+        ///         Edge::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_group_edges<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,

@@ -131,6 +131,12 @@ impl DenyRule {
     }
 
     /// Sets the value of [denied_principals][crate::model::DenyRule::denied_principals].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::DenyRule;
+    /// let x = DenyRule::new().set_denied_principals(["a", "b", "c"]);
+    /// ```
     pub fn set_denied_principals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -142,6 +148,12 @@ impl DenyRule {
     }
 
     /// Sets the value of [exception_principals][crate::model::DenyRule::exception_principals].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::DenyRule;
+    /// let x = DenyRule::new().set_exception_principals(["a", "b", "c"]);
+    /// ```
     pub fn set_exception_principals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -153,6 +165,12 @@ impl DenyRule {
     }
 
     /// Sets the value of [denied_permissions][crate::model::DenyRule::denied_permissions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::DenyRule;
+    /// let x = DenyRule::new().set_denied_permissions(["a", "b", "c"]);
+    /// ```
     pub fn set_denied_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -164,6 +182,12 @@ impl DenyRule {
     }
 
     /// Sets the value of [exception_permissions][crate::model::DenyRule::exception_permissions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::DenyRule;
+    /// let x = DenyRule::new().set_exception_permissions(["a", "b", "c"]);
+    /// ```
     pub fn set_exception_permissions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -175,6 +199,13 @@ impl DenyRule {
     }
 
     /// Sets the value of [denial_condition][crate::model::DenyRule::denial_condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::DenyRule;
+    /// use gtype::model::Expr;
+    /// let x = DenyRule::new().set_denial_condition(Expr::default()/* use setters */);
+    /// ```
     pub fn set_denial_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -184,6 +215,14 @@ impl DenyRule {
     }
 
     /// Sets or clears the value of [denial_condition][crate::model::DenyRule::denial_condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::DenyRule;
+    /// use gtype::model::Expr;
+    /// let x = DenyRule::new().set_or_clear_denial_condition(Some(Expr::default()/* use setters */));
+    /// let x = DenyRule::new().set_or_clear_denial_condition(None::<Expr>);
+    /// ```
     pub fn set_or_clear_denial_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Expr>,
@@ -265,30 +304,63 @@ impl Policy {
     }
 
     /// Sets the value of [name][crate::model::Policy::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// let x = Policy::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Policy::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// let x = Policy::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::Policy::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// let x = Policy::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Policy::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// let x = Policy::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::Policy::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// let x = Policy::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -301,12 +373,25 @@ impl Policy {
     }
 
     /// Sets the value of [etag][crate::model::Policy::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// let x = Policy::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Policy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// use wkt::Timestamp;
+    /// let x = Policy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -316,6 +401,14 @@ impl Policy {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Policy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// use wkt::Timestamp;
+    /// let x = Policy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Policy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -325,6 +418,13 @@ impl Policy {
     }
 
     /// Sets the value of [update_time][crate::model::Policy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// use wkt::Timestamp;
+    /// let x = Policy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -334,6 +434,14 @@ impl Policy {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Policy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// use wkt::Timestamp;
+    /// let x = Policy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Policy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -343,6 +451,13 @@ impl Policy {
     }
 
     /// Sets the value of [delete_time][crate::model::Policy::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// use wkt::Timestamp;
+    /// let x = Policy::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -352,6 +467,14 @@ impl Policy {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Policy::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// use wkt::Timestamp;
+    /// let x = Policy::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Policy::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -361,6 +484,17 @@ impl Policy {
     }
 
     /// Sets the value of [rules][crate::model::Policy::rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// use google_cloud_iam_v2::model::PolicyRule;
+    /// let x = Policy::new()
+    ///     .set_rules([
+    ///         PolicyRule::default()/* use setters */,
+    ///         PolicyRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_rules<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -372,6 +506,12 @@ impl Policy {
     }
 
     /// Sets the value of [managing_authority][crate::model::Policy::managing_authority].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::Policy;
+    /// let x = Policy::new().set_managing_authority("example");
+    /// ```
     pub fn set_managing_authority<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -406,6 +546,12 @@ impl PolicyRule {
     }
 
     /// Sets the value of [description][crate::model::PolicyRule::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::PolicyRule;
+    /// let x = PolicyRule::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
@@ -415,6 +561,14 @@ impl PolicyRule {
     ///
     /// Note that all the setters affecting `kind` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::PolicyRule;
+    /// use google_cloud_iam_v2::model::DenyRule;
+    /// let x = PolicyRule::new().set_kind(Some(
+    ///     google_cloud_iam_v2::model::policy_rule::Kind::DenyRule(DenyRule::default().into())));
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::option::Option<crate::model::policy_rule::Kind>>>(
         mut self,
         v: T,
@@ -439,6 +593,14 @@ impl PolicyRule {
     ///
     /// Note that all the setters affecting `kind` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::PolicyRule;
+    /// use google_cloud_iam_v2::model::DenyRule;
+    /// let x = PolicyRule::new().set_deny_rule(DenyRule::default()/* use setters */);
+    /// assert!(x.deny_rule().is_some());
+    /// ```
     pub fn set_deny_rule<T: std::convert::Into<std::boxed::Box<crate::model::DenyRule>>>(
         mut self,
         v: T,
@@ -503,18 +665,36 @@ impl ListPoliciesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPoliciesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::ListPoliciesRequest;
+    /// let x = ListPoliciesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPoliciesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::ListPoliciesRequest;
+    /// let x = ListPoliciesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPoliciesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::ListPoliciesRequest;
+    /// let x = ListPoliciesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -549,6 +729,17 @@ impl ListPoliciesResponse {
     }
 
     /// Sets the value of [policies][crate::model::ListPoliciesResponse::policies].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::ListPoliciesResponse;
+    /// use google_cloud_iam_v2::model::Policy;
+    /// let x = ListPoliciesResponse::new()
+    ///     .set_policies([
+    ///         Policy::default()/* use setters */,
+    ///         Policy::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_policies<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -560,6 +751,12 @@ impl ListPoliciesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPoliciesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::ListPoliciesResponse;
+    /// let x = ListPoliciesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -610,6 +807,12 @@ impl GetPolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::GetPolicyRequest;
+    /// let x = GetPolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -656,12 +859,25 @@ impl CreatePolicyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::CreatePolicyRequest;
+    /// let x = CreatePolicyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [policy][crate::model::CreatePolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::CreatePolicyRequest;
+    /// use google_cloud_iam_v2::model::Policy;
+    /// let x = CreatePolicyRequest::new().set_policy(Policy::default()/* use setters */);
+    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -671,6 +887,14 @@ impl CreatePolicyRequest {
     }
 
     /// Sets or clears the value of [policy][crate::model::CreatePolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::CreatePolicyRequest;
+    /// use google_cloud_iam_v2::model::Policy;
+    /// let x = CreatePolicyRequest::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
+    /// let x = CreatePolicyRequest::new().set_or_clear_policy(None::<Policy>);
+    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -680,6 +904,12 @@ impl CreatePolicyRequest {
     }
 
     /// Sets the value of [policy_id][crate::model::CreatePolicyRequest::policy_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::CreatePolicyRequest;
+    /// let x = CreatePolicyRequest::new().set_policy_id("example");
+    /// ```
     pub fn set_policy_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.policy_id = v.into();
         self
@@ -712,6 +942,13 @@ impl UpdatePolicyRequest {
     }
 
     /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::UpdatePolicyRequest;
+    /// use google_cloud_iam_v2::model::Policy;
+    /// let x = UpdatePolicyRequest::new().set_policy(Policy::default()/* use setters */);
+    /// ```
     pub fn set_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -721,6 +958,14 @@ impl UpdatePolicyRequest {
     }
 
     /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::UpdatePolicyRequest;
+    /// use google_cloud_iam_v2::model::Policy;
+    /// let x = UpdatePolicyRequest::new().set_or_clear_policy(Some(Policy::default()/* use setters */));
+    /// let x = UpdatePolicyRequest::new().set_or_clear_policy(None::<Policy>);
+    /// ```
     pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Policy>,
@@ -768,12 +1013,24 @@ impl DeletePolicyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeletePolicyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::DeletePolicyRequest;
+    /// let x = DeletePolicyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeletePolicyRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::DeletePolicyRequest;
+    /// let x = DeletePolicyRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -802,6 +1059,13 @@ impl PolicyOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::PolicyOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::PolicyOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = PolicyOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -811,6 +1075,14 @@ impl PolicyOperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::PolicyOperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_iam_v2::model::PolicyOperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = PolicyOperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PolicyOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

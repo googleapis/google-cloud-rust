@@ -158,12 +158,25 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -173,6 +186,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -182,6 +203,13 @@ impl Instance {
     }
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -191,6 +219,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -200,6 +236,15 @@ impl Instance {
     }
 
     /// Sets the value of [labels][crate::model::Instance::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -212,12 +257,28 @@ impl Instance {
     }
 
     /// Sets the value of [state][crate::model::Instance::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::State;
+    /// let x0 = Instance::new().set_state(State::Creating);
+    /// let x1 = Instance::new().set_state(State::Active);
+    /// let x2 = Instance::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [state_info][crate::model::Instance::state_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::StateInfo;
+    /// let x = Instance::new().set_state_info(StateInfo::default()/* use setters */);
+    /// ```
     pub fn set_state_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::instance::StateInfo>,
@@ -227,6 +288,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [state_info][crate::model::Instance::state_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::StateInfo;
+    /// let x = Instance::new().set_or_clear_state_info(Some(StateInfo::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_state_info(None::<StateInfo>);
+    /// ```
     pub fn set_or_clear_state_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::instance::StateInfo>,
@@ -236,12 +305,24 @@ impl Instance {
     }
 
     /// Sets the value of [uid][crate::model::Instance::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [replica_count][crate::model::Instance::replica_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_replica_count(42);
+    /// ```
     pub fn set_replica_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -251,6 +332,13 @@ impl Instance {
     }
 
     /// Sets or clears the value of [replica_count][crate::model::Instance::replica_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_replica_count(Some(42));
+    /// let x = Instance::new().set_or_clear_replica_count(None::<i32>);
+    /// ```
     pub fn set_or_clear_replica_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -260,6 +348,14 @@ impl Instance {
     }
 
     /// Sets the value of [authorization_mode][crate::model::Instance::authorization_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::AuthorizationMode;
+    /// let x0 = Instance::new().set_authorization_mode(AuthorizationMode::AuthDisabled);
+    /// let x1 = Instance::new().set_authorization_mode(AuthorizationMode::IamAuth);
+    /// ```
     pub fn set_authorization_mode<
         T: std::convert::Into<crate::model::instance::AuthorizationMode>,
     >(
@@ -271,6 +367,14 @@ impl Instance {
     }
 
     /// Sets the value of [transit_encryption_mode][crate::model::Instance::transit_encryption_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::TransitEncryptionMode;
+    /// let x0 = Instance::new().set_transit_encryption_mode(TransitEncryptionMode::TransitEncryptionDisabled);
+    /// let x1 = Instance::new().set_transit_encryption_mode(TransitEncryptionMode::ServerAuthentication);
+    /// ```
     pub fn set_transit_encryption_mode<
         T: std::convert::Into<crate::model::instance::TransitEncryptionMode>,
     >(
@@ -282,12 +386,29 @@ impl Instance {
     }
 
     /// Sets the value of [shard_count][crate::model::Instance::shard_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_shard_count(42);
+    /// ```
     pub fn set_shard_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.shard_count = v.into();
         self
     }
 
     /// Sets the value of [discovery_endpoints][crate::model::Instance::discovery_endpoints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::DiscoveryEndpoint;
+    /// let x = Instance::new()
+    ///     .set_discovery_endpoints([
+    ///         DiscoveryEndpoint::default()/* use setters */,
+    ///         DiscoveryEndpoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_discovery_endpoints<T, V>(mut self, v: T) -> Self
     where
@@ -300,6 +421,15 @@ impl Instance {
     }
 
     /// Sets the value of [node_type][crate::model::Instance::node_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::NodeType;
+    /// let x0 = Instance::new().set_node_type(NodeType::SharedCoreNano);
+    /// let x1 = Instance::new().set_node_type(NodeType::HighmemMedium);
+    /// let x2 = Instance::new().set_node_type(NodeType::HighmemXlarge);
+    /// ```
     pub fn set_node_type<T: std::convert::Into<crate::model::instance::NodeType>>(
         mut self,
         v: T,
@@ -309,6 +439,13 @@ impl Instance {
     }
 
     /// Sets the value of [persistence_config][crate::model::Instance::persistence_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::PersistenceConfig;
+    /// let x = Instance::new().set_persistence_config(PersistenceConfig::default()/* use setters */);
+    /// ```
     pub fn set_persistence_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PersistenceConfig>,
@@ -318,6 +455,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [persistence_config][crate::model::Instance::persistence_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::PersistenceConfig;
+    /// let x = Instance::new().set_or_clear_persistence_config(Some(PersistenceConfig::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_persistence_config(None::<PersistenceConfig>);
+    /// ```
     pub fn set_or_clear_persistence_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PersistenceConfig>,
@@ -327,12 +472,27 @@ impl Instance {
     }
 
     /// Sets the value of [engine_version][crate::model::Instance::engine_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_engine_version("example");
+    /// ```
     pub fn set_engine_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine_version = v.into();
         self
     }
 
     /// Sets the value of [engine_configs][crate::model::Instance::engine_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_engine_configs([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_engine_configs<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -345,6 +505,13 @@ impl Instance {
     }
 
     /// Sets the value of [node_config][crate::model::Instance::node_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::NodeConfig;
+    /// let x = Instance::new().set_node_config(NodeConfig::default()/* use setters */);
+    /// ```
     pub fn set_node_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfig>,
@@ -354,6 +521,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [node_config][crate::model::Instance::node_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::NodeConfig;
+    /// let x = Instance::new().set_or_clear_node_config(Some(NodeConfig::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_node_config(None::<NodeConfig>);
+    /// ```
     pub fn set_or_clear_node_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeConfig>,
@@ -363,6 +538,13 @@ impl Instance {
     }
 
     /// Sets the value of [zone_distribution_config][crate::model::Instance::zone_distribution_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::ZoneDistributionConfig;
+    /// let x = Instance::new().set_zone_distribution_config(ZoneDistributionConfig::default()/* use setters */);
+    /// ```
     pub fn set_zone_distribution_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ZoneDistributionConfig>,
@@ -372,6 +554,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [zone_distribution_config][crate::model::Instance::zone_distribution_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::ZoneDistributionConfig;
+    /// let x = Instance::new().set_or_clear_zone_distribution_config(Some(ZoneDistributionConfig::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_zone_distribution_config(None::<ZoneDistributionConfig>);
+    /// ```
     pub fn set_or_clear_zone_distribution_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ZoneDistributionConfig>,
@@ -381,6 +571,12 @@ impl Instance {
     }
 
     /// Sets the value of [deletion_protection_enabled][crate::model::Instance::deletion_protection_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_deletion_protection_enabled(true);
+    /// ```
     pub fn set_deletion_protection_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -390,6 +586,13 @@ impl Instance {
     }
 
     /// Sets or clears the value of [deletion_protection_enabled][crate::model::Instance::deletion_protection_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_deletion_protection_enabled(Some(false));
+    /// let x = Instance::new().set_or_clear_deletion_protection_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_deletion_protection_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -399,6 +602,17 @@ impl Instance {
     }
 
     /// Sets the value of [psc_auto_connections][crate::model::Instance::psc_auto_connections].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::PscAutoConnection;
+    /// let x = Instance::new()
+    ///     .set_psc_auto_connections([
+    ///         PscAutoConnection::default()/* use setters */,
+    ///         PscAutoConnection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     #[deprecated]
     pub fn set_psc_auto_connections<T, V>(mut self, v: T) -> Self
     where
@@ -411,6 +625,17 @@ impl Instance {
     }
 
     /// Sets the value of [psc_attachment_details][crate::model::Instance::psc_attachment_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::PscAttachmentDetail;
+    /// let x = Instance::new()
+    ///     .set_psc_attachment_details([
+    ///         PscAttachmentDetail::default()/* use setters */,
+    ///         PscAttachmentDetail::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_psc_attachment_details<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -422,6 +647,17 @@ impl Instance {
     }
 
     /// Sets the value of [endpoints][crate::model::Instance::endpoints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::InstanceEndpoint;
+    /// let x = Instance::new()
+    ///     .set_endpoints([
+    ///         InstanceEndpoint::default()/* use setters */,
+    ///         InstanceEndpoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -433,12 +669,26 @@ impl Instance {
     }
 
     /// Sets the value of [mode][crate::model::Instance::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::Mode;
+    /// let x0 = Instance::new().set_mode(Mode::Cluster);
+    /// let x1 = Instance::new().set_mode(Mode::ClusterDisabled);
+    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::instance::Mode>>(mut self, v: T) -> Self {
         self.mode = v.into();
         self
     }
 
     /// Sets the value of [ondemand_maintenance][crate::model::Instance::ondemand_maintenance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_ondemand_maintenance(true);
+    /// ```
     pub fn set_ondemand_maintenance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -448,6 +698,13 @@ impl Instance {
     }
 
     /// Sets or clears the value of [ondemand_maintenance][crate::model::Instance::ondemand_maintenance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_ondemand_maintenance(Some(false));
+    /// let x = Instance::new().set_or_clear_ondemand_maintenance(None::<bool>);
+    /// ```
     pub fn set_or_clear_ondemand_maintenance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -457,6 +714,13 @@ impl Instance {
     }
 
     /// Sets the value of [maintenance_policy][crate::model::Instance::maintenance_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::MaintenancePolicy;
+    /// let x = Instance::new().set_maintenance_policy(MaintenancePolicy::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenancePolicy>,
@@ -466,6 +730,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [maintenance_policy][crate::model::Instance::maintenance_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::MaintenancePolicy;
+    /// let x = Instance::new().set_or_clear_maintenance_policy(Some(MaintenancePolicy::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_maintenance_policy(None::<MaintenancePolicy>);
+    /// ```
     pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenancePolicy>,
@@ -475,6 +747,13 @@ impl Instance {
     }
 
     /// Sets the value of [maintenance_schedule][crate::model::Instance::maintenance_schedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::MaintenanceSchedule;
+    /// let x = Instance::new().set_maintenance_schedule(MaintenanceSchedule::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceSchedule>,
@@ -484,6 +763,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [maintenance_schedule][crate::model::Instance::maintenance_schedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::MaintenanceSchedule;
+    /// let x = Instance::new().set_or_clear_maintenance_schedule(Some(MaintenanceSchedule::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_maintenance_schedule(None::<MaintenanceSchedule>);
+    /// ```
     pub fn set_or_clear_maintenance_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MaintenanceSchedule>,
@@ -493,6 +780,13 @@ impl Instance {
     }
 
     /// Sets the value of [cross_instance_replication_config][crate::model::Instance::cross_instance_replication_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::CrossInstanceReplicationConfig;
+    /// let x = Instance::new().set_cross_instance_replication_config(CrossInstanceReplicationConfig::default()/* use setters */);
+    /// ```
     pub fn set_cross_instance_replication_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CrossInstanceReplicationConfig>,
@@ -502,6 +796,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [cross_instance_replication_config][crate::model::Instance::cross_instance_replication_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::CrossInstanceReplicationConfig;
+    /// let x = Instance::new().set_or_clear_cross_instance_replication_config(Some(CrossInstanceReplicationConfig::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_cross_instance_replication_config(None::<CrossInstanceReplicationConfig>);
+    /// ```
     pub fn set_or_clear_cross_instance_replication_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -514,6 +816,12 @@ impl Instance {
     }
 
     /// Sets the value of [async_instance_endpoints_deletion_enabled][crate::model::Instance::async_instance_endpoints_deletion_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_async_instance_endpoints_deletion_enabled(true);
+    /// ```
     pub fn set_async_instance_endpoints_deletion_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -523,6 +831,13 @@ impl Instance {
     }
 
     /// Sets or clears the value of [async_instance_endpoints_deletion_enabled][crate::model::Instance::async_instance_endpoints_deletion_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_async_instance_endpoints_deletion_enabled(Some(false));
+    /// let x = Instance::new().set_or_clear_async_instance_endpoints_deletion_enabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_async_instance_endpoints_deletion_enabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -535,6 +850,12 @@ impl Instance {
     }
 
     /// Sets the value of [backup_collection][crate::model::Instance::backup_collection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_backup_collection("example");
+    /// ```
     pub fn set_backup_collection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -544,6 +865,13 @@ impl Instance {
     }
 
     /// Sets or clears the value of [backup_collection][crate::model::Instance::backup_collection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// let x = Instance::new().set_or_clear_backup_collection(Some("example"));
+    /// let x = Instance::new().set_or_clear_backup_collection(None::<String>);
+    /// ```
     pub fn set_or_clear_backup_collection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -553,6 +881,13 @@ impl Instance {
     }
 
     /// Sets the value of [automated_backup_config][crate::model::Instance::automated_backup_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::AutomatedBackupConfig;
+    /// let x = Instance::new().set_automated_backup_config(AutomatedBackupConfig::default()/* use setters */);
+    /// ```
     pub fn set_automated_backup_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutomatedBackupConfig>,
@@ -562,6 +897,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [automated_backup_config][crate::model::Instance::automated_backup_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::AutomatedBackupConfig;
+    /// let x = Instance::new().set_or_clear_automated_backup_config(Some(AutomatedBackupConfig::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_automated_backup_config(None::<AutomatedBackupConfig>);
+    /// ```
     pub fn set_or_clear_automated_backup_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutomatedBackupConfig>,
@@ -574,6 +917,14 @@ impl Instance {
     ///
     /// Note that all the setters affecting `import_sources` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::GcsBackupSource;
+    /// let x = Instance::new().set_import_sources(Some(
+    ///     google_cloud_memorystore_v1::model::instance::ImportSources::GcsSource(GcsBackupSource::default().into())));
+    /// ```
     pub fn set_import_sources<
         T: std::convert::Into<std::option::Option<crate::model::instance::ImportSources>>,
     >(
@@ -602,6 +953,15 @@ impl Instance {
     ///
     /// Note that all the setters affecting `import_sources` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::GcsBackupSource;
+    /// let x = Instance::new().set_gcs_source(GcsBackupSource::default()/* use setters */);
+    /// assert!(x.gcs_source().is_some());
+    /// assert!(x.managed_backup_source().is_none());
+    /// ```
     pub fn set_gcs_source<
         T: std::convert::Into<std::boxed::Box<crate::model::instance::GcsBackupSource>>,
     >(
@@ -633,6 +993,15 @@ impl Instance {
     ///
     /// Note that all the setters affecting `import_sources` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::model::instance::ManagedBackupSource;
+    /// let x = Instance::new().set_managed_backup_source(ManagedBackupSource::default()/* use setters */);
+    /// assert!(x.managed_backup_source().is_some());
+    /// assert!(x.gcs_source().is_none());
+    /// ```
     pub fn set_managed_backup_source<
         T: std::convert::Into<std::boxed::Box<crate::model::instance::ManagedBackupSource>>,
     >(
@@ -675,6 +1044,14 @@ pub mod instance {
         ///
         /// Note that all the setters affecting `info` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::instance::StateInfo;
+        /// use google_cloud_memorystore_v1::model::instance::state_info::UpdateInfo;
+        /// let x = StateInfo::new().set_info(Some(
+        ///     google_cloud_memorystore_v1::model::instance::state_info::Info::UpdateInfo(UpdateInfo::default().into())));
+        /// ```
         pub fn set_info<
             T: std::convert::Into<std::option::Option<crate::model::instance::state_info::Info>>,
         >(
@@ -706,6 +1083,14 @@ pub mod instance {
         ///
         /// Note that all the setters affecting `info` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::instance::StateInfo;
+        /// use google_cloud_memorystore_v1::model::instance::state_info::UpdateInfo;
+        /// let x = StateInfo::new().set_update_info(UpdateInfo::default()/* use setters */);
+        /// assert!(x.update_info().is_some());
+        /// ```
         pub fn set_update_info<
             T: std::convert::Into<std::boxed::Box<crate::model::instance::state_info::UpdateInfo>>,
         >(
@@ -755,6 +1140,12 @@ pub mod instance {
             }
 
             /// Sets the value of [target_shard_count][crate::model::instance::state_info::UpdateInfo::target_shard_count].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_memorystore_v1::model::instance::state_info::UpdateInfo;
+            /// let x = UpdateInfo::new().set_target_shard_count(42);
+            /// ```
             pub fn set_target_shard_count<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -764,6 +1155,13 @@ pub mod instance {
             }
 
             /// Sets or clears the value of [target_shard_count][crate::model::instance::state_info::UpdateInfo::target_shard_count].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_memorystore_v1::model::instance::state_info::UpdateInfo;
+            /// let x = UpdateInfo::new().set_or_clear_target_shard_count(Some(42));
+            /// let x = UpdateInfo::new().set_or_clear_target_shard_count(None::<i32>);
+            /// ```
             pub fn set_or_clear_target_shard_count<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -773,6 +1171,12 @@ pub mod instance {
             }
 
             /// Sets the value of [target_replica_count][crate::model::instance::state_info::UpdateInfo::target_replica_count].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_memorystore_v1::model::instance::state_info::UpdateInfo;
+            /// let x = UpdateInfo::new().set_target_replica_count(42);
+            /// ```
             pub fn set_target_replica_count<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -782,6 +1186,13 @@ pub mod instance {
             }
 
             /// Sets or clears the value of [target_replica_count][crate::model::instance::state_info::UpdateInfo::target_replica_count].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_memorystore_v1::model::instance::state_info::UpdateInfo;
+            /// let x = UpdateInfo::new().set_or_clear_target_replica_count(Some(42));
+            /// let x = UpdateInfo::new().set_or_clear_target_replica_count(None::<i32>);
+            /// ```
             pub fn set_or_clear_target_replica_count<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<i32>,
@@ -791,6 +1202,12 @@ pub mod instance {
             }
 
             /// Sets the value of [target_engine_version][crate::model::instance::state_info::UpdateInfo::target_engine_version].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_memorystore_v1::model::instance::state_info::UpdateInfo;
+            /// let x = UpdateInfo::new().set_target_engine_version("example");
+            /// ```
             pub fn set_target_engine_version<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -800,6 +1217,13 @@ pub mod instance {
             }
 
             /// Sets or clears the value of [target_engine_version][crate::model::instance::state_info::UpdateInfo::target_engine_version].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_memorystore_v1::model::instance::state_info::UpdateInfo;
+            /// let x = UpdateInfo::new().set_or_clear_target_engine_version(Some("example"));
+            /// let x = UpdateInfo::new().set_or_clear_target_engine_version(None::<String>);
+            /// ```
             pub fn set_or_clear_target_engine_version<T>(
                 mut self,
                 v: std::option::Option<T>,
@@ -812,6 +1236,15 @@ pub mod instance {
             }
 
             /// Sets the value of [target_node_type][crate::model::instance::state_info::UpdateInfo::target_node_type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_memorystore_v1::model::instance::state_info::UpdateInfo;
+            /// use google_cloud_memorystore_v1::model::instance::NodeType;
+            /// let x0 = UpdateInfo::new().set_target_node_type(NodeType::SharedCoreNano);
+            /// let x1 = UpdateInfo::new().set_target_node_type(NodeType::HighmemMedium);
+            /// let x2 = UpdateInfo::new().set_target_node_type(NodeType::HighmemXlarge);
+            /// ```
             pub fn set_target_node_type<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::instance::NodeType>,
@@ -821,6 +1254,16 @@ pub mod instance {
             }
 
             /// Sets or clears the value of [target_node_type][crate::model::instance::state_info::UpdateInfo::target_node_type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_memorystore_v1::model::instance::state_info::UpdateInfo;
+            /// use google_cloud_memorystore_v1::model::instance::NodeType;
+            /// let x0 = UpdateInfo::new().set_or_clear_target_node_type(Some(NodeType::SharedCoreNano));
+            /// let x1 = UpdateInfo::new().set_or_clear_target_node_type(Some(NodeType::HighmemMedium));
+            /// let x2 = UpdateInfo::new().set_or_clear_target_node_type(Some(NodeType::HighmemXlarge));
+            /// let x_none = UpdateInfo::new().set_or_clear_target_node_type(None::<NodeType>);
+            /// ```
             pub fn set_or_clear_target_node_type<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::instance::NodeType>,
@@ -861,6 +1304,12 @@ pub mod instance {
         }
 
         /// Sets the value of [uris][crate::model::instance::GcsBackupSource::uris].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::instance::GcsBackupSource;
+        /// let x = GcsBackupSource::new().set_uris(["a", "b", "c"]);
+        /// ```
         pub fn set_uris<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -899,6 +1348,12 @@ pub mod instance {
         }
 
         /// Sets the value of [backup][crate::model::instance::ManagedBackupSource::backup].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::instance::ManagedBackupSource;
+        /// let x = ManagedBackupSource::new().set_backup("example");
+        /// ```
         pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.backup = v.into();
             self
@@ -930,6 +1385,17 @@ pub mod instance {
         }
 
         /// Sets the value of [connections][crate::model::instance::InstanceEndpoint::connections].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::instance::InstanceEndpoint;
+        /// use google_cloud_memorystore_v1::model::instance::ConnectionDetail;
+        /// let x = InstanceEndpoint::new()
+        ///     .set_connections([
+        ///         ConnectionDetail::default()/* use setters */,
+        ///         ConnectionDetail::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_connections<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -968,6 +1434,14 @@ pub mod instance {
         ///
         /// Note that all the setters affecting `connection` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::instance::ConnectionDetail;
+        /// use google_cloud_memorystore_v1::model::PscAutoConnection;
+        /// let x = ConnectionDetail::new().set_connection(Some(
+        ///     google_cloud_memorystore_v1::model::instance::connection_detail::Connection::PscAutoConnection(PscAutoConnection::default().into())));
+        /// ```
         pub fn set_connection<
             T: std::convert::Into<
                     std::option::Option<crate::model::instance::connection_detail::Connection>,
@@ -1000,6 +1474,15 @@ pub mod instance {
         ///
         /// Note that all the setters affecting `connection` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::instance::ConnectionDetail;
+        /// use google_cloud_memorystore_v1::model::PscAutoConnection;
+        /// let x = ConnectionDetail::new().set_psc_auto_connection(PscAutoConnection::default()/* use setters */);
+        /// assert!(x.psc_auto_connection().is_some());
+        /// assert!(x.psc_connection().is_none());
+        /// ```
         pub fn set_psc_auto_connection<
             T: std::convert::Into<std::boxed::Box<crate::model::PscAutoConnection>>,
         >(
@@ -1032,6 +1515,15 @@ pub mod instance {
         ///
         /// Note that all the setters affecting `connection` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::instance::ConnectionDetail;
+        /// use google_cloud_memorystore_v1::model::PscConnection;
+        /// let x = ConnectionDetail::new().set_psc_connection(PscConnection::default()/* use setters */);
+        /// assert!(x.psc_connection().is_some());
+        /// assert!(x.psc_auto_connection().is_none());
+        /// ```
         pub fn set_psc_connection<
             T: std::convert::Into<std::boxed::Box<crate::model::PscConnection>>,
         >(
@@ -1812,6 +2304,14 @@ impl AutomatedBackupConfig {
     }
 
     /// Sets the value of [automated_backup_mode][crate::model::AutomatedBackupConfig::automated_backup_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AutomatedBackupConfig;
+    /// use google_cloud_memorystore_v1::model::automated_backup_config::AutomatedBackupMode;
+    /// let x0 = AutomatedBackupConfig::new().set_automated_backup_mode(AutomatedBackupMode::Disabled);
+    /// let x1 = AutomatedBackupConfig::new().set_automated_backup_mode(AutomatedBackupMode::Enabled);
+    /// ```
     pub fn set_automated_backup_mode<
         T: std::convert::Into<crate::model::automated_backup_config::AutomatedBackupMode>,
     >(
@@ -1823,6 +2323,13 @@ impl AutomatedBackupConfig {
     }
 
     /// Sets the value of [retention][crate::model::AutomatedBackupConfig::retention].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AutomatedBackupConfig;
+    /// use wkt::Duration;
+    /// let x = AutomatedBackupConfig::new().set_retention(Duration::default()/* use setters */);
+    /// ```
     pub fn set_retention<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1832,6 +2339,14 @@ impl AutomatedBackupConfig {
     }
 
     /// Sets or clears the value of [retention][crate::model::AutomatedBackupConfig::retention].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AutomatedBackupConfig;
+    /// use wkt::Duration;
+    /// let x = AutomatedBackupConfig::new().set_or_clear_retention(Some(Duration::default()/* use setters */));
+    /// let x = AutomatedBackupConfig::new().set_or_clear_retention(None::<Duration>);
+    /// ```
     pub fn set_or_clear_retention<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1844,6 +2359,14 @@ impl AutomatedBackupConfig {
     ///
     /// Note that all the setters affecting `schedule` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AutomatedBackupConfig;
+    /// use google_cloud_memorystore_v1::model::automated_backup_config::FixedFrequencySchedule;
+    /// let x = AutomatedBackupConfig::new().set_schedule(Some(
+    ///     google_cloud_memorystore_v1::model::automated_backup_config::Schedule::FixedFrequencySchedule(FixedFrequencySchedule::default().into())));
+    /// ```
     pub fn set_schedule<
         T: std::convert::Into<std::option::Option<crate::model::automated_backup_config::Schedule>>,
     >(
@@ -1876,6 +2399,14 @@ impl AutomatedBackupConfig {
     ///
     /// Note that all the setters affecting `schedule` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::AutomatedBackupConfig;
+    /// use google_cloud_memorystore_v1::model::automated_backup_config::FixedFrequencySchedule;
+    /// let x = AutomatedBackupConfig::new().set_fixed_frequency_schedule(FixedFrequencySchedule::default()/* use setters */);
+    /// assert!(x.fixed_frequency_schedule().is_some());
+    /// ```
     pub fn set_fixed_frequency_schedule<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::automated_backup_config::FixedFrequencySchedule>,
@@ -1920,6 +2451,13 @@ pub mod automated_backup_config {
         }
 
         /// Sets the value of [start_time][crate::model::automated_backup_config::FixedFrequencySchedule::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::automated_backup_config::FixedFrequencySchedule;
+        /// use gtype::model::TimeOfDay;
+        /// let x = FixedFrequencySchedule::new().set_start_time(TimeOfDay::default()/* use setters */);
+        /// ```
         pub fn set_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -1929,6 +2467,14 @@ pub mod automated_backup_config {
         }
 
         /// Sets or clears the value of [start_time][crate::model::automated_backup_config::FixedFrequencySchedule::start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::automated_backup_config::FixedFrequencySchedule;
+        /// use gtype::model::TimeOfDay;
+        /// let x = FixedFrequencySchedule::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
+        /// let x = FixedFrequencySchedule::new().set_or_clear_start_time(None::<TimeOfDay>);
+        /// ```
         pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -2121,36 +2667,73 @@ impl BackupCollection {
     }
 
     /// Sets the value of [name][crate::model::BackupCollection::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupCollection;
+    /// let x = BackupCollection::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [instance_uid][crate::model::BackupCollection::instance_uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupCollection;
+    /// let x = BackupCollection::new().set_instance_uid("example");
+    /// ```
     pub fn set_instance_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_uid = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::BackupCollection::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupCollection;
+    /// let x = BackupCollection::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [kms_key][crate::model::BackupCollection::kms_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupCollection;
+    /// let x = BackupCollection::new().set_kms_key("example");
+    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::BackupCollection::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupCollection;
+    /// let x = BackupCollection::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BackupCollection::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupCollection;
+    /// use wkt::Timestamp;
+    /// let x = BackupCollection::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2160,6 +2743,14 @@ impl BackupCollection {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupCollection::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupCollection;
+    /// use wkt::Timestamp;
+    /// let x = BackupCollection::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupCollection::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2233,12 +2824,25 @@ impl Backup {
     }
 
     /// Sets the value of [name][crate::model::Backup::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// let x = Backup::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Backup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2248,6 +2852,14 @@ impl Backup {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Backup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2257,24 +2869,49 @@ impl Backup {
     }
 
     /// Sets the value of [instance][crate::model::Backup::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// let x = Backup::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [instance_uid][crate::model::Backup::instance_uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// let x = Backup::new().set_instance_uid("example");
+    /// ```
     pub fn set_instance_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_uid = v.into();
         self
     }
 
     /// Sets the value of [total_size_bytes][crate::model::Backup::total_size_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// let x = Backup::new().set_total_size_bytes(42);
+    /// ```
     pub fn set_total_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.total_size_bytes = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::Backup::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2284,6 +2921,14 @@ impl Backup {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Backup::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// use wkt::Timestamp;
+    /// let x = Backup::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Backup::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2293,12 +2938,29 @@ impl Backup {
     }
 
     /// Sets the value of [engine_version][crate::model::Backup::engine_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// let x = Backup::new().set_engine_version("example");
+    /// ```
     pub fn set_engine_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.engine_version = v.into();
         self
     }
 
     /// Sets the value of [backup_files][crate::model::Backup::backup_files].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// use google_cloud_memorystore_v1::model::BackupFile;
+    /// let x = Backup::new()
+    ///     .set_backup_files([
+    ///         BackupFile::default()/* use setters */,
+    ///         BackupFile::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2310,6 +2972,15 @@ impl Backup {
     }
 
     /// Sets the value of [node_type][crate::model::Backup::node_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// use google_cloud_memorystore_v1::model::instance::NodeType;
+    /// let x0 = Backup::new().set_node_type(NodeType::SharedCoreNano);
+    /// let x1 = Backup::new().set_node_type(NodeType::HighmemMedium);
+    /// let x2 = Backup::new().set_node_type(NodeType::HighmemXlarge);
+    /// ```
     pub fn set_node_type<T: std::convert::Into<crate::model::instance::NodeType>>(
         mut self,
         v: T,
@@ -2319,18 +2990,38 @@ impl Backup {
     }
 
     /// Sets the value of [replica_count][crate::model::Backup::replica_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// let x = Backup::new().set_replica_count(42);
+    /// ```
     pub fn set_replica_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.replica_count = v.into();
         self
     }
 
     /// Sets the value of [shard_count][crate::model::Backup::shard_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// let x = Backup::new().set_shard_count(42);
+    /// ```
     pub fn set_shard_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.shard_count = v.into();
         self
     }
 
     /// Sets the value of [backup_type][crate::model::Backup::backup_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// use google_cloud_memorystore_v1::model::backup::BackupType;
+    /// let x0 = Backup::new().set_backup_type(BackupType::OnDemand);
+    /// let x1 = Backup::new().set_backup_type(BackupType::Automated);
+    /// ```
     pub fn set_backup_type<T: std::convert::Into<crate::model::backup::BackupType>>(
         mut self,
         v: T,
@@ -2340,12 +3031,27 @@ impl Backup {
     }
 
     /// Sets the value of [state][crate::model::Backup::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// use google_cloud_memorystore_v1::model::backup::State;
+    /// let x0 = Backup::new().set_state(State::Creating);
+    /// let x1 = Backup::new().set_state(State::Active);
+    /// let x2 = Backup::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::backup::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Backup::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::Backup;
+    /// let x = Backup::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
@@ -2665,18 +3371,37 @@ impl BackupFile {
     }
 
     /// Sets the value of [file_name][crate::model::BackupFile::file_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupFile;
+    /// let x = BackupFile::new().set_file_name("example");
+    /// ```
     pub fn set_file_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.file_name = v.into();
         self
     }
 
     /// Sets the value of [size_bytes][crate::model::BackupFile::size_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupFile;
+    /// let x = BackupFile::new().set_size_bytes(42);
+    /// ```
     pub fn set_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_bytes = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::BackupFile::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupFile;
+    /// use wkt::Timestamp;
+    /// let x = BackupFile::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2686,6 +3411,14 @@ impl BackupFile {
     }
 
     /// Sets or clears the value of [create_time][crate::model::BackupFile::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupFile;
+    /// use wkt::Timestamp;
+    /// let x = BackupFile::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupFile::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2748,6 +3481,15 @@ impl CrossInstanceReplicationConfig {
     }
 
     /// Sets the value of [instance_role][crate::model::CrossInstanceReplicationConfig::instance_role].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CrossInstanceReplicationConfig;
+    /// use google_cloud_memorystore_v1::model::cross_instance_replication_config::InstanceRole;
+    /// let x0 = CrossInstanceReplicationConfig::new().set_instance_role(InstanceRole::None);
+    /// let x1 = CrossInstanceReplicationConfig::new().set_instance_role(InstanceRole::Primary);
+    /// let x2 = CrossInstanceReplicationConfig::new().set_instance_role(InstanceRole::Secondary);
+    /// ```
     pub fn set_instance_role<
         T: std::convert::Into<crate::model::cross_instance_replication_config::InstanceRole>,
     >(
@@ -2759,6 +3501,13 @@ impl CrossInstanceReplicationConfig {
     }
 
     /// Sets the value of [primary_instance][crate::model::CrossInstanceReplicationConfig::primary_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CrossInstanceReplicationConfig;
+    /// use google_cloud_memorystore_v1::model::cross_instance_replication_config::RemoteInstance;
+    /// let x = CrossInstanceReplicationConfig::new().set_primary_instance(RemoteInstance::default()/* use setters */);
+    /// ```
     pub fn set_primary_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cross_instance_replication_config::RemoteInstance>,
@@ -2768,6 +3517,14 @@ impl CrossInstanceReplicationConfig {
     }
 
     /// Sets or clears the value of [primary_instance][crate::model::CrossInstanceReplicationConfig::primary_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CrossInstanceReplicationConfig;
+    /// use google_cloud_memorystore_v1::model::cross_instance_replication_config::RemoteInstance;
+    /// let x = CrossInstanceReplicationConfig::new().set_or_clear_primary_instance(Some(RemoteInstance::default()/* use setters */));
+    /// let x = CrossInstanceReplicationConfig::new().set_or_clear_primary_instance(None::<RemoteInstance>);
+    /// ```
     pub fn set_or_clear_primary_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cross_instance_replication_config::RemoteInstance>,
@@ -2777,6 +3534,17 @@ impl CrossInstanceReplicationConfig {
     }
 
     /// Sets the value of [secondary_instances][crate::model::CrossInstanceReplicationConfig::secondary_instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CrossInstanceReplicationConfig;
+    /// use google_cloud_memorystore_v1::model::cross_instance_replication_config::RemoteInstance;
+    /// let x = CrossInstanceReplicationConfig::new()
+    ///     .set_secondary_instances([
+    ///         RemoteInstance::default()/* use setters */,
+    ///         RemoteInstance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_secondary_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2788,6 +3556,13 @@ impl CrossInstanceReplicationConfig {
     }
 
     /// Sets the value of [update_time][crate::model::CrossInstanceReplicationConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CrossInstanceReplicationConfig;
+    /// use wkt::Timestamp;
+    /// let x = CrossInstanceReplicationConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2797,6 +3572,14 @@ impl CrossInstanceReplicationConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CrossInstanceReplicationConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CrossInstanceReplicationConfig;
+    /// use wkt::Timestamp;
+    /// let x = CrossInstanceReplicationConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CrossInstanceReplicationConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2806,6 +3589,13 @@ impl CrossInstanceReplicationConfig {
     }
 
     /// Sets the value of [membership][crate::model::CrossInstanceReplicationConfig::membership].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CrossInstanceReplicationConfig;
+    /// use google_cloud_memorystore_v1::model::cross_instance_replication_config::Membership;
+    /// let x = CrossInstanceReplicationConfig::new().set_membership(Membership::default()/* use setters */);
+    /// ```
     pub fn set_membership<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::cross_instance_replication_config::Membership>,
@@ -2815,6 +3605,14 @@ impl CrossInstanceReplicationConfig {
     }
 
     /// Sets or clears the value of [membership][crate::model::CrossInstanceReplicationConfig::membership].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CrossInstanceReplicationConfig;
+    /// use google_cloud_memorystore_v1::model::cross_instance_replication_config::Membership;
+    /// let x = CrossInstanceReplicationConfig::new().set_or_clear_membership(Some(Membership::default()/* use setters */));
+    /// let x = CrossInstanceReplicationConfig::new().set_or_clear_membership(None::<Membership>);
+    /// ```
     pub fn set_or_clear_membership<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::cross_instance_replication_config::Membership>,
@@ -2856,12 +3654,24 @@ pub mod cross_instance_replication_config {
         }
 
         /// Sets the value of [instance][crate::model::cross_instance_replication_config::RemoteInstance::instance].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::cross_instance_replication_config::RemoteInstance;
+        /// let x = RemoteInstance::new().set_instance("example");
+        /// ```
         pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.instance = v.into();
             self
         }
 
         /// Sets the value of [uid][crate::model::cross_instance_replication_config::RemoteInstance::uid].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::cross_instance_replication_config::RemoteInstance;
+        /// let x = RemoteInstance::new().set_uid("example");
+        /// ```
         pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.uid = v.into();
             self
@@ -2898,6 +3708,13 @@ pub mod cross_instance_replication_config {
         }
 
         /// Sets the value of [primary_instance][crate::model::cross_instance_replication_config::Membership::primary_instance].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::cross_instance_replication_config::Membership;
+        /// use google_cloud_memorystore_v1::model::cross_instance_replication_config::RemoteInstance;
+        /// let x = Membership::new().set_primary_instance(RemoteInstance::default()/* use setters */);
+        /// ```
         pub fn set_primary_instance<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::cross_instance_replication_config::RemoteInstance>,
@@ -2907,6 +3724,14 @@ pub mod cross_instance_replication_config {
         }
 
         /// Sets or clears the value of [primary_instance][crate::model::cross_instance_replication_config::Membership::primary_instance].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::cross_instance_replication_config::Membership;
+        /// use google_cloud_memorystore_v1::model::cross_instance_replication_config::RemoteInstance;
+        /// let x = Membership::new().set_or_clear_primary_instance(Some(RemoteInstance::default()/* use setters */));
+        /// let x = Membership::new().set_or_clear_primary_instance(None::<RemoteInstance>);
+        /// ```
         pub fn set_or_clear_primary_instance<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::cross_instance_replication_config::RemoteInstance>,
@@ -2916,6 +3741,17 @@ pub mod cross_instance_replication_config {
         }
 
         /// Sets the value of [secondary_instances][crate::model::cross_instance_replication_config::Membership::secondary_instances].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::cross_instance_replication_config::Membership;
+        /// use google_cloud_memorystore_v1::model::cross_instance_replication_config::RemoteInstance;
+        /// let x = Membership::new()
+        ///     .set_secondary_instances([
+        ///         RemoteInstance::default()/* use setters */,
+        ///         RemoteInstance::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_secondary_instances<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3102,6 +3938,13 @@ impl MaintenancePolicy {
     }
 
     /// Sets the value of [create_time][crate::model::MaintenancePolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MaintenancePolicy;
+    /// use wkt::Timestamp;
+    /// let x = MaintenancePolicy::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3111,6 +3954,14 @@ impl MaintenancePolicy {
     }
 
     /// Sets or clears the value of [create_time][crate::model::MaintenancePolicy::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MaintenancePolicy;
+    /// use wkt::Timestamp;
+    /// let x = MaintenancePolicy::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MaintenancePolicy::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3120,6 +3971,13 @@ impl MaintenancePolicy {
     }
 
     /// Sets the value of [update_time][crate::model::MaintenancePolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MaintenancePolicy;
+    /// use wkt::Timestamp;
+    /// let x = MaintenancePolicy::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3129,6 +3987,14 @@ impl MaintenancePolicy {
     }
 
     /// Sets or clears the value of [update_time][crate::model::MaintenancePolicy::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MaintenancePolicy;
+    /// use wkt::Timestamp;
+    /// let x = MaintenancePolicy::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MaintenancePolicy::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3138,6 +4004,17 @@ impl MaintenancePolicy {
     }
 
     /// Sets the value of [weekly_maintenance_window][crate::model::MaintenancePolicy::weekly_maintenance_window].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MaintenancePolicy;
+    /// use google_cloud_memorystore_v1::model::WeeklyMaintenanceWindow;
+    /// let x = MaintenancePolicy::new()
+    ///     .set_weekly_maintenance_window([
+    ///         WeeklyMaintenanceWindow::default()/* use setters */,
+    ///         WeeklyMaintenanceWindow::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_weekly_maintenance_window<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3174,12 +4051,28 @@ impl WeeklyMaintenanceWindow {
     }
 
     /// Sets the value of [day][crate::model::WeeklyMaintenanceWindow::day].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::WeeklyMaintenanceWindow;
+    /// use gtype::model::DayOfWeek;
+    /// let x0 = WeeklyMaintenanceWindow::new().set_day(DayOfWeek::Monday);
+    /// let x1 = WeeklyMaintenanceWindow::new().set_day(DayOfWeek::Tuesday);
+    /// let x2 = WeeklyMaintenanceWindow::new().set_day(DayOfWeek::Wednesday);
+    /// ```
     pub fn set_day<T: std::convert::Into<gtype::model::DayOfWeek>>(mut self, v: T) -> Self {
         self.day = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::WeeklyMaintenanceWindow::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::WeeklyMaintenanceWindow;
+    /// use gtype::model::TimeOfDay;
+    /// let x = WeeklyMaintenanceWindow::new().set_start_time(TimeOfDay::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -3189,6 +4082,14 @@ impl WeeklyMaintenanceWindow {
     }
 
     /// Sets or clears the value of [start_time][crate::model::WeeklyMaintenanceWindow::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::WeeklyMaintenanceWindow;
+    /// use gtype::model::TimeOfDay;
+    /// let x = WeeklyMaintenanceWindow::new().set_or_clear_start_time(Some(TimeOfDay::default()/* use setters */));
+    /// let x = WeeklyMaintenanceWindow::new().set_or_clear_start_time(None::<TimeOfDay>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::TimeOfDay>,
@@ -3225,6 +4126,13 @@ impl MaintenanceSchedule {
     }
 
     /// Sets the value of [start_time][crate::model::MaintenanceSchedule::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MaintenanceSchedule;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSchedule::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3234,6 +4142,14 @@ impl MaintenanceSchedule {
     }
 
     /// Sets or clears the value of [start_time][crate::model::MaintenanceSchedule::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MaintenanceSchedule;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSchedule::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MaintenanceSchedule::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3243,6 +4159,13 @@ impl MaintenanceSchedule {
     }
 
     /// Sets the value of [end_time][crate::model::MaintenanceSchedule::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MaintenanceSchedule;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSchedule::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3252,6 +4175,14 @@ impl MaintenanceSchedule {
     }
 
     /// Sets or clears the value of [end_time][crate::model::MaintenanceSchedule::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::MaintenanceSchedule;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSchedule::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MaintenanceSchedule::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3288,6 +4219,12 @@ impl PscAttachmentDetail {
     }
 
     /// Sets the value of [service_attachment][crate::model::PscAttachmentDetail::service_attachment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAttachmentDetail;
+    /// let x = PscAttachmentDetail::new().set_service_attachment("example");
+    /// ```
     pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3297,6 +4234,15 @@ impl PscAttachmentDetail {
     }
 
     /// Sets the value of [connection_type][crate::model::PscAttachmentDetail::connection_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAttachmentDetail;
+    /// use google_cloud_memorystore_v1::model::ConnectionType;
+    /// let x0 = PscAttachmentDetail::new().set_connection_type(ConnectionType::Discovery);
+    /// let x1 = PscAttachmentDetail::new().set_connection_type(ConnectionType::Primary);
+    /// let x2 = PscAttachmentDetail::new().set_connection_type(ConnectionType::Reader);
+    /// ```
     pub fn set_connection_type<T: std::convert::Into<crate::model::ConnectionType>>(
         mut self,
         v: T,
@@ -3363,6 +4309,12 @@ impl PscAutoConnection {
     }
 
     /// Sets the value of [psc_connection_id][crate::model::PscAutoConnection::psc_connection_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAutoConnection;
+    /// let x = PscAutoConnection::new().set_psc_connection_id("example");
+    /// ```
     pub fn set_psc_connection_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3372,30 +4324,60 @@ impl PscAutoConnection {
     }
 
     /// Sets the value of [ip_address][crate::model::PscAutoConnection::ip_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAutoConnection;
+    /// let x = PscAutoConnection::new().set_ip_address("example");
+    /// ```
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
         self
     }
 
     /// Sets the value of [forwarding_rule][crate::model::PscAutoConnection::forwarding_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAutoConnection;
+    /// let x = PscAutoConnection::new().set_forwarding_rule("example");
+    /// ```
     pub fn set_forwarding_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.forwarding_rule = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::PscAutoConnection::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAutoConnection;
+    /// let x = PscAutoConnection::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::PscAutoConnection::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAutoConnection;
+    /// let x = PscAutoConnection::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [service_attachment][crate::model::PscAutoConnection::service_attachment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAutoConnection;
+    /// let x = PscAutoConnection::new().set_service_attachment("example");
+    /// ```
     pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3405,6 +4387,14 @@ impl PscAutoConnection {
     }
 
     /// Sets the value of [psc_connection_status][crate::model::PscAutoConnection::psc_connection_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAutoConnection;
+    /// use google_cloud_memorystore_v1::model::PscConnectionStatus;
+    /// let x0 = PscAutoConnection::new().set_psc_connection_status(PscConnectionStatus::Active);
+    /// let x1 = PscAutoConnection::new().set_psc_connection_status(PscConnectionStatus::NotFound);
+    /// ```
     pub fn set_psc_connection_status<T: std::convert::Into<crate::model::PscConnectionStatus>>(
         mut self,
         v: T,
@@ -3414,6 +4404,15 @@ impl PscAutoConnection {
     }
 
     /// Sets the value of [connection_type][crate::model::PscAutoConnection::connection_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAutoConnection;
+    /// use google_cloud_memorystore_v1::model::ConnectionType;
+    /// let x0 = PscAutoConnection::new().set_connection_type(ConnectionType::Discovery);
+    /// let x1 = PscAutoConnection::new().set_connection_type(ConnectionType::Primary);
+    /// let x2 = PscAutoConnection::new().set_connection_type(ConnectionType::Reader);
+    /// ```
     pub fn set_connection_type<T: std::convert::Into<crate::model::ConnectionType>>(
         mut self,
         v: T,
@@ -3426,6 +4425,13 @@ impl PscAutoConnection {
     ///
     /// Note that all the setters affecting `ports` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAutoConnection;
+    /// use google_cloud_memorystore_v1::model::psc_auto_connection::Ports;
+    /// let x = PscAutoConnection::new().set_ports(Some(Ports::Port(42)));
+    /// ```
     pub fn set_ports<
         T: std::convert::Into<std::option::Option<crate::model::psc_auto_connection::Ports>>,
     >(
@@ -3452,6 +4458,13 @@ impl PscAutoConnection {
     ///
     /// Note that all the setters affecting `ports` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscAutoConnection;
+    /// let x = PscAutoConnection::new().set_port(42);
+    /// assert!(x.port().is_some());
+    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ports =
             std::option::Option::Some(crate::model::psc_auto_connection::Ports::Port(v.into()));
@@ -3530,6 +4543,12 @@ impl PscConnection {
     }
 
     /// Sets the value of [psc_connection_id][crate::model::PscConnection::psc_connection_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscConnection;
+    /// let x = PscConnection::new().set_psc_connection_id("example");
+    /// ```
     pub fn set_psc_connection_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3539,30 +4558,60 @@ impl PscConnection {
     }
 
     /// Sets the value of [ip_address][crate::model::PscConnection::ip_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscConnection;
+    /// let x = PscConnection::new().set_ip_address("example");
+    /// ```
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
         self
     }
 
     /// Sets the value of [forwarding_rule][crate::model::PscConnection::forwarding_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscConnection;
+    /// let x = PscConnection::new().set_forwarding_rule("example");
+    /// ```
     pub fn set_forwarding_rule<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.forwarding_rule = v.into();
         self
     }
 
     /// Sets the value of [project_id][crate::model::PscConnection::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscConnection;
+    /// let x = PscConnection::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::PscConnection::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscConnection;
+    /// let x = PscConnection::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [service_attachment][crate::model::PscConnection::service_attachment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscConnection;
+    /// let x = PscConnection::new().set_service_attachment("example");
+    /// ```
     pub fn set_service_attachment<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3572,6 +4621,14 @@ impl PscConnection {
     }
 
     /// Sets the value of [psc_connection_status][crate::model::PscConnection::psc_connection_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscConnection;
+    /// use google_cloud_memorystore_v1::model::PscConnectionStatus;
+    /// let x0 = PscConnection::new().set_psc_connection_status(PscConnectionStatus::Active);
+    /// let x1 = PscConnection::new().set_psc_connection_status(PscConnectionStatus::NotFound);
+    /// ```
     pub fn set_psc_connection_status<T: std::convert::Into<crate::model::PscConnectionStatus>>(
         mut self,
         v: T,
@@ -3581,6 +4638,15 @@ impl PscConnection {
     }
 
     /// Sets the value of [connection_type][crate::model::PscConnection::connection_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscConnection;
+    /// use google_cloud_memorystore_v1::model::ConnectionType;
+    /// let x0 = PscConnection::new().set_connection_type(ConnectionType::Discovery);
+    /// let x1 = PscConnection::new().set_connection_type(ConnectionType::Primary);
+    /// let x2 = PscConnection::new().set_connection_type(ConnectionType::Reader);
+    /// ```
     pub fn set_connection_type<T: std::convert::Into<crate::model::ConnectionType>>(
         mut self,
         v: T,
@@ -3593,6 +4659,13 @@ impl PscConnection {
     ///
     /// Note that all the setters affecting `ports` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscConnection;
+    /// use google_cloud_memorystore_v1::model::psc_connection::Ports;
+    /// let x = PscConnection::new().set_ports(Some(Ports::Port(42)));
+    /// ```
     pub fn set_ports<
         T: std::convert::Into<std::option::Option<crate::model::psc_connection::Ports>>,
     >(
@@ -3619,6 +4692,13 @@ impl PscConnection {
     ///
     /// Note that all the setters affecting `ports` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PscConnection;
+    /// let x = PscConnection::new().set_port(42);
+    /// assert!(x.port().is_some());
+    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ports = std::option::Option::Some(crate::model::psc_connection::Ports::Port(v.into()));
         self
@@ -3669,18 +4749,36 @@ impl DiscoveryEndpoint {
     }
 
     /// Sets the value of [address][crate::model::DiscoveryEndpoint::address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DiscoveryEndpoint;
+    /// let x = DiscoveryEndpoint::new().set_address("example");
+    /// ```
     pub fn set_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::DiscoveryEndpoint::port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DiscoveryEndpoint;
+    /// let x = DiscoveryEndpoint::new().set_port(42);
+    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [network][crate::model::DiscoveryEndpoint::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DiscoveryEndpoint;
+    /// let x = DiscoveryEndpoint::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
@@ -3715,6 +4813,15 @@ impl PersistenceConfig {
     }
 
     /// Sets the value of [mode][crate::model::PersistenceConfig::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PersistenceConfig;
+    /// use google_cloud_memorystore_v1::model::persistence_config::PersistenceMode;
+    /// let x0 = PersistenceConfig::new().set_mode(PersistenceMode::Disabled);
+    /// let x1 = PersistenceConfig::new().set_mode(PersistenceMode::Rdb);
+    /// let x2 = PersistenceConfig::new().set_mode(PersistenceMode::Aof);
+    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::persistence_config::PersistenceMode>>(
         mut self,
         v: T,
@@ -3724,6 +4831,13 @@ impl PersistenceConfig {
     }
 
     /// Sets the value of [rdb_config][crate::model::PersistenceConfig::rdb_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PersistenceConfig;
+    /// use google_cloud_memorystore_v1::model::persistence_config::RDBConfig;
+    /// let x = PersistenceConfig::new().set_rdb_config(RDBConfig::default()/* use setters */);
+    /// ```
     pub fn set_rdb_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::persistence_config::RDBConfig>,
@@ -3733,6 +4847,14 @@ impl PersistenceConfig {
     }
 
     /// Sets or clears the value of [rdb_config][crate::model::PersistenceConfig::rdb_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PersistenceConfig;
+    /// use google_cloud_memorystore_v1::model::persistence_config::RDBConfig;
+    /// let x = PersistenceConfig::new().set_or_clear_rdb_config(Some(RDBConfig::default()/* use setters */));
+    /// let x = PersistenceConfig::new().set_or_clear_rdb_config(None::<RDBConfig>);
+    /// ```
     pub fn set_or_clear_rdb_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::persistence_config::RDBConfig>,
@@ -3742,6 +4864,13 @@ impl PersistenceConfig {
     }
 
     /// Sets the value of [aof_config][crate::model::PersistenceConfig::aof_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PersistenceConfig;
+    /// use google_cloud_memorystore_v1::model::persistence_config::AOFConfig;
+    /// let x = PersistenceConfig::new().set_aof_config(AOFConfig::default()/* use setters */);
+    /// ```
     pub fn set_aof_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::persistence_config::AOFConfig>,
@@ -3751,6 +4880,14 @@ impl PersistenceConfig {
     }
 
     /// Sets or clears the value of [aof_config][crate::model::PersistenceConfig::aof_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::PersistenceConfig;
+    /// use google_cloud_memorystore_v1::model::persistence_config::AOFConfig;
+    /// let x = PersistenceConfig::new().set_or_clear_aof_config(Some(AOFConfig::default()/* use setters */));
+    /// let x = PersistenceConfig::new().set_or_clear_aof_config(None::<AOFConfig>);
+    /// ```
     pub fn set_or_clear_aof_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::persistence_config::AOFConfig>,
@@ -3792,6 +4929,15 @@ pub mod persistence_config {
         }
 
         /// Sets the value of [rdb_snapshot_period][crate::model::persistence_config::RDBConfig::rdb_snapshot_period].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::persistence_config::RDBConfig;
+        /// use google_cloud_memorystore_v1::model::persistence_config::rdb_config::SnapshotPeriod;
+        /// let x0 = RDBConfig::new().set_rdb_snapshot_period(SnapshotPeriod::OneHour);
+        /// let x1 = RDBConfig::new().set_rdb_snapshot_period(SnapshotPeriod::SixHours);
+        /// let x2 = RDBConfig::new().set_rdb_snapshot_period(SnapshotPeriod::TwelveHours);
+        /// ```
         pub fn set_rdb_snapshot_period<
             T: std::convert::Into<crate::model::persistence_config::rdb_config::SnapshotPeriod>,
         >(
@@ -3803,6 +4949,13 @@ pub mod persistence_config {
         }
 
         /// Sets the value of [rdb_snapshot_start_time][crate::model::persistence_config::RDBConfig::rdb_snapshot_start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::persistence_config::RDBConfig;
+        /// use wkt::Timestamp;
+        /// let x = RDBConfig::new().set_rdb_snapshot_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_rdb_snapshot_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3812,6 +4965,14 @@ pub mod persistence_config {
         }
 
         /// Sets or clears the value of [rdb_snapshot_start_time][crate::model::persistence_config::RDBConfig::rdb_snapshot_start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::persistence_config::RDBConfig;
+        /// use wkt::Timestamp;
+        /// let x = RDBConfig::new().set_or_clear_rdb_snapshot_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = RDBConfig::new().set_or_clear_rdb_snapshot_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_rdb_snapshot_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -3998,6 +5159,15 @@ pub mod persistence_config {
         }
 
         /// Sets the value of [append_fsync][crate::model::persistence_config::AOFConfig::append_fsync].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::persistence_config::AOFConfig;
+        /// use google_cloud_memorystore_v1::model::persistence_config::aof_config::AppendFsync;
+        /// let x0 = AOFConfig::new().set_append_fsync(AppendFsync::Never);
+        /// let x1 = AOFConfig::new().set_append_fsync(AppendFsync::EverySec);
+        /// let x2 = AOFConfig::new().set_append_fsync(AppendFsync::Always);
+        /// ```
         pub fn set_append_fsync<
             T: std::convert::Into<crate::model::persistence_config::aof_config::AppendFsync>,
         >(
@@ -4322,6 +5492,12 @@ impl NodeConfig {
     }
 
     /// Sets the value of [size_gb][crate::model::NodeConfig::size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::NodeConfig;
+    /// let x = NodeConfig::new().set_size_gb(42.0);
+    /// ```
     pub fn set_size_gb<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.size_gb = v.into();
         self
@@ -4354,12 +5530,26 @@ impl ZoneDistributionConfig {
     }
 
     /// Sets the value of [zone][crate::model::ZoneDistributionConfig::zone].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ZoneDistributionConfig;
+    /// let x = ZoneDistributionConfig::new().set_zone("example");
+    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [mode][crate::model::ZoneDistributionConfig::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ZoneDistributionConfig;
+    /// use google_cloud_memorystore_v1::model::zone_distribution_config::ZoneDistributionMode;
+    /// let x0 = ZoneDistributionConfig::new().set_mode(ZoneDistributionMode::MultiZone);
+    /// let x1 = ZoneDistributionConfig::new().set_mode(ZoneDistributionMode::SingleZone);
+    /// ```
     pub fn set_mode<
         T: std::convert::Into<crate::model::zone_distribution_config::ZoneDistributionMode>,
     >(
@@ -4543,12 +5733,26 @@ impl RescheduleMaintenanceRequest {
     }
 
     /// Sets the value of [name][crate::model::RescheduleMaintenanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::RescheduleMaintenanceRequest;
+    /// let x = RescheduleMaintenanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [reschedule_type][crate::model::RescheduleMaintenanceRequest::reschedule_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::RescheduleMaintenanceRequest;
+    /// use google_cloud_memorystore_v1::model::reschedule_maintenance_request::RescheduleType;
+    /// let x0 = RescheduleMaintenanceRequest::new().set_reschedule_type(RescheduleType::Immediate);
+    /// let x1 = RescheduleMaintenanceRequest::new().set_reschedule_type(RescheduleType::SpecificTime);
+    /// ```
     pub fn set_reschedule_type<
         T: std::convert::Into<crate::model::reschedule_maintenance_request::RescheduleType>,
     >(
@@ -4560,6 +5764,13 @@ impl RescheduleMaintenanceRequest {
     }
 
     /// Sets the value of [schedule_time][crate::model::RescheduleMaintenanceRequest::schedule_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::RescheduleMaintenanceRequest;
+    /// use wkt::Timestamp;
+    /// let x = RescheduleMaintenanceRequest::new().set_schedule_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_schedule_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4569,6 +5780,14 @@ impl RescheduleMaintenanceRequest {
     }
 
     /// Sets or clears the value of [schedule_time][crate::model::RescheduleMaintenanceRequest::schedule_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::RescheduleMaintenanceRequest;
+    /// use wkt::Timestamp;
+    /// let x = RescheduleMaintenanceRequest::new().set_or_clear_schedule_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RescheduleMaintenanceRequest::new().set_or_clear_schedule_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4753,30 +5972,60 @@ impl ListInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstancesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListInstancesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -4814,6 +6063,17 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListInstancesResponse;
+    /// use google_cloud_memorystore_v1::model::Instance;
+    /// let x = ListInstancesResponse::new()
+    ///     .set_instances([
+    ///         Instance::default()/* use setters */,
+    ///         Instance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4825,12 +6085,24 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInstancesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4879,6 +6151,12 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::GetInstanceRequest;
+    /// let x = GetInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4938,18 +6216,37 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_instance_id("example");
+    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CreateInstanceRequest;
+    /// use google_cloud_memorystore_v1::model::Instance;
+    /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
+    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -4959,6 +6256,14 @@ impl CreateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CreateInstanceRequest;
+    /// use google_cloud_memorystore_v1::model::Instance;
+    /// let x = CreateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
+    /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
+    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -4968,6 +6273,12 @@ impl CreateInstanceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateInstanceRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5015,6 +6326,13 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::UpdateInstanceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5024,6 +6342,14 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::UpdateInstanceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5033,6 +6359,13 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::UpdateInstanceRequest;
+    /// use google_cloud_memorystore_v1::model::Instance;
+    /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
+    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -5042,6 +6375,14 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::UpdateInstanceRequest;
+    /// use google_cloud_memorystore_v1::model::Instance;
+    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
+    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
+    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -5051,6 +6392,12 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateInstanceRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::UpdateInstanceRequest;
+    /// let x = UpdateInstanceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5095,12 +6442,24 @@ impl DeleteInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DeleteInstanceRequest;
+    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteInstanceRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DeleteInstanceRequest;
+    /// let x = DeleteInstanceRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5147,18 +6506,36 @@ impl ListBackupCollectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupCollectionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListBackupCollectionsRequest;
+    /// let x = ListBackupCollectionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupCollectionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListBackupCollectionsRequest;
+    /// let x = ListBackupCollectionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupCollectionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListBackupCollectionsRequest;
+    /// let x = ListBackupCollectionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5203,6 +6580,17 @@ impl ListBackupCollectionsResponse {
     }
 
     /// Sets the value of [backup_collections][crate::model::ListBackupCollectionsResponse::backup_collections].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListBackupCollectionsResponse;
+    /// use google_cloud_memorystore_v1::model::BackupCollection;
+    /// let x = ListBackupCollectionsResponse::new()
+    ///     .set_backup_collections([
+    ///         BackupCollection::default()/* use setters */,
+    ///         BackupCollection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backup_collections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5214,12 +6602,24 @@ impl ListBackupCollectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupCollectionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListBackupCollectionsResponse;
+    /// let x = ListBackupCollectionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupCollectionsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListBackupCollectionsResponse;
+    /// let x = ListBackupCollectionsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5269,6 +6669,12 @@ impl GetBackupCollectionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupCollectionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::GetBackupCollectionRequest;
+    /// let x = GetBackupCollectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5313,18 +6719,36 @@ impl ListBackupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListBackupsRequest;
+    /// let x = ListBackupsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5360,6 +6784,17 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [backups][crate::model::ListBackupsResponse::backups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListBackupsResponse;
+    /// use google_cloud_memorystore_v1::model::Backup;
+    /// let x = ListBackupsResponse::new()
+    ///     .set_backups([
+    ///         Backup::default()/* use setters */,
+    ///         Backup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_backups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5371,12 +6806,24 @@ impl ListBackupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBackupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListBackupsResponse;
+    /// let x = ListBackupsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListBackupsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ListBackupsResponse;
+    /// let x = ListBackupsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5425,6 +6872,12 @@ impl GetBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBackupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::GetBackupRequest;
+    /// let x = GetBackupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5457,12 +6910,24 @@ impl DeleteBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DeleteBackupRequest;
+    /// let x = DeleteBackupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteBackupRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::DeleteBackupRequest;
+    /// let x = DeleteBackupRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -5495,6 +6960,12 @@ impl ExportBackupRequest {
     }
 
     /// Sets the value of [name][crate::model::ExportBackupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ExportBackupRequest;
+    /// let x = ExportBackupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5504,6 +6975,13 @@ impl ExportBackupRequest {
     ///
     /// Note that all the setters affecting `destination` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ExportBackupRequest;
+    /// use google_cloud_memorystore_v1::model::export_backup_request::Destination;
+    /// let x = ExportBackupRequest::new().set_destination(Some(Destination::GcsBucket("example".to_string())));
+    /// ```
     pub fn set_destination<
         T: std::convert::Into<std::option::Option<crate::model::export_backup_request::Destination>>,
     >(
@@ -5532,6 +7010,13 @@ impl ExportBackupRequest {
     ///
     /// Note that all the setters affecting `destination` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::ExportBackupRequest;
+    /// let x = ExportBackupRequest::new().set_gcs_bucket("example");
+    /// assert!(x.gcs_bucket().is_some());
+    /// ```
     pub fn set_gcs_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination = std::option::Option::Some(
             crate::model::export_backup_request::Destination::GcsBucket(v.into()),
@@ -5586,12 +7071,25 @@ impl BackupInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::BackupInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupInstanceRequest;
+    /// let x = BackupInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ttl][crate::model::BackupInstanceRequest::ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupInstanceRequest;
+    /// use wkt::Duration;
+    /// let x = BackupInstanceRequest::new().set_ttl(Duration::default()/* use setters */);
+    /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5601,6 +7099,14 @@ impl BackupInstanceRequest {
     }
 
     /// Sets or clears the value of [ttl][crate::model::BackupInstanceRequest::ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupInstanceRequest;
+    /// use wkt::Duration;
+    /// let x = BackupInstanceRequest::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
+    /// let x = BackupInstanceRequest::new().set_or_clear_ttl(None::<Duration>);
+    /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5610,6 +7116,12 @@ impl BackupInstanceRequest {
     }
 
     /// Sets the value of [backup_id][crate::model::BackupInstanceRequest::backup_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupInstanceRequest;
+    /// let x = BackupInstanceRequest::new().set_backup_id("example");
+    /// ```
     pub fn set_backup_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5619,6 +7131,13 @@ impl BackupInstanceRequest {
     }
 
     /// Sets or clears the value of [backup_id][crate::model::BackupInstanceRequest::backup_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::BackupInstanceRequest;
+    /// let x = BackupInstanceRequest::new().set_or_clear_backup_id(Some("example"));
+    /// let x = BackupInstanceRequest::new().set_or_clear_backup_id(None::<String>);
+    /// ```
     pub fn set_or_clear_backup_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -5652,6 +7171,12 @@ impl GetCertificateAuthorityRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCertificateAuthorityRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::GetCertificateAuthorityRequest;
+    /// let x = GetCertificateAuthorityRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5685,6 +7210,12 @@ impl CertificateAuthority {
     }
 
     /// Sets the value of [name][crate::model::CertificateAuthority::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CertificateAuthority;
+    /// let x = CertificateAuthority::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5694,6 +7225,14 @@ impl CertificateAuthority {
     ///
     /// Note that all the setters affecting `server_ca` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CertificateAuthority;
+    /// use google_cloud_memorystore_v1::model::certificate_authority::ManagedCertificateAuthority;
+    /// let x = CertificateAuthority::new().set_server_ca(Some(
+    ///     google_cloud_memorystore_v1::model::certificate_authority::ServerCa::ManagedServerCa(ManagedCertificateAuthority::default().into())));
+    /// ```
     pub fn set_server_ca<
         T: std::convert::Into<std::option::Option<crate::model::certificate_authority::ServerCa>>,
     >(
@@ -5726,6 +7265,14 @@ impl CertificateAuthority {
     ///
     /// Note that all the setters affecting `server_ca` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::CertificateAuthority;
+    /// use google_cloud_memorystore_v1::model::certificate_authority::ManagedCertificateAuthority;
+    /// let x = CertificateAuthority::new().set_managed_server_ca(ManagedCertificateAuthority::default()/* use setters */);
+    /// assert!(x.managed_server_ca().is_some());
+    /// ```
     pub fn set_managed_server_ca<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::certificate_authority::ManagedCertificateAuthority>,
@@ -5770,6 +7317,17 @@ pub mod certificate_authority {
         }
 
         /// Sets the value of [ca_certs][crate::model::certificate_authority::ManagedCertificateAuthority::ca_certs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_memorystore_v1::model::certificate_authority::ManagedCertificateAuthority;
+        /// use google_cloud_memorystore_v1::model::certificate_authority::managed_certificate_authority::CertChain;
+        /// let x = ManagedCertificateAuthority::new()
+        ///     .set_ca_certs([
+        ///         CertChain::default()/* use setters */,
+        ///         CertChain::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_ca_certs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -5810,6 +7368,12 @@ pub mod certificate_authority {
             }
 
             /// Sets the value of [certificates][crate::model::certificate_authority::managed_certificate_authority::CertChain::certificates].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_memorystore_v1::model::certificate_authority::managed_certificate_authority::CertChain;
+            /// let x = CertChain::new().set_certificates(["a", "b", "c"]);
+            /// ```
             pub fn set_certificates<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -5879,6 +7443,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5888,6 +7459,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5897,6 +7476,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5906,6 +7492,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5915,30 +7509,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_memorystore_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

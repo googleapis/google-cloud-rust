@@ -66,12 +66,25 @@ impl Challenge {
     }
 
     /// Sets the value of [name][crate::model::Challenge::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::Challenge;
+    /// let x = Challenge::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Challenge::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::Challenge;
+    /// use wkt::Timestamp;
+    /// let x = Challenge::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -81,6 +94,14 @@ impl Challenge {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Challenge::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::Challenge;
+    /// use wkt::Timestamp;
+    /// let x = Challenge::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Challenge::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -90,6 +111,13 @@ impl Challenge {
     }
 
     /// Sets the value of [expire_time][crate::model::Challenge::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::Challenge;
+    /// use wkt::Timestamp;
+    /// let x = Challenge::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -99,6 +127,14 @@ impl Challenge {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Challenge::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::Challenge;
+    /// use wkt::Timestamp;
+    /// let x = Challenge::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Challenge::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -108,12 +144,24 @@ impl Challenge {
     }
 
     /// Sets the value of [used][crate::model::Challenge::used].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::Challenge;
+    /// let x = Challenge::new().set_used(true);
+    /// ```
     pub fn set_used<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.used = v.into();
         self
     }
 
     /// Sets the value of [tpm_nonce][crate::model::Challenge::tpm_nonce].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::Challenge;
+    /// let x = Challenge::new().set_tpm_nonce("example");
+    /// ```
     pub fn set_tpm_nonce<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tpm_nonce = v.into();
         self
@@ -147,12 +195,25 @@ impl CreateChallengeRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateChallengeRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::CreateChallengeRequest;
+    /// let x = CreateChallengeRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [challenge][crate::model::CreateChallengeRequest::challenge].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::CreateChallengeRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::Challenge;
+    /// let x = CreateChallengeRequest::new().set_challenge(Challenge::default()/* use setters */);
+    /// ```
     pub fn set_challenge<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Challenge>,
@@ -162,6 +223,14 @@ impl CreateChallengeRequest {
     }
 
     /// Sets or clears the value of [challenge][crate::model::CreateChallengeRequest::challenge].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::CreateChallengeRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::Challenge;
+    /// let x = CreateChallengeRequest::new().set_or_clear_challenge(Some(Challenge::default()/* use setters */));
+    /// let x = CreateChallengeRequest::new().set_or_clear_challenge(None::<Challenge>);
+    /// ```
     pub fn set_or_clear_challenge<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Challenge>,
@@ -220,12 +289,25 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets the value of [challenge][crate::model::VerifyAttestationRequest::challenge].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// let x = VerifyAttestationRequest::new().set_challenge("example");
+    /// ```
     pub fn set_challenge<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.challenge = v.into();
         self
     }
 
     /// Sets the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::GcpCredentials;
+    /// let x = VerifyAttestationRequest::new().set_gcp_credentials(GcpCredentials::default()/* use setters */);
+    /// ```
     pub fn set_gcp_credentials<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcpCredentials>,
@@ -235,6 +317,14 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets or clears the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::GcpCredentials;
+    /// let x = VerifyAttestationRequest::new().set_or_clear_gcp_credentials(Some(GcpCredentials::default()/* use setters */));
+    /// let x = VerifyAttestationRequest::new().set_or_clear_gcp_credentials(None::<GcpCredentials>);
+    /// ```
     pub fn set_or_clear_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcpCredentials>,
@@ -244,6 +334,13 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::TpmAttestation;
+    /// let x = VerifyAttestationRequest::new().set_tpm_attestation(TpmAttestation::default()/* use setters */);
+    /// ```
     pub fn set_tpm_attestation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TpmAttestation>,
@@ -253,6 +350,14 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets or clears the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::TpmAttestation;
+    /// let x = VerifyAttestationRequest::new().set_or_clear_tpm_attestation(Some(TpmAttestation::default()/* use setters */));
+    /// let x = VerifyAttestationRequest::new().set_or_clear_tpm_attestation(None::<TpmAttestation>);
+    /// ```
     pub fn set_or_clear_tpm_attestation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TpmAttestation>,
@@ -262,6 +367,13 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::ConfidentialSpaceInfo;
+    /// let x = VerifyAttestationRequest::new().set_confidential_space_info(ConfidentialSpaceInfo::default()/* use setters */);
+    /// ```
     pub fn set_confidential_space_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
@@ -271,6 +383,14 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets or clears the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::ConfidentialSpaceInfo;
+    /// let x = VerifyAttestationRequest::new().set_or_clear_confidential_space_info(Some(ConfidentialSpaceInfo::default()/* use setters */));
+    /// let x = VerifyAttestationRequest::new().set_or_clear_confidential_space_info(None::<ConfidentialSpaceInfo>);
+    /// ```
     pub fn set_or_clear_confidential_space_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
@@ -280,6 +400,13 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::TokenOptions;
+    /// let x = VerifyAttestationRequest::new().set_token_options(TokenOptions::default()/* use setters */);
+    /// ```
     pub fn set_token_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TokenOptions>,
@@ -289,6 +416,14 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets or clears the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::TokenOptions;
+    /// let x = VerifyAttestationRequest::new().set_or_clear_token_options(Some(TokenOptions::default()/* use setters */));
+    /// let x = VerifyAttestationRequest::new().set_or_clear_token_options(None::<TokenOptions>);
+    /// ```
     pub fn set_or_clear_token_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TokenOptions>,
@@ -298,6 +433,12 @@ impl VerifyAttestationRequest {
     }
 
     /// Sets the value of [attester][crate::model::VerifyAttestationRequest::attester].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// let x = VerifyAttestationRequest::new().set_attester("example");
+    /// ```
     pub fn set_attester<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.attester = v.into();
         self
@@ -307,6 +448,14 @@ impl VerifyAttestationRequest {
     ///
     /// Note that all the setters affecting `tee_attestation` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::TdxCcelAttestation;
+    /// let x = VerifyAttestationRequest::new().set_tee_attestation(Some(
+    ///     google_cloud_confidentialcomputing_v1::model::verify_attestation_request::TeeAttestation::TdCcel(TdxCcelAttestation::default().into())));
+    /// ```
     pub fn set_tee_attestation<
         T: std::convert::Into<
                 std::option::Option<crate::model::verify_attestation_request::TeeAttestation>,
@@ -339,6 +488,15 @@ impl VerifyAttestationRequest {
     ///
     /// Note that all the setters affecting `tee_attestation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::TdxCcelAttestation;
+    /// let x = VerifyAttestationRequest::new().set_td_ccel(TdxCcelAttestation::default()/* use setters */);
+    /// assert!(x.td_ccel().is_some());
+    /// assert!(x.sev_snp_attestation().is_none());
+    /// ```
     pub fn set_td_ccel<T: std::convert::Into<std::boxed::Box<crate::model::TdxCcelAttestation>>>(
         mut self,
         v: T,
@@ -369,6 +527,15 @@ impl VerifyAttestationRequest {
     ///
     /// Note that all the setters affecting `tee_attestation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::SevSnpAttestation;
+    /// let x = VerifyAttestationRequest::new().set_sev_snp_attestation(SevSnpAttestation::default()/* use setters */);
+    /// assert!(x.sev_snp_attestation().is_some());
+    /// assert!(x.td_ccel().is_none());
+    /// ```
     pub fn set_sev_snp_attestation<
         T: std::convert::Into<std::boxed::Box<crate::model::SevSnpAttestation>>,
     >(
@@ -433,24 +600,48 @@ impl TdxCcelAttestation {
     }
 
     /// Sets the value of [ccel_acpi_table][crate::model::TdxCcelAttestation::ccel_acpi_table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TdxCcelAttestation;
+    /// let x = TdxCcelAttestation::new().set_ccel_acpi_table(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_ccel_acpi_table<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ccel_acpi_table = v.into();
         self
     }
 
     /// Sets the value of [ccel_data][crate::model::TdxCcelAttestation::ccel_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TdxCcelAttestation;
+    /// let x = TdxCcelAttestation::new().set_ccel_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_ccel_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ccel_data = v.into();
         self
     }
 
     /// Sets the value of [canonical_event_log][crate::model::TdxCcelAttestation::canonical_event_log].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TdxCcelAttestation;
+    /// let x = TdxCcelAttestation::new().set_canonical_event_log(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_canonical_event_log<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.canonical_event_log = v.into();
         self
     }
 
     /// Sets the value of [td_quote][crate::model::TdxCcelAttestation::td_quote].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TdxCcelAttestation;
+    /// let x = TdxCcelAttestation::new().set_td_quote(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_td_quote<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.td_quote = v.into();
         self
@@ -490,12 +681,24 @@ impl SevSnpAttestation {
     }
 
     /// Sets the value of [report][crate::model::SevSnpAttestation::report].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::SevSnpAttestation;
+    /// let x = SevSnpAttestation::new().set_report(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_report<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.report = v.into();
         self
     }
 
     /// Sets the value of [aux_blob][crate::model::SevSnpAttestation::aux_blob].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::SevSnpAttestation;
+    /// let x = SevSnpAttestation::new().set_aux_blob(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_aux_blob<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.aux_blob = v.into();
         self
@@ -529,6 +732,12 @@ impl VerifyAttestationResponse {
     }
 
     /// Sets the value of [oidc_claims_token][crate::model::VerifyAttestationResponse::oidc_claims_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationResponse;
+    /// let x = VerifyAttestationResponse::new().set_oidc_claims_token("example");
+    /// ```
     pub fn set_oidc_claims_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -538,6 +747,17 @@ impl VerifyAttestationResponse {
     }
 
     /// Sets the value of [partial_errors][crate::model::VerifyAttestationResponse::partial_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyAttestationResponse;
+    /// use rpc::model::Status;
+    /// let x = VerifyAttestationResponse::new()
+    ///     .set_partial_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -572,6 +792,12 @@ impl GcpCredentials {
     }
 
     /// Sets the value of [service_account_id_tokens][crate::model::GcpCredentials::service_account_id_tokens].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::GcpCredentials;
+    /// let x = GcpCredentials::new().set_service_account_id_tokens(["a", "b", "c"]);
+    /// ```
     pub fn set_service_account_id_tokens<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -617,12 +843,24 @@ impl TokenOptions {
     }
 
     /// Sets the value of [audience][crate::model::TokenOptions::audience].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TokenOptions;
+    /// let x = TokenOptions::new().set_audience("example");
+    /// ```
     pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.audience = v.into();
         self
     }
 
     /// Sets the value of [nonce][crate::model::TokenOptions::nonce].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TokenOptions;
+    /// let x = TokenOptions::new().set_nonce(["a", "b", "c"]);
+    /// ```
     pub fn set_nonce<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -634,6 +872,15 @@ impl TokenOptions {
     }
 
     /// Sets the value of [token_type][crate::model::TokenOptions::token_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TokenOptions;
+    /// use google_cloud_confidentialcomputing_v1::model::TokenType;
+    /// let x0 = TokenOptions::new().set_token_type(TokenType::Oidc);
+    /// let x1 = TokenOptions::new().set_token_type(TokenType::Pki);
+    /// let x2 = TokenOptions::new().set_token_type(TokenType::LimitedAws);
+    /// ```
     pub fn set_token_type<T: std::convert::Into<crate::model::TokenType>>(mut self, v: T) -> Self {
         self.token_type = v.into();
         self
@@ -643,6 +890,14 @@ impl TokenOptions {
     ///
     /// Note that all the setters affecting `token_type_options` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TokenOptions;
+    /// use google_cloud_confidentialcomputing_v1::model::AwsPrincipalTagsOptions;
+    /// let x = TokenOptions::new().set_token_type_options(Some(
+    ///     google_cloud_confidentialcomputing_v1::model::token_options::TokenTypeOptions::AwsPrincipalTagsOptions(AwsPrincipalTagsOptions::default().into())));
+    /// ```
     pub fn set_token_type_options<
         T: std::convert::Into<std::option::Option<crate::model::token_options::TokenTypeOptions>>,
     >(
@@ -673,6 +928,14 @@ impl TokenOptions {
     ///
     /// Note that all the setters affecting `token_type_options` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TokenOptions;
+    /// use google_cloud_confidentialcomputing_v1::model::AwsPrincipalTagsOptions;
+    /// let x = TokenOptions::new().set_aws_principal_tags_options(AwsPrincipalTagsOptions::default()/* use setters */);
+    /// assert!(x.aws_principal_tags_options().is_some());
+    /// ```
     pub fn set_aws_principal_tags_options<
         T: std::convert::Into<std::boxed::Box<crate::model::AwsPrincipalTagsOptions>>,
     >(
@@ -723,6 +986,13 @@ impl AwsPrincipalTagsOptions {
     }
 
     /// Sets the value of [allowed_principal_tags][crate::model::AwsPrincipalTagsOptions::allowed_principal_tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::AwsPrincipalTagsOptions;
+    /// use google_cloud_confidentialcomputing_v1::model::aws_principal_tags_options::AllowedPrincipalTags;
+    /// let x = AwsPrincipalTagsOptions::new().set_allowed_principal_tags(AllowedPrincipalTags::default()/* use setters */);
+    /// ```
     pub fn set_allowed_principal_tags<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::aws_principal_tags_options::AllowedPrincipalTags>,
@@ -732,6 +1002,14 @@ impl AwsPrincipalTagsOptions {
     }
 
     /// Sets or clears the value of [allowed_principal_tags][crate::model::AwsPrincipalTagsOptions::allowed_principal_tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::AwsPrincipalTagsOptions;
+    /// use google_cloud_confidentialcomputing_v1::model::aws_principal_tags_options::AllowedPrincipalTags;
+    /// let x = AwsPrincipalTagsOptions::new().set_or_clear_allowed_principal_tags(Some(AllowedPrincipalTags::default()/* use setters */));
+    /// let x = AwsPrincipalTagsOptions::new().set_or_clear_allowed_principal_tags(None::<AllowedPrincipalTags>);
+    /// ```
     pub fn set_or_clear_allowed_principal_tags<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::aws_principal_tags_options::AllowedPrincipalTags>,
@@ -757,10 +1035,10 @@ pub mod aws_principal_tags_options {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AllowedPrincipalTags {
-
+    
         /// Optional. Container image signatures allowed in the token.
         pub container_image_signatures: std::option::Option<crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -770,6 +1048,13 @@ pub mod aws_principal_tags_options {
         }
 
         /// Sets the value of [container_image_signatures][crate::model::aws_principal_tags_options::AllowedPrincipalTags::container_image_signatures].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::aws_principal_tags_options::AllowedPrincipalTags;
+        /// use google_cloud_confidentialcomputing_v1::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures;
+        /// let x = AllowedPrincipalTags::new().set_container_image_signatures(ContainerImageSignatures::default()/* use setters */);
+        /// ```
         pub fn set_container_image_signatures<T>(mut self, v: T) -> Self
         where T: std::convert::Into<crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>
         {
@@ -778,6 +1063,14 @@ pub mod aws_principal_tags_options {
         }
 
         /// Sets or clears the value of [container_image_signatures][crate::model::aws_principal_tags_options::AllowedPrincipalTags::container_image_signatures].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::aws_principal_tags_options::AllowedPrincipalTags;
+        /// use google_cloud_confidentialcomputing_v1::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures;
+        /// let x = AllowedPrincipalTags::new().set_or_clear_container_image_signatures(Some(ContainerImageSignatures::default()/* use setters */));
+        /// let x = AllowedPrincipalTags::new().set_or_clear_container_image_signatures(None::<ContainerImageSignatures>);
+        /// ```
         pub fn set_or_clear_container_image_signatures<T>(mut self, v: std::option::Option<T>) -> Self
         where T: std::convert::Into<crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures>
         {
@@ -816,6 +1109,12 @@ pub mod aws_principal_tags_options {
             }
 
             /// Sets the value of [key_ids][crate::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures::key_ids].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_confidentialcomputing_v1::model::aws_principal_tags_options::allowed_principal_tags::ContainerImageSignatures;
+            /// let x = ContainerImageSignatures::new().set_key_ids(["a", "b", "c"]);
+            /// ```
             pub fn set_key_ids<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -870,6 +1169,17 @@ impl TpmAttestation {
     }
 
     /// Sets the value of [quotes][crate::model::TpmAttestation::quotes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TpmAttestation;
+    /// use google_cloud_confidentialcomputing_v1::model::tpm_attestation::Quote;
+    /// let x = TpmAttestation::new()
+    ///     .set_quotes([
+    ///         Quote::default()/* use setters */,
+    ///         Quote::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_quotes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -881,24 +1191,50 @@ impl TpmAttestation {
     }
 
     /// Sets the value of [tcg_event_log][crate::model::TpmAttestation::tcg_event_log].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TpmAttestation;
+    /// let x = TpmAttestation::new().set_tcg_event_log(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_tcg_event_log<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.tcg_event_log = v.into();
         self
     }
 
     /// Sets the value of [canonical_event_log][crate::model::TpmAttestation::canonical_event_log].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TpmAttestation;
+    /// let x = TpmAttestation::new().set_canonical_event_log(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_canonical_event_log<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.canonical_event_log = v.into();
         self
     }
 
     /// Sets the value of [ak_cert][crate::model::TpmAttestation::ak_cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TpmAttestation;
+    /// let x = TpmAttestation::new().set_ak_cert(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_ak_cert<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ak_cert = v.into();
         self
     }
 
     /// Sets the value of [cert_chain][crate::model::TpmAttestation::cert_chain].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::TpmAttestation;
+    /// let b1 = bytes::Bytes::from_static(b"abc");
+    /// let b2 = bytes::Bytes::from_static(b"xyz");
+    /// let x = TpmAttestation::new().set_cert_chain([b1, b2]);
+    /// ```
     pub fn set_cert_chain<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -947,12 +1283,27 @@ pub mod tpm_attestation {
         }
 
         /// Sets the value of [hash_algo][crate::model::tpm_attestation::Quote::hash_algo].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::tpm_attestation::Quote;
+        /// let x = Quote::new().set_hash_algo(42);
+        /// ```
         pub fn set_hash_algo<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.hash_algo = v.into();
             self
         }
 
         /// Sets the value of [pcr_values][crate::model::tpm_attestation::Quote::pcr_values].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::tpm_attestation::Quote;
+        /// let x = Quote::new().set_pcr_values([
+        ///     (0, bytes::Bytes::from_static(b"abc")),
+        ///     (1, bytes::Bytes::from_static(b"xyz")),
+        /// ]);
+        /// ```
         pub fn set_pcr_values<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -965,12 +1316,24 @@ pub mod tpm_attestation {
         }
 
         /// Sets the value of [raw_quote][crate::model::tpm_attestation::Quote::raw_quote].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::tpm_attestation::Quote;
+        /// let x = Quote::new().set_raw_quote(bytes::Bytes::from_static(b"example"));
+        /// ```
         pub fn set_raw_quote<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.raw_quote = v.into();
             self
         }
 
         /// Sets the value of [raw_signature][crate::model::tpm_attestation::Quote::raw_signature].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::tpm_attestation::Quote;
+        /// let x = Quote::new().set_raw_signature(bytes::Bytes::from_static(b"example"));
+        /// ```
         pub fn set_raw_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.raw_signature = v.into();
             self
@@ -1002,6 +1365,17 @@ impl ConfidentialSpaceInfo {
     }
 
     /// Sets the value of [signed_entities][crate::model::ConfidentialSpaceInfo::signed_entities].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::ConfidentialSpaceInfo;
+    /// use google_cloud_confidentialcomputing_v1::model::SignedEntity;
+    /// let x = ConfidentialSpaceInfo::new()
+    ///     .set_signed_entities([
+    ///         SignedEntity::default()/* use setters */,
+    ///         SignedEntity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_signed_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1037,6 +1411,17 @@ impl SignedEntity {
     }
 
     /// Sets the value of [container_image_signatures][crate::model::SignedEntity::container_image_signatures].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::SignedEntity;
+    /// use google_cloud_confidentialcomputing_v1::model::ContainerImageSignature;
+    /// let x = SignedEntity::new()
+    ///     .set_container_image_signatures([
+    ///         ContainerImageSignature::default()/* use setters */,
+    ///         ContainerImageSignature::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_container_image_signatures<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1089,24 +1474,51 @@ impl ContainerImageSignature {
     }
 
     /// Sets the value of [payload][crate::model::ContainerImageSignature::payload].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::ContainerImageSignature;
+    /// let x = ContainerImageSignature::new().set_payload(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_payload<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.payload = v.into();
         self
     }
 
     /// Sets the value of [signature][crate::model::ContainerImageSignature::signature].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::ContainerImageSignature;
+    /// let x = ContainerImageSignature::new().set_signature(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
     }
 
     /// Sets the value of [public_key][crate::model::ContainerImageSignature::public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::ContainerImageSignature;
+    /// let x = ContainerImageSignature::new().set_public_key(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_public_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.public_key = v.into();
         self
     }
 
     /// Sets the value of [sig_alg][crate::model::ContainerImageSignature::sig_alg].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::ContainerImageSignature;
+    /// use google_cloud_confidentialcomputing_v1::model::SigningAlgorithm;
+    /// let x0 = ContainerImageSignature::new().set_sig_alg(SigningAlgorithm::RsassaPssSha256);
+    /// let x1 = ContainerImageSignature::new().set_sig_alg(SigningAlgorithm::RsassaPkcs1V15Sha256);
+    /// let x2 = ContainerImageSignature::new().set_sig_alg(SigningAlgorithm::EcdsaP256Sha256);
+    /// ```
     pub fn set_sig_alg<T: std::convert::Into<crate::model::SigningAlgorithm>>(
         mut self,
         v: T,
@@ -1164,12 +1576,25 @@ impl VerifyConfidentialSpaceRequest {
     }
 
     /// Sets the value of [challenge][crate::model::VerifyConfidentialSpaceRequest::challenge].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// let x = VerifyConfidentialSpaceRequest::new().set_challenge("example");
+    /// ```
     pub fn set_challenge<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.challenge = v.into();
         self
     }
 
     /// Sets the value of [gcp_credentials][crate::model::VerifyConfidentialSpaceRequest::gcp_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::GcpCredentials;
+    /// let x = VerifyConfidentialSpaceRequest::new().set_gcp_credentials(GcpCredentials::default()/* use setters */);
+    /// ```
     pub fn set_gcp_credentials<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GcpCredentials>,
@@ -1179,6 +1604,14 @@ impl VerifyConfidentialSpaceRequest {
     }
 
     /// Sets or clears the value of [gcp_credentials][crate::model::VerifyConfidentialSpaceRequest::gcp_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::GcpCredentials;
+    /// let x = VerifyConfidentialSpaceRequest::new().set_or_clear_gcp_credentials(Some(GcpCredentials::default()/* use setters */));
+    /// let x = VerifyConfidentialSpaceRequest::new().set_or_clear_gcp_credentials(None::<GcpCredentials>);
+    /// ```
     pub fn set_or_clear_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GcpCredentials>,
@@ -1188,6 +1621,17 @@ impl VerifyConfidentialSpaceRequest {
     }
 
     /// Sets the value of [signed_entities][crate::model::VerifyConfidentialSpaceRequest::signed_entities].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::SignedEntity;
+    /// let x = VerifyConfidentialSpaceRequest::new()
+    ///     .set_signed_entities([
+    ///         SignedEntity::default()/* use setters */,
+    ///         SignedEntity::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_signed_entities<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1199,6 +1643,13 @@ impl VerifyConfidentialSpaceRequest {
     }
 
     /// Sets the value of [gce_shielded_identity][crate::model::VerifyConfidentialSpaceRequest::gce_shielded_identity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::GceShieldedIdentity;
+    /// let x = VerifyConfidentialSpaceRequest::new().set_gce_shielded_identity(GceShieldedIdentity::default()/* use setters */);
+    /// ```
     pub fn set_gce_shielded_identity<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::GceShieldedIdentity>,
@@ -1208,6 +1659,14 @@ impl VerifyConfidentialSpaceRequest {
     }
 
     /// Sets or clears the value of [gce_shielded_identity][crate::model::VerifyConfidentialSpaceRequest::gce_shielded_identity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::GceShieldedIdentity;
+    /// let x = VerifyConfidentialSpaceRequest::new().set_or_clear_gce_shielded_identity(Some(GceShieldedIdentity::default()/* use setters */));
+    /// let x = VerifyConfidentialSpaceRequest::new().set_or_clear_gce_shielded_identity(None::<GceShieldedIdentity>);
+    /// ```
     pub fn set_or_clear_gce_shielded_identity<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::GceShieldedIdentity>,
@@ -1217,6 +1676,13 @@ impl VerifyConfidentialSpaceRequest {
     }
 
     /// Sets the value of [options][crate::model::VerifyConfidentialSpaceRequest::options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::verify_confidential_space_request::ConfidentialSpaceOptions;
+    /// let x = VerifyConfidentialSpaceRequest::new().set_options(ConfidentialSpaceOptions::default()/* use setters */);
+    /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<
@@ -1228,6 +1694,14 @@ impl VerifyConfidentialSpaceRequest {
     }
 
     /// Sets or clears the value of [options][crate::model::VerifyConfidentialSpaceRequest::options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::verify_confidential_space_request::ConfidentialSpaceOptions;
+    /// let x = VerifyConfidentialSpaceRequest::new().set_or_clear_options(Some(ConfidentialSpaceOptions::default()/* use setters */));
+    /// let x = VerifyConfidentialSpaceRequest::new().set_or_clear_options(None::<ConfidentialSpaceOptions>);
+    /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<
@@ -1242,6 +1716,14 @@ impl VerifyConfidentialSpaceRequest {
     ///
     /// Note that all the setters affecting `tee_attestation` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::TdxCcelAttestation;
+    /// let x = VerifyConfidentialSpaceRequest::new().set_tee_attestation(Some(
+    ///     google_cloud_confidentialcomputing_v1::model::verify_confidential_space_request::TeeAttestation::TdCcel(TdxCcelAttestation::default().into())));
+    /// ```
     pub fn set_tee_attestation<
         T: std::convert::Into<
                 std::option::Option<
@@ -1276,6 +1758,15 @@ impl VerifyConfidentialSpaceRequest {
     ///
     /// Note that all the setters affecting `tee_attestation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::TdxCcelAttestation;
+    /// let x = VerifyConfidentialSpaceRequest::new().set_td_ccel(TdxCcelAttestation::default()/* use setters */);
+    /// assert!(x.td_ccel().is_some());
+    /// assert!(x.tpm_attestation().is_none());
+    /// ```
     pub fn set_td_ccel<T: std::convert::Into<std::boxed::Box<crate::model::TdxCcelAttestation>>>(
         mut self,
         v: T,
@@ -1306,6 +1797,15 @@ impl VerifyConfidentialSpaceRequest {
     ///
     /// Note that all the setters affecting `tee_attestation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::TpmAttestation;
+    /// let x = VerifyConfidentialSpaceRequest::new().set_tpm_attestation(TpmAttestation::default()/* use setters */);
+    /// assert!(x.tpm_attestation().is_some());
+    /// assert!(x.td_ccel().is_none());
+    /// ```
     pub fn set_tpm_attestation<
         T: std::convert::Into<std::boxed::Box<crate::model::TpmAttestation>>,
     >(
@@ -1336,26 +1836,26 @@ pub mod verify_confidential_space_request {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConfidentialSpaceOptions {
-
+    
         /// Optional. Optional string to issue the token with a custom audience
         /// claim. Required if custom nonces are specified.
         pub audience: std::string::String,
-
+    
         /// Optional. Optional specification for token claims profile.
         pub token_profile: crate::model::TokenProfile,
-
+    
         /// Optional. Optional parameter to place one or more nonces in the eat_nonce
         /// claim in the output token. The minimum size for JSON-encoded EATs is 10
         /// bytes and the maximum size is 74 bytes.
         pub nonce: std::vec::Vec<std::string::String>,
-
+    
         /// Optional. Optional specification for how to sign the attestation token.
         /// Defaults to SIGNATURE_TYPE_OIDC if unspecified.
         pub signature_type: crate::model::SignatureType,
-
+    
         /// An optional additional configuration per token type.
         pub token_profile_options: std::option::Option<crate::model::verify_confidential_space_request::confidential_space_options::TokenProfileOptions>,
-
+    
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -1365,12 +1865,26 @@ pub mod verify_confidential_space_request {
         }
 
         /// Sets the value of [audience][crate::model::verify_confidential_space_request::ConfidentialSpaceOptions::audience].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::verify_confidential_space_request::ConfidentialSpaceOptions;
+        /// let x = ConfidentialSpaceOptions::new().set_audience("example");
+        /// ```
         pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.audience = v.into();
             self
         }
 
         /// Sets the value of [token_profile][crate::model::verify_confidential_space_request::ConfidentialSpaceOptions::token_profile].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::verify_confidential_space_request::ConfidentialSpaceOptions;
+        /// use google_cloud_confidentialcomputing_v1::model::TokenProfile;
+        /// let x0 = ConfidentialSpaceOptions::new().set_token_profile(TokenProfile::DefaultEat);
+        /// let x1 = ConfidentialSpaceOptions::new().set_token_profile(TokenProfile::Aws);
+        /// ```
         pub fn set_token_profile<T: std::convert::Into<crate::model::TokenProfile>>(
             mut self,
             v: T,
@@ -1380,6 +1894,12 @@ pub mod verify_confidential_space_request {
         }
 
         /// Sets the value of [nonce][crate::model::verify_confidential_space_request::ConfidentialSpaceOptions::nonce].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::verify_confidential_space_request::ConfidentialSpaceOptions;
+        /// let x = ConfidentialSpaceOptions::new().set_nonce(["a", "b", "c"]);
+        /// ```
         pub fn set_nonce<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1391,6 +1911,14 @@ pub mod verify_confidential_space_request {
         }
 
         /// Sets the value of [signature_type][crate::model::verify_confidential_space_request::ConfidentialSpaceOptions::signature_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::verify_confidential_space_request::ConfidentialSpaceOptions;
+        /// use google_cloud_confidentialcomputing_v1::model::SignatureType;
+        /// let x0 = ConfidentialSpaceOptions::new().set_signature_type(SignatureType::Oidc);
+        /// let x1 = ConfidentialSpaceOptions::new().set_signature_type(SignatureType::Pki);
+        /// ```
         pub fn set_signature_type<T: std::convert::Into<crate::model::SignatureType>>(
             mut self,
             v: T,
@@ -1403,6 +1931,14 @@ pub mod verify_confidential_space_request {
         ///
         /// Note that all the setters affecting `token_profile_options` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::verify_confidential_space_request::ConfidentialSpaceOptions;
+        /// use google_cloud_confidentialcomputing_v1::model::AwsPrincipalTagsOptions;
+        /// let x = ConfidentialSpaceOptions::new().set_token_profile_options(Some(
+        ///     google_cloud_confidentialcomputing_v1::model::verify_confidential_space_request::confidential_space_options::TokenProfileOptions::AwsPrincipalTagsOptions(AwsPrincipalTagsOptions::default().into())));
+        /// ```
         pub fn set_token_profile_options<T: std::convert::Into<std::option::Option<crate::model::verify_confidential_space_request::confidential_space_options::TokenProfileOptions>>>(mut self, v: T) -> Self
         {
             self.token_profile_options = v.into();
@@ -1427,6 +1963,14 @@ pub mod verify_confidential_space_request {
         ///
         /// Note that all the setters affecting `token_profile_options` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_confidentialcomputing_v1::model::verify_confidential_space_request::ConfidentialSpaceOptions;
+        /// use google_cloud_confidentialcomputing_v1::model::AwsPrincipalTagsOptions;
+        /// let x = ConfidentialSpaceOptions::new().set_aws_principal_tags_options(AwsPrincipalTagsOptions::default()/* use setters */);
+        /// assert!(x.aws_principal_tags_options().is_some());
+        /// ```
         pub fn set_aws_principal_tags_options<
             T: std::convert::Into<std::boxed::Box<crate::model::AwsPrincipalTagsOptions>>,
         >(
@@ -1497,12 +2041,26 @@ impl GceShieldedIdentity {
     }
 
     /// Sets the value of [ak_cert][crate::model::GceShieldedIdentity::ak_cert].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::GceShieldedIdentity;
+    /// let x = GceShieldedIdentity::new().set_ak_cert(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_ak_cert<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ak_cert = v.into();
         self
     }
 
     /// Sets the value of [ak_cert_chain][crate::model::GceShieldedIdentity::ak_cert_chain].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::GceShieldedIdentity;
+    /// let b1 = bytes::Bytes::from_static(b"abc");
+    /// let b2 = bytes::Bytes::from_static(b"xyz");
+    /// let x = GceShieldedIdentity::new().set_ak_cert_chain([b1, b2]);
+    /// ```
     pub fn set_ak_cert_chain<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1546,6 +2104,12 @@ impl VerifyConfidentialSpaceResponse {
     }
 
     /// Sets the value of [attestation_token][crate::model::VerifyConfidentialSpaceResponse::attestation_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceResponse;
+    /// let x = VerifyConfidentialSpaceResponse::new().set_attestation_token("example");
+    /// ```
     pub fn set_attestation_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1555,6 +2119,17 @@ impl VerifyConfidentialSpaceResponse {
     }
 
     /// Sets the value of [partial_errors][crate::model::VerifyConfidentialSpaceResponse::partial_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialSpaceResponse;
+    /// use rpc::model::Status;
+    /// let x = VerifyConfidentialSpaceResponse::new()
+    ///     .set_partial_errors([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partial_errors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1597,6 +2172,12 @@ impl VerifyConfidentialGkeRequest {
     }
 
     /// Sets the value of [challenge][crate::model::VerifyConfidentialGkeRequest::challenge].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialGkeRequest;
+    /// let x = VerifyConfidentialGkeRequest::new().set_challenge("example");
+    /// ```
     pub fn set_challenge<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.challenge = v.into();
         self
@@ -1606,6 +2187,14 @@ impl VerifyConfidentialGkeRequest {
     ///
     /// Note that all the setters affecting `tee_attestation` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialGkeRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::TpmAttestation;
+    /// let x = VerifyConfidentialGkeRequest::new().set_tee_attestation(Some(
+    ///     google_cloud_confidentialcomputing_v1::model::verify_confidential_gke_request::TeeAttestation::TpmAttestation(TpmAttestation::default().into())));
+    /// ```
     pub fn set_tee_attestation<
         T: std::convert::Into<
                 std::option::Option<crate::model::verify_confidential_gke_request::TeeAttestation>,
@@ -1638,6 +2227,14 @@ impl VerifyConfidentialGkeRequest {
     ///
     /// Note that all the setters affecting `tee_attestation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialGkeRequest;
+    /// use google_cloud_confidentialcomputing_v1::model::TpmAttestation;
+    /// let x = VerifyConfidentialGkeRequest::new().set_tpm_attestation(TpmAttestation::default()/* use setters */);
+    /// assert!(x.tpm_attestation().is_some());
+    /// ```
     pub fn set_tpm_attestation<
         T: std::convert::Into<std::boxed::Box<crate::model::TpmAttestation>>,
     >(
@@ -1692,6 +2289,12 @@ impl VerifyConfidentialGkeResponse {
     }
 
     /// Sets the value of [attestation_token][crate::model::VerifyConfidentialGkeResponse::attestation_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_confidentialcomputing_v1::model::VerifyConfidentialGkeResponse;
+    /// let x = VerifyConfidentialGkeResponse::new().set_attestation_token("example");
+    /// ```
     pub fn set_attestation_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,

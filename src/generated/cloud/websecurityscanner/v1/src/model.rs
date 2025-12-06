@@ -59,18 +59,36 @@ impl CrawledUrl {
     }
 
     /// Sets the value of [http_method][crate::model::CrawledUrl::http_method].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::CrawledUrl;
+    /// let x = CrawledUrl::new().set_http_method("example");
+    /// ```
     pub fn set_http_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.http_method = v.into();
         self
     }
 
     /// Sets the value of [url][crate::model::CrawledUrl::url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::CrawledUrl;
+    /// let x = CrawledUrl::new().set_url("example");
+    /// ```
     pub fn set_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.url = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::CrawledUrl::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::CrawledUrl;
+    /// let x = CrawledUrl::new().set_body("example");
+    /// ```
     pub fn set_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
@@ -163,18 +181,39 @@ impl Finding {
     }
 
     /// Sets the value of [name][crate::model::Finding::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// let x = Finding::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [finding_type][crate::model::Finding::finding_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// let x = Finding::new().set_finding_type("example");
+    /// ```
     pub fn set_finding_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.finding_type = v.into();
         self
     }
 
     /// Sets the value of [severity][crate::model::Finding::severity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::finding::Severity;
+    /// let x0 = Finding::new().set_severity(Severity::Critical);
+    /// let x1 = Finding::new().set_severity(Severity::High);
+    /// let x2 = Finding::new().set_severity(Severity::Medium);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::finding::Severity>>(
         mut self,
         v: T,
@@ -184,30 +223,60 @@ impl Finding {
     }
 
     /// Sets the value of [http_method][crate::model::Finding::http_method].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// let x = Finding::new().set_http_method("example");
+    /// ```
     pub fn set_http_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.http_method = v.into();
         self
     }
 
     /// Sets the value of [fuzzed_url][crate::model::Finding::fuzzed_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// let x = Finding::new().set_fuzzed_url("example");
+    /// ```
     pub fn set_fuzzed_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.fuzzed_url = v.into();
         self
     }
 
     /// Sets the value of [body][crate::model::Finding::body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// let x = Finding::new().set_body("example");
+    /// ```
     pub fn set_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.body = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Finding::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// let x = Finding::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [reproduction_url][crate::model::Finding::reproduction_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// let x = Finding::new().set_reproduction_url("example");
+    /// ```
     pub fn set_reproduction_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -217,24 +286,49 @@ impl Finding {
     }
 
     /// Sets the value of [frame_url][crate::model::Finding::frame_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// let x = Finding::new().set_frame_url("example");
+    /// ```
     pub fn set_frame_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.frame_url = v.into();
         self
     }
 
     /// Sets the value of [final_url][crate::model::Finding::final_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// let x = Finding::new().set_final_url("example");
+    /// ```
     pub fn set_final_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.final_url = v.into();
         self
     }
 
     /// Sets the value of [tracking_id][crate::model::Finding::tracking_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// let x = Finding::new().set_tracking_id("example");
+    /// ```
     pub fn set_tracking_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tracking_id = v.into();
         self
     }
 
     /// Sets the value of [form][crate::model::Finding::form].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::Form;
+    /// let x = Finding::new().set_form(Form::default()/* use setters */);
+    /// ```
     pub fn set_form<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Form>,
@@ -244,6 +338,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [form][crate::model::Finding::form].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::Form;
+    /// let x = Finding::new().set_or_clear_form(Some(Form::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_form(None::<Form>);
+    /// ```
     pub fn set_or_clear_form<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Form>,
@@ -253,6 +355,13 @@ impl Finding {
     }
 
     /// Sets the value of [outdated_library][crate::model::Finding::outdated_library].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::OutdatedLibrary;
+    /// let x = Finding::new().set_outdated_library(OutdatedLibrary::default()/* use setters */);
+    /// ```
     pub fn set_outdated_library<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OutdatedLibrary>,
@@ -262,6 +371,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [outdated_library][crate::model::Finding::outdated_library].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::OutdatedLibrary;
+    /// let x = Finding::new().set_or_clear_outdated_library(Some(OutdatedLibrary::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_outdated_library(None::<OutdatedLibrary>);
+    /// ```
     pub fn set_or_clear_outdated_library<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OutdatedLibrary>,
@@ -271,6 +388,13 @@ impl Finding {
     }
 
     /// Sets the value of [violating_resource][crate::model::Finding::violating_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::ViolatingResource;
+    /// let x = Finding::new().set_violating_resource(ViolatingResource::default()/* use setters */);
+    /// ```
     pub fn set_violating_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ViolatingResource>,
@@ -280,6 +404,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [violating_resource][crate::model::Finding::violating_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::ViolatingResource;
+    /// let x = Finding::new().set_or_clear_violating_resource(Some(ViolatingResource::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_violating_resource(None::<ViolatingResource>);
+    /// ```
     pub fn set_or_clear_violating_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ViolatingResource>,
@@ -289,6 +421,13 @@ impl Finding {
     }
 
     /// Sets the value of [vulnerable_headers][crate::model::Finding::vulnerable_headers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::VulnerableHeaders;
+    /// let x = Finding::new().set_vulnerable_headers(VulnerableHeaders::default()/* use setters */);
+    /// ```
     pub fn set_vulnerable_headers<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VulnerableHeaders>,
@@ -298,6 +437,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [vulnerable_headers][crate::model::Finding::vulnerable_headers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::VulnerableHeaders;
+    /// let x = Finding::new().set_or_clear_vulnerable_headers(Some(VulnerableHeaders::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_vulnerable_headers(None::<VulnerableHeaders>);
+    /// ```
     pub fn set_or_clear_vulnerable_headers<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VulnerableHeaders>,
@@ -307,6 +454,13 @@ impl Finding {
     }
 
     /// Sets the value of [vulnerable_parameters][crate::model::Finding::vulnerable_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::VulnerableParameters;
+    /// let x = Finding::new().set_vulnerable_parameters(VulnerableParameters::default()/* use setters */);
+    /// ```
     pub fn set_vulnerable_parameters<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VulnerableParameters>,
@@ -316,6 +470,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [vulnerable_parameters][crate::model::Finding::vulnerable_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::VulnerableParameters;
+    /// let x = Finding::new().set_or_clear_vulnerable_parameters(Some(VulnerableParameters::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_vulnerable_parameters(None::<VulnerableParameters>);
+    /// ```
     pub fn set_or_clear_vulnerable_parameters<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VulnerableParameters>,
@@ -325,6 +487,13 @@ impl Finding {
     }
 
     /// Sets the value of [xss][crate::model::Finding::xss].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::Xss;
+    /// let x = Finding::new().set_xss(Xss::default()/* use setters */);
+    /// ```
     pub fn set_xss<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Xss>,
@@ -334,6 +503,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [xss][crate::model::Finding::xss].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::Xss;
+    /// let x = Finding::new().set_or_clear_xss(Some(Xss::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_xss(None::<Xss>);
+    /// ```
     pub fn set_or_clear_xss<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Xss>,
@@ -343,6 +520,13 @@ impl Finding {
     }
 
     /// Sets the value of [xxe][crate::model::Finding::xxe].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::Xxe;
+    /// let x = Finding::new().set_xxe(Xxe::default()/* use setters */);
+    /// ```
     pub fn set_xxe<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Xxe>,
@@ -352,6 +536,14 @@ impl Finding {
     }
 
     /// Sets or clears the value of [xxe][crate::model::Finding::xxe].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Finding;
+    /// use google_cloud_websecurityscanner_v1::model::Xxe;
+    /// let x = Finding::new().set_or_clear_xxe(Some(Xxe::default()/* use setters */));
+    /// let x = Finding::new().set_or_clear_xxe(None::<Xxe>);
+    /// ```
     pub fn set_or_clear_xxe<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Xxe>,
@@ -538,12 +730,24 @@ impl Form {
     }
 
     /// Sets the value of [action_uri][crate::model::Form::action_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Form;
+    /// let x = Form::new().set_action_uri("example");
+    /// ```
     pub fn set_action_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action_uri = v.into();
         self
     }
 
     /// Sets the value of [fields][crate::model::Form::fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Form;
+    /// let x = Form::new().set_fields(["a", "b", "c"]);
+    /// ```
     pub fn set_fields<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -583,18 +787,36 @@ impl OutdatedLibrary {
     }
 
     /// Sets the value of [library_name][crate::model::OutdatedLibrary::library_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::OutdatedLibrary;
+    /// let x = OutdatedLibrary::new().set_library_name("example");
+    /// ```
     pub fn set_library_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.library_name = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::OutdatedLibrary::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::OutdatedLibrary;
+    /// let x = OutdatedLibrary::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [learn_more_urls][crate::model::OutdatedLibrary::learn_more_urls].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::OutdatedLibrary;
+    /// let x = OutdatedLibrary::new().set_learn_more_urls(["a", "b", "c"]);
+    /// ```
     pub fn set_learn_more_urls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -632,12 +854,24 @@ impl ViolatingResource {
     }
 
     /// Sets the value of [content_type][crate::model::ViolatingResource::content_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ViolatingResource;
+    /// let x = ViolatingResource::new().set_content_type("example");
+    /// ```
     pub fn set_content_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content_type = v.into();
         self
     }
 
     /// Sets the value of [resource_url][crate::model::ViolatingResource::resource_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ViolatingResource;
+    /// let x = ViolatingResource::new().set_resource_url("example");
+    /// ```
     pub fn set_resource_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_url = v.into();
         self
@@ -666,6 +900,12 @@ impl VulnerableParameters {
     }
 
     /// Sets the value of [parameter_names][crate::model::VulnerableParameters::parameter_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::VulnerableParameters;
+    /// let x = VulnerableParameters::new().set_parameter_names(["a", "b", "c"]);
+    /// ```
     pub fn set_parameter_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -702,6 +942,17 @@ impl VulnerableHeaders {
     }
 
     /// Sets the value of [headers][crate::model::VulnerableHeaders::headers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::VulnerableHeaders;
+    /// use google_cloud_websecurityscanner_v1::model::vulnerable_headers::Header;
+    /// let x = VulnerableHeaders::new()
+    ///     .set_headers([
+    ///         Header::default()/* use setters */,
+    ///         Header::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -713,6 +964,17 @@ impl VulnerableHeaders {
     }
 
     /// Sets the value of [missing_headers][crate::model::VulnerableHeaders::missing_headers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::VulnerableHeaders;
+    /// use google_cloud_websecurityscanner_v1::model::vulnerable_headers::Header;
+    /// let x = VulnerableHeaders::new()
+    ///     .set_missing_headers([
+    ///         Header::default()/* use setters */,
+    ///         Header::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_missing_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -754,12 +1016,24 @@ pub mod vulnerable_headers {
         }
 
         /// Sets the value of [name][crate::model::vulnerable_headers::Header::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_websecurityscanner_v1::model::vulnerable_headers::Header;
+        /// let x = Header::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [value][crate::model::vulnerable_headers::Header::value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_websecurityscanner_v1::model::vulnerable_headers::Header;
+        /// let x = Header::new().set_value("example");
+        /// ```
         pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.value = v.into();
             self
@@ -798,6 +1072,12 @@ impl Xss {
     }
 
     /// Sets the value of [stack_traces][crate::model::Xss::stack_traces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Xss;
+    /// let x = Xss::new().set_stack_traces(["a", "b", "c"]);
+    /// ```
     pub fn set_stack_traces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -809,12 +1089,27 @@ impl Xss {
     }
 
     /// Sets the value of [error_message][crate::model::Xss::error_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Xss;
+    /// let x = Xss::new().set_error_message("example");
+    /// ```
     pub fn set_error_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error_message = v.into();
         self
     }
 
     /// Sets the value of [attack_vector][crate::model::Xss::attack_vector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Xss;
+    /// use google_cloud_websecurityscanner_v1::model::xss::AttackVector;
+    /// let x0 = Xss::new().set_attack_vector(AttackVector::LocalStorage);
+    /// let x1 = Xss::new().set_attack_vector(AttackVector::SessionStorage);
+    /// let x2 = Xss::new().set_attack_vector(AttackVector::WindowName);
+    /// ```
     pub fn set_attack_vector<T: std::convert::Into<crate::model::xss::AttackVector>>(
         mut self,
         v: T,
@@ -824,6 +1119,12 @@ impl Xss {
     }
 
     /// Sets the value of [stored_xss_seeding_url][crate::model::Xss::stored_xss_seeding_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Xss;
+    /// let x = Xss::new().set_stored_xss_seeding_url("example");
+    /// ```
     pub fn set_stored_xss_seeding_url<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1089,12 +1390,25 @@ impl Xxe {
     }
 
     /// Sets the value of [payload_value][crate::model::Xxe::payload_value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Xxe;
+    /// let x = Xxe::new().set_payload_value("example");
+    /// ```
     pub fn set_payload_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.payload_value = v.into();
         self
     }
 
     /// Sets the value of [payload_location][crate::model::Xxe::payload_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::Xxe;
+    /// use google_cloud_websecurityscanner_v1::model::xxe::Location;
+    /// let x0 = Xxe::new().set_payload_location(Location::CompleteRequestBody);
+    /// ```
     pub fn set_payload_location<T: std::convert::Into<crate::model::xxe::Location>>(
         mut self,
         v: T,
@@ -1261,12 +1575,24 @@ impl FindingTypeStats {
     }
 
     /// Sets the value of [finding_type][crate::model::FindingTypeStats::finding_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::FindingTypeStats;
+    /// let x = FindingTypeStats::new().set_finding_type("example");
+    /// ```
     pub fn set_finding_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.finding_type = v.into();
         self
     }
 
     /// Sets the value of [finding_count][crate::model::FindingTypeStats::finding_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::FindingTypeStats;
+    /// let x = FindingTypeStats::new().set_finding_count(42);
+    /// ```
     pub fn set_finding_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.finding_count = v.into();
         self
@@ -1341,24 +1667,48 @@ impl ScanConfig {
     }
 
     /// Sets the value of [name][crate::model::ScanConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = ScanConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::ScanConfig::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = ScanConfig::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [max_qps][crate::model::ScanConfig::max_qps].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = ScanConfig::new().set_max_qps(42);
+    /// ```
     pub fn set_max_qps<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_qps = v.into();
         self
     }
 
     /// Sets the value of [starting_urls][crate::model::ScanConfig::starting_urls].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = ScanConfig::new().set_starting_urls(["a", "b", "c"]);
+    /// ```
     pub fn set_starting_urls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1370,6 +1720,13 @@ impl ScanConfig {
     }
 
     /// Sets the value of [authentication][crate::model::ScanConfig::authentication].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// use google_cloud_websecurityscanner_v1::model::scan_config::Authentication;
+    /// let x = ScanConfig::new().set_authentication(Authentication::default()/* use setters */);
+    /// ```
     pub fn set_authentication<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::scan_config::Authentication>,
@@ -1379,6 +1736,14 @@ impl ScanConfig {
     }
 
     /// Sets or clears the value of [authentication][crate::model::ScanConfig::authentication].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// use google_cloud_websecurityscanner_v1::model::scan_config::Authentication;
+    /// let x = ScanConfig::new().set_or_clear_authentication(Some(Authentication::default()/* use setters */));
+    /// let x = ScanConfig::new().set_or_clear_authentication(None::<Authentication>);
+    /// ```
     pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::scan_config::Authentication>,
@@ -1388,6 +1753,15 @@ impl ScanConfig {
     }
 
     /// Sets the value of [user_agent][crate::model::ScanConfig::user_agent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// use google_cloud_websecurityscanner_v1::model::scan_config::UserAgent;
+    /// let x0 = ScanConfig::new().set_user_agent(UserAgent::ChromeLinux);
+    /// let x1 = ScanConfig::new().set_user_agent(UserAgent::ChromeAndroid);
+    /// let x2 = ScanConfig::new().set_user_agent(UserAgent::SafariIphone);
+    /// ```
     pub fn set_user_agent<T: std::convert::Into<crate::model::scan_config::UserAgent>>(
         mut self,
         v: T,
@@ -1397,6 +1771,12 @@ impl ScanConfig {
     }
 
     /// Sets the value of [blacklist_patterns][crate::model::ScanConfig::blacklist_patterns].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = ScanConfig::new().set_blacklist_patterns(["a", "b", "c"]);
+    /// ```
     pub fn set_blacklist_patterns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1408,6 +1788,13 @@ impl ScanConfig {
     }
 
     /// Sets the value of [schedule][crate::model::ScanConfig::schedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// use google_cloud_websecurityscanner_v1::model::scan_config::Schedule;
+    /// let x = ScanConfig::new().set_schedule(Schedule::default()/* use setters */);
+    /// ```
     pub fn set_schedule<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::scan_config::Schedule>,
@@ -1417,6 +1804,14 @@ impl ScanConfig {
     }
 
     /// Sets or clears the value of [schedule][crate::model::ScanConfig::schedule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// use google_cloud_websecurityscanner_v1::model::scan_config::Schedule;
+    /// let x = ScanConfig::new().set_or_clear_schedule(Some(Schedule::default()/* use setters */));
+    /// let x = ScanConfig::new().set_or_clear_schedule(None::<Schedule>);
+    /// ```
     pub fn set_or_clear_schedule<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::scan_config::Schedule>,
@@ -1426,6 +1821,14 @@ impl ScanConfig {
     }
 
     /// Sets the value of [export_to_security_command_center][crate::model::ScanConfig::export_to_security_command_center].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// use google_cloud_websecurityscanner_v1::model::scan_config::ExportToSecurityCommandCenter;
+    /// let x0 = ScanConfig::new().set_export_to_security_command_center(ExportToSecurityCommandCenter::Enabled);
+    /// let x1 = ScanConfig::new().set_export_to_security_command_center(ExportToSecurityCommandCenter::Disabled);
+    /// ```
     pub fn set_export_to_security_command_center<
         T: std::convert::Into<crate::model::scan_config::ExportToSecurityCommandCenter>,
     >(
@@ -1437,6 +1840,14 @@ impl ScanConfig {
     }
 
     /// Sets the value of [risk_level][crate::model::ScanConfig::risk_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// use google_cloud_websecurityscanner_v1::model::scan_config::RiskLevel;
+    /// let x0 = ScanConfig::new().set_risk_level(RiskLevel::Normal);
+    /// let x1 = ScanConfig::new().set_risk_level(RiskLevel::Low);
+    /// ```
     pub fn set_risk_level<T: std::convert::Into<crate::model::scan_config::RiskLevel>>(
         mut self,
         v: T,
@@ -1446,18 +1857,36 @@ impl ScanConfig {
     }
 
     /// Sets the value of [managed_scan][crate::model::ScanConfig::managed_scan].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = ScanConfig::new().set_managed_scan(true);
+    /// ```
     pub fn set_managed_scan<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.managed_scan = v.into();
         self
     }
 
     /// Sets the value of [static_ip_scan][crate::model::ScanConfig::static_ip_scan].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = ScanConfig::new().set_static_ip_scan(true);
+    /// ```
     pub fn set_static_ip_scan<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.static_ip_scan = v.into();
         self
     }
 
     /// Sets the value of [ignore_http_status_errors][crate::model::ScanConfig::ignore_http_status_errors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = ScanConfig::new().set_ignore_http_status_errors(true);
+    /// ```
     pub fn set_ignore_http_status_errors<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_http_status_errors = v.into();
         self
@@ -1496,6 +1925,14 @@ pub mod scan_config {
         ///
         /// Note that all the setters affecting `authentication` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_websecurityscanner_v1::model::scan_config::Authentication;
+        /// use google_cloud_websecurityscanner_v1::model::scan_config::authentication::CustomAccount;
+        /// let x = Authentication::new().set_authentication(Some(
+        ///     google_cloud_websecurityscanner_v1::model::scan_config::authentication::Authentication::CustomAccount(CustomAccount::default().into())));
+        /// ```
         pub fn set_authentication<
             T: std::convert::Into<
                     std::option::Option<crate::model::scan_config::authentication::Authentication>,
@@ -1531,6 +1968,16 @@ pub mod scan_config {
         ///
         /// Note that all the setters affecting `authentication` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_websecurityscanner_v1::model::scan_config::Authentication;
+        /// use google_cloud_websecurityscanner_v1::model::scan_config::authentication::GoogleAccount;
+        /// let x = Authentication::new().set_google_account(GoogleAccount::default()/* use setters */);
+        /// assert!(x.google_account().is_some());
+        /// assert!(x.custom_account().is_none());
+        /// assert!(x.iap_credential().is_none());
+        /// ```
         #[deprecated]
         pub fn set_google_account<
             T: std::convert::Into<
@@ -1568,6 +2015,16 @@ pub mod scan_config {
         ///
         /// Note that all the setters affecting `authentication` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_websecurityscanner_v1::model::scan_config::Authentication;
+        /// use google_cloud_websecurityscanner_v1::model::scan_config::authentication::CustomAccount;
+        /// let x = Authentication::new().set_custom_account(CustomAccount::default()/* use setters */);
+        /// assert!(x.custom_account().is_some());
+        /// assert!(x.google_account().is_none());
+        /// assert!(x.iap_credential().is_none());
+        /// ```
         pub fn set_custom_account<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::scan_config::authentication::CustomAccount>,
@@ -1604,6 +2061,16 @@ pub mod scan_config {
         ///
         /// Note that all the setters affecting `authentication` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_websecurityscanner_v1::model::scan_config::Authentication;
+        /// use google_cloud_websecurityscanner_v1::model::scan_config::authentication::IapCredential;
+        /// let x = Authentication::new().set_iap_credential(IapCredential::default()/* use setters */);
+        /// assert!(x.iap_credential().is_some());
+        /// assert!(x.google_account().is_none());
+        /// assert!(x.custom_account().is_none());
+        /// ```
         pub fn set_iap_credential<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::scan_config::authentication::IapCredential>,
@@ -1651,6 +2118,12 @@ pub mod scan_config {
             }
 
             /// Sets the value of [username][crate::model::scan_config::authentication::GoogleAccount::username].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_websecurityscanner_v1::model::scan_config::authentication::GoogleAccount;
+            /// let x = GoogleAccount::new().set_username("example");
+            /// ```
             pub fn set_username<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1660,6 +2133,12 @@ pub mod scan_config {
             }
 
             /// Sets the value of [password][crate::model::scan_config::authentication::GoogleAccount::password].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_websecurityscanner_v1::model::scan_config::authentication::GoogleAccount;
+            /// let x = GoogleAccount::new().set_password("example");
+            /// ```
             pub fn set_password<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1698,6 +2177,12 @@ pub mod scan_config {
             }
 
             /// Sets the value of [username][crate::model::scan_config::authentication::CustomAccount::username].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_websecurityscanner_v1::model::scan_config::authentication::CustomAccount;
+            /// let x = CustomAccount::new().set_username("example");
+            /// ```
             pub fn set_username<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1707,6 +2192,12 @@ pub mod scan_config {
             }
 
             /// Sets the value of [password][crate::model::scan_config::authentication::CustomAccount::password].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_websecurityscanner_v1::model::scan_config::authentication::CustomAccount;
+            /// let x = CustomAccount::new().set_password("example");
+            /// ```
             pub fn set_password<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1716,6 +2207,12 @@ pub mod scan_config {
             }
 
             /// Sets the value of [login_url][crate::model::scan_config::authentication::CustomAccount::login_url].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_websecurityscanner_v1::model::scan_config::authentication::CustomAccount;
+            /// let x = CustomAccount::new().set_login_url("example");
+            /// ```
             pub fn set_login_url<T: std::convert::Into<std::string::String>>(
                 mut self,
                 v: T,
@@ -1752,6 +2249,14 @@ pub mod scan_config {
             ///
             /// Note that all the setters affecting `iap_credentials` are mutually
             /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_websecurityscanner_v1::model::scan_config::authentication::IapCredential;
+            /// use google_cloud_websecurityscanner_v1::model::scan_config::authentication::iap_credential::IapTestServiceAccountInfo;
+            /// let x = IapCredential::new().set_iap_credentials(Some(
+            ///     google_cloud_websecurityscanner_v1::model::scan_config::authentication::iap_credential::IapCredentials::IapTestServiceAccountInfo(IapTestServiceAccountInfo::default().into())));
+            /// ```
             pub fn set_iap_credentials<T: std::convert::Into<std::option::Option<crate::model::scan_config::authentication::iap_credential::IapCredentials>>>(mut self, v: T) -> Self
             {
                 self.iap_credentials = v.into();
@@ -1774,6 +2279,14 @@ pub mod scan_config {
             ///
             /// Note that all the setters affecting `iap_credentials` are
             /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_websecurityscanner_v1::model::scan_config::authentication::IapCredential;
+            /// use google_cloud_websecurityscanner_v1::model::scan_config::authentication::iap_credential::IapTestServiceAccountInfo;
+            /// let x = IapCredential::new().set_iap_test_service_account_info(IapTestServiceAccountInfo::default()/* use setters */);
+            /// assert!(x.iap_test_service_account_info().is_some());
+            /// ```
             pub fn set_iap_test_service_account_info<T: std::convert::Into<std::boxed::Box<crate::model::scan_config::authentication::iap_credential::IapTestServiceAccountInfo>>>(mut self, v: T) -> Self{
                 self.iap_credentials = std::option::Option::Some(
                     crate::model::scan_config::authentication::iap_credential::IapCredentials::IapTestServiceAccountInfo(
@@ -1813,6 +2326,12 @@ pub mod scan_config {
                 }
 
                 /// Sets the value of [target_audience_client_id][crate::model::scan_config::authentication::iap_credential::IapTestServiceAccountInfo::target_audience_client_id].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_websecurityscanner_v1::model::scan_config::authentication::iap_credential::IapTestServiceAccountInfo;
+                /// let x = IapTestServiceAccountInfo::new().set_target_audience_client_id("example");
+                /// ```
                 pub fn set_target_audience_client_id<T: std::convert::Into<std::string::String>>(
                     mut self,
                     v: T,
@@ -1881,6 +2400,13 @@ pub mod scan_config {
         }
 
         /// Sets the value of [schedule_time][crate::model::scan_config::Schedule::schedule_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_websecurityscanner_v1::model::scan_config::Schedule;
+        /// use wkt::Timestamp;
+        /// let x = Schedule::new().set_schedule_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_schedule_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1890,6 +2416,14 @@ pub mod scan_config {
         }
 
         /// Sets or clears the value of [schedule_time][crate::model::scan_config::Schedule::schedule_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_websecurityscanner_v1::model::scan_config::Schedule;
+        /// use wkt::Timestamp;
+        /// let x = Schedule::new().set_or_clear_schedule_time(Some(Timestamp::default()/* use setters */));
+        /// let x = Schedule::new().set_or_clear_schedule_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_schedule_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1899,6 +2433,12 @@ pub mod scan_config {
         }
 
         /// Sets the value of [interval_duration_days][crate::model::scan_config::Schedule::interval_duration_days].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_websecurityscanner_v1::model::scan_config::Schedule;
+        /// let x = Schedule::new().set_interval_duration_days(42);
+        /// ```
         pub fn set_interval_duration_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.interval_duration_days = v.into();
             self
@@ -2347,6 +2887,15 @@ impl ScanConfigError {
     }
 
     /// Sets the value of [code][crate::model::ScanConfigError::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfigError;
+    /// use google_cloud_websecurityscanner_v1::model::scan_config_error::Code;
+    /// let x0 = ScanConfigError::new().set_code(Code::InternalError);
+    /// let x1 = ScanConfigError::new().set_code(Code::AppengineApiBackendError);
+    /// let x2 = ScanConfigError::new().set_code(Code::AppengineApiNotAccessible);
+    /// ```
     pub fn set_code<T: std::convert::Into<crate::model::scan_config_error::Code>>(
         mut self,
         v: T,
@@ -2356,6 +2905,12 @@ impl ScanConfigError {
     }
 
     /// Sets the value of [field_name][crate::model::ScanConfigError::field_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanConfigError;
+    /// let x = ScanConfigError::new().set_field_name("example");
+    /// ```
     pub fn set_field_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.field_name = v.into();
         self
@@ -2923,12 +3478,27 @@ impl ScanRun {
     }
 
     /// Sets the value of [name][crate::model::ScanRun::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// let x = ScanRun::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [execution_state][crate::model::ScanRun::execution_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// use google_cloud_websecurityscanner_v1::model::scan_run::ExecutionState;
+    /// let x0 = ScanRun::new().set_execution_state(ExecutionState::Queued);
+    /// let x1 = ScanRun::new().set_execution_state(ExecutionState::Scanning);
+    /// let x2 = ScanRun::new().set_execution_state(ExecutionState::Finished);
+    /// ```
     pub fn set_execution_state<T: std::convert::Into<crate::model::scan_run::ExecutionState>>(
         mut self,
         v: T,
@@ -2938,6 +3508,15 @@ impl ScanRun {
     }
 
     /// Sets the value of [result_state][crate::model::ScanRun::result_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// use google_cloud_websecurityscanner_v1::model::scan_run::ResultState;
+    /// let x0 = ScanRun::new().set_result_state(ResultState::Success);
+    /// let x1 = ScanRun::new().set_result_state(ResultState::Error);
+    /// let x2 = ScanRun::new().set_result_state(ResultState::Killed);
+    /// ```
     pub fn set_result_state<T: std::convert::Into<crate::model::scan_run::ResultState>>(
         mut self,
         v: T,
@@ -2947,6 +3526,13 @@ impl ScanRun {
     }
 
     /// Sets the value of [start_time][crate::model::ScanRun::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// use wkt::Timestamp;
+    /// let x = ScanRun::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2956,6 +3542,14 @@ impl ScanRun {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ScanRun::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// use wkt::Timestamp;
+    /// let x = ScanRun::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ScanRun::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2965,6 +3559,13 @@ impl ScanRun {
     }
 
     /// Sets the value of [end_time][crate::model::ScanRun::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// use wkt::Timestamp;
+    /// let x = ScanRun::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2974,6 +3575,14 @@ impl ScanRun {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ScanRun::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// use wkt::Timestamp;
+    /// let x = ScanRun::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ScanRun::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2983,30 +3592,61 @@ impl ScanRun {
     }
 
     /// Sets the value of [urls_crawled_count][crate::model::ScanRun::urls_crawled_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// let x = ScanRun::new().set_urls_crawled_count(42);
+    /// ```
     pub fn set_urls_crawled_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.urls_crawled_count = v.into();
         self
     }
 
     /// Sets the value of [urls_tested_count][crate::model::ScanRun::urls_tested_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// let x = ScanRun::new().set_urls_tested_count(42);
+    /// ```
     pub fn set_urls_tested_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.urls_tested_count = v.into();
         self
     }
 
     /// Sets the value of [has_vulnerabilities][crate::model::ScanRun::has_vulnerabilities].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// let x = ScanRun::new().set_has_vulnerabilities(true);
+    /// ```
     pub fn set_has_vulnerabilities<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.has_vulnerabilities = v.into();
         self
     }
 
     /// Sets the value of [progress_percent][crate::model::ScanRun::progress_percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// let x = ScanRun::new().set_progress_percent(42);
+    /// ```
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
         self
     }
 
     /// Sets the value of [error_trace][crate::model::ScanRun::error_trace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// use google_cloud_websecurityscanner_v1::model::ScanRunErrorTrace;
+    /// let x = ScanRun::new().set_error_trace(ScanRunErrorTrace::default()/* use setters */);
+    /// ```
     pub fn set_error_trace<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScanRunErrorTrace>,
@@ -3016,6 +3656,14 @@ impl ScanRun {
     }
 
     /// Sets or clears the value of [error_trace][crate::model::ScanRun::error_trace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// use google_cloud_websecurityscanner_v1::model::ScanRunErrorTrace;
+    /// let x = ScanRun::new().set_or_clear_error_trace(Some(ScanRunErrorTrace::default()/* use setters */));
+    /// let x = ScanRun::new().set_or_clear_error_trace(None::<ScanRunErrorTrace>);
+    /// ```
     pub fn set_or_clear_error_trace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScanRunErrorTrace>,
@@ -3025,6 +3673,17 @@ impl ScanRun {
     }
 
     /// Sets the value of [warning_traces][crate::model::ScanRun::warning_traces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// use google_cloud_websecurityscanner_v1::model::ScanRunWarningTrace;
+    /// let x = ScanRun::new()
+    ///     .set_warning_traces([
+    ///         ScanRunWarningTrace::default()/* use setters */,
+    ///         ScanRunWarningTrace::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_warning_traces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3355,6 +4014,15 @@ impl ScanRunErrorTrace {
     }
 
     /// Sets the value of [code][crate::model::ScanRunErrorTrace::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunErrorTrace;
+    /// use google_cloud_websecurityscanner_v1::model::scan_run_error_trace::Code;
+    /// let x0 = ScanRunErrorTrace::new().set_code(Code::InternalError);
+    /// let x1 = ScanRunErrorTrace::new().set_code(Code::ScanConfigIssue);
+    /// let x2 = ScanRunErrorTrace::new().set_code(Code::AuthenticationConfigIssue);
+    /// ```
     pub fn set_code<T: std::convert::Into<crate::model::scan_run_error_trace::Code>>(
         mut self,
         v: T,
@@ -3364,6 +4032,13 @@ impl ScanRunErrorTrace {
     }
 
     /// Sets the value of [scan_config_error][crate::model::ScanRunErrorTrace::scan_config_error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunErrorTrace;
+    /// use google_cloud_websecurityscanner_v1::model::ScanConfigError;
+    /// let x = ScanRunErrorTrace::new().set_scan_config_error(ScanConfigError::default()/* use setters */);
+    /// ```
     pub fn set_scan_config_error<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScanConfigError>,
@@ -3373,6 +4048,14 @@ impl ScanRunErrorTrace {
     }
 
     /// Sets or clears the value of [scan_config_error][crate::model::ScanRunErrorTrace::scan_config_error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunErrorTrace;
+    /// use google_cloud_websecurityscanner_v1::model::ScanConfigError;
+    /// let x = ScanRunErrorTrace::new().set_or_clear_scan_config_error(Some(ScanConfigError::default()/* use setters */));
+    /// let x = ScanRunErrorTrace::new().set_or_clear_scan_config_error(None::<ScanConfigError>);
+    /// ```
     pub fn set_or_clear_scan_config_error<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScanConfigError>,
@@ -3382,6 +4065,12 @@ impl ScanRunErrorTrace {
     }
 
     /// Sets the value of [most_common_http_error_code][crate::model::ScanRunErrorTrace::most_common_http_error_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunErrorTrace;
+    /// let x = ScanRunErrorTrace::new().set_most_common_http_error_code(42);
+    /// ```
     pub fn set_most_common_http_error_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.most_common_http_error_code = v.into();
         self
@@ -3608,18 +4297,39 @@ impl ScanRunLog {
     }
 
     /// Sets the value of [summary][crate::model::ScanRunLog::summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunLog;
+    /// let x = ScanRunLog::new().set_summary("example");
+    /// ```
     pub fn set_summary<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.summary = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::ScanRunLog::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunLog;
+    /// let x = ScanRunLog::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [execution_state][crate::model::ScanRunLog::execution_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunLog;
+    /// use google_cloud_websecurityscanner_v1::model::scan_run::ExecutionState;
+    /// let x0 = ScanRunLog::new().set_execution_state(ExecutionState::Queued);
+    /// let x1 = ScanRunLog::new().set_execution_state(ExecutionState::Scanning);
+    /// let x2 = ScanRunLog::new().set_execution_state(ExecutionState::Finished);
+    /// ```
     pub fn set_execution_state<T: std::convert::Into<crate::model::scan_run::ExecutionState>>(
         mut self,
         v: T,
@@ -3629,6 +4339,15 @@ impl ScanRunLog {
     }
 
     /// Sets the value of [result_state][crate::model::ScanRunLog::result_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunLog;
+    /// use google_cloud_websecurityscanner_v1::model::scan_run::ResultState;
+    /// let x0 = ScanRunLog::new().set_result_state(ResultState::Success);
+    /// let x1 = ScanRunLog::new().set_result_state(ResultState::Error);
+    /// let x2 = ScanRunLog::new().set_result_state(ResultState::Killed);
+    /// ```
     pub fn set_result_state<T: std::convert::Into<crate::model::scan_run::ResultState>>(
         mut self,
         v: T,
@@ -3638,24 +4357,49 @@ impl ScanRunLog {
     }
 
     /// Sets the value of [urls_crawled_count][crate::model::ScanRunLog::urls_crawled_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunLog;
+    /// let x = ScanRunLog::new().set_urls_crawled_count(42);
+    /// ```
     pub fn set_urls_crawled_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.urls_crawled_count = v.into();
         self
     }
 
     /// Sets the value of [urls_tested_count][crate::model::ScanRunLog::urls_tested_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunLog;
+    /// let x = ScanRunLog::new().set_urls_tested_count(42);
+    /// ```
     pub fn set_urls_tested_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.urls_tested_count = v.into();
         self
     }
 
     /// Sets the value of [has_findings][crate::model::ScanRunLog::has_findings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunLog;
+    /// let x = ScanRunLog::new().set_has_findings(true);
+    /// ```
     pub fn set_has_findings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.has_findings = v.into();
         self
     }
 
     /// Sets the value of [error_trace][crate::model::ScanRunLog::error_trace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunLog;
+    /// use google_cloud_websecurityscanner_v1::model::ScanRunErrorTrace;
+    /// let x = ScanRunLog::new().set_error_trace(ScanRunErrorTrace::default()/* use setters */);
+    /// ```
     pub fn set_error_trace<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScanRunErrorTrace>,
@@ -3665,6 +4409,14 @@ impl ScanRunLog {
     }
 
     /// Sets or clears the value of [error_trace][crate::model::ScanRunLog::error_trace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunLog;
+    /// use google_cloud_websecurityscanner_v1::model::ScanRunErrorTrace;
+    /// let x = ScanRunLog::new().set_or_clear_error_trace(Some(ScanRunErrorTrace::default()/* use setters */));
+    /// let x = ScanRunLog::new().set_or_clear_error_trace(None::<ScanRunErrorTrace>);
+    /// ```
     pub fn set_or_clear_error_trace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScanRunErrorTrace>,
@@ -3698,6 +4450,15 @@ impl ScanRunWarningTrace {
     }
 
     /// Sets the value of [code][crate::model::ScanRunWarningTrace::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ScanRunWarningTrace;
+    /// use google_cloud_websecurityscanner_v1::model::scan_run_warning_trace::Code;
+    /// let x0 = ScanRunWarningTrace::new().set_code(Code::InsufficientCrawlResults);
+    /// let x1 = ScanRunWarningTrace::new().set_code(Code::TooManyCrawlResults);
+    /// let x2 = ScanRunWarningTrace::new().set_code(Code::TooManyFuzzTasks);
+    /// ```
     pub fn set_code<T: std::convert::Into<crate::model::scan_run_warning_trace::Code>>(
         mut self,
         v: T,
@@ -3903,12 +4664,25 @@ impl CreateScanConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateScanConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::CreateScanConfigRequest;
+    /// let x = CreateScanConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::CreateScanConfigRequest;
+    /// use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = CreateScanConfigRequest::new().set_scan_config(ScanConfig::default()/* use setters */);
+    /// ```
     pub fn set_scan_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScanConfig>,
@@ -3918,6 +4692,14 @@ impl CreateScanConfigRequest {
     }
 
     /// Sets or clears the value of [scan_config][crate::model::CreateScanConfigRequest::scan_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::CreateScanConfigRequest;
+    /// use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = CreateScanConfigRequest::new().set_or_clear_scan_config(Some(ScanConfig::default()/* use setters */));
+    /// let x = CreateScanConfigRequest::new().set_or_clear_scan_config(None::<ScanConfig>);
+    /// ```
     pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScanConfig>,
@@ -3950,6 +4732,12 @@ impl DeleteScanConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteScanConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::DeleteScanConfigRequest;
+    /// let x = DeleteScanConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3979,6 +4767,12 @@ impl GetScanConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetScanConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::GetScanConfigRequest;
+    /// let x = GetScanConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4018,18 +4812,36 @@ impl ListScanConfigsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListScanConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListScanConfigsRequest;
+    /// let x = ListScanConfigsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListScanConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListScanConfigsRequest;
+    /// let x = ListScanConfigsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListScanConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListScanConfigsRequest;
+    /// let x = ListScanConfigsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -4065,6 +4877,13 @@ impl UpdateScanConfigRequest {
     }
 
     /// Sets the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::UpdateScanConfigRequest;
+    /// use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = UpdateScanConfigRequest::new().set_scan_config(ScanConfig::default()/* use setters */);
+    /// ```
     pub fn set_scan_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ScanConfig>,
@@ -4074,6 +4893,14 @@ impl UpdateScanConfigRequest {
     }
 
     /// Sets or clears the value of [scan_config][crate::model::UpdateScanConfigRequest::scan_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::UpdateScanConfigRequest;
+    /// use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = UpdateScanConfigRequest::new().set_or_clear_scan_config(Some(ScanConfig::default()/* use setters */));
+    /// let x = UpdateScanConfigRequest::new().set_or_clear_scan_config(None::<ScanConfig>);
+    /// ```
     pub fn set_or_clear_scan_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ScanConfig>,
@@ -4083,6 +4910,13 @@ impl UpdateScanConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::UpdateScanConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateScanConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4092,6 +4926,14 @@ impl UpdateScanConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateScanConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::UpdateScanConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateScanConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateScanConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4127,6 +4969,17 @@ impl ListScanConfigsResponse {
     }
 
     /// Sets the value of [scan_configs][crate::model::ListScanConfigsResponse::scan_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListScanConfigsResponse;
+    /// use google_cloud_websecurityscanner_v1::model::ScanConfig;
+    /// let x = ListScanConfigsResponse::new()
+    ///     .set_scan_configs([
+    ///         ScanConfig::default()/* use setters */,
+    ///         ScanConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_scan_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4138,6 +4991,12 @@ impl ListScanConfigsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListScanConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListScanConfigsResponse;
+    /// let x = ListScanConfigsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4181,6 +5040,12 @@ impl StartScanRunRequest {
     }
 
     /// Sets the value of [name][crate::model::StartScanRunRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::StartScanRunRequest;
+    /// let x = StartScanRunRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4211,6 +5076,12 @@ impl GetScanRunRequest {
     }
 
     /// Sets the value of [name][crate::model::GetScanRunRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::GetScanRunRequest;
+    /// let x = GetScanRunRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4250,18 +5121,36 @@ impl ListScanRunsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListScanRunsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListScanRunsRequest;
+    /// let x = ListScanRunsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListScanRunsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListScanRunsRequest;
+    /// let x = ListScanRunsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListScanRunsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListScanRunsRequest;
+    /// let x = ListScanRunsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -4294,6 +5183,17 @@ impl ListScanRunsResponse {
     }
 
     /// Sets the value of [scan_runs][crate::model::ListScanRunsResponse::scan_runs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListScanRunsResponse;
+    /// use google_cloud_websecurityscanner_v1::model::ScanRun;
+    /// let x = ListScanRunsResponse::new()
+    ///     .set_scan_runs([
+    ///         ScanRun::default()/* use setters */,
+    ///         ScanRun::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_scan_runs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4305,6 +5205,12 @@ impl ListScanRunsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListScanRunsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListScanRunsResponse;
+    /// let x = ListScanRunsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4349,6 +5255,12 @@ impl StopScanRunRequest {
     }
 
     /// Sets the value of [name][crate::model::StopScanRunRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::StopScanRunRequest;
+    /// let x = StopScanRunRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4389,18 +5301,36 @@ impl ListCrawledUrlsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCrawledUrlsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListCrawledUrlsRequest;
+    /// let x = ListCrawledUrlsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCrawledUrlsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListCrawledUrlsRequest;
+    /// let x = ListCrawledUrlsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCrawledUrlsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListCrawledUrlsRequest;
+    /// let x = ListCrawledUrlsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -4433,6 +5363,17 @@ impl ListCrawledUrlsResponse {
     }
 
     /// Sets the value of [crawled_urls][crate::model::ListCrawledUrlsResponse::crawled_urls].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListCrawledUrlsResponse;
+    /// use google_cloud_websecurityscanner_v1::model::CrawledUrl;
+    /// let x = ListCrawledUrlsResponse::new()
+    ///     .set_crawled_urls([
+    ///         CrawledUrl::default()/* use setters */,
+    ///         CrawledUrl::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_crawled_urls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4444,6 +5385,12 @@ impl ListCrawledUrlsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCrawledUrlsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListCrawledUrlsResponse;
+    /// let x = ListCrawledUrlsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4488,6 +5435,12 @@ impl GetFindingRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFindingRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::GetFindingRequest;
+    /// let x = GetFindingRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4534,24 +5487,48 @@ impl ListFindingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFindingsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListFindingsRequest;
+    /// let x = ListFindingsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListFindingsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListFindingsRequest;
+    /// let x = ListFindingsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFindingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListFindingsRequest;
+    /// let x = ListFindingsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFindingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListFindingsRequest;
+    /// let x = ListFindingsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -4584,6 +5561,17 @@ impl ListFindingsResponse {
     }
 
     /// Sets the value of [findings][crate::model::ListFindingsResponse::findings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListFindingsResponse;
+    /// use google_cloud_websecurityscanner_v1::model::Finding;
+    /// let x = ListFindingsResponse::new()
+    ///     .set_findings([
+    ///         Finding::default()/* use setters */,
+    ///         Finding::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_findings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4595,6 +5583,12 @@ impl ListFindingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFindingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListFindingsResponse;
+    /// let x = ListFindingsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4639,6 +5633,12 @@ impl ListFindingTypeStatsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFindingTypeStatsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListFindingTypeStatsRequest;
+    /// let x = ListFindingTypeStatsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -4667,6 +5667,17 @@ impl ListFindingTypeStatsResponse {
     }
 
     /// Sets the value of [finding_type_stats][crate::model::ListFindingTypeStatsResponse::finding_type_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_websecurityscanner_v1::model::ListFindingTypeStatsResponse;
+    /// use google_cloud_websecurityscanner_v1::model::FindingTypeStats;
+    /// let x = ListFindingTypeStatsResponse::new()
+    ///     .set_finding_type_stats([
+    ///         FindingTypeStats::default()/* use setters */,
+    ///         FindingTypeStats::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_finding_type_stats<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

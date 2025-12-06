@@ -49,6 +49,12 @@ impl MessageStoragePolicy {
     }
 
     /// Sets the value of [allowed_persistence_regions][crate::model::MessageStoragePolicy::allowed_persistence_regions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::MessageStoragePolicy;
+    /// let x = MessageStoragePolicy::new().set_allowed_persistence_regions(["a", "b", "c"]);
+    /// ```
     pub fn set_allowed_persistence_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -60,6 +66,12 @@ impl MessageStoragePolicy {
     }
 
     /// Sets the value of [enforce_in_transit][crate::model::MessageStoragePolicy::enforce_in_transit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::MessageStoragePolicy;
+    /// let x = MessageStoragePolicy::new().set_enforce_in_transit(true);
+    /// ```
     pub fn set_enforce_in_transit<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enforce_in_transit = v.into();
         self
@@ -104,18 +116,38 @@ impl SchemaSettings {
     }
 
     /// Sets the value of [schema][crate::model::SchemaSettings::schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::SchemaSettings;
+    /// let x = SchemaSettings::new().set_schema("example");
+    /// ```
     pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema = v.into();
         self
     }
 
     /// Sets the value of [encoding][crate::model::SchemaSettings::encoding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::SchemaSettings;
+    /// use google_cloud_pubsub::model::Encoding;
+    /// let x0 = SchemaSettings::new().set_encoding(Encoding::Json);
+    /// let x1 = SchemaSettings::new().set_encoding(Encoding::Binary);
+    /// ```
     pub fn set_encoding<T: std::convert::Into<crate::model::Encoding>>(mut self, v: T) -> Self {
         self.encoding = v.into();
         self
     }
 
     /// Sets the value of [first_revision_id][crate::model::SchemaSettings::first_revision_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::SchemaSettings;
+    /// let x = SchemaSettings::new().set_first_revision_id("example");
+    /// ```
     pub fn set_first_revision_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -125,6 +157,12 @@ impl SchemaSettings {
     }
 
     /// Sets the value of [last_revision_id][crate::model::SchemaSettings::last_revision_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::SchemaSettings;
+    /// let x = SchemaSettings::new().set_last_revision_id("example");
+    /// ```
     pub fn set_last_revision_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -160,6 +198,13 @@ impl IngestionDataSourceSettings {
     }
 
     /// Sets the value of [platform_logs_settings][crate::model::IngestionDataSourceSettings::platform_logs_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::IngestionDataSourceSettings;
+    /// use google_cloud_pubsub::model::PlatformLogsSettings;
+    /// let x = IngestionDataSourceSettings::new().set_platform_logs_settings(PlatformLogsSettings::default()/* use setters */);
+    /// ```
     pub fn set_platform_logs_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PlatformLogsSettings>,
@@ -169,6 +214,14 @@ impl IngestionDataSourceSettings {
     }
 
     /// Sets or clears the value of [platform_logs_settings][crate::model::IngestionDataSourceSettings::platform_logs_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::IngestionDataSourceSettings;
+    /// use google_cloud_pubsub::model::PlatformLogsSettings;
+    /// let x = IngestionDataSourceSettings::new().set_or_clear_platform_logs_settings(Some(PlatformLogsSettings::default()/* use setters */));
+    /// let x = IngestionDataSourceSettings::new().set_or_clear_platform_logs_settings(None::<PlatformLogsSettings>);
+    /// ```
     pub fn set_or_clear_platform_logs_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PlatformLogsSettings>,
@@ -181,6 +234,14 @@ impl IngestionDataSourceSettings {
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::IngestionDataSourceSettings;
+    /// use google_cloud_pubsub::model::ingestion_data_source_settings::AwsKinesis;
+    /// let x = IngestionDataSourceSettings::new().set_source(Some(
+    ///     google_cloud_pubsub::model::ingestion_data_source_settings::Source::AwsKinesis(AwsKinesis::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<
                 std::option::Option<crate::model::ingestion_data_source_settings::Source>,
@@ -215,6 +276,18 @@ impl IngestionDataSourceSettings {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::IngestionDataSourceSettings;
+    /// use google_cloud_pubsub::model::ingestion_data_source_settings::AwsKinesis;
+    /// let x = IngestionDataSourceSettings::new().set_aws_kinesis(AwsKinesis::default()/* use setters */);
+    /// assert!(x.aws_kinesis().is_some());
+    /// assert!(x.cloud_storage().is_none());
+    /// assert!(x.azure_event_hubs().is_none());
+    /// assert!(x.aws_msk().is_none());
+    /// assert!(x.confluent_cloud().is_none());
+    /// ```
     pub fn set_aws_kinesis<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::ingestion_data_source_settings::AwsKinesis>,
@@ -251,6 +324,18 @@ impl IngestionDataSourceSettings {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::IngestionDataSourceSettings;
+    /// use google_cloud_pubsub::model::ingestion_data_source_settings::CloudStorage;
+    /// let x = IngestionDataSourceSettings::new().set_cloud_storage(CloudStorage::default()/* use setters */);
+    /// assert!(x.cloud_storage().is_some());
+    /// assert!(x.aws_kinesis().is_none());
+    /// assert!(x.azure_event_hubs().is_none());
+    /// assert!(x.aws_msk().is_none());
+    /// assert!(x.confluent_cloud().is_none());
+    /// ```
     pub fn set_cloud_storage<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::ingestion_data_source_settings::CloudStorage>,
@@ -287,6 +372,18 @@ impl IngestionDataSourceSettings {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::IngestionDataSourceSettings;
+    /// use google_cloud_pubsub::model::ingestion_data_source_settings::AzureEventHubs;
+    /// let x = IngestionDataSourceSettings::new().set_azure_event_hubs(AzureEventHubs::default()/* use setters */);
+    /// assert!(x.azure_event_hubs().is_some());
+    /// assert!(x.aws_kinesis().is_none());
+    /// assert!(x.cloud_storage().is_none());
+    /// assert!(x.aws_msk().is_none());
+    /// assert!(x.confluent_cloud().is_none());
+    /// ```
     pub fn set_azure_event_hubs<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::ingestion_data_source_settings::AzureEventHubs>,
@@ -322,6 +419,18 @@ impl IngestionDataSourceSettings {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::IngestionDataSourceSettings;
+    /// use google_cloud_pubsub::model::ingestion_data_source_settings::AwsMsk;
+    /// let x = IngestionDataSourceSettings::new().set_aws_msk(AwsMsk::default()/* use setters */);
+    /// assert!(x.aws_msk().is_some());
+    /// assert!(x.aws_kinesis().is_none());
+    /// assert!(x.cloud_storage().is_none());
+    /// assert!(x.azure_event_hubs().is_none());
+    /// assert!(x.confluent_cloud().is_none());
+    /// ```
     pub fn set_aws_msk<
         T: std::convert::Into<std::boxed::Box<crate::model::ingestion_data_source_settings::AwsMsk>>,
     >(
@@ -356,6 +465,18 @@ impl IngestionDataSourceSettings {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::IngestionDataSourceSettings;
+    /// use google_cloud_pubsub::model::ingestion_data_source_settings::ConfluentCloud;
+    /// let x = IngestionDataSourceSettings::new().set_confluent_cloud(ConfluentCloud::default()/* use setters */);
+    /// assert!(x.confluent_cloud().is_some());
+    /// assert!(x.aws_kinesis().is_none());
+    /// assert!(x.cloud_storage().is_none());
+    /// assert!(x.azure_event_hubs().is_none());
+    /// assert!(x.aws_msk().is_none());
+    /// ```
     pub fn set_confluent_cloud<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::ingestion_data_source_settings::ConfluentCloud>,
@@ -417,6 +538,15 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [state][crate::model::ingestion_data_source_settings::AwsKinesis::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsKinesis;
+        /// use google_cloud_pubsub::model::ingestion_data_source_settings::aws_kinesis::State;
+        /// let x0 = AwsKinesis::new().set_state(State::Active);
+        /// let x1 = AwsKinesis::new().set_state(State::KinesisPermissionDenied);
+        /// let x2 = AwsKinesis::new().set_state(State::PublishPermissionDenied);
+        /// ```
         pub fn set_state<
             T: std::convert::Into<crate::model::ingestion_data_source_settings::aws_kinesis::State>,
         >(
@@ -428,12 +558,24 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [stream_arn][crate::model::ingestion_data_source_settings::AwsKinesis::stream_arn].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsKinesis;
+        /// let x = AwsKinesis::new().set_stream_arn("example");
+        /// ```
         pub fn set_stream_arn<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.stream_arn = v.into();
             self
         }
 
         /// Sets the value of [consumer_arn][crate::model::ingestion_data_source_settings::AwsKinesis::consumer_arn].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsKinesis;
+        /// let x = AwsKinesis::new().set_consumer_arn("example");
+        /// ```
         pub fn set_consumer_arn<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -443,6 +585,12 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [aws_role_arn][crate::model::ingestion_data_source_settings::AwsKinesis::aws_role_arn].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsKinesis;
+        /// let x = AwsKinesis::new().set_aws_role_arn("example");
+        /// ```
         pub fn set_aws_role_arn<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -452,6 +600,12 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [gcp_service_account][crate::model::ingestion_data_source_settings::AwsKinesis::gcp_service_account].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsKinesis;
+        /// let x = AwsKinesis::new().set_gcp_service_account("example");
+        /// ```
         pub fn set_gcp_service_account<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -680,6 +834,15 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [state][crate::model::ingestion_data_source_settings::CloudStorage::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::CloudStorage;
+        /// use google_cloud_pubsub::model::ingestion_data_source_settings::cloud_storage::State;
+        /// let x0 = CloudStorage::new().set_state(State::Active);
+        /// let x1 = CloudStorage::new().set_state(State::CloudStoragePermissionDenied);
+        /// let x2 = CloudStorage::new().set_state(State::PublishPermissionDenied);
+        /// ```
         pub fn set_state<
             T: std::convert::Into<crate::model::ingestion_data_source_settings::cloud_storage::State>,
         >(
@@ -691,12 +854,25 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [bucket][crate::model::ingestion_data_source_settings::CloudStorage::bucket].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::CloudStorage;
+        /// let x = CloudStorage::new().set_bucket("example");
+        /// ```
         pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.bucket = v.into();
             self
         }
 
         /// Sets the value of [minimum_object_create_time][crate::model::ingestion_data_source_settings::CloudStorage::minimum_object_create_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::CloudStorage;
+        /// use wkt::Timestamp;
+        /// let x = CloudStorage::new().set_minimum_object_create_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_minimum_object_create_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -706,6 +882,14 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets or clears the value of [minimum_object_create_time][crate::model::ingestion_data_source_settings::CloudStorage::minimum_object_create_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::CloudStorage;
+        /// use wkt::Timestamp;
+        /// let x = CloudStorage::new().set_or_clear_minimum_object_create_time(Some(Timestamp::default()/* use setters */));
+        /// let x = CloudStorage::new().set_or_clear_minimum_object_create_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_minimum_object_create_time<T>(
             mut self,
             v: std::option::Option<T>,
@@ -718,6 +902,12 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [match_glob][crate::model::ingestion_data_source_settings::CloudStorage::match_glob].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::CloudStorage;
+        /// let x = CloudStorage::new().set_match_glob("example");
+        /// ```
         pub fn set_match_glob<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.match_glob = v.into();
             self
@@ -727,6 +917,14 @@ pub mod ingestion_data_source_settings {
         ///
         /// Note that all the setters affecting `input_format` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::CloudStorage;
+        /// use google_cloud_pubsub::model::ingestion_data_source_settings::cloud_storage::TextFormat;
+        /// let x = CloudStorage::new().set_input_format(Some(
+        ///     google_cloud_pubsub::model::ingestion_data_source_settings::cloud_storage::InputFormat::TextFormat(TextFormat::default().into())));
+        /// ```
         pub fn set_input_format<
             T: std::convert::Into<
                     std::option::Option<
@@ -763,6 +961,16 @@ pub mod ingestion_data_source_settings {
         ///
         /// Note that all the setters affecting `input_format` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::CloudStorage;
+        /// use google_cloud_pubsub::model::ingestion_data_source_settings::cloud_storage::TextFormat;
+        /// let x = CloudStorage::new().set_text_format(TextFormat::default()/* use setters */);
+        /// assert!(x.text_format().is_some());
+        /// assert!(x.avro_format().is_none());
+        /// assert!(x.pubsub_avro_format().is_none());
+        /// ```
         pub fn set_text_format<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -803,6 +1011,16 @@ pub mod ingestion_data_source_settings {
         ///
         /// Note that all the setters affecting `input_format` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::CloudStorage;
+        /// use google_cloud_pubsub::model::ingestion_data_source_settings::cloud_storage::AvroFormat;
+        /// let x = CloudStorage::new().set_avro_format(AvroFormat::default()/* use setters */);
+        /// assert!(x.avro_format().is_some());
+        /// assert!(x.text_format().is_none());
+        /// assert!(x.pubsub_avro_format().is_none());
+        /// ```
         pub fn set_avro_format<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -843,6 +1061,16 @@ pub mod ingestion_data_source_settings {
         ///
         /// Note that all the setters affecting `input_format` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::CloudStorage;
+        /// use google_cloud_pubsub::model::ingestion_data_source_settings::cloud_storage::PubSubAvroFormat;
+        /// let x = CloudStorage::new().set_pubsub_avro_format(PubSubAvroFormat::default()/* use setters */);
+        /// assert!(x.pubsub_avro_format().is_some());
+        /// assert!(x.text_format().is_none());
+        /// assert!(x.avro_format().is_none());
+        /// ```
         pub fn set_pubsub_avro_format<T: std::convert::Into<std::boxed::Box<crate::model::ingestion_data_source_settings::cloud_storage::PubSubAvroFormat>>>(mut self, v: T) -> Self{
             self.input_format = std::option::Option::Some(
                 crate::model::ingestion_data_source_settings::cloud_storage::InputFormat::PubsubAvroFormat(
@@ -882,6 +1110,12 @@ pub mod ingestion_data_source_settings {
             }
 
             /// Sets the value of [delimiter][crate::model::ingestion_data_source_settings::cloud_storage::TextFormat::delimiter].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_pubsub::model::ingestion_data_source_settings::cloud_storage::TextFormat;
+            /// let x = TextFormat::new().set_delimiter("example");
+            /// ```
             pub fn set_delimiter<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -891,6 +1125,13 @@ pub mod ingestion_data_source_settings {
             }
 
             /// Sets or clears the value of [delimiter][crate::model::ingestion_data_source_settings::cloud_storage::TextFormat::delimiter].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_pubsub::model::ingestion_data_source_settings::cloud_storage::TextFormat;
+            /// let x = TextFormat::new().set_or_clear_delimiter(Some("example"));
+            /// let x = TextFormat::new().set_or_clear_delimiter(None::<String>);
+            /// ```
             pub fn set_or_clear_delimiter<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<std::string::String>,
@@ -1187,6 +1428,15 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [state][crate::model::ingestion_data_source_settings::AzureEventHubs::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AzureEventHubs;
+        /// use google_cloud_pubsub::model::ingestion_data_source_settings::azure_event_hubs::State;
+        /// let x0 = AzureEventHubs::new().set_state(State::Active);
+        /// let x1 = AzureEventHubs::new().set_state(State::EventHubsPermissionDenied);
+        /// let x2 = AzureEventHubs::new().set_state(State::PublishPermissionDenied);
+        /// ```
         pub fn set_state<
             T: std::convert::Into<
                     crate::model::ingestion_data_source_settings::azure_event_hubs::State,
@@ -1200,6 +1450,12 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [resource_group][crate::model::ingestion_data_source_settings::AzureEventHubs::resource_group].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AzureEventHubs;
+        /// let x = AzureEventHubs::new().set_resource_group("example");
+        /// ```
         pub fn set_resource_group<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1209,30 +1465,60 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [namespace][crate::model::ingestion_data_source_settings::AzureEventHubs::namespace].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AzureEventHubs;
+        /// let x = AzureEventHubs::new().set_namespace("example");
+        /// ```
         pub fn set_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.namespace = v.into();
             self
         }
 
         /// Sets the value of [event_hub][crate::model::ingestion_data_source_settings::AzureEventHubs::event_hub].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AzureEventHubs;
+        /// let x = AzureEventHubs::new().set_event_hub("example");
+        /// ```
         pub fn set_event_hub<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.event_hub = v.into();
             self
         }
 
         /// Sets the value of [client_id][crate::model::ingestion_data_source_settings::AzureEventHubs::client_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AzureEventHubs;
+        /// let x = AzureEventHubs::new().set_client_id("example");
+        /// ```
         pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.client_id = v.into();
             self
         }
 
         /// Sets the value of [tenant_id][crate::model::ingestion_data_source_settings::AzureEventHubs::tenant_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AzureEventHubs;
+        /// let x = AzureEventHubs::new().set_tenant_id("example");
+        /// ```
         pub fn set_tenant_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.tenant_id = v.into();
             self
         }
 
         /// Sets the value of [subscription_id][crate::model::ingestion_data_source_settings::AzureEventHubs::subscription_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AzureEventHubs;
+        /// let x = AzureEventHubs::new().set_subscription_id("example");
+        /// ```
         pub fn set_subscription_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1242,6 +1528,12 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [gcp_service_account][crate::model::ingestion_data_source_settings::AzureEventHubs::gcp_service_account].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AzureEventHubs;
+        /// let x = AzureEventHubs::new().set_gcp_service_account("example");
+        /// ```
         pub fn set_gcp_service_account<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1479,6 +1771,15 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [state][crate::model::ingestion_data_source_settings::AwsMsk::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsMsk;
+        /// use google_cloud_pubsub::model::ingestion_data_source_settings::aws_msk::State;
+        /// let x0 = AwsMsk::new().set_state(State::Active);
+        /// let x1 = AwsMsk::new().set_state(State::MskPermissionDenied);
+        /// let x2 = AwsMsk::new().set_state(State::PublishPermissionDenied);
+        /// ```
         pub fn set_state<
             T: std::convert::Into<crate::model::ingestion_data_source_settings::aws_msk::State>,
         >(
@@ -1490,18 +1791,36 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [cluster_arn][crate::model::ingestion_data_source_settings::AwsMsk::cluster_arn].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsMsk;
+        /// let x = AwsMsk::new().set_cluster_arn("example");
+        /// ```
         pub fn set_cluster_arn<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cluster_arn = v.into();
             self
         }
 
         /// Sets the value of [topic][crate::model::ingestion_data_source_settings::AwsMsk::topic].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsMsk;
+        /// let x = AwsMsk::new().set_topic("example");
+        /// ```
         pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.topic = v.into();
             self
         }
 
         /// Sets the value of [aws_role_arn][crate::model::ingestion_data_source_settings::AwsMsk::aws_role_arn].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsMsk;
+        /// let x = AwsMsk::new().set_aws_role_arn("example");
+        /// ```
         pub fn set_aws_role_arn<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1511,6 +1830,12 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [gcp_service_account][crate::model::ingestion_data_source_settings::AwsMsk::gcp_service_account].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::AwsMsk;
+        /// let x = AwsMsk::new().set_gcp_service_account("example");
+        /// ```
         pub fn set_gcp_service_account<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1726,6 +2051,15 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [state][crate::model::ingestion_data_source_settings::ConfluentCloud::state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::ConfluentCloud;
+        /// use google_cloud_pubsub::model::ingestion_data_source_settings::confluent_cloud::State;
+        /// let x0 = ConfluentCloud::new().set_state(State::Active);
+        /// let x1 = ConfluentCloud::new().set_state(State::ConfluentCloudPermissionDenied);
+        /// let x2 = ConfluentCloud::new().set_state(State::PublishPermissionDenied);
+        /// ```
         pub fn set_state<
             T: std::convert::Into<
                     crate::model::ingestion_data_source_settings::confluent_cloud::State,
@@ -1739,6 +2073,12 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [bootstrap_server][crate::model::ingestion_data_source_settings::ConfluentCloud::bootstrap_server].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::ConfluentCloud;
+        /// let x = ConfluentCloud::new().set_bootstrap_server("example");
+        /// ```
         pub fn set_bootstrap_server<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1748,18 +2088,36 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [cluster_id][crate::model::ingestion_data_source_settings::ConfluentCloud::cluster_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::ConfluentCloud;
+        /// let x = ConfluentCloud::new().set_cluster_id("example");
+        /// ```
         pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cluster_id = v.into();
             self
         }
 
         /// Sets the value of [topic][crate::model::ingestion_data_source_settings::ConfluentCloud::topic].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::ConfluentCloud;
+        /// let x = ConfluentCloud::new().set_topic("example");
+        /// ```
         pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.topic = v.into();
             self
         }
 
         /// Sets the value of [identity_pool_id][crate::model::ingestion_data_source_settings::ConfluentCloud::identity_pool_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::ConfluentCloud;
+        /// let x = ConfluentCloud::new().set_identity_pool_id("example");
+        /// ```
         pub fn set_identity_pool_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1769,6 +2127,12 @@ pub mod ingestion_data_source_settings {
         }
 
         /// Sets the value of [gcp_service_account][crate::model::ingestion_data_source_settings::ConfluentCloud::gcp_service_account].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ingestion_data_source_settings::ConfluentCloud;
+        /// let x = ConfluentCloud::new().set_gcp_service_account("example");
+        /// ```
         pub fn set_gcp_service_account<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1997,6 +2361,15 @@ impl PlatformLogsSettings {
     }
 
     /// Sets the value of [severity][crate::model::PlatformLogsSettings::severity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::PlatformLogsSettings;
+    /// use google_cloud_pubsub::model::platform_logs_settings::Severity;
+    /// let x0 = PlatformLogsSettings::new().set_severity(Severity::Disabled);
+    /// let x1 = PlatformLogsSettings::new().set_severity(Severity::Debug);
+    /// let x2 = PlatformLogsSettings::new().set_severity(Severity::Info);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::platform_logs_settings::Severity>>(
         mut self,
         v: T,
@@ -2221,12 +2594,24 @@ impl JavaScriptUDF {
     }
 
     /// Sets the value of [function_name][crate::model::JavaScriptUDF::function_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::JavaScriptUDF;
+    /// let x = JavaScriptUDF::new().set_function_name("example");
+    /// ```
     pub fn set_function_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.function_name = v.into();
         self
     }
 
     /// Sets the value of [code][crate::model::JavaScriptUDF::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::JavaScriptUDF;
+    /// let x = JavaScriptUDF::new().set_code("example");
+    /// ```
     pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
@@ -2264,6 +2649,12 @@ impl MessageTransform {
     }
 
     /// Sets the value of [enabled][crate::model::MessageTransform::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::MessageTransform;
+    /// let x = MessageTransform::new().set_enabled(true);
+    /// ```
     #[deprecated]
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
@@ -2271,6 +2662,12 @@ impl MessageTransform {
     }
 
     /// Sets the value of [disabled][crate::model::MessageTransform::disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::MessageTransform;
+    /// let x = MessageTransform::new().set_disabled(true);
+    /// ```
     pub fn set_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.disabled = v.into();
         self
@@ -2280,6 +2677,14 @@ impl MessageTransform {
     ///
     /// Note that all the setters affecting `transform` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::MessageTransform;
+    /// use google_cloud_pubsub::model::JavaScriptUDF;
+    /// let x = MessageTransform::new().set_transform(Some(
+    ///     google_cloud_pubsub::model::message_transform::Transform::JavascriptUdf(JavaScriptUDF::default().into())));
+    /// ```
     pub fn set_transform<
         T: std::convert::Into<std::option::Option<crate::model::message_transform::Transform>>,
     >(
@@ -2310,6 +2715,14 @@ impl MessageTransform {
     ///
     /// Note that all the setters affecting `transform` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::MessageTransform;
+    /// use google_cloud_pubsub::model::JavaScriptUDF;
+    /// let x = MessageTransform::new().set_javascript_udf(JavaScriptUDF::default()/* use setters */);
+    /// assert!(x.javascript_udf().is_some());
+    /// ```
     pub fn set_javascript_udf<
         T: std::convert::Into<std::boxed::Box<crate::model::JavaScriptUDF>>,
     >(
@@ -2415,12 +2828,27 @@ impl Topic {
     }
 
     /// Sets the value of [name][crate::model::Topic::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// let x = Topic::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Topic::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// let x = Topic::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2433,6 +2861,13 @@ impl Topic {
     }
 
     /// Sets the value of [message_storage_policy][crate::model::Topic::message_storage_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// use google_cloud_pubsub::model::MessageStoragePolicy;
+    /// let x = Topic::new().set_message_storage_policy(MessageStoragePolicy::default()/* use setters */);
+    /// ```
     pub fn set_message_storage_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MessageStoragePolicy>,
@@ -2442,6 +2877,14 @@ impl Topic {
     }
 
     /// Sets or clears the value of [message_storage_policy][crate::model::Topic::message_storage_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// use google_cloud_pubsub::model::MessageStoragePolicy;
+    /// let x = Topic::new().set_or_clear_message_storage_policy(Some(MessageStoragePolicy::default()/* use setters */));
+    /// let x = Topic::new().set_or_clear_message_storage_policy(None::<MessageStoragePolicy>);
+    /// ```
     pub fn set_or_clear_message_storage_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MessageStoragePolicy>,
@@ -2451,12 +2894,25 @@ impl Topic {
     }
 
     /// Sets the value of [kms_key_name][crate::model::Topic::kms_key_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// let x = Topic::new().set_kms_key_name("example");
+    /// ```
     pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key_name = v.into();
         self
     }
 
     /// Sets the value of [schema_settings][crate::model::Topic::schema_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// use google_cloud_pubsub::model::SchemaSettings;
+    /// let x = Topic::new().set_schema_settings(SchemaSettings::default()/* use setters */);
+    /// ```
     pub fn set_schema_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SchemaSettings>,
@@ -2466,6 +2922,14 @@ impl Topic {
     }
 
     /// Sets or clears the value of [schema_settings][crate::model::Topic::schema_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// use google_cloud_pubsub::model::SchemaSettings;
+    /// let x = Topic::new().set_or_clear_schema_settings(Some(SchemaSettings::default()/* use setters */));
+    /// let x = Topic::new().set_or_clear_schema_settings(None::<SchemaSettings>);
+    /// ```
     pub fn set_or_clear_schema_settings<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SchemaSettings>,
@@ -2475,12 +2939,25 @@ impl Topic {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Topic::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// let x = Topic::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [message_retention_duration][crate::model::Topic::message_retention_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// use wkt::Duration;
+    /// let x = Topic::new().set_message_retention_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_message_retention_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2490,6 +2967,14 @@ impl Topic {
     }
 
     /// Sets or clears the value of [message_retention_duration][crate::model::Topic::message_retention_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// use wkt::Duration;
+    /// let x = Topic::new().set_or_clear_message_retention_duration(Some(Duration::default()/* use setters */));
+    /// let x = Topic::new().set_or_clear_message_retention_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2499,12 +2984,27 @@ impl Topic {
     }
 
     /// Sets the value of [state][crate::model::Topic::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// use google_cloud_pubsub::model::topic::State;
+    /// let x0 = Topic::new().set_state(State::Active);
+    /// let x1 = Topic::new().set_state(State::IngestionResourceError);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::topic::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [ingestion_data_source_settings][crate::model::Topic::ingestion_data_source_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// use google_cloud_pubsub::model::IngestionDataSourceSettings;
+    /// let x = Topic::new().set_ingestion_data_source_settings(IngestionDataSourceSettings::default()/* use setters */);
+    /// ```
     pub fn set_ingestion_data_source_settings<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IngestionDataSourceSettings>,
@@ -2514,6 +3014,14 @@ impl Topic {
     }
 
     /// Sets or clears the value of [ingestion_data_source_settings][crate::model::Topic::ingestion_data_source_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// use google_cloud_pubsub::model::IngestionDataSourceSettings;
+    /// let x = Topic::new().set_or_clear_ingestion_data_source_settings(Some(IngestionDataSourceSettings::default()/* use setters */));
+    /// let x = Topic::new().set_or_clear_ingestion_data_source_settings(None::<IngestionDataSourceSettings>);
+    /// ```
     pub fn set_or_clear_ingestion_data_source_settings<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2526,6 +3034,17 @@ impl Topic {
     }
 
     /// Sets the value of [message_transforms][crate::model::Topic::message_transforms].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// use google_cloud_pubsub::model::MessageTransform;
+    /// let x = Topic::new()
+    ///     .set_message_transforms([
+    ///         MessageTransform::default()/* use setters */,
+    ///         MessageTransform::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_message_transforms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2537,6 +3056,15 @@ impl Topic {
     }
 
     /// Sets the value of [tags][crate::model::Topic::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Topic;
+    /// let x = Topic::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2714,6 +3242,12 @@ impl GetTopicRequest {
     }
 
     /// Sets the value of [topic][crate::model::GetTopicRequest::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::GetTopicRequest;
+    /// let x = GetTopicRequest::new().set_topic("example");
+    /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
         self
@@ -2749,6 +3283,13 @@ impl UpdateTopicRequest {
     }
 
     /// Sets the value of [topic][crate::model::UpdateTopicRequest::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::UpdateTopicRequest;
+    /// use google_cloud_pubsub::model::Topic;
+    /// let x = UpdateTopicRequest::new().set_topic(Topic::default()/* use setters */);
+    /// ```
     pub fn set_topic<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Topic>,
@@ -2758,6 +3299,14 @@ impl UpdateTopicRequest {
     }
 
     /// Sets or clears the value of [topic][crate::model::UpdateTopicRequest::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::UpdateTopicRequest;
+    /// use google_cloud_pubsub::model::Topic;
+    /// let x = UpdateTopicRequest::new().set_or_clear_topic(Some(Topic::default()/* use setters */));
+    /// let x = UpdateTopicRequest::new().set_or_clear_topic(None::<Topic>);
+    /// ```
     pub fn set_or_clear_topic<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Topic>,
@@ -2767,6 +3316,13 @@ impl UpdateTopicRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTopicRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::UpdateTopicRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTopicRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2776,6 +3332,14 @@ impl UpdateTopicRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTopicRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::UpdateTopicRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTopicRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTopicRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2816,18 +3380,36 @@ impl ListTopicsRequest {
     }
 
     /// Sets the value of [project][crate::model::ListTopicsRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicsRequest;
+    /// let x = ListTopicsRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTopicsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicsRequest;
+    /// let x = ListTopicsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTopicsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicsRequest;
+    /// let x = ListTopicsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2860,6 +3442,17 @@ impl ListTopicsResponse {
     }
 
     /// Sets the value of [topics][crate::model::ListTopicsResponse::topics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicsResponse;
+    /// use google_cloud_pubsub::model::Topic;
+    /// let x = ListTopicsResponse::new()
+    ///     .set_topics([
+    ///         Topic::default()/* use setters */,
+    ///         Topic::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_topics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2871,6 +3464,12 @@ impl ListTopicsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTopicsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicsResponse;
+    /// let x = ListTopicsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2922,18 +3521,36 @@ impl ListTopicSubscriptionsRequest {
     }
 
     /// Sets the value of [topic][crate::model::ListTopicSubscriptionsRequest::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicSubscriptionsRequest;
+    /// let x = ListTopicSubscriptionsRequest::new().set_topic("example");
+    /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTopicSubscriptionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicSubscriptionsRequest;
+    /// let x = ListTopicSubscriptionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTopicSubscriptionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicSubscriptionsRequest;
+    /// let x = ListTopicSubscriptionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2968,6 +3585,12 @@ impl ListTopicSubscriptionsResponse {
     }
 
     /// Sets the value of [subscriptions][crate::model::ListTopicSubscriptionsResponse::subscriptions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicSubscriptionsResponse;
+    /// let x = ListTopicSubscriptionsResponse::new().set_subscriptions(["a", "b", "c"]);
+    /// ```
     pub fn set_subscriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2979,6 +3602,12 @@ impl ListTopicSubscriptionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTopicSubscriptionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicSubscriptionsResponse;
+    /// let x = ListTopicSubscriptionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3016,18 +3645,36 @@ impl ListTopicSnapshotsRequest {
     }
 
     /// Sets the value of [topic][crate::model::ListTopicSnapshotsRequest::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicSnapshotsRequest;
+    /// let x = ListTopicSnapshotsRequest::new().set_topic("example");
+    /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTopicSnapshotsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicSnapshotsRequest;
+    /// let x = ListTopicSnapshotsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTopicSnapshotsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicSnapshotsRequest;
+    /// let x = ListTopicSnapshotsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3061,6 +3708,12 @@ impl ListTopicSnapshotsResponse {
     }
 
     /// Sets the value of [snapshots][crate::model::ListTopicSnapshotsResponse::snapshots].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicSnapshotsResponse;
+    /// let x = ListTopicSnapshotsResponse::new().set_snapshots(["a", "b", "c"]);
+    /// ```
     pub fn set_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3072,6 +3725,12 @@ impl ListTopicSnapshotsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTopicSnapshotsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListTopicSnapshotsResponse;
+    /// let x = ListTopicSnapshotsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3101,6 +3760,12 @@ impl DeleteTopicRequest {
     }
 
     /// Sets the value of [topic][crate::model::DeleteTopicRequest::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::DeleteTopicRequest;
+    /// let x = DeleteTopicRequest::new().set_topic("example");
+    /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
         self
@@ -3130,6 +3795,12 @@ impl DetachSubscriptionRequest {
     }
 
     /// Sets the value of [subscription][crate::model::DetachSubscriptionRequest::subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::DetachSubscriptionRequest;
+    /// let x = DetachSubscriptionRequest::new().set_subscription("example");
+    /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
         self
@@ -3332,18 +4003,37 @@ impl Subscription {
     }
 
     /// Sets the value of [name][crate::model::Subscription::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// let x = Subscription::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [topic][crate::model::Subscription::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// let x = Subscription::new().set_topic("example");
+    /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
         self
     }
 
     /// Sets the value of [push_config][crate::model::Subscription::push_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::PushConfig;
+    /// let x = Subscription::new().set_push_config(PushConfig::default()/* use setters */);
+    /// ```
     pub fn set_push_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PushConfig>,
@@ -3353,6 +4043,14 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [push_config][crate::model::Subscription::push_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::PushConfig;
+    /// let x = Subscription::new().set_or_clear_push_config(Some(PushConfig::default()/* use setters */));
+    /// let x = Subscription::new().set_or_clear_push_config(None::<PushConfig>);
+    /// ```
     pub fn set_or_clear_push_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PushConfig>,
@@ -3362,6 +4060,13 @@ impl Subscription {
     }
 
     /// Sets the value of [bigquery_config][crate::model::Subscription::bigquery_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::BigQueryConfig;
+    /// let x = Subscription::new().set_bigquery_config(BigQueryConfig::default()/* use setters */);
+    /// ```
     pub fn set_bigquery_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryConfig>,
@@ -3371,6 +4076,14 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [bigquery_config][crate::model::Subscription::bigquery_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::BigQueryConfig;
+    /// let x = Subscription::new().set_or_clear_bigquery_config(Some(BigQueryConfig::default()/* use setters */));
+    /// let x = Subscription::new().set_or_clear_bigquery_config(None::<BigQueryConfig>);
+    /// ```
     pub fn set_or_clear_bigquery_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BigQueryConfig>,
@@ -3380,6 +4093,13 @@ impl Subscription {
     }
 
     /// Sets the value of [cloud_storage_config][crate::model::Subscription::cloud_storage_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::CloudStorageConfig;
+    /// let x = Subscription::new().set_cloud_storage_config(CloudStorageConfig::default()/* use setters */);
+    /// ```
     pub fn set_cloud_storage_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudStorageConfig>,
@@ -3389,6 +4109,14 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [cloud_storage_config][crate::model::Subscription::cloud_storage_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::CloudStorageConfig;
+    /// let x = Subscription::new().set_or_clear_cloud_storage_config(Some(CloudStorageConfig::default()/* use setters */));
+    /// let x = Subscription::new().set_or_clear_cloud_storage_config(None::<CloudStorageConfig>);
+    /// ```
     pub fn set_or_clear_cloud_storage_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudStorageConfig>,
@@ -3398,18 +4126,37 @@ impl Subscription {
     }
 
     /// Sets the value of [ack_deadline_seconds][crate::model::Subscription::ack_deadline_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// let x = Subscription::new().set_ack_deadline_seconds(42);
+    /// ```
     pub fn set_ack_deadline_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ack_deadline_seconds = v.into();
         self
     }
 
     /// Sets the value of [retain_acked_messages][crate::model::Subscription::retain_acked_messages].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// let x = Subscription::new().set_retain_acked_messages(true);
+    /// ```
     pub fn set_retain_acked_messages<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.retain_acked_messages = v.into();
         self
     }
 
     /// Sets the value of [message_retention_duration][crate::model::Subscription::message_retention_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use wkt::Duration;
+    /// let x = Subscription::new().set_message_retention_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_message_retention_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3419,6 +4166,14 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [message_retention_duration][crate::model::Subscription::message_retention_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use wkt::Duration;
+    /// let x = Subscription::new().set_or_clear_message_retention_duration(Some(Duration::default()/* use setters */));
+    /// let x = Subscription::new().set_or_clear_message_retention_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_message_retention_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3428,6 +4183,15 @@ impl Subscription {
     }
 
     /// Sets the value of [labels][crate::model::Subscription::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// let x = Subscription::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3440,12 +4204,25 @@ impl Subscription {
     }
 
     /// Sets the value of [enable_message_ordering][crate::model::Subscription::enable_message_ordering].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// let x = Subscription::new().set_enable_message_ordering(true);
+    /// ```
     pub fn set_enable_message_ordering<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_message_ordering = v.into();
         self
     }
 
     /// Sets the value of [expiration_policy][crate::model::Subscription::expiration_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::ExpirationPolicy;
+    /// let x = Subscription::new().set_expiration_policy(ExpirationPolicy::default()/* use setters */);
+    /// ```
     pub fn set_expiration_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExpirationPolicy>,
@@ -3455,6 +4232,14 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [expiration_policy][crate::model::Subscription::expiration_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::ExpirationPolicy;
+    /// let x = Subscription::new().set_or_clear_expiration_policy(Some(ExpirationPolicy::default()/* use setters */));
+    /// let x = Subscription::new().set_or_clear_expiration_policy(None::<ExpirationPolicy>);
+    /// ```
     pub fn set_or_clear_expiration_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExpirationPolicy>,
@@ -3464,12 +4249,25 @@ impl Subscription {
     }
 
     /// Sets the value of [filter][crate::model::Subscription::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// let x = Subscription::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [dead_letter_policy][crate::model::Subscription::dead_letter_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::DeadLetterPolicy;
+    /// let x = Subscription::new().set_dead_letter_policy(DeadLetterPolicy::default()/* use setters */);
+    /// ```
     pub fn set_dead_letter_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeadLetterPolicy>,
@@ -3479,6 +4277,14 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [dead_letter_policy][crate::model::Subscription::dead_letter_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::DeadLetterPolicy;
+    /// let x = Subscription::new().set_or_clear_dead_letter_policy(Some(DeadLetterPolicy::default()/* use setters */));
+    /// let x = Subscription::new().set_or_clear_dead_letter_policy(None::<DeadLetterPolicy>);
+    /// ```
     pub fn set_or_clear_dead_letter_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeadLetterPolicy>,
@@ -3488,6 +4294,13 @@ impl Subscription {
     }
 
     /// Sets the value of [retry_policy][crate::model::Subscription::retry_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::RetryPolicy;
+    /// let x = Subscription::new().set_retry_policy(RetryPolicy::default()/* use setters */);
+    /// ```
     pub fn set_retry_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RetryPolicy>,
@@ -3497,6 +4310,14 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [retry_policy][crate::model::Subscription::retry_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::RetryPolicy;
+    /// let x = Subscription::new().set_or_clear_retry_policy(Some(RetryPolicy::default()/* use setters */));
+    /// let x = Subscription::new().set_or_clear_retry_policy(None::<RetryPolicy>);
+    /// ```
     pub fn set_or_clear_retry_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RetryPolicy>,
@@ -3506,18 +4327,37 @@ impl Subscription {
     }
 
     /// Sets the value of [detached][crate::model::Subscription::detached].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// let x = Subscription::new().set_detached(true);
+    /// ```
     pub fn set_detached<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.detached = v.into();
         self
     }
 
     /// Sets the value of [enable_exactly_once_delivery][crate::model::Subscription::enable_exactly_once_delivery].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// let x = Subscription::new().set_enable_exactly_once_delivery(true);
+    /// ```
     pub fn set_enable_exactly_once_delivery<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_exactly_once_delivery = v.into();
         self
     }
 
     /// Sets the value of [topic_message_retention_duration][crate::model::Subscription::topic_message_retention_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use wkt::Duration;
+    /// let x = Subscription::new().set_topic_message_retention_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_topic_message_retention_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3527,6 +4367,14 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [topic_message_retention_duration][crate::model::Subscription::topic_message_retention_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use wkt::Duration;
+    /// let x = Subscription::new().set_or_clear_topic_message_retention_duration(Some(Duration::default()/* use setters */));
+    /// let x = Subscription::new().set_or_clear_topic_message_retention_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_topic_message_retention_duration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3539,6 +4387,14 @@ impl Subscription {
     }
 
     /// Sets the value of [state][crate::model::Subscription::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::subscription::State;
+    /// let x0 = Subscription::new().set_state(State::Active);
+    /// let x1 = Subscription::new().set_state(State::ResourceError);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::subscription::State>>(
         mut self,
         v: T,
@@ -3548,6 +4404,13 @@ impl Subscription {
     }
 
     /// Sets the value of [analytics_hub_subscription_info][crate::model::Subscription::analytics_hub_subscription_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::subscription::AnalyticsHubSubscriptionInfo;
+    /// let x = Subscription::new().set_analytics_hub_subscription_info(AnalyticsHubSubscriptionInfo::default()/* use setters */);
+    /// ```
     pub fn set_analytics_hub_subscription_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::subscription::AnalyticsHubSubscriptionInfo>,
@@ -3557,6 +4420,14 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [analytics_hub_subscription_info][crate::model::Subscription::analytics_hub_subscription_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::subscription::AnalyticsHubSubscriptionInfo;
+    /// let x = Subscription::new().set_or_clear_analytics_hub_subscription_info(Some(AnalyticsHubSubscriptionInfo::default()/* use setters */));
+    /// let x = Subscription::new().set_or_clear_analytics_hub_subscription_info(None::<AnalyticsHubSubscriptionInfo>);
+    /// ```
     pub fn set_or_clear_analytics_hub_subscription_info<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3569,6 +4440,17 @@ impl Subscription {
     }
 
     /// Sets the value of [message_transforms][crate::model::Subscription::message_transforms].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// use google_cloud_pubsub::model::MessageTransform;
+    /// let x = Subscription::new()
+    ///     .set_message_transforms([
+    ///         MessageTransform::default()/* use setters */,
+    ///         MessageTransform::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_message_transforms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3580,6 +4462,15 @@ impl Subscription {
     }
 
     /// Sets the value of [tags][crate::model::Subscription::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Subscription;
+    /// let x = Subscription::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3627,12 +4518,24 @@ pub mod subscription {
         }
 
         /// Sets the value of [listing][crate::model::subscription::AnalyticsHubSubscriptionInfo::listing].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::subscription::AnalyticsHubSubscriptionInfo;
+        /// let x = AnalyticsHubSubscriptionInfo::new().set_listing("example");
+        /// ```
         pub fn set_listing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.listing = v.into();
             self
         }
 
         /// Sets the value of [subscription][crate::model::subscription::AnalyticsHubSubscriptionInfo::subscription].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::subscription::AnalyticsHubSubscriptionInfo;
+        /// let x = AnalyticsHubSubscriptionInfo::new().set_subscription("example");
+        /// ```
         pub fn set_subscription<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3815,6 +4718,13 @@ impl RetryPolicy {
     }
 
     /// Sets the value of [minimum_backoff][crate::model::RetryPolicy::minimum_backoff].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::RetryPolicy;
+    /// use wkt::Duration;
+    /// let x = RetryPolicy::new().set_minimum_backoff(Duration::default()/* use setters */);
+    /// ```
     pub fn set_minimum_backoff<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3824,6 +4734,14 @@ impl RetryPolicy {
     }
 
     /// Sets or clears the value of [minimum_backoff][crate::model::RetryPolicy::minimum_backoff].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::RetryPolicy;
+    /// use wkt::Duration;
+    /// let x = RetryPolicy::new().set_or_clear_minimum_backoff(Some(Duration::default()/* use setters */));
+    /// let x = RetryPolicy::new().set_or_clear_minimum_backoff(None::<Duration>);
+    /// ```
     pub fn set_or_clear_minimum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3833,6 +4751,13 @@ impl RetryPolicy {
     }
 
     /// Sets the value of [maximum_backoff][crate::model::RetryPolicy::maximum_backoff].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::RetryPolicy;
+    /// use wkt::Duration;
+    /// let x = RetryPolicy::new().set_maximum_backoff(Duration::default()/* use setters */);
+    /// ```
     pub fn set_maximum_backoff<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3842,6 +4767,14 @@ impl RetryPolicy {
     }
 
     /// Sets or clears the value of [maximum_backoff][crate::model::RetryPolicy::maximum_backoff].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::RetryPolicy;
+    /// use wkt::Duration;
+    /// let x = RetryPolicy::new().set_or_clear_maximum_backoff(Some(Duration::default()/* use setters */));
+    /// let x = RetryPolicy::new().set_or_clear_maximum_backoff(None::<Duration>);
+    /// ```
     pub fn set_or_clear_maximum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3900,6 +4833,12 @@ impl DeadLetterPolicy {
     }
 
     /// Sets the value of [dead_letter_topic][crate::model::DeadLetterPolicy::dead_letter_topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::DeadLetterPolicy;
+    /// let x = DeadLetterPolicy::new().set_dead_letter_topic("example");
+    /// ```
     pub fn set_dead_letter_topic<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3909,6 +4848,12 @@ impl DeadLetterPolicy {
     }
 
     /// Sets the value of [max_delivery_attempts][crate::model::DeadLetterPolicy::max_delivery_attempts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::DeadLetterPolicy;
+    /// let x = DeadLetterPolicy::new().set_max_delivery_attempts(42);
+    /// ```
     pub fn set_max_delivery_attempts<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_delivery_attempts = v.into();
         self
@@ -3943,6 +4888,13 @@ impl ExpirationPolicy {
     }
 
     /// Sets the value of [ttl][crate::model::ExpirationPolicy::ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ExpirationPolicy;
+    /// use wkt::Duration;
+    /// let x = ExpirationPolicy::new().set_ttl(Duration::default()/* use setters */);
+    /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -3952,6 +4904,14 @@ impl ExpirationPolicy {
     }
 
     /// Sets or clears the value of [ttl][crate::model::ExpirationPolicy::ttl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ExpirationPolicy;
+    /// use wkt::Duration;
+    /// let x = ExpirationPolicy::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
+    /// let x = ExpirationPolicy::new().set_or_clear_ttl(None::<Duration>);
+    /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4018,12 +4978,27 @@ impl PushConfig {
     }
 
     /// Sets the value of [push_endpoint][crate::model::PushConfig::push_endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::PushConfig;
+    /// let x = PushConfig::new().set_push_endpoint("example");
+    /// ```
     pub fn set_push_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.push_endpoint = v.into();
         self
     }
 
     /// Sets the value of [attributes][crate::model::PushConfig::attributes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::PushConfig;
+    /// let x = PushConfig::new().set_attributes([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_attributes<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4039,6 +5014,14 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `authentication_method` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::PushConfig;
+    /// use google_cloud_pubsub::model::push_config::OidcToken;
+    /// let x = PushConfig::new().set_authentication_method(Some(
+    ///     google_cloud_pubsub::model::push_config::AuthenticationMethod::OidcToken(OidcToken::default().into())));
+    /// ```
     pub fn set_authentication_method<
         T: std::convert::Into<std::option::Option<crate::model::push_config::AuthenticationMethod>>,
     >(
@@ -4069,6 +5052,14 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `authentication_method` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::PushConfig;
+    /// use google_cloud_pubsub::model::push_config::OidcToken;
+    /// let x = PushConfig::new().set_oidc_token(OidcToken::default()/* use setters */);
+    /// assert!(x.oidc_token().is_some());
+    /// ```
     pub fn set_oidc_token<
         T: std::convert::Into<std::boxed::Box<crate::model::push_config::OidcToken>>,
     >(
@@ -4085,6 +5076,14 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `wrapper` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::PushConfig;
+    /// use google_cloud_pubsub::model::push_config::PubsubWrapper;
+    /// let x = PushConfig::new().set_wrapper(Some(
+    ///     google_cloud_pubsub::model::push_config::Wrapper::PubsubWrapper(PubsubWrapper::default().into())));
+    /// ```
     pub fn set_wrapper<
         T: std::convert::Into<std::option::Option<crate::model::push_config::Wrapper>>,
     >(
@@ -4113,6 +5112,15 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `wrapper` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::PushConfig;
+    /// use google_cloud_pubsub::model::push_config::PubsubWrapper;
+    /// let x = PushConfig::new().set_pubsub_wrapper(PubsubWrapper::default()/* use setters */);
+    /// assert!(x.pubsub_wrapper().is_some());
+    /// assert!(x.no_wrapper().is_none());
+    /// ```
     pub fn set_pubsub_wrapper<
         T: std::convert::Into<std::boxed::Box<crate::model::push_config::PubsubWrapper>>,
     >(
@@ -4142,6 +5150,15 @@ impl PushConfig {
     ///
     /// Note that all the setters affecting `wrapper` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::PushConfig;
+    /// use google_cloud_pubsub::model::push_config::NoWrapper;
+    /// let x = PushConfig::new().set_no_wrapper(NoWrapper::default()/* use setters */);
+    /// assert!(x.no_wrapper().is_some());
+    /// assert!(x.pubsub_wrapper().is_none());
+    /// ```
     pub fn set_no_wrapper<
         T: std::convert::Into<std::boxed::Box<crate::model::push_config::NoWrapper>>,
     >(
@@ -4196,6 +5213,12 @@ pub mod push_config {
         }
 
         /// Sets the value of [service_account_email][crate::model::push_config::OidcToken::service_account_email].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::push_config::OidcToken;
+        /// let x = OidcToken::new().set_service_account_email("example");
+        /// ```
         pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4205,6 +5228,12 @@ pub mod push_config {
         }
 
         /// Sets the value of [audience][crate::model::push_config::OidcToken::audience].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::push_config::OidcToken;
+        /// let x = OidcToken::new().set_audience("example");
+        /// ```
         pub fn set_audience<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.audience = v.into();
             self
@@ -4256,6 +5285,12 @@ pub mod push_config {
         }
 
         /// Sets the value of [write_metadata][crate::model::push_config::NoWrapper::write_metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::push_config::NoWrapper;
+        /// let x = NoWrapper::new().set_write_metadata(true);
+        /// ```
         pub fn set_write_metadata<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.write_metadata = v.into();
             self
@@ -4349,30 +5384,63 @@ impl BigQueryConfig {
     }
 
     /// Sets the value of [table][crate::model::BigQueryConfig::table].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigQueryConfig;
+    /// let x = BigQueryConfig::new().set_table("example");
+    /// ```
     pub fn set_table<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table = v.into();
         self
     }
 
     /// Sets the value of [use_topic_schema][crate::model::BigQueryConfig::use_topic_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigQueryConfig;
+    /// let x = BigQueryConfig::new().set_use_topic_schema(true);
+    /// ```
     pub fn set_use_topic_schema<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_topic_schema = v.into();
         self
     }
 
     /// Sets the value of [write_metadata][crate::model::BigQueryConfig::write_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigQueryConfig;
+    /// let x = BigQueryConfig::new().set_write_metadata(true);
+    /// ```
     pub fn set_write_metadata<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.write_metadata = v.into();
         self
     }
 
     /// Sets the value of [drop_unknown_fields][crate::model::BigQueryConfig::drop_unknown_fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigQueryConfig;
+    /// let x = BigQueryConfig::new().set_drop_unknown_fields(true);
+    /// ```
     pub fn set_drop_unknown_fields<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.drop_unknown_fields = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::BigQueryConfig::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigQueryConfig;
+    /// use google_cloud_pubsub::model::big_query_config::State;
+    /// let x0 = BigQueryConfig::new().set_state(State::Active);
+    /// let x1 = BigQueryConfig::new().set_state(State::PermissionDenied);
+    /// let x2 = BigQueryConfig::new().set_state(State::NotFound);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::big_query_config::State>>(
         mut self,
         v: T,
@@ -4382,12 +5450,24 @@ impl BigQueryConfig {
     }
 
     /// Sets the value of [use_table_schema][crate::model::BigQueryConfig::use_table_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigQueryConfig;
+    /// let x = BigQueryConfig::new().set_use_table_schema(true);
+    /// ```
     pub fn set_use_table_schema<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_table_schema = v.into();
         self
     }
 
     /// Sets the value of [service_account_email][crate::model::BigQueryConfig::service_account_email].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::BigQueryConfig;
+    /// let x = BigQueryConfig::new().set_service_account_email("example");
+    /// ```
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4633,24 +5713,48 @@ impl CloudStorageConfig {
     }
 
     /// Sets the value of [bucket][crate::model::CloudStorageConfig::bucket].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// let x = CloudStorageConfig::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [filename_prefix][crate::model::CloudStorageConfig::filename_prefix].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// let x = CloudStorageConfig::new().set_filename_prefix("example");
+    /// ```
     pub fn set_filename_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filename_prefix = v.into();
         self
     }
 
     /// Sets the value of [filename_suffix][crate::model::CloudStorageConfig::filename_suffix].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// let x = CloudStorageConfig::new().set_filename_suffix("example");
+    /// ```
     pub fn set_filename_suffix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filename_suffix = v.into();
         self
     }
 
     /// Sets the value of [filename_datetime_format][crate::model::CloudStorageConfig::filename_datetime_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// let x = CloudStorageConfig::new().set_filename_datetime_format("example");
+    /// ```
     pub fn set_filename_datetime_format<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4660,6 +5764,13 @@ impl CloudStorageConfig {
     }
 
     /// Sets the value of [max_duration][crate::model::CloudStorageConfig::max_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// use wkt::Duration;
+    /// let x = CloudStorageConfig::new().set_max_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_max_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4669,6 +5780,14 @@ impl CloudStorageConfig {
     }
 
     /// Sets or clears the value of [max_duration][crate::model::CloudStorageConfig::max_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// use wkt::Duration;
+    /// let x = CloudStorageConfig::new().set_or_clear_max_duration(Some(Duration::default()/* use setters */));
+    /// let x = CloudStorageConfig::new().set_or_clear_max_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_max_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4678,18 +5797,39 @@ impl CloudStorageConfig {
     }
 
     /// Sets the value of [max_bytes][crate::model::CloudStorageConfig::max_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// let x = CloudStorageConfig::new().set_max_bytes(42);
+    /// ```
     pub fn set_max_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_bytes = v.into();
         self
     }
 
     /// Sets the value of [max_messages][crate::model::CloudStorageConfig::max_messages].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// let x = CloudStorageConfig::new().set_max_messages(42);
+    /// ```
     pub fn set_max_messages<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_messages = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::CloudStorageConfig::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// use google_cloud_pubsub::model::cloud_storage_config::State;
+    /// let x0 = CloudStorageConfig::new().set_state(State::Active);
+    /// let x1 = CloudStorageConfig::new().set_state(State::PermissionDenied);
+    /// let x2 = CloudStorageConfig::new().set_state(State::NotFound);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::cloud_storage_config::State>>(
         mut self,
         v: T,
@@ -4699,6 +5839,12 @@ impl CloudStorageConfig {
     }
 
     /// Sets the value of [service_account_email][crate::model::CloudStorageConfig::service_account_email].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// let x = CloudStorageConfig::new().set_service_account_email("example");
+    /// ```
     pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4711,6 +5857,14 @@ impl CloudStorageConfig {
     ///
     /// Note that all the setters affecting `output_format` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// use google_cloud_pubsub::model::cloud_storage_config::TextConfig;
+    /// let x = CloudStorageConfig::new().set_output_format(Some(
+    ///     google_cloud_pubsub::model::cloud_storage_config::OutputFormat::TextConfig(TextConfig::default().into())));
+    /// ```
     pub fn set_output_format<
         T: std::convert::Into<std::option::Option<crate::model::cloud_storage_config::OutputFormat>>,
     >(
@@ -4741,6 +5895,15 @@ impl CloudStorageConfig {
     ///
     /// Note that all the setters affecting `output_format` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// use google_cloud_pubsub::model::cloud_storage_config::TextConfig;
+    /// let x = CloudStorageConfig::new().set_text_config(TextConfig::default()/* use setters */);
+    /// assert!(x.text_config().is_some());
+    /// assert!(x.avro_config().is_none());
+    /// ```
     pub fn set_text_config<
         T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::TextConfig>>,
     >(
@@ -4773,6 +5936,15 @@ impl CloudStorageConfig {
     ///
     /// Note that all the setters affecting `output_format` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CloudStorageConfig;
+    /// use google_cloud_pubsub::model::cloud_storage_config::AvroConfig;
+    /// let x = CloudStorageConfig::new().set_avro_config(AvroConfig::default()/* use setters */);
+    /// assert!(x.avro_config().is_some());
+    /// assert!(x.text_config().is_none());
+    /// ```
     pub fn set_avro_config<
         T: std::convert::Into<std::boxed::Box<crate::model::cloud_storage_config::AvroConfig>>,
     >(
@@ -4844,12 +6016,24 @@ pub mod cloud_storage_config {
         }
 
         /// Sets the value of [write_metadata][crate::model::cloud_storage_config::AvroConfig::write_metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::cloud_storage_config::AvroConfig;
+        /// let x = AvroConfig::new().set_write_metadata(true);
+        /// ```
         pub fn set_write_metadata<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.write_metadata = v.into();
             self
         }
 
         /// Sets the value of [use_topic_schema][crate::model::cloud_storage_config::AvroConfig::use_topic_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::cloud_storage_config::AvroConfig;
+        /// let x = AvroConfig::new().set_use_topic_schema(true);
+        /// ```
         pub fn set_use_topic_schema<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.use_topic_schema = v.into();
             self
@@ -5050,6 +6234,12 @@ impl GetSubscriptionRequest {
     }
 
     /// Sets the value of [subscription][crate::model::GetSubscriptionRequest::subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::GetSubscriptionRequest;
+    /// let x = GetSubscriptionRequest::new().set_subscription("example");
+    /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
         self
@@ -5082,6 +6272,13 @@ impl UpdateSubscriptionRequest {
     }
 
     /// Sets the value of [subscription][crate::model::UpdateSubscriptionRequest::subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::UpdateSubscriptionRequest;
+    /// use google_cloud_pubsub::model::Subscription;
+    /// let x = UpdateSubscriptionRequest::new().set_subscription(Subscription::default()/* use setters */);
+    /// ```
     pub fn set_subscription<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
@@ -5091,6 +6288,14 @@ impl UpdateSubscriptionRequest {
     }
 
     /// Sets or clears the value of [subscription][crate::model::UpdateSubscriptionRequest::subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::UpdateSubscriptionRequest;
+    /// use google_cloud_pubsub::model::Subscription;
+    /// let x = UpdateSubscriptionRequest::new().set_or_clear_subscription(Some(Subscription::default()/* use setters */));
+    /// let x = UpdateSubscriptionRequest::new().set_or_clear_subscription(None::<Subscription>);
+    /// ```
     pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
@@ -5100,6 +6305,13 @@ impl UpdateSubscriptionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSubscriptionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::UpdateSubscriptionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSubscriptionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5109,6 +6321,14 @@ impl UpdateSubscriptionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSubscriptionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::UpdateSubscriptionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSubscriptionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSubscriptionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5149,18 +6369,36 @@ impl ListSubscriptionsRequest {
     }
 
     /// Sets the value of [project][crate::model::ListSubscriptionsRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSubscriptionsRequest;
+    /// let x = ListSubscriptionsRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSubscriptionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSubscriptionsRequest;
+    /// let x = ListSubscriptionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSubscriptionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSubscriptionsRequest;
+    /// let x = ListSubscriptionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5194,6 +6432,17 @@ impl ListSubscriptionsResponse {
     }
 
     /// Sets the value of [subscriptions][crate::model::ListSubscriptionsResponse::subscriptions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSubscriptionsResponse;
+    /// use google_cloud_pubsub::model::Subscription;
+    /// let x = ListSubscriptionsResponse::new()
+    ///     .set_subscriptions([
+    ///         Subscription::default()/* use setters */,
+    ///         Subscription::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_subscriptions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5205,6 +6454,12 @@ impl ListSubscriptionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSubscriptionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSubscriptionsResponse;
+    /// let x = ListSubscriptionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5248,6 +6503,12 @@ impl DeleteSubscriptionRequest {
     }
 
     /// Sets the value of [subscription][crate::model::DeleteSubscriptionRequest::subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::DeleteSubscriptionRequest;
+    /// let x = DeleteSubscriptionRequest::new().set_subscription("example");
+    /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
         self
@@ -5285,12 +6546,25 @@ impl ModifyPushConfigRequest {
     }
 
     /// Sets the value of [subscription][crate::model::ModifyPushConfigRequest::subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ModifyPushConfigRequest;
+    /// let x = ModifyPushConfigRequest::new().set_subscription("example");
+    /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
         self
     }
 
     /// Sets the value of [push_config][crate::model::ModifyPushConfigRequest::push_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ModifyPushConfigRequest;
+    /// use google_cloud_pubsub::model::PushConfig;
+    /// let x = ModifyPushConfigRequest::new().set_push_config(PushConfig::default()/* use setters */);
+    /// ```
     pub fn set_push_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PushConfig>,
@@ -5300,6 +6574,14 @@ impl ModifyPushConfigRequest {
     }
 
     /// Sets or clears the value of [push_config][crate::model::ModifyPushConfigRequest::push_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ModifyPushConfigRequest;
+    /// use google_cloud_pubsub::model::PushConfig;
+    /// let x = ModifyPushConfigRequest::new().set_or_clear_push_config(Some(PushConfig::default()/* use setters */));
+    /// let x = ModifyPushConfigRequest::new().set_or_clear_push_config(None::<PushConfig>);
+    /// ```
     pub fn set_or_clear_push_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PushConfig>,
@@ -5357,18 +6639,39 @@ impl CreateSnapshotRequest {
     }
 
     /// Sets the value of [name][crate::model::CreateSnapshotRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CreateSnapshotRequest;
+    /// let x = CreateSnapshotRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [subscription][crate::model::CreateSnapshotRequest::subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CreateSnapshotRequest;
+    /// let x = CreateSnapshotRequest::new().set_subscription("example");
+    /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::CreateSnapshotRequest::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CreateSnapshotRequest;
+    /// let x = CreateSnapshotRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5381,6 +6684,15 @@ impl CreateSnapshotRequest {
     }
 
     /// Sets the value of [tags][crate::model::CreateSnapshotRequest::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CreateSnapshotRequest;
+    /// let x = CreateSnapshotRequest::new().set_tags([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_tags<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5419,6 +6731,13 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::UpdateSnapshotRequest;
+    /// use google_cloud_pubsub::model::Snapshot;
+    /// let x = UpdateSnapshotRequest::new().set_snapshot(Snapshot::default()/* use setters */);
+    /// ```
     pub fn set_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Snapshot>,
@@ -5428,6 +6747,14 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets or clears the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::UpdateSnapshotRequest;
+    /// use google_cloud_pubsub::model::Snapshot;
+    /// let x = UpdateSnapshotRequest::new().set_or_clear_snapshot(Some(Snapshot::default()/* use setters */));
+    /// let x = UpdateSnapshotRequest::new().set_or_clear_snapshot(None::<Snapshot>);
+    /// ```
     pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Snapshot>,
@@ -5437,6 +6764,13 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::UpdateSnapshotRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSnapshotRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5446,6 +6780,14 @@ impl UpdateSnapshotRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::UpdateSnapshotRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateSnapshotRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateSnapshotRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -5501,18 +6843,37 @@ impl Snapshot {
     }
 
     /// Sets the value of [name][crate::model::Snapshot::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Snapshot;
+    /// let x = Snapshot::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [topic][crate::model::Snapshot::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Snapshot;
+    /// let x = Snapshot::new().set_topic("example");
+    /// ```
     pub fn set_topic<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::Snapshot::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Snapshot;
+    /// use wkt::Timestamp;
+    /// let x = Snapshot::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5522,6 +6883,14 @@ impl Snapshot {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Snapshot::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Snapshot;
+    /// use wkt::Timestamp;
+    /// let x = Snapshot::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Snapshot::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5531,6 +6900,15 @@ impl Snapshot {
     }
 
     /// Sets the value of [labels][crate::model::Snapshot::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Snapshot;
+    /// let x = Snapshot::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5566,6 +6944,12 @@ impl GetSnapshotRequest {
     }
 
     /// Sets the value of [snapshot][crate::model::GetSnapshotRequest::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::GetSnapshotRequest;
+    /// let x = GetSnapshotRequest::new().set_snapshot("example");
+    /// ```
     pub fn set_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot = v.into();
         self
@@ -5603,18 +6987,36 @@ impl ListSnapshotsRequest {
     }
 
     /// Sets the value of [project][crate::model::ListSnapshotsRequest::project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSnapshotsRequest;
+    /// let x = ListSnapshotsRequest::new().set_project("example");
+    /// ```
     pub fn set_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSnapshotsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSnapshotsRequest;
+    /// let x = ListSnapshotsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSnapshotsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSnapshotsRequest;
+    /// let x = ListSnapshotsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5648,6 +7050,17 @@ impl ListSnapshotsResponse {
     }
 
     /// Sets the value of [snapshots][crate::model::ListSnapshotsResponse::snapshots].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSnapshotsResponse;
+    /// use google_cloud_pubsub::model::Snapshot;
+    /// let x = ListSnapshotsResponse::new()
+    ///     .set_snapshots([
+    ///         Snapshot::default()/* use setters */,
+    ///         Snapshot::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5659,6 +7072,12 @@ impl ListSnapshotsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSnapshotsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSnapshotsResponse;
+    /// let x = ListSnapshotsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5702,6 +7121,12 @@ impl DeleteSnapshotRequest {
     }
 
     /// Sets the value of [snapshot][crate::model::DeleteSnapshotRequest::snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::DeleteSnapshotRequest;
+    /// let x = DeleteSnapshotRequest::new().set_snapshot("example");
+    /// ```
     pub fn set_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshot = v.into();
         self
@@ -5732,6 +7157,12 @@ impl SeekRequest {
     }
 
     /// Sets the value of [subscription][crate::model::SeekRequest::subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::SeekRequest;
+    /// let x = SeekRequest::new().set_subscription("example");
+    /// ```
     pub fn set_subscription<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subscription = v.into();
         self
@@ -5741,6 +7172,13 @@ impl SeekRequest {
     ///
     /// Note that all the setters affecting `target` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::SeekRequest;
+    /// use google_cloud_pubsub::model::seek_request::Target;
+    /// let x = SeekRequest::new().set_target(Some(Target::Snapshot("example".to_string())));
+    /// ```
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::seek_request::Target>>,
     >(
@@ -5767,6 +7205,15 @@ impl SeekRequest {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::SeekRequest;
+    /// use wkt::Timestamp;
+    /// let x = SeekRequest::new().set_time(Timestamp::default()/* use setters */);
+    /// assert!(x.time().is_some());
+    /// assert!(x.snapshot().is_none());
+    /// ```
     pub fn set_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -5791,6 +7238,14 @@ impl SeekRequest {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::SeekRequest;
+    /// let x = SeekRequest::new().set_snapshot("example");
+    /// assert!(x.snapshot().is_some());
+    /// assert!(x.time().is_none());
+    /// ```
     pub fn set_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target =
             std::option::Option::Some(crate::model::seek_request::Target::Snapshot(v.into()));
@@ -5881,30 +7336,63 @@ impl Schema {
     }
 
     /// Sets the value of [name][crate::model::Schema::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Schema;
+    /// let x = Schema::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Schema::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Schema;
+    /// use google_cloud_pubsub::model::schema::Type;
+    /// let x0 = Schema::new().set_type(Type::ProtocolBuffer);
+    /// let x1 = Schema::new().set_type(Type::Avro);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::schema::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [definition][crate::model::Schema::definition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Schema;
+    /// let x = Schema::new().set_definition("example");
+    /// ```
     pub fn set_definition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.definition = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::Schema::revision_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Schema;
+    /// let x = Schema::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [revision_create_time][crate::model::Schema::revision_create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Schema;
+    /// use wkt::Timestamp;
+    /// let x = Schema::new().set_revision_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5914,6 +7402,14 @@ impl Schema {
     }
 
     /// Sets or clears the value of [revision_create_time][crate::model::Schema::revision_create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::Schema;
+    /// use wkt::Timestamp;
+    /// let x = Schema::new().set_or_clear_revision_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Schema::new().set_or_clear_revision_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -6098,12 +7594,25 @@ impl CreateSchemaRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSchemaRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CreateSchemaRequest;
+    /// let x = CreateSchemaRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [schema][crate::model::CreateSchemaRequest::schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CreateSchemaRequest;
+    /// use google_cloud_pubsub::model::Schema;
+    /// let x = CreateSchemaRequest::new().set_schema(Schema::default()/* use setters */);
+    /// ```
     pub fn set_schema<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Schema>,
@@ -6113,6 +7622,14 @@ impl CreateSchemaRequest {
     }
 
     /// Sets or clears the value of [schema][crate::model::CreateSchemaRequest::schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CreateSchemaRequest;
+    /// use google_cloud_pubsub::model::Schema;
+    /// let x = CreateSchemaRequest::new().set_or_clear_schema(Some(Schema::default()/* use setters */));
+    /// let x = CreateSchemaRequest::new().set_or_clear_schema(None::<Schema>);
+    /// ```
     pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Schema>,
@@ -6122,6 +7639,12 @@ impl CreateSchemaRequest {
     }
 
     /// Sets the value of [schema_id][crate::model::CreateSchemaRequest::schema_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CreateSchemaRequest;
+    /// let x = CreateSchemaRequest::new().set_schema_id("example");
+    /// ```
     pub fn set_schema_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema_id = v.into();
         self
@@ -6155,12 +7678,26 @@ impl GetSchemaRequest {
     }
 
     /// Sets the value of [name][crate::model::GetSchemaRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::GetSchemaRequest;
+    /// let x = GetSchemaRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetSchemaRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::GetSchemaRequest;
+    /// use google_cloud_pubsub::model::SchemaView;
+    /// let x0 = GetSchemaRequest::new().set_view(SchemaView::Basic);
+    /// let x1 = GetSchemaRequest::new().set_view(SchemaView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::SchemaView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -6203,24 +7740,50 @@ impl ListSchemasRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSchemasRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSchemasRequest;
+    /// let x = ListSchemasRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListSchemasRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSchemasRequest;
+    /// use google_cloud_pubsub::model::SchemaView;
+    /// let x0 = ListSchemasRequest::new().set_view(SchemaView::Basic);
+    /// let x1 = ListSchemasRequest::new().set_view(SchemaView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::SchemaView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSchemasRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSchemasRequest;
+    /// let x = ListSchemasRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSchemasRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSchemasRequest;
+    /// let x = ListSchemasRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6253,6 +7816,17 @@ impl ListSchemasResponse {
     }
 
     /// Sets the value of [schemas][crate::model::ListSchemasResponse::schemas].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSchemasResponse;
+    /// use google_cloud_pubsub::model::Schema;
+    /// let x = ListSchemasResponse::new()
+    ///     .set_schemas([
+    ///         Schema::default()/* use setters */,
+    ///         Schema::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6264,6 +7838,12 @@ impl ListSchemasResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSchemasResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSchemasResponse;
+    /// let x = ListSchemasResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6318,24 +7898,50 @@ impl ListSchemaRevisionsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListSchemaRevisionsRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSchemaRevisionsRequest;
+    /// let x = ListSchemaRevisionsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListSchemaRevisionsRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSchemaRevisionsRequest;
+    /// use google_cloud_pubsub::model::SchemaView;
+    /// let x0 = ListSchemaRevisionsRequest::new().set_view(SchemaView::Basic);
+    /// let x1 = ListSchemaRevisionsRequest::new().set_view(SchemaView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::SchemaView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSchemaRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSchemaRevisionsRequest;
+    /// let x = ListSchemaRevisionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSchemaRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSchemaRevisionsRequest;
+    /// let x = ListSchemaRevisionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -6368,6 +7974,17 @@ impl ListSchemaRevisionsResponse {
     }
 
     /// Sets the value of [schemas][crate::model::ListSchemaRevisionsResponse::schemas].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSchemaRevisionsResponse;
+    /// use google_cloud_pubsub::model::Schema;
+    /// let x = ListSchemaRevisionsResponse::new()
+    ///     .set_schemas([
+    ///         Schema::default()/* use setters */,
+    ///         Schema::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_schemas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6379,6 +7996,12 @@ impl ListSchemaRevisionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSchemaRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ListSchemaRevisionsResponse;
+    /// let x = ListSchemaRevisionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -6425,12 +8048,25 @@ impl CommitSchemaRequest {
     }
 
     /// Sets the value of [name][crate::model::CommitSchemaRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CommitSchemaRequest;
+    /// let x = CommitSchemaRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [schema][crate::model::CommitSchemaRequest::schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CommitSchemaRequest;
+    /// use google_cloud_pubsub::model::Schema;
+    /// let x = CommitSchemaRequest::new().set_schema(Schema::default()/* use setters */);
+    /// ```
     pub fn set_schema<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Schema>,
@@ -6440,6 +8076,14 @@ impl CommitSchemaRequest {
     }
 
     /// Sets or clears the value of [schema][crate::model::CommitSchemaRequest::schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::CommitSchemaRequest;
+    /// use google_cloud_pubsub::model::Schema;
+    /// let x = CommitSchemaRequest::new().set_or_clear_schema(Some(Schema::default()/* use setters */));
+    /// let x = CommitSchemaRequest::new().set_or_clear_schema(None::<Schema>);
+    /// ```
     pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Schema>,
@@ -6477,12 +8121,24 @@ impl RollbackSchemaRequest {
     }
 
     /// Sets the value of [name][crate::model::RollbackSchemaRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::RollbackSchemaRequest;
+    /// let x = RollbackSchemaRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::RollbackSchemaRequest::revision_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::RollbackSchemaRequest;
+    /// let x = RollbackSchemaRequest::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
@@ -6520,12 +8176,24 @@ impl DeleteSchemaRevisionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSchemaRevisionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::DeleteSchemaRevisionRequest;
+    /// let x = DeleteSchemaRevisionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::DeleteSchemaRevisionRequest::revision_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::DeleteSchemaRevisionRequest;
+    /// let x = DeleteSchemaRevisionRequest::new().set_revision_id("example");
+    /// ```
     #[deprecated]
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
@@ -6556,6 +8224,12 @@ impl DeleteSchemaRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSchemaRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::DeleteSchemaRequest;
+    /// let x = DeleteSchemaRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6588,12 +8262,25 @@ impl ValidateSchemaRequest {
     }
 
     /// Sets the value of [parent][crate::model::ValidateSchemaRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ValidateSchemaRequest;
+    /// let x = ValidateSchemaRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [schema][crate::model::ValidateSchemaRequest::schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ValidateSchemaRequest;
+    /// use google_cloud_pubsub::model::Schema;
+    /// let x = ValidateSchemaRequest::new().set_schema(Schema::default()/* use setters */);
+    /// ```
     pub fn set_schema<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Schema>,
@@ -6603,6 +8290,14 @@ impl ValidateSchemaRequest {
     }
 
     /// Sets or clears the value of [schema][crate::model::ValidateSchemaRequest::schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ValidateSchemaRequest;
+    /// use google_cloud_pubsub::model::Schema;
+    /// let x = ValidateSchemaRequest::new().set_or_clear_schema(Some(Schema::default()/* use setters */));
+    /// let x = ValidateSchemaRequest::new().set_or_clear_schema(None::<Schema>);
+    /// ```
     pub fn set_or_clear_schema<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Schema>,
@@ -6663,18 +8358,38 @@ impl ValidateMessageRequest {
     }
 
     /// Sets the value of [parent][crate::model::ValidateMessageRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ValidateMessageRequest;
+    /// let x = ValidateMessageRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [message][crate::model::ValidateMessageRequest::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ValidateMessageRequest;
+    /// let x = ValidateMessageRequest::new().set_message(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_message<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [encoding][crate::model::ValidateMessageRequest::encoding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ValidateMessageRequest;
+    /// use google_cloud_pubsub::model::Encoding;
+    /// let x0 = ValidateMessageRequest::new().set_encoding(Encoding::Json);
+    /// let x1 = ValidateMessageRequest::new().set_encoding(Encoding::Binary);
+    /// ```
     pub fn set_encoding<T: std::convert::Into<crate::model::Encoding>>(mut self, v: T) -> Self {
         self.encoding = v.into();
         self
@@ -6684,6 +8399,13 @@ impl ValidateMessageRequest {
     ///
     /// Note that all the setters affecting `schema_spec` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ValidateMessageRequest;
+    /// use google_cloud_pubsub::model::validate_message_request::SchemaSpec;
+    /// let x = ValidateMessageRequest::new().set_schema_spec(Some(SchemaSpec::Name("example".to_string())));
+    /// ```
     pub fn set_schema_spec<
         T: std::convert::Into<std::option::Option<crate::model::validate_message_request::SchemaSpec>>,
     >(
@@ -6712,6 +8434,14 @@ impl ValidateMessageRequest {
     ///
     /// Note that all the setters affecting `schema_spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ValidateMessageRequest;
+    /// let x = ValidateMessageRequest::new().set_name("example");
+    /// assert!(x.name().is_some());
+    /// assert!(x.schema().is_none());
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.schema_spec = std::option::Option::Some(
             crate::model::validate_message_request::SchemaSpec::Name(v.into()),
@@ -6737,6 +8467,15 @@ impl ValidateMessageRequest {
     ///
     /// Note that all the setters affecting `schema_spec` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::ValidateMessageRequest;
+    /// use google_cloud_pubsub::model::Schema;
+    /// let x = ValidateMessageRequest::new().set_schema(Schema::default()/* use setters */);
+    /// assert!(x.schema().is_some());
+    /// assert!(x.name().is_none());
+    /// ```
     pub fn set_schema<T: std::convert::Into<std::boxed::Box<crate::model::Schema>>>(
         mut self,
         v: T,

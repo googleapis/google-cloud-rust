@@ -127,24 +127,49 @@ impl Span {
     }
 
     /// Sets the value of [name][crate::model::Span::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// let x = Span::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [span_id][crate::model::Span::span_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// let x = Span::new().set_span_id("example");
+    /// ```
     pub fn set_span_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.span_id = v.into();
         self
     }
 
     /// Sets the value of [parent_span_id][crate::model::Span::parent_span_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// let x = Span::new().set_parent_span_id("example");
+    /// ```
     pub fn set_parent_span_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent_span_id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Span::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use google_cloud_trace_v2::model::TruncatableString;
+    /// let x = Span::new().set_display_name(TruncatableString::default()/* use setters */);
+    /// ```
     pub fn set_display_name<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TruncatableString>,
@@ -154,6 +179,14 @@ impl Span {
     }
 
     /// Sets or clears the value of [display_name][crate::model::Span::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use google_cloud_trace_v2::model::TruncatableString;
+    /// let x = Span::new().set_or_clear_display_name(Some(TruncatableString::default()/* use setters */));
+    /// let x = Span::new().set_or_clear_display_name(None::<TruncatableString>);
+    /// ```
     pub fn set_or_clear_display_name<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TruncatableString>,
@@ -163,6 +196,13 @@ impl Span {
     }
 
     /// Sets the value of [start_time][crate::model::Span::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use wkt::Timestamp;
+    /// let x = Span::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -172,6 +212,14 @@ impl Span {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Span::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use wkt::Timestamp;
+    /// let x = Span::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Span::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -181,6 +229,13 @@ impl Span {
     }
 
     /// Sets the value of [end_time][crate::model::Span::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use wkt::Timestamp;
+    /// let x = Span::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -190,6 +245,14 @@ impl Span {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Span::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use wkt::Timestamp;
+    /// let x = Span::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Span::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -199,6 +262,13 @@ impl Span {
     }
 
     /// Sets the value of [attributes][crate::model::Span::attributes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use google_cloud_trace_v2::model::span::Attributes;
+    /// let x = Span::new().set_attributes(Attributes::default()/* use setters */);
+    /// ```
     pub fn set_attributes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::span::Attributes>,
@@ -208,6 +278,14 @@ impl Span {
     }
 
     /// Sets or clears the value of [attributes][crate::model::Span::attributes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use google_cloud_trace_v2::model::span::Attributes;
+    /// let x = Span::new().set_or_clear_attributes(Some(Attributes::default()/* use setters */));
+    /// let x = Span::new().set_or_clear_attributes(None::<Attributes>);
+    /// ```
     pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::span::Attributes>,
@@ -217,6 +295,13 @@ impl Span {
     }
 
     /// Sets the value of [stack_trace][crate::model::Span::stack_trace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use google_cloud_trace_v2::model::StackTrace;
+    /// let x = Span::new().set_stack_trace(StackTrace::default()/* use setters */);
+    /// ```
     pub fn set_stack_trace<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::StackTrace>,
@@ -226,6 +311,14 @@ impl Span {
     }
 
     /// Sets or clears the value of [stack_trace][crate::model::Span::stack_trace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use google_cloud_trace_v2::model::StackTrace;
+    /// let x = Span::new().set_or_clear_stack_trace(Some(StackTrace::default()/* use setters */));
+    /// let x = Span::new().set_or_clear_stack_trace(None::<StackTrace>);
+    /// ```
     pub fn set_or_clear_stack_trace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::StackTrace>,
@@ -235,6 +328,13 @@ impl Span {
     }
 
     /// Sets the value of [time_events][crate::model::Span::time_events].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use google_cloud_trace_v2::model::span::TimeEvents;
+    /// let x = Span::new().set_time_events(TimeEvents::default()/* use setters */);
+    /// ```
     pub fn set_time_events<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::span::TimeEvents>,
@@ -244,6 +344,14 @@ impl Span {
     }
 
     /// Sets or clears the value of [time_events][crate::model::Span::time_events].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use google_cloud_trace_v2::model::span::TimeEvents;
+    /// let x = Span::new().set_or_clear_time_events(Some(TimeEvents::default()/* use setters */));
+    /// let x = Span::new().set_or_clear_time_events(None::<TimeEvents>);
+    /// ```
     pub fn set_or_clear_time_events<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::span::TimeEvents>,
@@ -253,6 +361,13 @@ impl Span {
     }
 
     /// Sets the value of [links][crate::model::Span::links].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use google_cloud_trace_v2::model::span::Links;
+    /// let x = Span::new().set_links(Links::default()/* use setters */);
+    /// ```
     pub fn set_links<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::span::Links>,
@@ -262,6 +377,14 @@ impl Span {
     }
 
     /// Sets or clears the value of [links][crate::model::Span::links].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use google_cloud_trace_v2::model::span::Links;
+    /// let x = Span::new().set_or_clear_links(Some(Links::default()/* use setters */));
+    /// let x = Span::new().set_or_clear_links(None::<Links>);
+    /// ```
     pub fn set_or_clear_links<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::span::Links>,
@@ -271,6 +394,13 @@ impl Span {
     }
 
     /// Sets the value of [status][crate::model::Span::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use rpc::model::Status;
+    /// let x = Span::new().set_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -280,6 +410,14 @@ impl Span {
     }
 
     /// Sets or clears the value of [status][crate::model::Span::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use rpc::model::Status;
+    /// let x = Span::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = Span::new().set_or_clear_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -289,6 +427,13 @@ impl Span {
     }
 
     /// Sets the value of [same_process_as_parent_span][crate::model::Span::same_process_as_parent_span].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use wkt::BoolValue;
+    /// let x = Span::new().set_same_process_as_parent_span(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_same_process_as_parent_span<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -298,6 +443,14 @@ impl Span {
     }
 
     /// Sets or clears the value of [same_process_as_parent_span][crate::model::Span::same_process_as_parent_span].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use wkt::BoolValue;
+    /// let x = Span::new().set_or_clear_same_process_as_parent_span(Some(BoolValue::default()/* use setters */));
+    /// let x = Span::new().set_or_clear_same_process_as_parent_span(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_same_process_as_parent_span<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -307,6 +460,13 @@ impl Span {
     }
 
     /// Sets the value of [child_span_count][crate::model::Span::child_span_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use wkt::Int32Value;
+    /// let x = Span::new().set_child_span_count(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_child_span_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -316,6 +476,14 @@ impl Span {
     }
 
     /// Sets or clears the value of [child_span_count][crate::model::Span::child_span_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use wkt::Int32Value;
+    /// let x = Span::new().set_or_clear_child_span_count(Some(Int32Value::default()/* use setters */));
+    /// let x = Span::new().set_or_clear_child_span_count(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_child_span_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -325,6 +493,15 @@ impl Span {
     }
 
     /// Sets the value of [span_kind][crate::model::Span::span_kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Span;
+    /// use google_cloud_trace_v2::model::span::SpanKind;
+    /// let x0 = Span::new().set_span_kind(SpanKind::Internal);
+    /// let x1 = Span::new().set_span_kind(SpanKind::Server);
+    /// let x2 = Span::new().set_span_kind(SpanKind::Client);
+    /// ```
     pub fn set_span_kind<T: std::convert::Into<crate::model::span::SpanKind>>(
         mut self,
         v: T,
@@ -375,6 +552,16 @@ pub mod span {
         }
 
         /// Sets the value of [attribute_map][crate::model::span::Attributes::attribute_map].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::Attributes;
+        /// use google_cloud_trace_v2::model::AttributeValue;
+        /// let x = Attributes::new().set_attribute_map([
+        ///     ("key0", AttributeValue::default()/* use setters */),
+        ///     ("key1", AttributeValue::default()/* use (different) setters */),
+        /// ]);
+        /// ```
         pub fn set_attribute_map<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -387,6 +574,12 @@ pub mod span {
         }
 
         /// Sets the value of [dropped_attributes_count][crate::model::span::Attributes::dropped_attributes_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::Attributes;
+        /// let x = Attributes::new().set_dropped_attributes_count(42);
+        /// ```
         pub fn set_dropped_attributes_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_attributes_count = v.into();
             self
@@ -419,6 +612,13 @@ pub mod span {
         }
 
         /// Sets the value of [time][crate::model::span::TimeEvent::time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::TimeEvent;
+        /// use wkt::Timestamp;
+        /// let x = TimeEvent::new().set_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -428,6 +628,14 @@ pub mod span {
         }
 
         /// Sets or clears the value of [time][crate::model::span::TimeEvent::time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::TimeEvent;
+        /// use wkt::Timestamp;
+        /// let x = TimeEvent::new().set_or_clear_time(Some(Timestamp::default()/* use setters */));
+        /// let x = TimeEvent::new().set_or_clear_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -440,6 +648,14 @@ pub mod span {
         ///
         /// Note that all the setters affecting `value` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::TimeEvent;
+        /// use google_cloud_trace_v2::model::span::time_event::Annotation;
+        /// let x = TimeEvent::new().set_value(Some(
+        ///     google_cloud_trace_v2::model::span::time_event::Value::Annotation(Annotation::default().into())));
+        /// ```
         pub fn set_value<
             T: std::convert::Into<std::option::Option<crate::model::span::time_event::Value>>,
         >(
@@ -471,6 +687,15 @@ pub mod span {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::TimeEvent;
+        /// use google_cloud_trace_v2::model::span::time_event::Annotation;
+        /// let x = TimeEvent::new().set_annotation(Annotation::default()/* use setters */);
+        /// assert!(x.annotation().is_some());
+        /// assert!(x.message_event().is_none());
+        /// ```
         pub fn set_annotation<
             T: std::convert::Into<std::boxed::Box<crate::model::span::time_event::Annotation>>,
         >(
@@ -504,6 +729,15 @@ pub mod span {
         ///
         /// Note that all the setters affecting `value` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::TimeEvent;
+        /// use google_cloud_trace_v2::model::span::time_event::MessageEvent;
+        /// let x = TimeEvent::new().set_message_event(MessageEvent::default()/* use setters */);
+        /// assert!(x.message_event().is_some());
+        /// assert!(x.annotation().is_none());
+        /// ```
         pub fn set_message_event<
             T: std::convert::Into<std::boxed::Box<crate::model::span::time_event::MessageEvent>>,
         >(
@@ -549,6 +783,13 @@ pub mod span {
             }
 
             /// Sets the value of [description][crate::model::span::time_event::Annotation::description].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_trace_v2::model::span::time_event::Annotation;
+            /// use google_cloud_trace_v2::model::TruncatableString;
+            /// let x = Annotation::new().set_description(TruncatableString::default()/* use setters */);
+            /// ```
             pub fn set_description<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::TruncatableString>,
@@ -558,6 +799,14 @@ pub mod span {
             }
 
             /// Sets or clears the value of [description][crate::model::span::time_event::Annotation::description].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_trace_v2::model::span::time_event::Annotation;
+            /// use google_cloud_trace_v2::model::TruncatableString;
+            /// let x = Annotation::new().set_or_clear_description(Some(TruncatableString::default()/* use setters */));
+            /// let x = Annotation::new().set_or_clear_description(None::<TruncatableString>);
+            /// ```
             pub fn set_or_clear_description<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::TruncatableString>,
@@ -567,6 +816,13 @@ pub mod span {
             }
 
             /// Sets the value of [attributes][crate::model::span::time_event::Annotation::attributes].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_trace_v2::model::span::time_event::Annotation;
+            /// use google_cloud_trace_v2::model::span::Attributes;
+            /// let x = Annotation::new().set_attributes(Attributes::default()/* use setters */);
+            /// ```
             pub fn set_attributes<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::span::Attributes>,
@@ -576,6 +832,14 @@ pub mod span {
             }
 
             /// Sets or clears the value of [attributes][crate::model::span::time_event::Annotation::attributes].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_trace_v2::model::span::time_event::Annotation;
+            /// use google_cloud_trace_v2::model::span::Attributes;
+            /// let x = Annotation::new().set_or_clear_attributes(Some(Attributes::default()/* use setters */));
+            /// let x = Annotation::new().set_or_clear_attributes(None::<Attributes>);
+            /// ```
             pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::span::Attributes>,
@@ -620,6 +884,14 @@ pub mod span {
             }
 
             /// Sets the value of [r#type][crate::model::span::time_event::MessageEvent::type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_trace_v2::model::span::time_event::MessageEvent;
+            /// use google_cloud_trace_v2::model::span::time_event::message_event::Type;
+            /// let x0 = MessageEvent::new().set_type(Type::Sent);
+            /// let x1 = MessageEvent::new().set_type(Type::Received);
+            /// ```
             pub fn set_type<
                 T: std::convert::Into<crate::model::span::time_event::message_event::Type>,
             >(
@@ -631,18 +903,36 @@ pub mod span {
             }
 
             /// Sets the value of [id][crate::model::span::time_event::MessageEvent::id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_trace_v2::model::span::time_event::MessageEvent;
+            /// let x = MessageEvent::new().set_id(42);
+            /// ```
             pub fn set_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.id = v.into();
                 self
             }
 
             /// Sets the value of [uncompressed_size_bytes][crate::model::span::time_event::MessageEvent::uncompressed_size_bytes].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_trace_v2::model::span::time_event::MessageEvent;
+            /// let x = MessageEvent::new().set_uncompressed_size_bytes(42);
+            /// ```
             pub fn set_uncompressed_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.uncompressed_size_bytes = v.into();
                 self
             }
 
             /// Sets the value of [compressed_size_bytes][crate::model::span::time_event::MessageEvent::compressed_size_bytes].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_trace_v2::model::span::time_event::MessageEvent;
+            /// let x = MessageEvent::new().set_compressed_size_bytes(42);
+            /// ```
             pub fn set_compressed_size_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
                 self.compressed_size_bytes = v.into();
                 self
@@ -834,6 +1124,17 @@ pub mod span {
         }
 
         /// Sets the value of [time_event][crate::model::span::TimeEvents::time_event].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::TimeEvents;
+        /// use google_cloud_trace_v2::model::span::TimeEvent;
+        /// let x = TimeEvents::new()
+        ///     .set_time_event([
+        ///         TimeEvent::default()/* use setters */,
+        ///         TimeEvent::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_time_event<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -845,12 +1146,24 @@ pub mod span {
         }
 
         /// Sets the value of [dropped_annotations_count][crate::model::span::TimeEvents::dropped_annotations_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::TimeEvents;
+        /// let x = TimeEvents::new().set_dropped_annotations_count(42);
+        /// ```
         pub fn set_dropped_annotations_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_annotations_count = v.into();
             self
         }
 
         /// Sets the value of [dropped_message_events_count][crate::model::span::TimeEvents::dropped_message_events_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::TimeEvents;
+        /// let x = TimeEvents::new().set_dropped_message_events_count(42);
+        /// ```
         pub fn set_dropped_message_events_count<T: std::convert::Into<i32>>(
             mut self,
             v: T,
@@ -895,18 +1208,38 @@ pub mod span {
         }
 
         /// Sets the value of [trace_id][crate::model::span::Link::trace_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::Link;
+        /// let x = Link::new().set_trace_id("example");
+        /// ```
         pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.trace_id = v.into();
             self
         }
 
         /// Sets the value of [span_id][crate::model::span::Link::span_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::Link;
+        /// let x = Link::new().set_span_id("example");
+        /// ```
         pub fn set_span_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.span_id = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::span::Link::type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::Link;
+        /// use google_cloud_trace_v2::model::span::link::Type;
+        /// let x0 = Link::new().set_type(Type::ChildLinkedSpan);
+        /// let x1 = Link::new().set_type(Type::ParentLinkedSpan);
+        /// ```
         pub fn set_type<T: std::convert::Into<crate::model::span::link::Type>>(
             mut self,
             v: T,
@@ -916,6 +1249,13 @@ pub mod span {
         }
 
         /// Sets the value of [attributes][crate::model::span::Link::attributes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::Link;
+        /// use google_cloud_trace_v2::model::span::Attributes;
+        /// let x = Link::new().set_attributes(Attributes::default()/* use setters */);
+        /// ```
         pub fn set_attributes<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::span::Attributes>,
@@ -925,6 +1265,14 @@ pub mod span {
         }
 
         /// Sets or clears the value of [attributes][crate::model::span::Link::attributes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::Link;
+        /// use google_cloud_trace_v2::model::span::Attributes;
+        /// let x = Link::new().set_or_clear_attributes(Some(Attributes::default()/* use setters */));
+        /// let x = Link::new().set_or_clear_attributes(None::<Attributes>);
+        /// ```
         pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::span::Attributes>,
@@ -1103,6 +1451,17 @@ pub mod span {
         }
 
         /// Sets the value of [link][crate::model::span::Links::link].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::Links;
+        /// use google_cloud_trace_v2::model::span::Link;
+        /// let x = Links::new()
+        ///     .set_link([
+        ///         Link::default()/* use setters */,
+        ///         Link::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_link<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1114,6 +1473,12 @@ pub mod span {
         }
 
         /// Sets the value of [dropped_links_count][crate::model::span::Links::dropped_links_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::span::Links;
+        /// let x = Links::new().set_dropped_links_count(42);
+        /// ```
         pub fn set_dropped_links_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_links_count = v.into();
             self
@@ -1309,6 +1674,13 @@ impl AttributeValue {
     ///
     /// Note that all the setters affecting `value` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::AttributeValue;
+    /// use google_cloud_trace_v2::model::attribute_value::Value;
+    /// let x = AttributeValue::new().set_value(Some(Value::IntValue(42)));
+    /// ```
     pub fn set_value<
         T: std::convert::Into<std::option::Option<crate::model::attribute_value::Value>>,
     >(
@@ -1337,6 +1709,16 @@ impl AttributeValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::AttributeValue;
+    /// use google_cloud_trace_v2::model::TruncatableString;
+    /// let x = AttributeValue::new().set_string_value(TruncatableString::default()/* use setters */);
+    /// assert!(x.string_value().is_some());
+    /// assert!(x.int_value().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// ```
     pub fn set_string_value<
         T: std::convert::Into<std::boxed::Box<crate::model::TruncatableString>>,
     >(
@@ -1364,6 +1746,15 @@ impl AttributeValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::AttributeValue;
+    /// let x = AttributeValue::new().set_int_value(42);
+    /// assert!(x.int_value().is_some());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bool_value().is_none());
+    /// ```
     pub fn set_int_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::attribute_value::Value::IntValue(v.into()));
@@ -1386,6 +1777,15 @@ impl AttributeValue {
     ///
     /// Note that all the setters affecting `value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::AttributeValue;
+    /// let x = AttributeValue::new().set_bool_value(true);
+    /// assert!(x.bool_value().is_some());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.int_value().is_none());
+    /// ```
     pub fn set_bool_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.value =
             std::option::Option::Some(crate::model::attribute_value::Value::BoolValue(v.into()));
@@ -1444,6 +1844,13 @@ impl StackTrace {
     }
 
     /// Sets the value of [stack_frames][crate::model::StackTrace::stack_frames].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::StackTrace;
+    /// use google_cloud_trace_v2::model::stack_trace::StackFrames;
+    /// let x = StackTrace::new().set_stack_frames(StackFrames::default()/* use setters */);
+    /// ```
     pub fn set_stack_frames<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::stack_trace::StackFrames>,
@@ -1453,6 +1860,14 @@ impl StackTrace {
     }
 
     /// Sets or clears the value of [stack_frames][crate::model::StackTrace::stack_frames].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::StackTrace;
+    /// use google_cloud_trace_v2::model::stack_trace::StackFrames;
+    /// let x = StackTrace::new().set_or_clear_stack_frames(Some(StackFrames::default()/* use setters */));
+    /// let x = StackTrace::new().set_or_clear_stack_frames(None::<StackFrames>);
+    /// ```
     pub fn set_or_clear_stack_frames<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::stack_trace::StackFrames>,
@@ -1462,6 +1877,12 @@ impl StackTrace {
     }
 
     /// Sets the value of [stack_trace_hash_id][crate::model::StackTrace::stack_trace_hash_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::StackTrace;
+    /// let x = StackTrace::new().set_stack_trace_hash_id(42);
+    /// ```
     pub fn set_stack_trace_hash_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.stack_trace_hash_id = v.into();
         self
@@ -1519,6 +1940,13 @@ pub mod stack_trace {
         }
 
         /// Sets the value of [function_name][crate::model::stack_trace::StackFrame::function_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// use google_cloud_trace_v2::model::TruncatableString;
+        /// let x = StackFrame::new().set_function_name(TruncatableString::default()/* use setters */);
+        /// ```
         pub fn set_function_name<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
@@ -1528,6 +1956,14 @@ pub mod stack_trace {
         }
 
         /// Sets or clears the value of [function_name][crate::model::stack_trace::StackFrame::function_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// use google_cloud_trace_v2::model::TruncatableString;
+        /// let x = StackFrame::new().set_or_clear_function_name(Some(TruncatableString::default()/* use setters */));
+        /// let x = StackFrame::new().set_or_clear_function_name(None::<TruncatableString>);
+        /// ```
         pub fn set_or_clear_function_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
@@ -1537,6 +1973,13 @@ pub mod stack_trace {
         }
 
         /// Sets the value of [original_function_name][crate::model::stack_trace::StackFrame::original_function_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// use google_cloud_trace_v2::model::TruncatableString;
+        /// let x = StackFrame::new().set_original_function_name(TruncatableString::default()/* use setters */);
+        /// ```
         pub fn set_original_function_name<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
@@ -1546,6 +1989,14 @@ pub mod stack_trace {
         }
 
         /// Sets or clears the value of [original_function_name][crate::model::stack_trace::StackFrame::original_function_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// use google_cloud_trace_v2::model::TruncatableString;
+        /// let x = StackFrame::new().set_or_clear_original_function_name(Some(TruncatableString::default()/* use setters */));
+        /// let x = StackFrame::new().set_or_clear_original_function_name(None::<TruncatableString>);
+        /// ```
         pub fn set_or_clear_original_function_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
@@ -1555,6 +2006,13 @@ pub mod stack_trace {
         }
 
         /// Sets the value of [file_name][crate::model::stack_trace::StackFrame::file_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// use google_cloud_trace_v2::model::TruncatableString;
+        /// let x = StackFrame::new().set_file_name(TruncatableString::default()/* use setters */);
+        /// ```
         pub fn set_file_name<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
@@ -1564,6 +2022,14 @@ pub mod stack_trace {
         }
 
         /// Sets or clears the value of [file_name][crate::model::stack_trace::StackFrame::file_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// use google_cloud_trace_v2::model::TruncatableString;
+        /// let x = StackFrame::new().set_or_clear_file_name(Some(TruncatableString::default()/* use setters */));
+        /// let x = StackFrame::new().set_or_clear_file_name(None::<TruncatableString>);
+        /// ```
         pub fn set_or_clear_file_name<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
@@ -1573,18 +2039,37 @@ pub mod stack_trace {
         }
 
         /// Sets the value of [line_number][crate::model::stack_trace::StackFrame::line_number].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// let x = StackFrame::new().set_line_number(42);
+        /// ```
         pub fn set_line_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.line_number = v.into();
             self
         }
 
         /// Sets the value of [column_number][crate::model::stack_trace::StackFrame::column_number].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// let x = StackFrame::new().set_column_number(42);
+        /// ```
         pub fn set_column_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.column_number = v.into();
             self
         }
 
         /// Sets the value of [load_module][crate::model::stack_trace::StackFrame::load_module].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// use google_cloud_trace_v2::model::Module;
+        /// let x = StackFrame::new().set_load_module(Module::default()/* use setters */);
+        /// ```
         pub fn set_load_module<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Module>,
@@ -1594,6 +2079,14 @@ pub mod stack_trace {
         }
 
         /// Sets or clears the value of [load_module][crate::model::stack_trace::StackFrame::load_module].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// use google_cloud_trace_v2::model::Module;
+        /// let x = StackFrame::new().set_or_clear_load_module(Some(Module::default()/* use setters */));
+        /// let x = StackFrame::new().set_or_clear_load_module(None::<Module>);
+        /// ```
         pub fn set_or_clear_load_module<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Module>,
@@ -1603,6 +2096,13 @@ pub mod stack_trace {
         }
 
         /// Sets the value of [source_version][crate::model::stack_trace::StackFrame::source_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// use google_cloud_trace_v2::model::TruncatableString;
+        /// let x = StackFrame::new().set_source_version(TruncatableString::default()/* use setters */);
+        /// ```
         pub fn set_source_version<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
@@ -1612,6 +2112,14 @@ pub mod stack_trace {
         }
 
         /// Sets or clears the value of [source_version][crate::model::stack_trace::StackFrame::source_version].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// use google_cloud_trace_v2::model::TruncatableString;
+        /// let x = StackFrame::new().set_or_clear_source_version(Some(TruncatableString::default()/* use setters */));
+        /// let x = StackFrame::new().set_or_clear_source_version(None::<TruncatableString>);
+        /// ```
         pub fn set_or_clear_source_version<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::TruncatableString>,
@@ -1648,6 +2156,17 @@ pub mod stack_trace {
         }
 
         /// Sets the value of [frame][crate::model::stack_trace::StackFrames::frame].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrames;
+        /// use google_cloud_trace_v2::model::stack_trace::StackFrame;
+        /// let x = StackFrames::new()
+        ///     .set_frame([
+        ///         StackFrame::default()/* use setters */,
+        ///         StackFrame::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_frame<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1659,6 +2178,12 @@ pub mod stack_trace {
         }
 
         /// Sets the value of [dropped_frames_count][crate::model::stack_trace::StackFrames::dropped_frames_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_trace_v2::model::stack_trace::StackFrames;
+        /// let x = StackFrames::new().set_dropped_frames_count(42);
+        /// ```
         pub fn set_dropped_frames_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.dropped_frames_count = v.into();
             self
@@ -1693,6 +2218,13 @@ impl Module {
     }
 
     /// Sets the value of [module][crate::model::Module::module].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Module;
+    /// use google_cloud_trace_v2::model::TruncatableString;
+    /// let x = Module::new().set_module(TruncatableString::default()/* use setters */);
+    /// ```
     pub fn set_module<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TruncatableString>,
@@ -1702,6 +2234,14 @@ impl Module {
     }
 
     /// Sets or clears the value of [module][crate::model::Module::module].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Module;
+    /// use google_cloud_trace_v2::model::TruncatableString;
+    /// let x = Module::new().set_or_clear_module(Some(TruncatableString::default()/* use setters */));
+    /// let x = Module::new().set_or_clear_module(None::<TruncatableString>);
+    /// ```
     pub fn set_or_clear_module<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TruncatableString>,
@@ -1711,6 +2251,13 @@ impl Module {
     }
 
     /// Sets the value of [build_id][crate::model::Module::build_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Module;
+    /// use google_cloud_trace_v2::model::TruncatableString;
+    /// let x = Module::new().set_build_id(TruncatableString::default()/* use setters */);
+    /// ```
     pub fn set_build_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TruncatableString>,
@@ -1720,6 +2267,14 @@ impl Module {
     }
 
     /// Sets or clears the value of [build_id][crate::model::Module::build_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::Module;
+    /// use google_cloud_trace_v2::model::TruncatableString;
+    /// let x = Module::new().set_or_clear_build_id(Some(TruncatableString::default()/* use setters */));
+    /// let x = Module::new().set_or_clear_build_id(None::<TruncatableString>);
+    /// ```
     pub fn set_or_clear_build_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TruncatableString>,
@@ -1761,12 +2316,24 @@ impl TruncatableString {
     }
 
     /// Sets the value of [value][crate::model::TruncatableString::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::TruncatableString;
+    /// let x = TruncatableString::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
     /// Sets the value of [truncated_byte_count][crate::model::TruncatableString::truncated_byte_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::TruncatableString;
+    /// let x = TruncatableString::new().set_truncated_byte_count(42);
+    /// ```
     pub fn set_truncated_byte_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.truncated_byte_count = v.into();
         self
@@ -1800,12 +2367,29 @@ impl BatchWriteSpansRequest {
     }
 
     /// Sets the value of [name][crate::model::BatchWriteSpansRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::BatchWriteSpansRequest;
+    /// let x = BatchWriteSpansRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [spans][crate::model::BatchWriteSpansRequest::spans].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v2::model::BatchWriteSpansRequest;
+    /// use google_cloud_trace_v2::model::Span;
+    /// let x = BatchWriteSpansRequest::new()
+    ///     .set_spans([
+    ///         Span::default()/* use setters */,
+    ///         Span::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_spans<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

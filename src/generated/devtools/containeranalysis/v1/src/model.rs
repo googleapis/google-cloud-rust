@@ -57,6 +57,12 @@ impl ExportSBOMRequest {
     }
 
     /// Sets the value of [name][crate::model::ExportSBOMRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_containeranalysis_v1::model::ExportSBOMRequest;
+    /// let x = ExportSBOMRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -66,6 +72,14 @@ impl ExportSBOMRequest {
     ///
     /// Note that all the setters affecting `target` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_containeranalysis_v1::model::ExportSBOMRequest;
+    /// use google_cloud_containeranalysis_v1::model::export_sbom_request::CloudStorageLocation;
+    /// let x = ExportSBOMRequest::new().set_target(Some(
+    ///     google_cloud_containeranalysis_v1::model::export_sbom_request::Target::CloudStorageLocation(CloudStorageLocation::default().into())));
+    /// ```
     pub fn set_target<
         T: std::convert::Into<std::option::Option<crate::model::export_sbom_request::Target>>,
     >(
@@ -98,6 +112,14 @@ impl ExportSBOMRequest {
     ///
     /// Note that all the setters affecting `target` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_containeranalysis_v1::model::ExportSBOMRequest;
+    /// use google_cloud_containeranalysis_v1::model::export_sbom_request::CloudStorageLocation;
+    /// let x = ExportSBOMRequest::new().set_cloud_storage_location(CloudStorageLocation::default()/* use setters */);
+    /// assert!(x.cloud_storage_location().is_some());
+    /// ```
     pub fn set_cloud_storage_location<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::export_sbom_request::CloudStorageLocation>,
@@ -174,6 +196,12 @@ impl ExportSBOMResponse {
     }
 
     /// Sets the value of [discovery_occurrence][crate::model::ExportSBOMResponse::discovery_occurrence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_containeranalysis_v1::model::ExportSBOMResponse;
+    /// let x = ExportSBOMResponse::new().set_discovery_occurrence("example");
+    /// ```
     pub fn set_discovery_occurrence<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -209,12 +237,24 @@ impl GetVulnerabilityOccurrencesSummaryRequest {
     }
 
     /// Sets the value of [parent][crate::model::GetVulnerabilityOccurrencesSummaryRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_containeranalysis_v1::model::GetVulnerabilityOccurrencesSummaryRequest;
+    /// let x = GetVulnerabilityOccurrencesSummaryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::GetVulnerabilityOccurrencesSummaryRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_containeranalysis_v1::model::GetVulnerabilityOccurrencesSummaryRequest;
+    /// let x = GetVulnerabilityOccurrencesSummaryRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -245,6 +285,17 @@ impl VulnerabilityOccurrencesSummary {
     }
 
     /// Sets the value of [counts][crate::model::VulnerabilityOccurrencesSummary::counts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_containeranalysis_v1::model::VulnerabilityOccurrencesSummary;
+    /// use google_cloud_containeranalysis_v1::model::vulnerability_occurrences_summary::FixableTotalByDigest;
+    /// let x = VulnerabilityOccurrencesSummary::new()
+    ///     .set_counts([
+    ///         FixableTotalByDigest::default()/* use setters */,
+    ///         FixableTotalByDigest::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_counts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -295,6 +346,12 @@ pub mod vulnerability_occurrences_summary {
         }
 
         /// Sets the value of [resource_uri][crate::model::vulnerability_occurrences_summary::FixableTotalByDigest::resource_uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_containeranalysis_v1::model::vulnerability_occurrences_summary::FixableTotalByDigest;
+        /// let x = FixableTotalByDigest::new().set_resource_uri("example");
+        /// ```
         pub fn set_resource_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -304,6 +361,15 @@ pub mod vulnerability_occurrences_summary {
         }
 
         /// Sets the value of [severity][crate::model::vulnerability_occurrences_summary::FixableTotalByDigest::severity].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_containeranalysis_v1::model::vulnerability_occurrences_summary::FixableTotalByDigest;
+        /// use grafeas::model::Severity;
+        /// let x0 = FixableTotalByDigest::new().set_severity(Severity::Minimal);
+        /// let x1 = FixableTotalByDigest::new().set_severity(Severity::Low);
+        /// let x2 = FixableTotalByDigest::new().set_severity(Severity::Medium);
+        /// ```
         pub fn set_severity<T: std::convert::Into<grafeas::model::Severity>>(
             mut self,
             v: T,
@@ -313,12 +379,24 @@ pub mod vulnerability_occurrences_summary {
         }
 
         /// Sets the value of [fixable_count][crate::model::vulnerability_occurrences_summary::FixableTotalByDigest::fixable_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_containeranalysis_v1::model::vulnerability_occurrences_summary::FixableTotalByDigest;
+        /// let x = FixableTotalByDigest::new().set_fixable_count(42);
+        /// ```
         pub fn set_fixable_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.fixable_count = v.into();
             self
         }
 
         /// Sets the value of [total_count][crate::model::vulnerability_occurrences_summary::FixableTotalByDigest::total_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_containeranalysis_v1::model::vulnerability_occurrences_summary::FixableTotalByDigest;
+        /// let x = FixableTotalByDigest::new().set_total_count(42);
+        /// ```
         pub fn set_total_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.total_count = v.into();
             self

@@ -52,6 +52,14 @@ impl DeviceMessage {
     ///
     /// Note that all the setters affecting `contents` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceMessage;
+    /// use google_cloud_devicestreaming_v1::model::StatusUpdate;
+    /// let x = DeviceMessage::new().set_contents(Some(
+    ///     google_cloud_devicestreaming_v1::model::device_message::Contents::StatusUpdate(StatusUpdate::default().into())));
+    /// ```
     pub fn set_contents<
         T: std::convert::Into<std::option::Option<crate::model::device_message::Contents>>,
     >(
@@ -80,6 +88,16 @@ impl DeviceMessage {
     ///
     /// Note that all the setters affecting `contents` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceMessage;
+    /// use google_cloud_devicestreaming_v1::model::StatusUpdate;
+    /// let x = DeviceMessage::new().set_status_update(StatusUpdate::default()/* use setters */);
+    /// assert!(x.status_update().is_some());
+    /// assert!(x.stream_status().is_none());
+    /// assert!(x.stream_data().is_none());
+    /// ```
     pub fn set_status_update<T: std::convert::Into<std::boxed::Box<crate::model::StatusUpdate>>>(
         mut self,
         v: T,
@@ -108,6 +126,16 @@ impl DeviceMessage {
     ///
     /// Note that all the setters affecting `contents` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceMessage;
+    /// use google_cloud_devicestreaming_v1::model::StreamStatus;
+    /// let x = DeviceMessage::new().set_stream_status(StreamStatus::default()/* use setters */);
+    /// assert!(x.stream_status().is_some());
+    /// assert!(x.status_update().is_none());
+    /// assert!(x.stream_data().is_none());
+    /// ```
     pub fn set_stream_status<T: std::convert::Into<std::boxed::Box<crate::model::StreamStatus>>>(
         mut self,
         v: T,
@@ -134,6 +162,16 @@ impl DeviceMessage {
     ///
     /// Note that all the setters affecting `contents` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceMessage;
+    /// use google_cloud_devicestreaming_v1::model::StreamData;
+    /// let x = DeviceMessage::new().set_stream_data(StreamData::default()/* use setters */);
+    /// assert!(x.stream_data().is_some());
+    /// assert!(x.status_update().is_none());
+    /// assert!(x.stream_status().is_none());
+    /// ```
     pub fn set_stream_data<T: std::convert::Into<std::boxed::Box<crate::model::StreamData>>>(
         mut self,
         v: T,
@@ -185,6 +223,14 @@ impl AdbMessage {
     ///
     /// Note that all the setters affecting `contents` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::AdbMessage;
+    /// use google_cloud_devicestreaming_v1::model::Open;
+    /// let x = AdbMessage::new().set_contents(Some(
+    ///     google_cloud_devicestreaming_v1::model::adb_message::Contents::Open(Open::default().into())));
+    /// ```
     pub fn set_contents<
         T: std::convert::Into<std::option::Option<crate::model::adb_message::Contents>>,
     >(
@@ -211,6 +257,15 @@ impl AdbMessage {
     ///
     /// Note that all the setters affecting `contents` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::AdbMessage;
+    /// use google_cloud_devicestreaming_v1::model::Open;
+    /// let x = AdbMessage::new().set_open(Open::default()/* use setters */);
+    /// assert!(x.open().is_some());
+    /// assert!(x.stream_data().is_none());
+    /// ```
     pub fn set_open<T: std::convert::Into<std::boxed::Box<crate::model::Open>>>(
         mut self,
         v: T,
@@ -236,6 +291,15 @@ impl AdbMessage {
     ///
     /// Note that all the setters affecting `contents` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::AdbMessage;
+    /// use google_cloud_devicestreaming_v1::model::StreamData;
+    /// let x = AdbMessage::new().set_stream_data(StreamData::default()/* use setters */);
+    /// assert!(x.stream_data().is_some());
+    /// assert!(x.open().is_none());
+    /// ```
     pub fn set_stream_data<T: std::convert::Into<std::boxed::Box<crate::model::StreamData>>>(
         mut self,
         v: T,
@@ -289,6 +353,15 @@ impl StatusUpdate {
     }
 
     /// Sets the value of [state][crate::model::StatusUpdate::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::StatusUpdate;
+    /// use google_cloud_devicestreaming_v1::model::status_update::DeviceState;
+    /// let x0 = StatusUpdate::new().set_state(DeviceState::Device);
+    /// let x1 = StatusUpdate::new().set_state(DeviceState::Recovery);
+    /// let x2 = StatusUpdate::new().set_state(DeviceState::Rescue);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::status_update::DeviceState>>(
         mut self,
         v: T,
@@ -298,6 +371,15 @@ impl StatusUpdate {
     }
 
     /// Sets the value of [properties][crate::model::StatusUpdate::properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::StatusUpdate;
+    /// let x = StatusUpdate::new().set_properties([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_properties<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -310,6 +392,12 @@ impl StatusUpdate {
     }
 
     /// Sets the value of [features][crate::model::StatusUpdate::features].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::StatusUpdate;
+    /// let x = StatusUpdate::new().set_features("example");
+    /// ```
     pub fn set_features<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.features = v.into();
         self
@@ -528,6 +616,12 @@ impl StreamStatus {
     }
 
     /// Sets the value of [stream_id][crate::model::StreamStatus::stream_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::StreamStatus;
+    /// let x = StreamStatus::new().set_stream_id(42);
+    /// ```
     pub fn set_stream_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.stream_id = v.into();
         self
@@ -537,6 +631,14 @@ impl StreamStatus {
     ///
     /// Note that all the setters affecting `status` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::StreamStatus;
+    /// use google_cloud_devicestreaming_v1::model::Okay;
+    /// let x = StreamStatus::new().set_status(Some(
+    ///     google_cloud_devicestreaming_v1::model::stream_status::Status::Okay(Okay::default().into())));
+    /// ```
     pub fn set_status<
         T: std::convert::Into<std::option::Option<crate::model::stream_status::Status>>,
     >(
@@ -563,6 +665,15 @@ impl StreamStatus {
     ///
     /// Note that all the setters affecting `status` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::StreamStatus;
+    /// use google_cloud_devicestreaming_v1::model::Okay;
+    /// let x = StreamStatus::new().set_okay(Okay::default()/* use setters */);
+    /// assert!(x.okay().is_some());
+    /// assert!(x.fail().is_none());
+    /// ```
     pub fn set_okay<T: std::convert::Into<std::boxed::Box<crate::model::Okay>>>(
         mut self,
         v: T,
@@ -588,6 +699,15 @@ impl StreamStatus {
     ///
     /// Note that all the setters affecting `status` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::StreamStatus;
+    /// use google_cloud_devicestreaming_v1::model::Fail;
+    /// let x = StreamStatus::new().set_fail(Fail::default()/* use setters */);
+    /// assert!(x.fail().is_some());
+    /// assert!(x.okay().is_none());
+    /// ```
     pub fn set_fail<T: std::convert::Into<std::boxed::Box<crate::model::Fail>>>(
         mut self,
         v: T,
@@ -640,12 +760,24 @@ impl Open {
     }
 
     /// Sets the value of [stream_id][crate::model::Open::stream_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::Open;
+    /// let x = Open::new().set_stream_id(42);
+    /// ```
     pub fn set_stream_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.stream_id = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::Open::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::Open;
+    /// let x = Open::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
@@ -678,6 +810,12 @@ impl StreamData {
     }
 
     /// Sets the value of [stream_id][crate::model::StreamData::stream_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::StreamData;
+    /// let x = StreamData::new().set_stream_id(42);
+    /// ```
     pub fn set_stream_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.stream_id = v.into();
         self
@@ -687,6 +825,13 @@ impl StreamData {
     ///
     /// Note that all the setters affecting `contents` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::StreamData;
+    /// use google_cloud_devicestreaming_v1::model::stream_data::Contents;
+    /// let x = StreamData::new().set_contents(Some(Contents::Data(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_contents<
         T: std::convert::Into<std::option::Option<crate::model::stream_data::Contents>>,
     >(
@@ -713,6 +858,14 @@ impl StreamData {
     ///
     /// Note that all the setters affecting `contents` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::StreamData;
+    /// let x = StreamData::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.data().is_some());
+    /// assert!(x.close().is_none());
+    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.contents =
             std::option::Option::Some(crate::model::stream_data::Contents::Data(v.into()));
@@ -735,6 +888,15 @@ impl StreamData {
     ///
     /// Note that all the setters affecting `contents` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::StreamData;
+    /// use google_cloud_devicestreaming_v1::model::Close;
+    /// let x = StreamData::new().set_close(Close::default()/* use setters */);
+    /// assert!(x.close().is_some());
+    /// assert!(x.data().is_none());
+    /// ```
     pub fn set_close<T: std::convert::Into<std::boxed::Box<crate::model::Close>>>(
         mut self,
         v: T,
@@ -803,6 +965,12 @@ impl Fail {
     }
 
     /// Sets the value of [reason][crate::model::Fail::reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::Fail;
+    /// let x = Fail::new().set_reason("example");
+    /// ```
     pub fn set_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reason = v.into();
         self
@@ -861,12 +1029,25 @@ impl CreateDeviceSessionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDeviceSessionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::CreateDeviceSessionRequest;
+    /// let x = CreateDeviceSessionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [device_session][crate::model::CreateDeviceSessionRequest::device_session].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::CreateDeviceSessionRequest;
+    /// use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// let x = CreateDeviceSessionRequest::new().set_device_session(DeviceSession::default()/* use setters */);
+    /// ```
     pub fn set_device_session<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeviceSession>,
@@ -876,6 +1057,14 @@ impl CreateDeviceSessionRequest {
     }
 
     /// Sets or clears the value of [device_session][crate::model::CreateDeviceSessionRequest::device_session].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::CreateDeviceSessionRequest;
+    /// use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// let x = CreateDeviceSessionRequest::new().set_or_clear_device_session(Some(DeviceSession::default()/* use setters */));
+    /// let x = CreateDeviceSessionRequest::new().set_or_clear_device_session(None::<DeviceSession>);
+    /// ```
     pub fn set_or_clear_device_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeviceSession>,
@@ -885,6 +1074,12 @@ impl CreateDeviceSessionRequest {
     }
 
     /// Sets the value of [device_session_id][crate::model::CreateDeviceSessionRequest::device_session_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::CreateDeviceSessionRequest;
+    /// let x = CreateDeviceSessionRequest::new().set_device_session_id("example");
+    /// ```
     pub fn set_device_session_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -926,24 +1121,48 @@ impl ListDeviceSessionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDeviceSessionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::ListDeviceSessionsRequest;
+    /// let x = ListDeviceSessionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDeviceSessionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::ListDeviceSessionsRequest;
+    /// let x = ListDeviceSessionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDeviceSessionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::ListDeviceSessionsRequest;
+    /// let x = ListDeviceSessionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDeviceSessionsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::ListDeviceSessionsRequest;
+    /// let x = ListDeviceSessionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -976,6 +1195,17 @@ impl ListDeviceSessionsResponse {
     }
 
     /// Sets the value of [device_sessions][crate::model::ListDeviceSessionsResponse::device_sessions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::ListDeviceSessionsResponse;
+    /// use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// let x = ListDeviceSessionsResponse::new()
+    ///     .set_device_sessions([
+    ///         DeviceSession::default()/* use setters */,
+    ///         DeviceSession::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_device_sessions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -987,6 +1217,12 @@ impl ListDeviceSessionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDeviceSessionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::ListDeviceSessionsResponse;
+    /// let x = ListDeviceSessionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1030,6 +1266,12 @@ impl GetDeviceSessionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDeviceSessionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::GetDeviceSessionRequest;
+    /// let x = GetDeviceSessionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1059,6 +1301,12 @@ impl CancelDeviceSessionRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelDeviceSessionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::CancelDeviceSessionRequest;
+    /// let x = CancelDeviceSessionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1092,6 +1340,13 @@ impl UpdateDeviceSessionRequest {
     }
 
     /// Sets the value of [device_session][crate::model::UpdateDeviceSessionRequest::device_session].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::UpdateDeviceSessionRequest;
+    /// use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// let x = UpdateDeviceSessionRequest::new().set_device_session(DeviceSession::default()/* use setters */);
+    /// ```
     pub fn set_device_session<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DeviceSession>,
@@ -1101,6 +1356,14 @@ impl UpdateDeviceSessionRequest {
     }
 
     /// Sets or clears the value of [device_session][crate::model::UpdateDeviceSessionRequest::device_session].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::UpdateDeviceSessionRequest;
+    /// use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// let x = UpdateDeviceSessionRequest::new().set_or_clear_device_session(Some(DeviceSession::default()/* use setters */));
+    /// let x = UpdateDeviceSessionRequest::new().set_or_clear_device_session(None::<DeviceSession>);
+    /// ```
     pub fn set_or_clear_device_session<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DeviceSession>,
@@ -1110,6 +1373,13 @@ impl UpdateDeviceSessionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDeviceSessionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::UpdateDeviceSessionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDeviceSessionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1119,6 +1389,14 @@ impl UpdateDeviceSessionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDeviceSessionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::UpdateDeviceSessionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDeviceSessionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDeviceSessionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1177,18 +1455,39 @@ impl DeviceSession {
     }
 
     /// Sets the value of [name][crate::model::DeviceSession::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// let x = DeviceSession::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::DeviceSession::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// let x = DeviceSession::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::DeviceSession::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use google_cloud_devicestreaming_v1::model::device_session::SessionState;
+    /// let x0 = DeviceSession::new().set_state(SessionState::Requested);
+    /// let x1 = DeviceSession::new().set_state(SessionState::Pending);
+    /// let x2 = DeviceSession::new().set_state(SessionState::Active);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::device_session::SessionState>>(
         mut self,
         v: T,
@@ -1198,6 +1497,17 @@ impl DeviceSession {
     }
 
     /// Sets the value of [state_histories][crate::model::DeviceSession::state_histories].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use google_cloud_devicestreaming_v1::model::device_session::SessionStateEvent;
+    /// let x = DeviceSession::new()
+    ///     .set_state_histories([
+    ///         SessionStateEvent::default()/* use setters */,
+    ///         SessionStateEvent::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_state_histories<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1209,6 +1519,13 @@ impl DeviceSession {
     }
 
     /// Sets the value of [inactivity_timeout][crate::model::DeviceSession::inactivity_timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use wkt::Duration;
+    /// let x = DeviceSession::new().set_inactivity_timeout(Duration::default()/* use setters */);
+    /// ```
     pub fn set_inactivity_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1218,6 +1535,14 @@ impl DeviceSession {
     }
 
     /// Sets or clears the value of [inactivity_timeout][crate::model::DeviceSession::inactivity_timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use wkt::Duration;
+    /// let x = DeviceSession::new().set_or_clear_inactivity_timeout(Some(Duration::default()/* use setters */));
+    /// let x = DeviceSession::new().set_or_clear_inactivity_timeout(None::<Duration>);
+    /// ```
     pub fn set_or_clear_inactivity_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1227,6 +1552,13 @@ impl DeviceSession {
     }
 
     /// Sets the value of [create_time][crate::model::DeviceSession::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use wkt::Timestamp;
+    /// let x = DeviceSession::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1236,6 +1568,14 @@ impl DeviceSession {
     }
 
     /// Sets or clears the value of [create_time][crate::model::DeviceSession::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use wkt::Timestamp;
+    /// let x = DeviceSession::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeviceSession::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1245,6 +1585,13 @@ impl DeviceSession {
     }
 
     /// Sets the value of [active_start_time][crate::model::DeviceSession::active_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use wkt::Timestamp;
+    /// let x = DeviceSession::new().set_active_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_active_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1254,6 +1601,14 @@ impl DeviceSession {
     }
 
     /// Sets or clears the value of [active_start_time][crate::model::DeviceSession::active_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use wkt::Timestamp;
+    /// let x = DeviceSession::new().set_or_clear_active_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeviceSession::new().set_or_clear_active_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_active_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1263,6 +1618,13 @@ impl DeviceSession {
     }
 
     /// Sets the value of [android_device][crate::model::DeviceSession::android_device].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use google_cloud_devicestreaming_v1::model::AndroidDevice;
+    /// let x = DeviceSession::new().set_android_device(AndroidDevice::default()/* use setters */);
+    /// ```
     pub fn set_android_device<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AndroidDevice>,
@@ -1272,6 +1634,14 @@ impl DeviceSession {
     }
 
     /// Sets or clears the value of [android_device][crate::model::DeviceSession::android_device].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use google_cloud_devicestreaming_v1::model::AndroidDevice;
+    /// let x = DeviceSession::new().set_or_clear_android_device(Some(AndroidDevice::default()/* use setters */));
+    /// let x = DeviceSession::new().set_or_clear_android_device(None::<AndroidDevice>);
+    /// ```
     pub fn set_or_clear_android_device<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AndroidDevice>,
@@ -1284,6 +1654,14 @@ impl DeviceSession {
     ///
     /// Note that all the setters affecting `expiration` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use wkt::Duration;
+    /// let x = DeviceSession::new().set_expiration(Some(
+    ///     google_cloud_devicestreaming_v1::model::device_session::Expiration::Ttl(Duration::default().into())));
+    /// ```
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::device_session::Expiration>>,
     >(
@@ -1310,6 +1688,15 @@ impl DeviceSession {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use wkt::Duration;
+    /// let x = DeviceSession::new().set_ttl(Duration::default()/* use setters */);
+    /// assert!(x.ttl().is_some());
+    /// assert!(x.expire_time().is_none());
+    /// ```
     pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
         self.expiration =
             std::option::Option::Some(crate::model::device_session::Expiration::Ttl(v.into()));
@@ -1332,6 +1719,15 @@ impl DeviceSession {
     ///
     /// Note that all the setters affecting `expiration` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use wkt::Timestamp;
+    /// let x = DeviceSession::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// assert!(x.expire_time().is_some());
+    /// assert!(x.ttl().is_none());
+    /// ```
     pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1378,6 +1774,15 @@ pub mod device_session {
         }
 
         /// Sets the value of [session_state][crate::model::device_session::SessionStateEvent::session_state].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_devicestreaming_v1::model::device_session::SessionStateEvent;
+        /// use google_cloud_devicestreaming_v1::model::device_session::SessionState;
+        /// let x0 = SessionStateEvent::new().set_session_state(SessionState::Requested);
+        /// let x1 = SessionStateEvent::new().set_session_state(SessionState::Pending);
+        /// let x2 = SessionStateEvent::new().set_session_state(SessionState::Active);
+        /// ```
         pub fn set_session_state<
             T: std::convert::Into<crate::model::device_session::SessionState>,
         >(
@@ -1389,6 +1794,13 @@ pub mod device_session {
         }
 
         /// Sets the value of [event_time][crate::model::device_session::SessionStateEvent::event_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_devicestreaming_v1::model::device_session::SessionStateEvent;
+        /// use wkt::Timestamp;
+        /// let x = SessionStateEvent::new().set_event_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_event_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1398,6 +1810,14 @@ pub mod device_session {
         }
 
         /// Sets or clears the value of [event_time][crate::model::device_session::SessionStateEvent::event_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_devicestreaming_v1::model::device_session::SessionStateEvent;
+        /// use wkt::Timestamp;
+        /// let x = SessionStateEvent::new().set_or_clear_event_time(Some(Timestamp::default()/* use setters */));
+        /// let x = SessionStateEvent::new().set_or_clear_event_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_event_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -1407,6 +1827,12 @@ pub mod device_session {
         }
 
         /// Sets the value of [state_message][crate::model::device_session::SessionStateEvent::state_message].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_devicestreaming_v1::model::device_session::SessionStateEvent;
+        /// let x = SessionStateEvent::new().set_state_message("example");
+        /// ```
         pub fn set_state_message<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1642,6 +2068,12 @@ impl AndroidDevice {
     }
 
     /// Sets the value of [android_model_id][crate::model::AndroidDevice::android_model_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::AndroidDevice;
+    /// let x = AndroidDevice::new().set_android_model_id("example");
+    /// ```
     pub fn set_android_model_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1651,6 +2083,12 @@ impl AndroidDevice {
     }
 
     /// Sets the value of [android_version_id][crate::model::AndroidDevice::android_version_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::AndroidDevice;
+    /// let x = AndroidDevice::new().set_android_version_id("example");
+    /// ```
     pub fn set_android_version_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1660,12 +2098,24 @@ impl AndroidDevice {
     }
 
     /// Sets the value of [locale][crate::model::AndroidDevice::locale].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::AndroidDevice;
+    /// let x = AndroidDevice::new().set_locale("example");
+    /// ```
     pub fn set_locale<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.locale = v.into();
         self
     }
 
     /// Sets the value of [orientation][crate::model::AndroidDevice::orientation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_devicestreaming_v1::model::AndroidDevice;
+    /// let x = AndroidDevice::new().set_orientation("example");
+    /// ```
     pub fn set_orientation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.orientation = v.into();
         self

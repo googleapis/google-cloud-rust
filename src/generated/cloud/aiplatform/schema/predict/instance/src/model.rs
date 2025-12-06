@@ -56,12 +56,24 @@ impl ImageClassificationPredictionInstance {
     }
 
     /// Sets the value of [content][crate::model::ImageClassificationPredictionInstance::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::ImageClassificationPredictionInstance;
+    /// let x = ImageClassificationPredictionInstance::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::ImageClassificationPredictionInstance::mime_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::ImageClassificationPredictionInstance;
+    /// let x = ImageClassificationPredictionInstance::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -102,12 +114,24 @@ impl ImageObjectDetectionPredictionInstance {
     }
 
     /// Sets the value of [content][crate::model::ImageObjectDetectionPredictionInstance::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::ImageObjectDetectionPredictionInstance;
+    /// let x = ImageObjectDetectionPredictionInstance::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::ImageObjectDetectionPredictionInstance::mime_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::ImageObjectDetectionPredictionInstance;
+    /// let x = ImageObjectDetectionPredictionInstance::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -143,12 +167,24 @@ impl ImageSegmentationPredictionInstance {
     }
 
     /// Sets the value of [content][crate::model::ImageSegmentationPredictionInstance::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::ImageSegmentationPredictionInstance;
+    /// let x = ImageSegmentationPredictionInstance::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::ImageSegmentationPredictionInstance::mime_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::ImageSegmentationPredictionInstance;
+    /// let x = ImageSegmentationPredictionInstance::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -183,12 +219,24 @@ impl TextClassificationPredictionInstance {
     }
 
     /// Sets the value of [content][crate::model::TextClassificationPredictionInstance::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::TextClassificationPredictionInstance;
+    /// let x = TextClassificationPredictionInstance::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::TextClassificationPredictionInstance::mime_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::TextClassificationPredictionInstance;
+    /// let x = TextClassificationPredictionInstance::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -230,18 +278,36 @@ impl TextExtractionPredictionInstance {
     }
 
     /// Sets the value of [content][crate::model::TextExtractionPredictionInstance::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::TextExtractionPredictionInstance;
+    /// let x = TextExtractionPredictionInstance::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::TextExtractionPredictionInstance::mime_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::TextExtractionPredictionInstance;
+    /// let x = TextExtractionPredictionInstance::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
     /// Sets the value of [key][crate::model::TextExtractionPredictionInstance::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::TextExtractionPredictionInstance;
+    /// let x = TextExtractionPredictionInstance::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
@@ -276,12 +342,24 @@ impl TextSentimentPredictionInstance {
     }
 
     /// Sets the value of [content][crate::model::TextSentimentPredictionInstance::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::TextSentimentPredictionInstance;
+    /// let x = TextSentimentPredictionInstance::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::TextSentimentPredictionInstance::mime_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::TextSentimentPredictionInstance;
+    /// let x = TextSentimentPredictionInstance::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
@@ -328,18 +406,36 @@ impl VideoActionRecognitionPredictionInstance {
     }
 
     /// Sets the value of [content][crate::model::VideoActionRecognitionPredictionInstance::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoActionRecognitionPredictionInstance;
+    /// let x = VideoActionRecognitionPredictionInstance::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::VideoActionRecognitionPredictionInstance::mime_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoActionRecognitionPredictionInstance;
+    /// let x = VideoActionRecognitionPredictionInstance::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
     /// Sets the value of [time_segment_start][crate::model::VideoActionRecognitionPredictionInstance::time_segment_start].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoActionRecognitionPredictionInstance;
+    /// let x = VideoActionRecognitionPredictionInstance::new().set_time_segment_start("example");
+    /// ```
     pub fn set_time_segment_start<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -349,6 +445,12 @@ impl VideoActionRecognitionPredictionInstance {
     }
 
     /// Sets the value of [time_segment_end][crate::model::VideoActionRecognitionPredictionInstance::time_segment_end].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoActionRecognitionPredictionInstance;
+    /// let x = VideoActionRecognitionPredictionInstance::new().set_time_segment_end("example");
+    /// ```
     pub fn set_time_segment_end<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -398,18 +500,36 @@ impl VideoClassificationPredictionInstance {
     }
 
     /// Sets the value of [content][crate::model::VideoClassificationPredictionInstance::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoClassificationPredictionInstance;
+    /// let x = VideoClassificationPredictionInstance::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::VideoClassificationPredictionInstance::mime_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoClassificationPredictionInstance;
+    /// let x = VideoClassificationPredictionInstance::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
     /// Sets the value of [time_segment_start][crate::model::VideoClassificationPredictionInstance::time_segment_start].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoClassificationPredictionInstance;
+    /// let x = VideoClassificationPredictionInstance::new().set_time_segment_start("example");
+    /// ```
     pub fn set_time_segment_start<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -419,6 +539,12 @@ impl VideoClassificationPredictionInstance {
     }
 
     /// Sets the value of [time_segment_end][crate::model::VideoClassificationPredictionInstance::time_segment_end].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoClassificationPredictionInstance;
+    /// let x = VideoClassificationPredictionInstance::new().set_time_segment_end("example");
+    /// ```
     pub fn set_time_segment_end<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -468,18 +594,36 @@ impl VideoObjectTrackingPredictionInstance {
     }
 
     /// Sets the value of [content][crate::model::VideoObjectTrackingPredictionInstance::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoObjectTrackingPredictionInstance;
+    /// let x = VideoObjectTrackingPredictionInstance::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [mime_type][crate::model::VideoObjectTrackingPredictionInstance::mime_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoObjectTrackingPredictionInstance;
+    /// let x = VideoObjectTrackingPredictionInstance::new().set_mime_type("example");
+    /// ```
     pub fn set_mime_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mime_type = v.into();
         self
     }
 
     /// Sets the value of [time_segment_start][crate::model::VideoObjectTrackingPredictionInstance::time_segment_start].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoObjectTrackingPredictionInstance;
+    /// let x = VideoObjectTrackingPredictionInstance::new().set_time_segment_start("example");
+    /// ```
     pub fn set_time_segment_start<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -489,6 +633,12 @@ impl VideoObjectTrackingPredictionInstance {
     }
 
     /// Sets the value of [time_segment_end][crate::model::VideoObjectTrackingPredictionInstance::time_segment_end].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_instance::model::VideoObjectTrackingPredictionInstance;
+    /// let x = VideoObjectTrackingPredictionInstance::new().set_time_segment_end("example");
+    /// ```
     pub fn set_time_segment_end<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,

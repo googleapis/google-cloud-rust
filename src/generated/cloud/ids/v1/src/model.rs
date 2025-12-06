@@ -84,12 +84,25 @@ impl Endpoint {
     }
 
     /// Sets the value of [name][crate::model::Endpoint::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Endpoint::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// use wkt::Timestamp;
+    /// let x = Endpoint::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -99,6 +112,14 @@ impl Endpoint {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Endpoint::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// use wkt::Timestamp;
+    /// let x = Endpoint::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Endpoint::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -108,6 +129,13 @@ impl Endpoint {
     }
 
     /// Sets the value of [update_time][crate::model::Endpoint::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// use wkt::Timestamp;
+    /// let x = Endpoint::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -117,6 +145,14 @@ impl Endpoint {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Endpoint::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// use wkt::Timestamp;
+    /// let x = Endpoint::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Endpoint::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -126,6 +162,15 @@ impl Endpoint {
     }
 
     /// Sets the value of [labels][crate::model::Endpoint::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -138,12 +183,24 @@ impl Endpoint {
     }
 
     /// Sets the value of [network][crate::model::Endpoint::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [endpoint_forwarding_rule][crate::model::Endpoint::endpoint_forwarding_rule].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_endpoint_forwarding_rule("example");
+    /// ```
     pub fn set_endpoint_forwarding_rule<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -153,18 +210,39 @@ impl Endpoint {
     }
 
     /// Sets the value of [endpoint_ip][crate::model::Endpoint::endpoint_ip].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_endpoint_ip("example");
+    /// ```
     pub fn set_endpoint_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint_ip = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Endpoint::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [severity][crate::model::Endpoint::severity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// use google_cloud_ids_v1::model::endpoint::Severity;
+    /// let x0 = Endpoint::new().set_severity(Severity::Informational);
+    /// let x1 = Endpoint::new().set_severity(Severity::Low);
+    /// let x2 = Endpoint::new().set_severity(Severity::Medium);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::endpoint::Severity>>(
         mut self,
         v: T,
@@ -174,12 +252,27 @@ impl Endpoint {
     }
 
     /// Sets the value of [state][crate::model::Endpoint::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// use google_cloud_ids_v1::model::endpoint::State;
+    /// let x0 = Endpoint::new().set_state(State::Creating);
+    /// let x1 = Endpoint::new().set_state(State::Ready);
+    /// let x2 = Endpoint::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::endpoint::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [traffic_logs][crate::model::Endpoint::traffic_logs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_traffic_logs(true);
+    /// ```
     pub fn set_traffic_logs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.traffic_logs = v.into();
         self
@@ -524,30 +617,60 @@ impl ListEndpointsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEndpointsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::ListEndpointsRequest;
+    /// let x = ListEndpointsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEndpointsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::ListEndpointsRequest;
+    /// let x = ListEndpointsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEndpointsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::ListEndpointsRequest;
+    /// let x = ListEndpointsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEndpointsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::ListEndpointsRequest;
+    /// let x = ListEndpointsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEndpointsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::ListEndpointsRequest;
+    /// let x = ListEndpointsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -582,6 +705,17 @@ impl ListEndpointsResponse {
     }
 
     /// Sets the value of [endpoints][crate::model::ListEndpointsResponse::endpoints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::ListEndpointsResponse;
+    /// use google_cloud_ids_v1::model::Endpoint;
+    /// let x = ListEndpointsResponse::new()
+    ///     .set_endpoints([
+    ///         Endpoint::default()/* use setters */,
+    ///         Endpoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -593,12 +727,24 @@ impl ListEndpointsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEndpointsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::ListEndpointsResponse;
+    /// let x = ListEndpointsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListEndpointsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::ListEndpointsResponse;
+    /// let x = ListEndpointsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -646,6 +792,12 @@ impl GetEndpointRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEndpointRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::GetEndpointRequest;
+    /// let x = GetEndpointRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -699,18 +851,37 @@ impl CreateEndpointRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEndpointRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::CreateEndpointRequest;
+    /// let x = CreateEndpointRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [endpoint_id][crate::model::CreateEndpointRequest::endpoint_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::CreateEndpointRequest;
+    /// let x = CreateEndpointRequest::new().set_endpoint_id("example");
+    /// ```
     pub fn set_endpoint_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint_id = v.into();
         self
     }
 
     /// Sets the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::CreateEndpointRequest;
+    /// use google_cloud_ids_v1::model::Endpoint;
+    /// let x = CreateEndpointRequest::new().set_endpoint(Endpoint::default()/* use setters */);
+    /// ```
     pub fn set_endpoint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Endpoint>,
@@ -720,6 +891,14 @@ impl CreateEndpointRequest {
     }
 
     /// Sets or clears the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::CreateEndpointRequest;
+    /// use google_cloud_ids_v1::model::Endpoint;
+    /// let x = CreateEndpointRequest::new().set_or_clear_endpoint(Some(Endpoint::default()/* use setters */));
+    /// let x = CreateEndpointRequest::new().set_or_clear_endpoint(None::<Endpoint>);
+    /// ```
     pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Endpoint>,
@@ -729,6 +908,12 @@ impl CreateEndpointRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateEndpointRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::CreateEndpointRequest;
+    /// let x = CreateEndpointRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -771,12 +956,24 @@ impl DeleteEndpointRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEndpointRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::DeleteEndpointRequest;
+    /// let x = DeleteEndpointRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteEndpointRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::DeleteEndpointRequest;
+    /// let x = DeleteEndpointRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -828,6 +1025,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -837,6 +1041,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -846,6 +1058,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -855,6 +1074,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -864,30 +1091,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_ids_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self

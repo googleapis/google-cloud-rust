@@ -29,3 +29,10 @@ copyright-year        = '2025'
 template-override     = 'templates/grpc-client'
 package-name-override = 'google-cloud-pubsub'
 has-veneer            = 'true'
+# Most messages generated here are internal and doctest
+# fails to test internal types because it can't see them.
+# At the moment we won't generate samples for packages
+# with internal types. Unfortunately that means we don't
+# generate samples for public types in these packages either.
+# That's PubSubMessage in this case.
+generate-setter-samples = 'false'

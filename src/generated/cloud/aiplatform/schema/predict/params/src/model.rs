@@ -50,12 +50,24 @@ impl ImageClassificationPredictionParams {
     }
 
     /// Sets the value of [confidence_threshold][crate::model::ImageClassificationPredictionParams::confidence_threshold].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::ImageClassificationPredictionParams;
+    /// let x = ImageClassificationPredictionParams::new().set_confidence_threshold(42.0);
+    /// ```
     pub fn set_confidence_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence_threshold = v.into();
         self
     }
 
     /// Sets the value of [max_predictions][crate::model::ImageClassificationPredictionParams::max_predictions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::ImageClassificationPredictionParams;
+    /// let x = ImageClassificationPredictionParams::new().set_max_predictions(42);
+    /// ```
     pub fn set_max_predictions<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_predictions = v.into();
         self
@@ -90,12 +102,24 @@ impl ImageObjectDetectionPredictionParams {
     }
 
     /// Sets the value of [confidence_threshold][crate::model::ImageObjectDetectionPredictionParams::confidence_threshold].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::ImageObjectDetectionPredictionParams;
+    /// let x = ImageObjectDetectionPredictionParams::new().set_confidence_threshold(42.0);
+    /// ```
     pub fn set_confidence_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence_threshold = v.into();
         self
     }
 
     /// Sets the value of [max_predictions][crate::model::ImageObjectDetectionPredictionParams::max_predictions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::ImageObjectDetectionPredictionParams;
+    /// let x = ImageObjectDetectionPredictionParams::new().set_max_predictions(42);
+    /// ```
     pub fn set_max_predictions<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_predictions = v.into();
         self
@@ -127,6 +151,12 @@ impl ImageSegmentationPredictionParams {
     }
 
     /// Sets the value of [confidence_threshold][crate::model::ImageSegmentationPredictionParams::confidence_threshold].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::ImageSegmentationPredictionParams;
+    /// let x = ImageSegmentationPredictionParams::new().set_confidence_threshold(42.0);
+    /// ```
     pub fn set_confidence_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence_threshold = v.into();
         self
@@ -161,12 +191,24 @@ impl VideoActionRecognitionPredictionParams {
     }
 
     /// Sets the value of [confidence_threshold][crate::model::VideoActionRecognitionPredictionParams::confidence_threshold].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::VideoActionRecognitionPredictionParams;
+    /// let x = VideoActionRecognitionPredictionParams::new().set_confidence_threshold(42.0);
+    /// ```
     pub fn set_confidence_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence_threshold = v.into();
         self
     }
 
     /// Sets the value of [max_predictions][crate::model::VideoActionRecognitionPredictionParams::max_predictions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::VideoActionRecognitionPredictionParams;
+    /// let x = VideoActionRecognitionPredictionParams::new().set_max_predictions(42);
+    /// ```
     pub fn set_max_predictions<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_predictions = v.into();
         self
@@ -226,30 +268,60 @@ impl VideoClassificationPredictionParams {
     }
 
     /// Sets the value of [confidence_threshold][crate::model::VideoClassificationPredictionParams::confidence_threshold].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::VideoClassificationPredictionParams;
+    /// let x = VideoClassificationPredictionParams::new().set_confidence_threshold(42.0);
+    /// ```
     pub fn set_confidence_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence_threshold = v.into();
         self
     }
 
     /// Sets the value of [max_predictions][crate::model::VideoClassificationPredictionParams::max_predictions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::VideoClassificationPredictionParams;
+    /// let x = VideoClassificationPredictionParams::new().set_max_predictions(42);
+    /// ```
     pub fn set_max_predictions<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_predictions = v.into();
         self
     }
 
     /// Sets the value of [segment_classification][crate::model::VideoClassificationPredictionParams::segment_classification].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::VideoClassificationPredictionParams;
+    /// let x = VideoClassificationPredictionParams::new().set_segment_classification(true);
+    /// ```
     pub fn set_segment_classification<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.segment_classification = v.into();
         self
     }
 
     /// Sets the value of [shot_classification][crate::model::VideoClassificationPredictionParams::shot_classification].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::VideoClassificationPredictionParams;
+    /// let x = VideoClassificationPredictionParams::new().set_shot_classification(true);
+    /// ```
     pub fn set_shot_classification<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.shot_classification = v.into();
         self
     }
 
     /// Sets the value of [one_sec_interval_classification][crate::model::VideoClassificationPredictionParams::one_sec_interval_classification].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::VideoClassificationPredictionParams;
+    /// let x = VideoClassificationPredictionParams::new().set_one_sec_interval_classification(true);
+    /// ```
     pub fn set_one_sec_interval_classification<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -291,18 +363,36 @@ impl VideoObjectTrackingPredictionParams {
     }
 
     /// Sets the value of [confidence_threshold][crate::model::VideoObjectTrackingPredictionParams::confidence_threshold].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::VideoObjectTrackingPredictionParams;
+    /// let x = VideoObjectTrackingPredictionParams::new().set_confidence_threshold(42.0);
+    /// ```
     pub fn set_confidence_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.confidence_threshold = v.into();
         self
     }
 
     /// Sets the value of [max_predictions][crate::model::VideoObjectTrackingPredictionParams::max_predictions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::VideoObjectTrackingPredictionParams;
+    /// let x = VideoObjectTrackingPredictionParams::new().set_max_predictions(42);
+    /// ```
     pub fn set_max_predictions<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_predictions = v.into();
         self
     }
 
     /// Sets the value of [min_bounding_box_size][crate::model::VideoObjectTrackingPredictionParams::min_bounding_box_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_params::model::VideoObjectTrackingPredictionParams;
+    /// let x = VideoObjectTrackingPredictionParams::new().set_min_bounding_box_size(42.0);
+    /// ```
     pub fn set_min_bounding_box_size<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.min_bounding_box_size = v.into();
         self

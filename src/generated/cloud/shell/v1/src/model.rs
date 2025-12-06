@@ -93,24 +93,51 @@ impl Environment {
     }
 
     /// Sets the value of [name][crate::model::Environment::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::Environment;
+    /// let x = Environment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::Environment::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::Environment;
+    /// let x = Environment::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [docker_image][crate::model::Environment::docker_image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::Environment;
+    /// let x = Environment::new().set_docker_image("example");
+    /// ```
     pub fn set_docker_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.docker_image = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Environment::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::Environment;
+    /// use google_cloud_shell_v1::model::environment::State;
+    /// let x0 = Environment::new().set_state(State::Suspended);
+    /// let x1 = Environment::new().set_state(State::Pending);
+    /// let x2 = Environment::new().set_state(State::Running);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::environment::State>>(
         mut self,
         v: T,
@@ -120,30 +147,60 @@ impl Environment {
     }
 
     /// Sets the value of [web_host][crate::model::Environment::web_host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::Environment;
+    /// let x = Environment::new().set_web_host("example");
+    /// ```
     pub fn set_web_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.web_host = v.into();
         self
     }
 
     /// Sets the value of [ssh_username][crate::model::Environment::ssh_username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::Environment;
+    /// let x = Environment::new().set_ssh_username("example");
+    /// ```
     pub fn set_ssh_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ssh_username = v.into();
         self
     }
 
     /// Sets the value of [ssh_host][crate::model::Environment::ssh_host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::Environment;
+    /// let x = Environment::new().set_ssh_host("example");
+    /// ```
     pub fn set_ssh_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ssh_host = v.into();
         self
     }
 
     /// Sets the value of [ssh_port][crate::model::Environment::ssh_port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::Environment;
+    /// let x = Environment::new().set_ssh_port(42);
+    /// ```
     pub fn set_ssh_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ssh_port = v.into();
         self
     }
 
     /// Sets the value of [public_keys][crate::model::Environment::public_keys].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::Environment;
+    /// let x = Environment::new().set_public_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_public_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -337,6 +394,12 @@ impl GetEnvironmentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEnvironmentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::GetEnvironmentRequest;
+    /// let x = GetEnvironmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -419,18 +482,36 @@ impl StartEnvironmentRequest {
     }
 
     /// Sets the value of [name][crate::model::StartEnvironmentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::StartEnvironmentRequest;
+    /// let x = StartEnvironmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [access_token][crate::model::StartEnvironmentRequest::access_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::StartEnvironmentRequest;
+    /// let x = StartEnvironmentRequest::new().set_access_token("example");
+    /// ```
     pub fn set_access_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.access_token = v.into();
         self
     }
 
     /// Sets the value of [public_keys][crate::model::StartEnvironmentRequest::public_keys].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::StartEnvironmentRequest;
+    /// let x = StartEnvironmentRequest::new().set_public_keys(["a", "b", "c"]);
+    /// ```
     pub fn set_public_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -479,24 +560,49 @@ impl AuthorizeEnvironmentRequest {
     }
 
     /// Sets the value of [name][crate::model::AuthorizeEnvironmentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::AuthorizeEnvironmentRequest;
+    /// let x = AuthorizeEnvironmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [access_token][crate::model::AuthorizeEnvironmentRequest::access_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::AuthorizeEnvironmentRequest;
+    /// let x = AuthorizeEnvironmentRequest::new().set_access_token("example");
+    /// ```
     pub fn set_access_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.access_token = v.into();
         self
     }
 
     /// Sets the value of [id_token][crate::model::AuthorizeEnvironmentRequest::id_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::AuthorizeEnvironmentRequest;
+    /// let x = AuthorizeEnvironmentRequest::new().set_id_token("example");
+    /// ```
     pub fn set_id_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id_token = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::AuthorizeEnvironmentRequest::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::AuthorizeEnvironmentRequest;
+    /// use wkt::Timestamp;
+    /// let x = AuthorizeEnvironmentRequest::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -506,6 +612,14 @@ impl AuthorizeEnvironmentRequest {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::AuthorizeEnvironmentRequest::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::AuthorizeEnvironmentRequest;
+    /// use wkt::Timestamp;
+    /// let x = AuthorizeEnvironmentRequest::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AuthorizeEnvironmentRequest::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -584,6 +698,15 @@ impl StartEnvironmentMetadata {
     }
 
     /// Sets the value of [state][crate::model::StartEnvironmentMetadata::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::StartEnvironmentMetadata;
+    /// use google_cloud_shell_v1::model::start_environment_metadata::State;
+    /// let x0 = StartEnvironmentMetadata::new().set_state(State::Starting);
+    /// let x1 = StartEnvironmentMetadata::new().set_state(State::UnarchivingDisk);
+    /// let x2 = StartEnvironmentMetadata::new().set_state(State::AwaitingComputeResources);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::start_environment_metadata::State>>(
         mut self,
         v: T,
@@ -785,6 +908,13 @@ impl StartEnvironmentResponse {
     }
 
     /// Sets the value of [environment][crate::model::StartEnvironmentResponse::environment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::StartEnvironmentResponse;
+    /// use google_cloud_shell_v1::model::Environment;
+    /// let x = StartEnvironmentResponse::new().set_environment(Environment::default()/* use setters */);
+    /// ```
     pub fn set_environment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -794,6 +924,14 @@ impl StartEnvironmentResponse {
     }
 
     /// Sets or clears the value of [environment][crate::model::StartEnvironmentResponse::environment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::StartEnvironmentResponse;
+    /// use google_cloud_shell_v1::model::Environment;
+    /// let x = StartEnvironmentResponse::new().set_or_clear_environment(Some(Environment::default()/* use setters */));
+    /// let x = StartEnvironmentResponse::new().set_or_clear_environment(None::<Environment>);
+    /// ```
     pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Environment>,
@@ -837,12 +975,24 @@ impl AddPublicKeyRequest {
     }
 
     /// Sets the value of [environment][crate::model::AddPublicKeyRequest::environment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::AddPublicKeyRequest;
+    /// let x = AddPublicKeyRequest::new().set_environment("example");
+    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [key][crate::model::AddPublicKeyRequest::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::AddPublicKeyRequest;
+    /// let x = AddPublicKeyRequest::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
@@ -874,6 +1024,12 @@ impl AddPublicKeyResponse {
     }
 
     /// Sets the value of [key][crate::model::AddPublicKeyResponse::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::AddPublicKeyResponse;
+    /// let x = AddPublicKeyResponse::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
@@ -931,12 +1087,24 @@ impl RemovePublicKeyRequest {
     }
 
     /// Sets the value of [environment][crate::model::RemovePublicKeyRequest::environment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::RemovePublicKeyRequest;
+    /// let x = RemovePublicKeyRequest::new().set_environment("example");
+    /// ```
     pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.environment = v.into();
         self
     }
 
     /// Sets the value of [key][crate::model::RemovePublicKeyRequest::key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::RemovePublicKeyRequest;
+    /// let x = RemovePublicKeyRequest::new().set_key("example");
+    /// ```
     pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key = v.into();
         self
@@ -1010,6 +1178,15 @@ impl CloudShellErrorDetails {
     }
 
     /// Sets the value of [code][crate::model::CloudShellErrorDetails::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_shell_v1::model::CloudShellErrorDetails;
+    /// use google_cloud_shell_v1::model::cloud_shell_error_details::CloudShellErrorCode;
+    /// let x0 = CloudShellErrorDetails::new().set_code(CloudShellErrorCode::ImageUnavailable);
+    /// let x1 = CloudShellErrorDetails::new().set_code(CloudShellErrorCode::CloudShellDisabled);
+    /// let x2 = CloudShellErrorDetails::new().set_code(CloudShellErrorCode::TosViolation);
+    /// ```
     pub fn set_code<
         T: std::convert::Into<crate::model::cloud_shell_error_details::CloudShellErrorCode>,
     >(

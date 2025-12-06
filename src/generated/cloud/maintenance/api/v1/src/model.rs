@@ -83,30 +83,60 @@ impl SummarizeMaintenancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::SummarizeMaintenancesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::SummarizeMaintenancesRequest;
+    /// let x = SummarizeMaintenancesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SummarizeMaintenancesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::SummarizeMaintenancesRequest;
+    /// let x = SummarizeMaintenancesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SummarizeMaintenancesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::SummarizeMaintenancesRequest;
+    /// let x = SummarizeMaintenancesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::SummarizeMaintenancesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::SummarizeMaintenancesRequest;
+    /// let x = SummarizeMaintenancesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::SummarizeMaintenancesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::SummarizeMaintenancesRequest;
+    /// let x = SummarizeMaintenancesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -143,6 +173,17 @@ impl SummarizeMaintenancesResponse {
     }
 
     /// Sets the value of [maintenances][crate::model::SummarizeMaintenancesResponse::maintenances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::SummarizeMaintenancesResponse;
+    /// use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// let x = SummarizeMaintenancesResponse::new()
+    ///     .set_maintenances([
+    ///         MaintenanceSummary::default()/* use setters */,
+    ///         MaintenanceSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_maintenances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -154,12 +195,24 @@ impl SummarizeMaintenancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SummarizeMaintenancesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::SummarizeMaintenancesResponse;
+    /// let x = SummarizeMaintenancesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::SummarizeMaintenancesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::SummarizeMaintenancesResponse;
+    /// let x = SummarizeMaintenancesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -248,6 +301,12 @@ impl MaintenanceSummary {
     }
 
     /// Sets the value of [maintenance_name][crate::model::MaintenanceSummary::maintenance_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// let x = MaintenanceSummary::new().set_maintenance_name("example");
+    /// ```
     pub fn set_maintenance_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -257,18 +316,38 @@ impl MaintenanceSummary {
     }
 
     /// Sets the value of [title][crate::model::MaintenanceSummary::title].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// let x = MaintenanceSummary::new().set_title("example");
+    /// ```
     pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.title = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::MaintenanceSummary::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// let x = MaintenanceSummary::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [category][crate::model::MaintenanceSummary::category].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// use google_cloud_maintenance_api_v1::model::MaintenanceCategory;
+    /// let x0 = MaintenanceSummary::new().set_category(MaintenanceCategory::Infrastructure);
+    /// let x1 = MaintenanceSummary::new().set_category(MaintenanceCategory::ServiceUpdate);
+    /// ```
     pub fn set_category<T: std::convert::Into<crate::model::MaintenanceCategory>>(
         mut self,
         v: T,
@@ -278,6 +357,13 @@ impl MaintenanceSummary {
     }
 
     /// Sets the value of [maintenance_scheduled_start_time][crate::model::MaintenanceSummary::maintenance_scheduled_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSummary::new().set_maintenance_scheduled_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_scheduled_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -287,6 +373,14 @@ impl MaintenanceSummary {
     }
 
     /// Sets or clears the value of [maintenance_scheduled_start_time][crate::model::MaintenanceSummary::maintenance_scheduled_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSummary::new().set_or_clear_maintenance_scheduled_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MaintenanceSummary::new().set_or_clear_maintenance_scheduled_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_maintenance_scheduled_start_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -299,6 +393,13 @@ impl MaintenanceSummary {
     }
 
     /// Sets the value of [maintenance_scheduled_end_time][crate::model::MaintenanceSummary::maintenance_scheduled_end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSummary::new().set_maintenance_scheduled_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_scheduled_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -308,6 +409,14 @@ impl MaintenanceSummary {
     }
 
     /// Sets or clears the value of [maintenance_scheduled_end_time][crate::model::MaintenanceSummary::maintenance_scheduled_end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSummary::new().set_or_clear_maintenance_scheduled_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MaintenanceSummary::new().set_or_clear_maintenance_scheduled_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_maintenance_scheduled_end_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -320,6 +429,13 @@ impl MaintenanceSummary {
     }
 
     /// Sets the value of [maintenance_start_time][crate::model::MaintenanceSummary::maintenance_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSummary::new().set_maintenance_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -329,6 +445,14 @@ impl MaintenanceSummary {
     }
 
     /// Sets or clears the value of [maintenance_start_time][crate::model::MaintenanceSummary::maintenance_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSummary::new().set_or_clear_maintenance_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MaintenanceSummary::new().set_or_clear_maintenance_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_maintenance_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -338,6 +462,13 @@ impl MaintenanceSummary {
     }
 
     /// Sets the value of [maintenance_end_time][crate::model::MaintenanceSummary::maintenance_end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSummary::new().set_maintenance_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -347,6 +478,14 @@ impl MaintenanceSummary {
     }
 
     /// Sets or clears the value of [maintenance_end_time][crate::model::MaintenanceSummary::maintenance_end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// use wkt::Timestamp;
+    /// let x = MaintenanceSummary::new().set_or_clear_maintenance_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = MaintenanceSummary::new().set_or_clear_maintenance_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_maintenance_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -356,12 +495,29 @@ impl MaintenanceSummary {
     }
 
     /// Sets the value of [user_controllable][crate::model::MaintenanceSummary::user_controllable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// let x = MaintenanceSummary::new().set_user_controllable(true);
+    /// ```
     pub fn set_user_controllable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.user_controllable = v.into();
         self
     }
 
     /// Sets the value of [controls][crate::model::MaintenanceSummary::controls].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// use google_cloud_maintenance_api_v1::model::MaintenanceControl;
+    /// let x = MaintenanceSummary::new()
+    ///     .set_controls([
+    ///         MaintenanceControl::default()/* use setters */,
+    ///         MaintenanceControl::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -373,6 +529,17 @@ impl MaintenanceSummary {
     }
 
     /// Sets the value of [stats][crate::model::MaintenanceSummary::stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceSummary;
+    /// use google_cloud_maintenance_api_v1::model::maintenance_summary::Stats;
+    /// let x = MaintenanceSummary::new()
+    ///     .set_stats([
+    ///         Stats::default()/* use setters */,
+    ///         Stats::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_stats<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -417,12 +584,29 @@ pub mod maintenance_summary {
         }
 
         /// Sets the value of [group_by][crate::model::maintenance_summary::Stats::group_by].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_maintenance_api_v1::model::maintenance_summary::Stats;
+        /// let x = Stats::new().set_group_by("example");
+        /// ```
         pub fn set_group_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.group_by = v.into();
             self
         }
 
         /// Sets the value of [aggregates][crate::model::maintenance_summary::Stats::aggregates].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_maintenance_api_v1::model::maintenance_summary::Stats;
+        /// use google_cloud_maintenance_api_v1::model::maintenance_summary::Aggregate;
+        /// let x = Stats::new()
+        ///     .set_aggregates([
+        ///         Aggregate::default()/* use setters */,
+        ///         Aggregate::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_aggregates<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -461,12 +645,24 @@ pub mod maintenance_summary {
         }
 
         /// Sets the value of [group][crate::model::maintenance_summary::Aggregate::group].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_maintenance_api_v1::model::maintenance_summary::Aggregate;
+        /// let x = Aggregate::new().set_group("example");
+        /// ```
         pub fn set_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.group = v.into();
             self
         }
 
         /// Sets the value of [count][crate::model::maintenance_summary::Aggregate::count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_maintenance_api_v1::model::maintenance_summary::Aggregate;
+        /// let x = Aggregate::new().set_count(42);
+        /// ```
         pub fn set_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.count = v.into();
             self
@@ -564,12 +760,25 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [name][crate::model::ResourceMaintenance::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// let x = ResourceMaintenance::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::ResourceMaintenance::resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use google_cloud_maintenance_api_v1::model::resource_maintenance::Resource;
+    /// let x = ResourceMaintenance::new().set_resource(Resource::default()/* use setters */);
+    /// ```
     pub fn set_resource<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::resource_maintenance::Resource>,
@@ -579,6 +788,14 @@ impl ResourceMaintenance {
     }
 
     /// Sets or clears the value of [resource][crate::model::ResourceMaintenance::resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use google_cloud_maintenance_api_v1::model::resource_maintenance::Resource;
+    /// let x = ResourceMaintenance::new().set_or_clear_resource(Some(Resource::default()/* use setters */));
+    /// let x = ResourceMaintenance::new().set_or_clear_resource(None::<Resource>);
+    /// ```
     pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::resource_maintenance::Resource>,
@@ -588,6 +805,13 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [maintenance][crate::model::ResourceMaintenance::maintenance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use google_cloud_maintenance_api_v1::model::resource_maintenance::Maintenance;
+    /// let x = ResourceMaintenance::new().set_maintenance(Maintenance::default()/* use setters */);
+    /// ```
     pub fn set_maintenance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::resource_maintenance::Maintenance>,
@@ -597,6 +821,14 @@ impl ResourceMaintenance {
     }
 
     /// Sets or clears the value of [maintenance][crate::model::ResourceMaintenance::maintenance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use google_cloud_maintenance_api_v1::model::resource_maintenance::Maintenance;
+    /// let x = ResourceMaintenance::new().set_or_clear_maintenance(Some(Maintenance::default()/* use setters */));
+    /// let x = ResourceMaintenance::new().set_or_clear_maintenance(None::<Maintenance>);
+    /// ```
     pub fn set_or_clear_maintenance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::resource_maintenance::Maintenance>,
@@ -606,6 +838,15 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [state][crate::model::ResourceMaintenance::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use google_cloud_maintenance_api_v1::model::resource_maintenance::State;
+    /// let x0 = ResourceMaintenance::new().set_state(State::Scheduled);
+    /// let x1 = ResourceMaintenance::new().set_state(State::Running);
+    /// let x2 = ResourceMaintenance::new().set_state(State::Cancelled);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::resource_maintenance::State>>(
         mut self,
         v: T,
@@ -615,6 +856,13 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [create_time][crate::model::ResourceMaintenance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -624,6 +872,14 @@ impl ResourceMaintenance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ResourceMaintenance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ResourceMaintenance::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -633,6 +889,13 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [update_time][crate::model::ResourceMaintenance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -642,6 +905,14 @@ impl ResourceMaintenance {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ResourceMaintenance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ResourceMaintenance::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -651,6 +922,13 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [maintenance_start_time][crate::model::ResourceMaintenance::maintenance_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_maintenance_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -660,6 +938,14 @@ impl ResourceMaintenance {
     }
 
     /// Sets or clears the value of [maintenance_start_time][crate::model::ResourceMaintenance::maintenance_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_or_clear_maintenance_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ResourceMaintenance::new().set_or_clear_maintenance_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_maintenance_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -669,6 +955,13 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [maintenance_end_time][crate::model::ResourceMaintenance::maintenance_end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_maintenance_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -678,6 +971,14 @@ impl ResourceMaintenance {
     }
 
     /// Sets or clears the value of [maintenance_end_time][crate::model::ResourceMaintenance::maintenance_end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_or_clear_maintenance_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ResourceMaintenance::new().set_or_clear_maintenance_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_maintenance_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -687,6 +988,13 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [maintenance_cancel_time][crate::model::ResourceMaintenance::maintenance_cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_maintenance_cancel_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_cancel_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -696,6 +1004,14 @@ impl ResourceMaintenance {
     }
 
     /// Sets or clears the value of [maintenance_cancel_time][crate::model::ResourceMaintenance::maintenance_cancel_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_or_clear_maintenance_cancel_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ResourceMaintenance::new().set_or_clear_maintenance_cancel_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_maintenance_cancel_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -705,6 +1021,13 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [maintenance_scheduled_start_time][crate::model::ResourceMaintenance::maintenance_scheduled_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_maintenance_scheduled_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_scheduled_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -714,6 +1037,14 @@ impl ResourceMaintenance {
     }
 
     /// Sets or clears the value of [maintenance_scheduled_start_time][crate::model::ResourceMaintenance::maintenance_scheduled_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_or_clear_maintenance_scheduled_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ResourceMaintenance::new().set_or_clear_maintenance_scheduled_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_maintenance_scheduled_start_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -726,6 +1057,13 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [maintenance_scheduled_end_time][crate::model::ResourceMaintenance::maintenance_scheduled_end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_maintenance_scheduled_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_maintenance_scheduled_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -735,6 +1073,14 @@ impl ResourceMaintenance {
     }
 
     /// Sets or clears the value of [maintenance_scheduled_end_time][crate::model::ResourceMaintenance::maintenance_scheduled_end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use wkt::Timestamp;
+    /// let x = ResourceMaintenance::new().set_or_clear_maintenance_scheduled_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ResourceMaintenance::new().set_or_clear_maintenance_scheduled_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_maintenance_scheduled_end_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -747,12 +1093,29 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [user_controllable][crate::model::ResourceMaintenance::user_controllable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// let x = ResourceMaintenance::new().set_user_controllable(true);
+    /// ```
     pub fn set_user_controllable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.user_controllable = v.into();
         self
     }
 
     /// Sets the value of [controls][crate::model::ResourceMaintenance::controls].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// use google_cloud_maintenance_api_v1::model::MaintenanceControl;
+    /// let x = ResourceMaintenance::new()
+    ///     .set_controls([
+    ///         MaintenanceControl::default()/* use setters */,
+    ///         MaintenanceControl::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_controls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -764,6 +1127,15 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [labels][crate::model::ResourceMaintenance::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// let x = ResourceMaintenance::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -776,6 +1148,15 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [annotations][crate::model::ResourceMaintenance::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// let x = ResourceMaintenance::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -788,12 +1169,24 @@ impl ResourceMaintenance {
     }
 
     /// Sets the value of [uid][crate::model::ResourceMaintenance::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// let x = ResourceMaintenance::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::ResourceMaintenance::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// let x = ResourceMaintenance::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -841,6 +1234,12 @@ pub mod resource_maintenance {
         }
 
         /// Sets the value of [resource_name][crate::model::resource_maintenance::Resource::resource_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_maintenance_api_v1::model::resource_maintenance::Resource;
+        /// let x = Resource::new().set_resource_name("example");
+        /// ```
         pub fn set_resource_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -850,12 +1249,24 @@ pub mod resource_maintenance {
         }
 
         /// Sets the value of [location][crate::model::resource_maintenance::Resource::location].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_maintenance_api_v1::model::resource_maintenance::Resource;
+        /// let x = Resource::new().set_location("example");
+        /// ```
         pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.location = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::resource_maintenance::Resource::type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_maintenance_api_v1::model::resource_maintenance::Resource;
+        /// let x = Resource::new().set_type("example");
+        /// ```
         pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.r#type = v.into();
             self
@@ -894,6 +1305,12 @@ pub mod resource_maintenance {
         }
 
         /// Sets the value of [maintenance_name][crate::model::resource_maintenance::Maintenance::maintenance_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_maintenance_api_v1::model::resource_maintenance::Maintenance;
+        /// let x = Maintenance::new().set_maintenance_name("example");
+        /// ```
         pub fn set_maintenance_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -903,18 +1320,38 @@ pub mod resource_maintenance {
         }
 
         /// Sets the value of [title][crate::model::resource_maintenance::Maintenance::title].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_maintenance_api_v1::model::resource_maintenance::Maintenance;
+        /// let x = Maintenance::new().set_title("example");
+        /// ```
         pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.title = v.into();
             self
         }
 
         /// Sets the value of [description][crate::model::resource_maintenance::Maintenance::description].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_maintenance_api_v1::model::resource_maintenance::Maintenance;
+        /// let x = Maintenance::new().set_description("example");
+        /// ```
         pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.description = v.into();
             self
         }
 
         /// Sets the value of [category][crate::model::resource_maintenance::Maintenance::category].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_maintenance_api_v1::model::resource_maintenance::Maintenance;
+        /// use google_cloud_maintenance_api_v1::model::MaintenanceCategory;
+        /// let x0 = Maintenance::new().set_category(MaintenanceCategory::Infrastructure);
+        /// let x1 = Maintenance::new().set_category(MaintenanceCategory::ServiceUpdate);
+        /// ```
         pub fn set_category<T: std::convert::Into<crate::model::MaintenanceCategory>>(
             mut self,
             v: T,
@@ -1104,6 +1541,15 @@ impl MaintenanceControl {
     }
 
     /// Sets the value of [control][crate::model::MaintenanceControl::control].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceControl;
+    /// use google_cloud_maintenance_api_v1::model::maintenance_control::Control;
+    /// let x0 = MaintenanceControl::new().set_control(Control::Apply);
+    /// let x1 = MaintenanceControl::new().set_control(Control::ManagePolicy);
+    /// let x2 = MaintenanceControl::new().set_control(Control::Reschedule);
+    /// ```
     pub fn set_control<T: std::convert::Into<crate::model::maintenance_control::Control>>(
         mut self,
         v: T,
@@ -1113,12 +1559,24 @@ impl MaintenanceControl {
     }
 
     /// Sets the value of [is_custom][crate::model::MaintenanceControl::is_custom].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceControl;
+    /// let x = MaintenanceControl::new().set_is_custom(true);
+    /// ```
     pub fn set_is_custom<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_custom = v.into();
         self
     }
 
     /// Sets the value of [documentation][crate::model::MaintenanceControl::documentation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::MaintenanceControl;
+    /// let x = MaintenanceControl::new().set_documentation("example");
+    /// ```
     pub fn set_documentation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.documentation = v.into();
         self
@@ -1305,30 +1763,60 @@ impl ListResourceMaintenancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListResourceMaintenancesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ListResourceMaintenancesRequest;
+    /// let x = ListResourceMaintenancesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListResourceMaintenancesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ListResourceMaintenancesRequest;
+    /// let x = ListResourceMaintenancesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListResourceMaintenancesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ListResourceMaintenancesRequest;
+    /// let x = ListResourceMaintenancesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListResourceMaintenancesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ListResourceMaintenancesRequest;
+    /// let x = ListResourceMaintenancesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListResourceMaintenancesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ListResourceMaintenancesRequest;
+    /// let x = ListResourceMaintenancesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1365,6 +1853,17 @@ impl ListResourceMaintenancesResponse {
     }
 
     /// Sets the value of [resource_maintenances][crate::model::ListResourceMaintenancesResponse::resource_maintenances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ListResourceMaintenancesResponse;
+    /// use google_cloud_maintenance_api_v1::model::ResourceMaintenance;
+    /// let x = ListResourceMaintenancesResponse::new()
+    ///     .set_resource_maintenances([
+    ///         ResourceMaintenance::default()/* use setters */,
+    ///         ResourceMaintenance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resource_maintenances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1376,12 +1875,24 @@ impl ListResourceMaintenancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListResourceMaintenancesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ListResourceMaintenancesResponse;
+    /// let x = ListResourceMaintenancesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListResourceMaintenancesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::ListResourceMaintenancesResponse;
+    /// let x = ListResourceMaintenancesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1429,6 +1940,12 @@ impl GetResourceMaintenanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetResourceMaintenanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_maintenance_api_v1::model::GetResourceMaintenanceRequest;
+    /// let x = GetResourceMaintenanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self

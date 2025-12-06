@@ -82,12 +82,24 @@ impl CloudLocation {
     }
 
     /// Sets the value of [name][crate::model::CloudLocation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::CloudLocation;
+    /// let x = CloudLocation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [containing_cloud_location][crate::model::CloudLocation::containing_cloud_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::CloudLocation;
+    /// let x = CloudLocation::new().set_containing_cloud_location("example");
+    /// ```
     pub fn set_containing_cloud_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -97,12 +109,27 @@ impl CloudLocation {
     }
 
     /// Sets the value of [display_name][crate::model::CloudLocation::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::CloudLocation;
+    /// let x = CloudLocation::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [cloud_provider][crate::model::CloudLocation::cloud_provider].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::CloudLocation;
+    /// use google_cloud_locationfinder_v1::model::cloud_location::CloudProvider;
+    /// let x0 = CloudLocation::new().set_cloud_provider(CloudProvider::Gcp);
+    /// let x1 = CloudLocation::new().set_cloud_provider(CloudProvider::Aws);
+    /// let x2 = CloudLocation::new().set_cloud_provider(CloudProvider::Azure);
+    /// ```
     pub fn set_cloud_provider<
         T: std::convert::Into<crate::model::cloud_location::CloudProvider>,
     >(
@@ -114,12 +141,27 @@ impl CloudLocation {
     }
 
     /// Sets the value of [territory_code][crate::model::CloudLocation::territory_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::CloudLocation;
+    /// let x = CloudLocation::new().set_territory_code("example");
+    /// ```
     pub fn set_territory_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.territory_code = v.into();
         self
     }
 
     /// Sets the value of [cloud_location_type][crate::model::CloudLocation::cloud_location_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::CloudLocation;
+    /// use google_cloud_locationfinder_v1::model::cloud_location::CloudLocationType;
+    /// let x0 = CloudLocation::new().set_cloud_location_type(CloudLocationType::Region);
+    /// let x1 = CloudLocation::new().set_cloud_location_type(CloudLocationType::Zone);
+    /// let x2 = CloudLocation::new().set_cloud_location_type(CloudLocationType::RegionExtension);
+    /// ```
     pub fn set_cloud_location_type<
         T: std::convert::Into<crate::model::cloud_location::CloudLocationType>,
     >(
@@ -131,6 +173,12 @@ impl CloudLocation {
     }
 
     /// Sets the value of [carbon_free_energy_percentage][crate::model::CloudLocation::carbon_free_energy_percentage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::CloudLocation;
+    /// let x = CloudLocation::new().set_carbon_free_energy_percentage(42.0);
+    /// ```
     pub fn set_carbon_free_energy_percentage<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<f32>,
@@ -140,6 +188,13 @@ impl CloudLocation {
     }
 
     /// Sets or clears the value of [carbon_free_energy_percentage][crate::model::CloudLocation::carbon_free_energy_percentage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::CloudLocation;
+    /// let x = CloudLocation::new().set_or_clear_carbon_free_energy_percentage(Some(42.0));
+    /// let x = CloudLocation::new().set_or_clear_carbon_free_energy_percentage(None::<f32>);
+    /// ```
     pub fn set_or_clear_carbon_free_energy_percentage<T>(
         mut self,
         v: std::option::Option<T>,
@@ -498,24 +553,48 @@ impl ListCloudLocationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCloudLocationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::ListCloudLocationsRequest;
+    /// let x = ListCloudLocationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCloudLocationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::ListCloudLocationsRequest;
+    /// let x = ListCloudLocationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCloudLocationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::ListCloudLocationsRequest;
+    /// let x = ListCloudLocationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListCloudLocationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::ListCloudLocationsRequest;
+    /// let x = ListCloudLocationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -550,6 +629,17 @@ impl ListCloudLocationsResponse {
     }
 
     /// Sets the value of [cloud_locations][crate::model::ListCloudLocationsResponse::cloud_locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::ListCloudLocationsResponse;
+    /// use google_cloud_locationfinder_v1::model::CloudLocation;
+    /// let x = ListCloudLocationsResponse::new()
+    ///     .set_cloud_locations([
+    ///         CloudLocation::default()/* use setters */,
+    ///         CloudLocation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cloud_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -561,6 +651,12 @@ impl ListCloudLocationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCloudLocationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::ListCloudLocationsResponse;
+    /// let x = ListCloudLocationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -603,6 +699,12 @@ impl GetCloudLocationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCloudLocationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::GetCloudLocationRequest;
+    /// let x = GetCloudLocationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -654,12 +756,24 @@ impl SearchCloudLocationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::SearchCloudLocationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::SearchCloudLocationsRequest;
+    /// let x = SearchCloudLocationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [source_cloud_location][crate::model::SearchCloudLocationsRequest::source_cloud_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::SearchCloudLocationsRequest;
+    /// let x = SearchCloudLocationsRequest::new().set_source_cloud_location("example");
+    /// ```
     pub fn set_source_cloud_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -669,18 +783,36 @@ impl SearchCloudLocationsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::SearchCloudLocationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::SearchCloudLocationsRequest;
+    /// let x = SearchCloudLocationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchCloudLocationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::SearchCloudLocationsRequest;
+    /// let x = SearchCloudLocationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::SearchCloudLocationsRequest::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::SearchCloudLocationsRequest;
+    /// let x = SearchCloudLocationsRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
@@ -715,6 +847,17 @@ impl SearchCloudLocationsResponse {
     }
 
     /// Sets the value of [cloud_locations][crate::model::SearchCloudLocationsResponse::cloud_locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::SearchCloudLocationsResponse;
+    /// use google_cloud_locationfinder_v1::model::CloudLocation;
+    /// let x = SearchCloudLocationsResponse::new()
+    ///     .set_cloud_locations([
+    ///         CloudLocation::default()/* use setters */,
+    ///         CloudLocation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cloud_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -726,6 +869,12 @@ impl SearchCloudLocationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchCloudLocationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_locationfinder_v1::model::SearchCloudLocationsResponse;
+    /// let x = SearchCloudLocationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self

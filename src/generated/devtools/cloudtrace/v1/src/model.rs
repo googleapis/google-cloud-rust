@@ -60,18 +60,41 @@ impl Trace {
     }
 
     /// Sets the value of [project_id][crate::model::Trace::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::Trace;
+    /// let x = Trace::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [trace_id][crate::model::Trace::trace_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::Trace;
+    /// let x = Trace::new().set_trace_id("example");
+    /// ```
     pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trace_id = v.into();
         self
     }
 
     /// Sets the value of [spans][crate::model::Trace::spans].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::Trace;
+    /// use google_cloud_trace_v1::model::TraceSpan;
+    /// let x = Trace::new()
+    ///     .set_spans([
+    ///         TraceSpan::default()/* use setters */,
+    ///         TraceSpan::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_spans<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -105,6 +128,17 @@ impl Traces {
     }
 
     /// Sets the value of [traces][crate::model::Traces::traces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::Traces;
+    /// use google_cloud_trace_v1::model::Trace;
+    /// let x = Traces::new()
+    ///     .set_traces([
+    ///         Trace::default()/* use setters */,
+    ///         Trace::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_traces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -203,12 +237,26 @@ impl TraceSpan {
     }
 
     /// Sets the value of [span_id][crate::model::TraceSpan::span_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::TraceSpan;
+    /// let x = TraceSpan::new().set_span_id(42_u32);
+    /// ```
     pub fn set_span_id<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.span_id = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::TraceSpan::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::TraceSpan;
+    /// use google_cloud_trace_v1::model::trace_span::SpanKind;
+    /// let x0 = TraceSpan::new().set_kind(SpanKind::RpcServer);
+    /// let x1 = TraceSpan::new().set_kind(SpanKind::RpcClient);
+    /// ```
     pub fn set_kind<T: std::convert::Into<crate::model::trace_span::SpanKind>>(
         mut self,
         v: T,
@@ -218,12 +266,25 @@ impl TraceSpan {
     }
 
     /// Sets the value of [name][crate::model::TraceSpan::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::TraceSpan;
+    /// let x = TraceSpan::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::TraceSpan::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::TraceSpan;
+    /// use wkt::Timestamp;
+    /// let x = TraceSpan::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -233,6 +294,14 @@ impl TraceSpan {
     }
 
     /// Sets or clears the value of [start_time][crate::model::TraceSpan::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::TraceSpan;
+    /// use wkt::Timestamp;
+    /// let x = TraceSpan::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TraceSpan::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -242,6 +311,13 @@ impl TraceSpan {
     }
 
     /// Sets the value of [end_time][crate::model::TraceSpan::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::TraceSpan;
+    /// use wkt::Timestamp;
+    /// let x = TraceSpan::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -251,6 +327,14 @@ impl TraceSpan {
     }
 
     /// Sets or clears the value of [end_time][crate::model::TraceSpan::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::TraceSpan;
+    /// use wkt::Timestamp;
+    /// let x = TraceSpan::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TraceSpan::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -260,12 +344,27 @@ impl TraceSpan {
     }
 
     /// Sets the value of [parent_span_id][crate::model::TraceSpan::parent_span_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::TraceSpan;
+    /// let x = TraceSpan::new().set_parent_span_id(42_u32);
+    /// ```
     pub fn set_parent_span_id<T: std::convert::Into<u64>>(mut self, v: T) -> Self {
         self.parent_span_id = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::TraceSpan::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::TraceSpan;
+    /// let x = TraceSpan::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -510,12 +609,27 @@ impl ListTracesRequest {
     }
 
     /// Sets the value of [project_id][crate::model::ListTracesRequest::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::ListTracesRequest;
+    /// let x = ListTracesRequest::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListTracesRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::ListTracesRequest;
+    /// use google_cloud_trace_v1::model::list_traces_request::ViewType;
+    /// let x0 = ListTracesRequest::new().set_view(ViewType::Minimal);
+    /// let x1 = ListTracesRequest::new().set_view(ViewType::Rootspan);
+    /// let x2 = ListTracesRequest::new().set_view(ViewType::Complete);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::list_traces_request::ViewType>>(
         mut self,
         v: T,
@@ -525,18 +639,37 @@ impl ListTracesRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListTracesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::ListTracesRequest;
+    /// let x = ListTracesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTracesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::ListTracesRequest;
+    /// let x = ListTracesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [start_time][crate::model::ListTracesRequest::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::ListTracesRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListTracesRequest::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -546,6 +679,14 @@ impl ListTracesRequest {
     }
 
     /// Sets or clears the value of [start_time][crate::model::ListTracesRequest::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::ListTracesRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListTracesRequest::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ListTracesRequest::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -555,6 +696,13 @@ impl ListTracesRequest {
     }
 
     /// Sets the value of [end_time][crate::model::ListTracesRequest::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::ListTracesRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListTracesRequest::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -564,6 +712,14 @@ impl ListTracesRequest {
     }
 
     /// Sets or clears the value of [end_time][crate::model::ListTracesRequest::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::ListTracesRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListTracesRequest::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ListTracesRequest::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -573,12 +729,24 @@ impl ListTracesRequest {
     }
 
     /// Sets the value of [filter][crate::model::ListTracesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::ListTracesRequest;
+    /// let x = ListTracesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListTracesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::ListTracesRequest;
+    /// let x = ListTracesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -761,6 +929,17 @@ impl ListTracesResponse {
     }
 
     /// Sets the value of [traces][crate::model::ListTracesResponse::traces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::ListTracesResponse;
+    /// use google_cloud_trace_v1::model::Trace;
+    /// let x = ListTracesResponse::new()
+    ///     .set_traces([
+    ///         Trace::default()/* use setters */,
+    ///         Trace::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_traces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -772,6 +951,12 @@ impl ListTracesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTracesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::ListTracesResponse;
+    /// let x = ListTracesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -817,12 +1002,24 @@ impl GetTraceRequest {
     }
 
     /// Sets the value of [project_id][crate::model::GetTraceRequest::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::GetTraceRequest;
+    /// let x = GetTraceRequest::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [trace_id][crate::model::GetTraceRequest::trace_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::GetTraceRequest;
+    /// let x = GetTraceRequest::new().set_trace_id("example");
+    /// ```
     pub fn set_trace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.trace_id = v.into();
         self
@@ -854,12 +1051,25 @@ impl PatchTracesRequest {
     }
 
     /// Sets the value of [project_id][crate::model::PatchTracesRequest::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::PatchTracesRequest;
+    /// let x = PatchTracesRequest::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [traces][crate::model::PatchTracesRequest::traces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::PatchTracesRequest;
+    /// use google_cloud_trace_v1::model::Traces;
+    /// let x = PatchTracesRequest::new().set_traces(Traces::default()/* use setters */);
+    /// ```
     pub fn set_traces<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Traces>,
@@ -869,6 +1079,14 @@ impl PatchTracesRequest {
     }
 
     /// Sets or clears the value of [traces][crate::model::PatchTracesRequest::traces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_trace_v1::model::PatchTracesRequest;
+    /// use google_cloud_trace_v1::model::Traces;
+    /// let x = PatchTracesRequest::new().set_or_clear_traces(Some(Traces::default()/* use setters */));
+    /// let x = PatchTracesRequest::new().set_or_clear_traces(None::<Traces>);
+    /// ```
     pub fn set_or_clear_traces<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Traces>,

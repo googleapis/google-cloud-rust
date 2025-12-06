@@ -56,12 +56,26 @@ impl MetadataExchangeRequest {
     }
 
     /// Sets the value of [user_agent][crate::model::MetadataExchangeRequest::user_agent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_alloydb_connectors_v1::model::MetadataExchangeRequest;
+    /// let x = MetadataExchangeRequest::new().set_user_agent("example");
+    /// ```
     pub fn set_user_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_agent = v.into();
         self
     }
 
     /// Sets the value of [auth_type][crate::model::MetadataExchangeRequest::auth_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_alloydb_connectors_v1::model::MetadataExchangeRequest;
+    /// use google_cloud_alloydb_connectors_v1::model::metadata_exchange_request::AuthType;
+    /// let x0 = MetadataExchangeRequest::new().set_auth_type(AuthType::DbNative);
+    /// let x1 = MetadataExchangeRequest::new().set_auth_type(AuthType::AutoIam);
+    /// ```
     pub fn set_auth_type<
         T: std::convert::Into<crate::model::metadata_exchange_request::AuthType>,
     >(
@@ -73,6 +87,12 @@ impl MetadataExchangeRequest {
     }
 
     /// Sets the value of [oauth2_token][crate::model::MetadataExchangeRequest::oauth2_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_alloydb_connectors_v1::model::MetadataExchangeRequest;
+    /// let x = MetadataExchangeRequest::new().set_oauth2_token("example");
+    /// ```
     pub fn set_oauth2_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.oauth2_token = v.into();
         self
@@ -244,6 +264,14 @@ impl MetadataExchangeResponse {
     }
 
     /// Sets the value of [response_code][crate::model::MetadataExchangeResponse::response_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_alloydb_connectors_v1::model::MetadataExchangeResponse;
+    /// use google_cloud_alloydb_connectors_v1::model::metadata_exchange_response::ResponseCode;
+    /// let x0 = MetadataExchangeResponse::new().set_response_code(ResponseCode::Ok);
+    /// let x1 = MetadataExchangeResponse::new().set_response_code(ResponseCode::Error);
+    /// ```
     pub fn set_response_code<
         T: std::convert::Into<crate::model::metadata_exchange_response::ResponseCode>,
     >(
@@ -255,6 +283,12 @@ impl MetadataExchangeResponse {
     }
 
     /// Sets the value of [error][crate::model::MetadataExchangeResponse::error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_alloydb_connectors_v1::model::MetadataExchangeResponse;
+    /// let x = MetadataExchangeResponse::new().set_error("example");
+    /// ```
     pub fn set_error<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.error = v.into();
         self

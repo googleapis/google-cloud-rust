@@ -61,18 +61,37 @@ impl CreateConnectionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CreateConnectionRequest;
+    /// let x = CreateConnectionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [connection_id][crate::model::CreateConnectionRequest::connection_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CreateConnectionRequest;
+    /// let x = CreateConnectionRequest::new().set_connection_id("example");
+    /// ```
     pub fn set_connection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connection_id = v.into();
         self
     }
 
     /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CreateConnectionRequest;
+    /// use google_cloud_bigquery_connection_v1::model::Connection;
+    /// let x = CreateConnectionRequest::new().set_connection(Connection::default()/* use setters */);
+    /// ```
     pub fn set_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -82,6 +101,14 @@ impl CreateConnectionRequest {
     }
 
     /// Sets or clears the value of [connection][crate::model::CreateConnectionRequest::connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CreateConnectionRequest;
+    /// use google_cloud_bigquery_connection_v1::model::Connection;
+    /// let x = CreateConnectionRequest::new().set_or_clear_connection(Some(Connection::default()/* use setters */));
+    /// let x = CreateConnectionRequest::new().set_or_clear_connection(None::<Connection>);
+    /// ```
     pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -117,6 +144,12 @@ impl GetConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::GetConnectionRequest;
+    /// let x = GetConnectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -155,18 +188,36 @@ impl ListConnectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::ListConnectionsRequest;
+    /// let x = ListConnectionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConnectionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::ListConnectionsRequest;
+    /// let x = ListConnectionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConnectionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::ListConnectionsRequest;
+    /// let x = ListConnectionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -201,12 +252,29 @@ impl ListConnectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConnectionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::ListConnectionsResponse;
+    /// let x = ListConnectionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [connections][crate::model::ListConnectionsResponse::connections].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::ListConnectionsResponse;
+    /// use google_cloud_bigquery_connection_v1::model::Connection;
+    /// let x = ListConnectionsResponse::new()
+    ///     .set_connections([
+    ///         Connection::default()/* use setters */,
+    ///         Connection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -264,12 +332,25 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::UpdateConnectionRequest;
+    /// let x = UpdateConnectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::UpdateConnectionRequest;
+    /// use google_cloud_bigquery_connection_v1::model::Connection;
+    /// let x = UpdateConnectionRequest::new().set_connection(Connection::default()/* use setters */);
+    /// ```
     pub fn set_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -279,6 +360,14 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets or clears the value of [connection][crate::model::UpdateConnectionRequest::connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::UpdateConnectionRequest;
+    /// use google_cloud_bigquery_connection_v1::model::Connection;
+    /// let x = UpdateConnectionRequest::new().set_or_clear_connection(Some(Connection::default()/* use setters */));
+    /// let x = UpdateConnectionRequest::new().set_or_clear_connection(None::<Connection>);
+    /// ```
     pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connection>,
@@ -288,6 +377,13 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::UpdateConnectionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConnectionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -297,6 +393,14 @@ impl UpdateConnectionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::UpdateConnectionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConnectionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateConnectionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -329,6 +433,12 @@ impl DeleteConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::DeleteConnectionRequest;
+    /// let x = DeleteConnectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -377,36 +487,72 @@ impl Connection {
     }
 
     /// Sets the value of [name][crate::model::Connection::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// let x = Connection::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [friendly_name][crate::model::Connection::friendly_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// let x = Connection::new().set_friendly_name("example");
+    /// ```
     pub fn set_friendly_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.friendly_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Connection::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// let x = Connection::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [creation_time][crate::model::Connection::creation_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// let x = Connection::new().set_creation_time(42);
+    /// ```
     pub fn set_creation_time<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.creation_time = v.into();
         self
     }
 
     /// Sets the value of [last_modified_time][crate::model::Connection::last_modified_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// let x = Connection::new().set_last_modified_time(42);
+    /// ```
     pub fn set_last_modified_time<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.last_modified_time = v.into();
         self
     }
 
     /// Sets the value of [has_credential][crate::model::Connection::has_credential].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// let x = Connection::new().set_has_credential(true);
+    /// ```
     pub fn set_has_credential<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.has_credential = v.into();
         self
@@ -416,6 +562,14 @@ impl Connection {
     ///
     /// Note that all the setters affecting `properties` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// use google_cloud_bigquery_connection_v1::model::CloudSqlProperties;
+    /// let x = Connection::new().set_properties(Some(
+    ///     google_cloud_bigquery_connection_v1::model::connection::Properties::CloudSql(CloudSqlProperties::default().into())));
+    /// ```
     pub fn set_properties<
         T: std::convert::Into<std::option::Option<crate::model::connection::Properties>>,
     >(
@@ -444,6 +598,20 @@ impl Connection {
     ///
     /// Note that all the setters affecting `properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// use google_cloud_bigquery_connection_v1::model::CloudSqlProperties;
+    /// let x = Connection::new().set_cloud_sql(CloudSqlProperties::default()/* use setters */);
+    /// assert!(x.cloud_sql().is_some());
+    /// assert!(x.aws().is_none());
+    /// assert!(x.azure().is_none());
+    /// assert!(x.cloud_spanner().is_none());
+    /// assert!(x.cloud_resource().is_none());
+    /// assert!(x.spark().is_none());
+    /// assert!(x.salesforce_data_cloud().is_none());
+    /// ```
     pub fn set_cloud_sql<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlProperties>>,
     >(
@@ -471,6 +639,20 @@ impl Connection {
     ///
     /// Note that all the setters affecting `properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// use google_cloud_bigquery_connection_v1::model::AwsProperties;
+    /// let x = Connection::new().set_aws(AwsProperties::default()/* use setters */);
+    /// assert!(x.aws().is_some());
+    /// assert!(x.cloud_sql().is_none());
+    /// assert!(x.azure().is_none());
+    /// assert!(x.cloud_spanner().is_none());
+    /// assert!(x.cloud_resource().is_none());
+    /// assert!(x.spark().is_none());
+    /// assert!(x.salesforce_data_cloud().is_none());
+    /// ```
     pub fn set_aws<T: std::convert::Into<std::boxed::Box<crate::model::AwsProperties>>>(
         mut self,
         v: T,
@@ -496,6 +678,20 @@ impl Connection {
     ///
     /// Note that all the setters affecting `properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// use google_cloud_bigquery_connection_v1::model::AzureProperties;
+    /// let x = Connection::new().set_azure(AzureProperties::default()/* use setters */);
+    /// assert!(x.azure().is_some());
+    /// assert!(x.cloud_sql().is_none());
+    /// assert!(x.aws().is_none());
+    /// assert!(x.cloud_spanner().is_none());
+    /// assert!(x.cloud_resource().is_none());
+    /// assert!(x.spark().is_none());
+    /// assert!(x.salesforce_data_cloud().is_none());
+    /// ```
     pub fn set_azure<T: std::convert::Into<std::boxed::Box<crate::model::AzureProperties>>>(
         mut self,
         v: T,
@@ -523,6 +719,20 @@ impl Connection {
     ///
     /// Note that all the setters affecting `properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// use google_cloud_bigquery_connection_v1::model::CloudSpannerProperties;
+    /// let x = Connection::new().set_cloud_spanner(CloudSpannerProperties::default()/* use setters */);
+    /// assert!(x.cloud_spanner().is_some());
+    /// assert!(x.cloud_sql().is_none());
+    /// assert!(x.aws().is_none());
+    /// assert!(x.azure().is_none());
+    /// assert!(x.cloud_resource().is_none());
+    /// assert!(x.spark().is_none());
+    /// assert!(x.salesforce_data_cloud().is_none());
+    /// ```
     pub fn set_cloud_spanner<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSpannerProperties>>,
     >(
@@ -552,6 +762,20 @@ impl Connection {
     ///
     /// Note that all the setters affecting `properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// use google_cloud_bigquery_connection_v1::model::CloudResourceProperties;
+    /// let x = Connection::new().set_cloud_resource(CloudResourceProperties::default()/* use setters */);
+    /// assert!(x.cloud_resource().is_some());
+    /// assert!(x.cloud_sql().is_none());
+    /// assert!(x.aws().is_none());
+    /// assert!(x.azure().is_none());
+    /// assert!(x.cloud_spanner().is_none());
+    /// assert!(x.spark().is_none());
+    /// assert!(x.salesforce_data_cloud().is_none());
+    /// ```
     pub fn set_cloud_resource<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudResourceProperties>>,
     >(
@@ -580,6 +804,20 @@ impl Connection {
     ///
     /// Note that all the setters affecting `properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// use google_cloud_bigquery_connection_v1::model::SparkProperties;
+    /// let x = Connection::new().set_spark(SparkProperties::default()/* use setters */);
+    /// assert!(x.spark().is_some());
+    /// assert!(x.cloud_sql().is_none());
+    /// assert!(x.aws().is_none());
+    /// assert!(x.azure().is_none());
+    /// assert!(x.cloud_spanner().is_none());
+    /// assert!(x.cloud_resource().is_none());
+    /// assert!(x.salesforce_data_cloud().is_none());
+    /// ```
     pub fn set_spark<T: std::convert::Into<std::boxed::Box<crate::model::SparkProperties>>>(
         mut self,
         v: T,
@@ -609,6 +847,20 @@ impl Connection {
     ///
     /// Note that all the setters affecting `properties` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::Connection;
+    /// use google_cloud_bigquery_connection_v1::model::SalesforceDataCloudProperties;
+    /// let x = Connection::new().set_salesforce_data_cloud(SalesforceDataCloudProperties::default()/* use setters */);
+    /// assert!(x.salesforce_data_cloud().is_some());
+    /// assert!(x.cloud_sql().is_none());
+    /// assert!(x.aws().is_none());
+    /// assert!(x.azure().is_none());
+    /// assert!(x.cloud_spanner().is_none());
+    /// assert!(x.cloud_resource().is_none());
+    /// assert!(x.spark().is_none());
+    /// ```
     pub fn set_salesforce_data_cloud<
         T: std::convert::Into<std::boxed::Box<crate::model::SalesforceDataCloudProperties>>,
     >(
@@ -689,18 +941,38 @@ impl CloudSqlProperties {
     }
 
     /// Sets the value of [instance_id][crate::model::CloudSqlProperties::instance_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSqlProperties;
+    /// let x = CloudSqlProperties::new().set_instance_id("example");
+    /// ```
     pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_id = v.into();
         self
     }
 
     /// Sets the value of [database][crate::model::CloudSqlProperties::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSqlProperties;
+    /// let x = CloudSqlProperties::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::CloudSqlProperties::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSqlProperties;
+    /// use google_cloud_bigquery_connection_v1::model::cloud_sql_properties::DatabaseType;
+    /// let x0 = CloudSqlProperties::new().set_type(DatabaseType::Postgres);
+    /// let x1 = CloudSqlProperties::new().set_type(DatabaseType::Mysql);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::cloud_sql_properties::DatabaseType>>(
         mut self,
         v: T,
@@ -710,6 +982,13 @@ impl CloudSqlProperties {
     }
 
     /// Sets the value of [credential][crate::model::CloudSqlProperties::credential].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSqlProperties;
+    /// use google_cloud_bigquery_connection_v1::model::CloudSqlCredential;
+    /// let x = CloudSqlProperties::new().set_credential(CloudSqlCredential::default()/* use setters */);
+    /// ```
     pub fn set_credential<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CloudSqlCredential>,
@@ -719,6 +998,14 @@ impl CloudSqlProperties {
     }
 
     /// Sets or clears the value of [credential][crate::model::CloudSqlProperties::credential].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSqlProperties;
+    /// use google_cloud_bigquery_connection_v1::model::CloudSqlCredential;
+    /// let x = CloudSqlProperties::new().set_or_clear_credential(Some(CloudSqlCredential::default()/* use setters */));
+    /// let x = CloudSqlProperties::new().set_or_clear_credential(None::<CloudSqlCredential>);
+    /// ```
     pub fn set_or_clear_credential<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CloudSqlCredential>,
@@ -728,6 +1015,12 @@ impl CloudSqlProperties {
     }
 
     /// Sets the value of [service_account_id][crate::model::CloudSqlProperties::service_account_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSqlProperties;
+    /// let x = CloudSqlProperties::new().set_service_account_id("example");
+    /// ```
     pub fn set_service_account_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -900,12 +1193,24 @@ impl CloudSqlCredential {
     }
 
     /// Sets the value of [username][crate::model::CloudSqlCredential::username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSqlCredential;
+    /// let x = CloudSqlCredential::new().set_username("example");
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [password][crate::model::CloudSqlCredential::password].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSqlCredential;
+    /// let x = CloudSqlCredential::new().set_password("example");
+    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
@@ -972,36 +1277,72 @@ impl CloudSpannerProperties {
     }
 
     /// Sets the value of [database][crate::model::CloudSpannerProperties::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSpannerProperties;
+    /// let x = CloudSpannerProperties::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [use_parallelism][crate::model::CloudSpannerProperties::use_parallelism].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSpannerProperties;
+    /// let x = CloudSpannerProperties::new().set_use_parallelism(true);
+    /// ```
     pub fn set_use_parallelism<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_parallelism = v.into();
         self
     }
 
     /// Sets the value of [max_parallelism][crate::model::CloudSpannerProperties::max_parallelism].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSpannerProperties;
+    /// let x = CloudSpannerProperties::new().set_max_parallelism(42);
+    /// ```
     pub fn set_max_parallelism<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_parallelism = v.into();
         self
     }
 
     /// Sets the value of [use_serverless_analytics][crate::model::CloudSpannerProperties::use_serverless_analytics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSpannerProperties;
+    /// let x = CloudSpannerProperties::new().set_use_serverless_analytics(true);
+    /// ```
     pub fn set_use_serverless_analytics<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_serverless_analytics = v.into();
         self
     }
 
     /// Sets the value of [use_data_boost][crate::model::CloudSpannerProperties::use_data_boost].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSpannerProperties;
+    /// let x = CloudSpannerProperties::new().set_use_data_boost(true);
+    /// ```
     pub fn set_use_data_boost<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_data_boost = v.into();
         self
     }
 
     /// Sets the value of [database_role][crate::model::CloudSpannerProperties::database_role].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudSpannerProperties;
+    /// let x = CloudSpannerProperties::new().set_database_role("example");
+    /// ```
     pub fn set_database_role<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database_role = v.into();
         self
@@ -1034,6 +1375,14 @@ impl AwsProperties {
     ///
     /// Note that all the setters affecting `authentication_method` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AwsProperties;
+    /// use google_cloud_bigquery_connection_v1::model::AwsAccessRole;
+    /// let x = AwsProperties::new().set_authentication_method(Some(
+    ///     google_cloud_bigquery_connection_v1::model::aws_properties::AuthenticationMethod::AccessRole(AwsAccessRole::default().into())));
+    /// ```
     pub fn set_authentication_method<
         T: std::convert::Into<std::option::Option<crate::model::aws_properties::AuthenticationMethod>>,
     >(
@@ -1065,6 +1414,15 @@ impl AwsProperties {
     ///
     /// Note that all the setters affecting `authentication_method` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AwsProperties;
+    /// use google_cloud_bigquery_connection_v1::model::AwsCrossAccountRole;
+    /// let x = AwsProperties::new().set_cross_account_role(AwsCrossAccountRole::default()/* use setters */);
+    /// assert!(x.cross_account_role().is_some());
+    /// assert!(x.access_role().is_none());
+    /// ```
     #[deprecated]
     pub fn set_cross_account_role<
         T: std::convert::Into<std::boxed::Box<crate::model::AwsCrossAccountRole>>,
@@ -1098,6 +1456,15 @@ impl AwsProperties {
     ///
     /// Note that all the setters affecting `authentication_method` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AwsProperties;
+    /// use google_cloud_bigquery_connection_v1::model::AwsAccessRole;
+    /// let x = AwsProperties::new().set_access_role(AwsAccessRole::default()/* use setters */);
+    /// assert!(x.access_role().is_some());
+    /// assert!(x.cross_account_role().is_none());
+    /// ```
     pub fn set_access_role<T: std::convert::Into<std::boxed::Box<crate::model::AwsAccessRole>>>(
         mut self,
         v: T,
@@ -1162,18 +1529,36 @@ impl AwsCrossAccountRole {
     }
 
     /// Sets the value of [iam_role_id][crate::model::AwsCrossAccountRole::iam_role_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AwsCrossAccountRole;
+    /// let x = AwsCrossAccountRole::new().set_iam_role_id("example");
+    /// ```
     pub fn set_iam_role_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.iam_role_id = v.into();
         self
     }
 
     /// Sets the value of [iam_user_id][crate::model::AwsCrossAccountRole::iam_user_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AwsCrossAccountRole;
+    /// let x = AwsCrossAccountRole::new().set_iam_user_id("example");
+    /// ```
     pub fn set_iam_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.iam_user_id = v.into();
         self
     }
 
     /// Sets the value of [external_id][crate::model::AwsCrossAccountRole::external_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AwsCrossAccountRole;
+    /// let x = AwsCrossAccountRole::new().set_external_id("example");
+    /// ```
     pub fn set_external_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.external_id = v.into();
         self
@@ -1208,12 +1593,24 @@ impl AwsAccessRole {
     }
 
     /// Sets the value of [iam_role_id][crate::model::AwsAccessRole::iam_role_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AwsAccessRole;
+    /// let x = AwsAccessRole::new().set_iam_role_id("example");
+    /// ```
     pub fn set_iam_role_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.iam_role_id = v.into();
         self
     }
 
     /// Sets the value of [identity][crate::model::AwsAccessRole::identity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AwsAccessRole;
+    /// let x = AwsAccessRole::new().set_identity("example");
+    /// ```
     pub fn set_identity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.identity = v.into();
         self
@@ -1264,24 +1661,48 @@ impl AzureProperties {
     }
 
     /// Sets the value of [application][crate::model::AzureProperties::application].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AzureProperties;
+    /// let x = AzureProperties::new().set_application("example");
+    /// ```
     pub fn set_application<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.application = v.into();
         self
     }
 
     /// Sets the value of [client_id][crate::model::AzureProperties::client_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AzureProperties;
+    /// let x = AzureProperties::new().set_client_id("example");
+    /// ```
     pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_id = v.into();
         self
     }
 
     /// Sets the value of [object_id][crate::model::AzureProperties::object_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AzureProperties;
+    /// let x = AzureProperties::new().set_object_id("example");
+    /// ```
     pub fn set_object_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object_id = v.into();
         self
     }
 
     /// Sets the value of [customer_tenant_id][crate::model::AzureProperties::customer_tenant_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AzureProperties;
+    /// let x = AzureProperties::new().set_customer_tenant_id("example");
+    /// ```
     pub fn set_customer_tenant_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1291,12 +1712,24 @@ impl AzureProperties {
     }
 
     /// Sets the value of [redirect_uri][crate::model::AzureProperties::redirect_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AzureProperties;
+    /// let x = AzureProperties::new().set_redirect_uri("example");
+    /// ```
     pub fn set_redirect_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.redirect_uri = v.into();
         self
     }
 
     /// Sets the value of [federated_application_client_id][crate::model::AzureProperties::federated_application_client_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AzureProperties;
+    /// let x = AzureProperties::new().set_federated_application_client_id("example");
+    /// ```
     pub fn set_federated_application_client_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1306,6 +1739,12 @@ impl AzureProperties {
     }
 
     /// Sets the value of [identity][crate::model::AzureProperties::identity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::AzureProperties;
+    /// let x = AzureProperties::new().set_identity("example");
+    /// ```
     pub fn set_identity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.identity = v.into();
         self
@@ -1345,6 +1784,12 @@ impl CloudResourceProperties {
     }
 
     /// Sets the value of [service_account_id][crate::model::CloudResourceProperties::service_account_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::CloudResourceProperties;
+    /// let x = CloudResourceProperties::new().set_service_account_id("example");
+    /// ```
     pub fn set_service_account_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1380,6 +1825,12 @@ impl MetastoreServiceConfig {
     }
 
     /// Sets the value of [metastore_service][crate::model::MetastoreServiceConfig::metastore_service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::MetastoreServiceConfig;
+    /// let x = MetastoreServiceConfig::new().set_metastore_service("example");
+    /// ```
     pub fn set_metastore_service<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1416,6 +1867,12 @@ impl SparkHistoryServerConfig {
     }
 
     /// Sets the value of [dataproc_cluster][crate::model::SparkHistoryServerConfig::dataproc_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::SparkHistoryServerConfig;
+    /// let x = SparkHistoryServerConfig::new().set_dataproc_cluster("example");
+    /// ```
     pub fn set_dataproc_cluster<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1464,6 +1921,12 @@ impl SparkProperties {
     }
 
     /// Sets the value of [service_account_id][crate::model::SparkProperties::service_account_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::SparkProperties;
+    /// let x = SparkProperties::new().set_service_account_id("example");
+    /// ```
     pub fn set_service_account_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1473,6 +1936,13 @@ impl SparkProperties {
     }
 
     /// Sets the value of [metastore_service_config][crate::model::SparkProperties::metastore_service_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::SparkProperties;
+    /// use google_cloud_bigquery_connection_v1::model::MetastoreServiceConfig;
+    /// let x = SparkProperties::new().set_metastore_service_config(MetastoreServiceConfig::default()/* use setters */);
+    /// ```
     pub fn set_metastore_service_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MetastoreServiceConfig>,
@@ -1482,6 +1952,14 @@ impl SparkProperties {
     }
 
     /// Sets or clears the value of [metastore_service_config][crate::model::SparkProperties::metastore_service_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::SparkProperties;
+    /// use google_cloud_bigquery_connection_v1::model::MetastoreServiceConfig;
+    /// let x = SparkProperties::new().set_or_clear_metastore_service_config(Some(MetastoreServiceConfig::default()/* use setters */));
+    /// let x = SparkProperties::new().set_or_clear_metastore_service_config(None::<MetastoreServiceConfig>);
+    /// ```
     pub fn set_or_clear_metastore_service_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::MetastoreServiceConfig>,
@@ -1491,6 +1969,13 @@ impl SparkProperties {
     }
 
     /// Sets the value of [spark_history_server_config][crate::model::SparkProperties::spark_history_server_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::SparkProperties;
+    /// use google_cloud_bigquery_connection_v1::model::SparkHistoryServerConfig;
+    /// let x = SparkProperties::new().set_spark_history_server_config(SparkHistoryServerConfig::default()/* use setters */);
+    /// ```
     pub fn set_spark_history_server_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SparkHistoryServerConfig>,
@@ -1500,6 +1985,14 @@ impl SparkProperties {
     }
 
     /// Sets or clears the value of [spark_history_server_config][crate::model::SparkProperties::spark_history_server_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::SparkProperties;
+    /// use google_cloud_bigquery_connection_v1::model::SparkHistoryServerConfig;
+    /// let x = SparkProperties::new().set_or_clear_spark_history_server_config(Some(SparkHistoryServerConfig::default()/* use setters */));
+    /// let x = SparkProperties::new().set_or_clear_spark_history_server_config(None::<SparkHistoryServerConfig>);
+    /// ```
     pub fn set_or_clear_spark_history_server_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SparkHistoryServerConfig>,
@@ -1539,18 +2032,36 @@ impl SalesforceDataCloudProperties {
     }
 
     /// Sets the value of [instance_uri][crate::model::SalesforceDataCloudProperties::instance_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::SalesforceDataCloudProperties;
+    /// let x = SalesforceDataCloudProperties::new().set_instance_uri("example");
+    /// ```
     pub fn set_instance_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_uri = v.into();
         self
     }
 
     /// Sets the value of [identity][crate::model::SalesforceDataCloudProperties::identity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::SalesforceDataCloudProperties;
+    /// let x = SalesforceDataCloudProperties::new().set_identity("example");
+    /// ```
     pub fn set_identity<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.identity = v.into();
         self
     }
 
     /// Sets the value of [tenant_id][crate::model::SalesforceDataCloudProperties::tenant_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_connection_v1::model::SalesforceDataCloudProperties;
+    /// let x = SalesforceDataCloudProperties::new().set_tenant_id("example");
+    /// ```
     pub fn set_tenant_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tenant_id = v.into();
         self

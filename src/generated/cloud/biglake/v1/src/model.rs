@@ -63,18 +63,36 @@ impl RegisterIcebergTableRequest {
     }
 
     /// Sets the value of [parent][crate::model::RegisterIcebergTableRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
+    /// let x = RegisterIcebergTableRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::RegisterIcebergTableRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
+    /// let x = RegisterIcebergTableRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [metadata_location][crate::model::RegisterIcebergTableRequest::metadata_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
+    /// let x = RegisterIcebergTableRequest::new().set_metadata_location("example");
+    /// ```
     pub fn set_metadata_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -84,6 +102,12 @@ impl RegisterIcebergTableRequest {
     }
 
     /// Sets the value of [overwrite][crate::model::RegisterIcebergTableRequest::overwrite].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::RegisterIcebergTableRequest;
+    /// let x = RegisterIcebergTableRequest::new().set_overwrite("example");
+    /// ```
     pub fn set_overwrite<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.overwrite = v.into();
         self
@@ -139,12 +163,26 @@ impl IcebergCatalog {
     }
 
     /// Sets the value of [name][crate::model::IcebergCatalog::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// let x = IcebergCatalog::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [credential_mode][crate::model::IcebergCatalog::credential_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// use google_cloud_biglake_v1::model::iceberg_catalog::CredentialMode;
+    /// let x0 = IcebergCatalog::new().set_credential_mode(CredentialMode::EndUser);
+    /// let x1 = IcebergCatalog::new().set_credential_mode(CredentialMode::VendedCredentials);
+    /// ```
     pub fn set_credential_mode<
         T: std::convert::Into<crate::model::iceberg_catalog::CredentialMode>,
     >(
@@ -156,6 +194,12 @@ impl IcebergCatalog {
     }
 
     /// Sets the value of [biglake_service_account][crate::model::IcebergCatalog::biglake_service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// let x = IcebergCatalog::new().set_biglake_service_account("example");
+    /// ```
     pub fn set_biglake_service_account<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -165,6 +209,13 @@ impl IcebergCatalog {
     }
 
     /// Sets the value of [catalog_type][crate::model::IcebergCatalog::catalog_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// use google_cloud_biglake_v1::model::iceberg_catalog::CatalogType;
+    /// let x0 = IcebergCatalog::new().set_catalog_type(CatalogType::GcsBucket);
+    /// ```
     pub fn set_catalog_type<T: std::convert::Into<crate::model::iceberg_catalog::CatalogType>>(
         mut self,
         v: T,
@@ -174,6 +225,12 @@ impl IcebergCatalog {
     }
 
     /// Sets the value of [default_location][crate::model::IcebergCatalog::default_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// let x = IcebergCatalog::new().set_default_location("example");
+    /// ```
     pub fn set_default_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -183,6 +240,12 @@ impl IcebergCatalog {
     }
 
     /// Sets the value of [catalog_regions][crate::model::IcebergCatalog::catalog_regions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// let x = IcebergCatalog::new().set_catalog_regions(["a", "b", "c"]);
+    /// ```
     pub fn set_catalog_regions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -194,6 +257,13 @@ impl IcebergCatalog {
     }
 
     /// Sets the value of [create_time][crate::model::IcebergCatalog::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// use wkt::Timestamp;
+    /// let x = IcebergCatalog::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -203,6 +273,14 @@ impl IcebergCatalog {
     }
 
     /// Sets or clears the value of [create_time][crate::model::IcebergCatalog::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// use wkt::Timestamp;
+    /// let x = IcebergCatalog::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IcebergCatalog::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -212,6 +290,13 @@ impl IcebergCatalog {
     }
 
     /// Sets the value of [update_time][crate::model::IcebergCatalog::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// use wkt::Timestamp;
+    /// let x = IcebergCatalog::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -221,6 +306,14 @@ impl IcebergCatalog {
     }
 
     /// Sets or clears the value of [update_time][crate::model::IcebergCatalog::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// use wkt::Timestamp;
+    /// let x = IcebergCatalog::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = IcebergCatalog::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -541,12 +634,24 @@ impl CreateIcebergCatalogRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateIcebergCatalogRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::CreateIcebergCatalogRequest;
+    /// let x = CreateIcebergCatalogRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [iceberg_catalog_id][crate::model::CreateIcebergCatalogRequest::iceberg_catalog_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::CreateIcebergCatalogRequest;
+    /// let x = CreateIcebergCatalogRequest::new().set_iceberg_catalog_id("example");
+    /// ```
     pub fn set_iceberg_catalog_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -556,6 +661,13 @@ impl CreateIcebergCatalogRequest {
     }
 
     /// Sets the value of [iceberg_catalog][crate::model::CreateIcebergCatalogRequest::iceberg_catalog].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::CreateIcebergCatalogRequest;
+    /// use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// let x = CreateIcebergCatalogRequest::new().set_iceberg_catalog(IcebergCatalog::default()/* use setters */);
+    /// ```
     pub fn set_iceberg_catalog<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IcebergCatalog>,
@@ -565,6 +677,14 @@ impl CreateIcebergCatalogRequest {
     }
 
     /// Sets or clears the value of [iceberg_catalog][crate::model::CreateIcebergCatalogRequest::iceberg_catalog].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::CreateIcebergCatalogRequest;
+    /// use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// let x = CreateIcebergCatalogRequest::new().set_or_clear_iceberg_catalog(Some(IcebergCatalog::default()/* use setters */));
+    /// let x = CreateIcebergCatalogRequest::new().set_or_clear_iceberg_catalog(None::<IcebergCatalog>);
+    /// ```
     pub fn set_or_clear_iceberg_catalog<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IcebergCatalog>,
@@ -596,6 +716,12 @@ impl DeleteIcebergCatalogRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteIcebergCatalogRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::DeleteIcebergCatalogRequest;
+    /// let x = DeleteIcebergCatalogRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -627,6 +753,13 @@ impl UpdateIcebergCatalogRequest {
     }
 
     /// Sets the value of [iceberg_catalog][crate::model::UpdateIcebergCatalogRequest::iceberg_catalog].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergCatalogRequest;
+    /// use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// let x = UpdateIcebergCatalogRequest::new().set_iceberg_catalog(IcebergCatalog::default()/* use setters */);
+    /// ```
     pub fn set_iceberg_catalog<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IcebergCatalog>,
@@ -636,6 +769,14 @@ impl UpdateIcebergCatalogRequest {
     }
 
     /// Sets or clears the value of [iceberg_catalog][crate::model::UpdateIcebergCatalogRequest::iceberg_catalog].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergCatalogRequest;
+    /// use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// let x = UpdateIcebergCatalogRequest::new().set_or_clear_iceberg_catalog(Some(IcebergCatalog::default()/* use setters */));
+    /// let x = UpdateIcebergCatalogRequest::new().set_or_clear_iceberg_catalog(None::<IcebergCatalog>);
+    /// ```
     pub fn set_or_clear_iceberg_catalog<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IcebergCatalog>,
@@ -645,6 +786,13 @@ impl UpdateIcebergCatalogRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateIcebergCatalogRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergCatalogRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateIcebergCatalogRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -654,6 +802,14 @@ impl UpdateIcebergCatalogRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateIcebergCatalogRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergCatalogRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateIcebergCatalogRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateIcebergCatalogRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -685,6 +841,12 @@ impl GetIcebergCatalogRequest {
     }
 
     /// Sets the value of [name][crate::model::GetIcebergCatalogRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::GetIcebergCatalogRequest;
+    /// let x = GetIcebergCatalogRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -725,12 +887,26 @@ impl ListIcebergCatalogsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListIcebergCatalogsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergCatalogsRequest;
+    /// let x = ListIcebergCatalogsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListIcebergCatalogsRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergCatalogsRequest;
+    /// use google_cloud_biglake_v1::model::list_iceberg_catalogs_request::CatalogView;
+    /// let x0 = ListIcebergCatalogsRequest::new().set_view(CatalogView::Basic);
+    /// let x1 = ListIcebergCatalogsRequest::new().set_view(CatalogView::Full);
+    /// ```
     pub fn set_view<
         T: std::convert::Into<crate::model::list_iceberg_catalogs_request::CatalogView>,
     >(
@@ -742,12 +918,24 @@ impl ListIcebergCatalogsRequest {
     }
 
     /// Sets the value of [page_size][crate::model::ListIcebergCatalogsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergCatalogsRequest;
+    /// let x = ListIcebergCatalogsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListIcebergCatalogsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergCatalogsRequest;
+    /// let x = ListIcebergCatalogsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -920,6 +1108,17 @@ impl ListIcebergCatalogsResponse {
     }
 
     /// Sets the value of [iceberg_catalogs][crate::model::ListIcebergCatalogsResponse::iceberg_catalogs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergCatalogsResponse;
+    /// use google_cloud_biglake_v1::model::IcebergCatalog;
+    /// let x = ListIcebergCatalogsResponse::new()
+    ///     .set_iceberg_catalogs([
+    ///         IcebergCatalog::default()/* use setters */,
+    ///         IcebergCatalog::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_iceberg_catalogs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -931,12 +1130,24 @@ impl ListIcebergCatalogsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListIcebergCatalogsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergCatalogsResponse;
+    /// let x = ListIcebergCatalogsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListIcebergCatalogsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergCatalogsResponse;
+    /// let x = ListIcebergCatalogsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -990,24 +1201,49 @@ impl FailoverIcebergCatalogRequest {
     }
 
     /// Sets the value of [name][crate::model::FailoverIcebergCatalogRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::FailoverIcebergCatalogRequest;
+    /// let x = FailoverIcebergCatalogRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [primary_replica][crate::model::FailoverIcebergCatalogRequest::primary_replica].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::FailoverIcebergCatalogRequest;
+    /// let x = FailoverIcebergCatalogRequest::new().set_primary_replica("example");
+    /// ```
     pub fn set_primary_replica<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_replica = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::FailoverIcebergCatalogRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::FailoverIcebergCatalogRequest;
+    /// let x = FailoverIcebergCatalogRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [conditional_failover_replication_time][crate::model::FailoverIcebergCatalogRequest::conditional_failover_replication_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::FailoverIcebergCatalogRequest;
+    /// use wkt::Timestamp;
+    /// let x = FailoverIcebergCatalogRequest::new().set_conditional_failover_replication_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_conditional_failover_replication_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1017,6 +1253,14 @@ impl FailoverIcebergCatalogRequest {
     }
 
     /// Sets or clears the value of [conditional_failover_replication_time][crate::model::FailoverIcebergCatalogRequest::conditional_failover_replication_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::FailoverIcebergCatalogRequest;
+    /// use wkt::Timestamp;
+    /// let x = FailoverIcebergCatalogRequest::new().set_or_clear_conditional_failover_replication_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FailoverIcebergCatalogRequest::new().set_or_clear_conditional_failover_replication_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_conditional_failover_replication_time<T>(
         mut self,
         v: std::option::Option<T>,
@@ -1057,6 +1301,13 @@ impl FailoverIcebergCatalogResponse {
     }
 
     /// Sets the value of [replication_time][crate::model::FailoverIcebergCatalogResponse::replication_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::FailoverIcebergCatalogResponse;
+    /// use wkt::Timestamp;
+    /// let x = FailoverIcebergCatalogResponse::new().set_replication_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_replication_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1066,6 +1317,14 @@ impl FailoverIcebergCatalogResponse {
     }
 
     /// Sets or clears the value of [replication_time][crate::model::FailoverIcebergCatalogResponse::replication_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::FailoverIcebergCatalogResponse;
+    /// use wkt::Timestamp;
+    /// let x = FailoverIcebergCatalogResponse::new().set_or_clear_replication_time(Some(Timestamp::default()/* use setters */));
+    /// let x = FailoverIcebergCatalogResponse::new().set_or_clear_replication_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_replication_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1103,12 +1362,25 @@ impl UpdateIcebergTableRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateIcebergTableRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergTableRequest;
+    /// let x = UpdateIcebergTableRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [http_body][crate::model::UpdateIcebergTableRequest::http_body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergTableRequest;
+    /// use api::model::HttpBody;
+    /// let x = UpdateIcebergTableRequest::new().set_http_body(HttpBody::default()/* use setters */);
+    /// ```
     pub fn set_http_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::HttpBody>,
@@ -1118,6 +1390,14 @@ impl UpdateIcebergTableRequest {
     }
 
     /// Sets or clears the value of [http_body][crate::model::UpdateIcebergTableRequest::http_body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergTableRequest;
+    /// use api::model::HttpBody;
+    /// let x = UpdateIcebergTableRequest::new().set_or_clear_http_body(Some(HttpBody::default()/* use setters */));
+    /// let x = UpdateIcebergTableRequest::new().set_or_clear_http_body(None::<HttpBody>);
+    /// ```
     pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::HttpBody>,
@@ -1152,12 +1432,24 @@ impl GetIcebergTableRequest {
     }
 
     /// Sets the value of [name][crate::model::GetIcebergTableRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::GetIcebergTableRequest;
+    /// let x = GetIcebergTableRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [snapshots][crate::model::GetIcebergTableRequest::snapshots].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::GetIcebergTableRequest;
+    /// let x = GetIcebergTableRequest::new().set_snapshots("example");
+    /// ```
     pub fn set_snapshots<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.snapshots = v.into();
         self
@@ -1191,12 +1483,24 @@ impl DeleteIcebergTableRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteIcebergTableRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::DeleteIcebergTableRequest;
+    /// let x = DeleteIcebergTableRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [purge_requested][crate::model::DeleteIcebergTableRequest::purge_requested].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::DeleteIcebergTableRequest;
+    /// let x = DeleteIcebergTableRequest::new().set_purge_requested(true);
+    /// ```
     pub fn set_purge_requested<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.purge_requested = v.into();
         self
@@ -1231,12 +1535,25 @@ impl CreateIcebergTableRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateIcebergTableRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::CreateIcebergTableRequest;
+    /// let x = CreateIcebergTableRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [http_body][crate::model::CreateIcebergTableRequest::http_body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::CreateIcebergTableRequest;
+    /// use api::model::HttpBody;
+    /// let x = CreateIcebergTableRequest::new().set_http_body(HttpBody::default()/* use setters */);
+    /// ```
     pub fn set_http_body<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<api::model::HttpBody>,
@@ -1246,6 +1563,14 @@ impl CreateIcebergTableRequest {
     }
 
     /// Sets or clears the value of [http_body][crate::model::CreateIcebergTableRequest::http_body].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::CreateIcebergTableRequest;
+    /// use api::model::HttpBody;
+    /// let x = CreateIcebergTableRequest::new().set_or_clear_http_body(Some(HttpBody::default()/* use setters */));
+    /// let x = CreateIcebergTableRequest::new().set_or_clear_http_body(None::<HttpBody>);
+    /// ```
     pub fn set_or_clear_http_body<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<api::model::HttpBody>,
@@ -1283,18 +1608,36 @@ impl ListIcebergTableIdentifiersRequest {
     }
 
     /// Sets the value of [page_token][crate::model::ListIcebergTableIdentifiersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergTableIdentifiersRequest;
+    /// let x = ListIcebergTableIdentifiersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListIcebergTableIdentifiersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergTableIdentifiersRequest;
+    /// let x = ListIcebergTableIdentifiersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::ListIcebergTableIdentifiersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergTableIdentifiersRequest;
+    /// let x = ListIcebergTableIdentifiersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -1327,6 +1670,12 @@ impl TableIdentifier {
     }
 
     /// Sets the value of [namespace][crate::model::TableIdentifier::namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::TableIdentifier;
+    /// let x = TableIdentifier::new().set_namespace(["a", "b", "c"]);
+    /// ```
     pub fn set_namespace<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1338,6 +1687,12 @@ impl TableIdentifier {
     }
 
     /// Sets the value of [name][crate::model::TableIdentifier::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::TableIdentifier;
+    /// let x = TableIdentifier::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1369,6 +1724,17 @@ impl ListIcebergTableIdentifiersResponse {
     }
 
     /// Sets the value of [identifiers][crate::model::ListIcebergTableIdentifiersResponse::identifiers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergTableIdentifiersResponse;
+    /// use google_cloud_biglake_v1::model::TableIdentifier;
+    /// let x = ListIcebergTableIdentifiersResponse::new()
+    ///     .set_identifiers([
+    ///         TableIdentifier::default()/* use setters */,
+    ///         TableIdentifier::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_identifiers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1380,6 +1746,12 @@ impl ListIcebergTableIdentifiersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListIcebergTableIdentifiersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergTableIdentifiersResponse;
+    /// let x = ListIcebergTableIdentifiersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1411,6 +1783,12 @@ impl IcebergNamespaceUpdate {
     }
 
     /// Sets the value of [removals][crate::model::IcebergNamespaceUpdate::removals].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergNamespaceUpdate;
+    /// let x = IcebergNamespaceUpdate::new().set_removals(["a", "b", "c"]);
+    /// ```
     pub fn set_removals<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1422,6 +1800,15 @@ impl IcebergNamespaceUpdate {
     }
 
     /// Sets the value of [updates][crate::model::IcebergNamespaceUpdate::updates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergNamespaceUpdate;
+    /// let x = IcebergNamespaceUpdate::new().set_updates([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_updates<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1462,12 +1849,25 @@ impl UpdateIcebergNamespaceRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateIcebergNamespaceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergNamespaceRequest;
+    /// let x = UpdateIcebergNamespaceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [iceberg_namespace_update][crate::model::UpdateIcebergNamespaceRequest::iceberg_namespace_update].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergNamespaceRequest;
+    /// use google_cloud_biglake_v1::model::IcebergNamespaceUpdate;
+    /// let x = UpdateIcebergNamespaceRequest::new().set_iceberg_namespace_update(IcebergNamespaceUpdate::default()/* use setters */);
+    /// ```
     pub fn set_iceberg_namespace_update<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IcebergNamespaceUpdate>,
@@ -1477,6 +1877,14 @@ impl UpdateIcebergNamespaceRequest {
     }
 
     /// Sets or clears the value of [iceberg_namespace_update][crate::model::UpdateIcebergNamespaceRequest::iceberg_namespace_update].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergNamespaceRequest;
+    /// use google_cloud_biglake_v1::model::IcebergNamespaceUpdate;
+    /// let x = UpdateIcebergNamespaceRequest::new().set_or_clear_iceberg_namespace_update(Some(IcebergNamespaceUpdate::default()/* use setters */));
+    /// let x = UpdateIcebergNamespaceRequest::new().set_or_clear_iceberg_namespace_update(None::<IcebergNamespaceUpdate>);
+    /// ```
     pub fn set_or_clear_iceberg_namespace_update<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IcebergNamespaceUpdate>,
@@ -1515,6 +1923,12 @@ impl UpdateIcebergNamespaceResponse {
     }
 
     /// Sets the value of [removed][crate::model::UpdateIcebergNamespaceResponse::removed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergNamespaceResponse;
+    /// let x = UpdateIcebergNamespaceResponse::new().set_removed(["a", "b", "c"]);
+    /// ```
     pub fn set_removed<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1526,6 +1940,12 @@ impl UpdateIcebergNamespaceResponse {
     }
 
     /// Sets the value of [updated][crate::model::UpdateIcebergNamespaceResponse::updated].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergNamespaceResponse;
+    /// let x = UpdateIcebergNamespaceResponse::new().set_updated(["a", "b", "c"]);
+    /// ```
     pub fn set_updated<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1537,6 +1957,12 @@ impl UpdateIcebergNamespaceResponse {
     }
 
     /// Sets the value of [missing][crate::model::UpdateIcebergNamespaceResponse::missing].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::UpdateIcebergNamespaceResponse;
+    /// let x = UpdateIcebergNamespaceResponse::new().set_missing(["a", "b", "c"]);
+    /// ```
     pub fn set_missing<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1571,6 +1997,12 @@ impl DeleteIcebergNamespaceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteIcebergNamespaceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::DeleteIcebergNamespaceRequest;
+    /// let x = DeleteIcebergNamespaceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1602,6 +2034,12 @@ impl IcebergNamespace {
     }
 
     /// Sets the value of [namespace][crate::model::IcebergNamespace::namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergNamespace;
+    /// let x = IcebergNamespace::new().set_namespace(["a", "b", "c"]);
+    /// ```
     pub fn set_namespace<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1613,6 +2051,15 @@ impl IcebergNamespace {
     }
 
     /// Sets the value of [properties][crate::model::IcebergNamespace::properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergNamespace;
+    /// let x = IcebergNamespace::new().set_properties([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_properties<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1651,12 +2098,25 @@ impl CreateIcebergNamespaceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateIcebergNamespaceRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::CreateIcebergNamespaceRequest;
+    /// let x = CreateIcebergNamespaceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [iceberg_namespace][crate::model::CreateIcebergNamespaceRequest::iceberg_namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::CreateIcebergNamespaceRequest;
+    /// use google_cloud_biglake_v1::model::IcebergNamespace;
+    /// let x = CreateIcebergNamespaceRequest::new().set_iceberg_namespace(IcebergNamespace::default()/* use setters */);
+    /// ```
     pub fn set_iceberg_namespace<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IcebergNamespace>,
@@ -1666,6 +2126,14 @@ impl CreateIcebergNamespaceRequest {
     }
 
     /// Sets or clears the value of [iceberg_namespace][crate::model::CreateIcebergNamespaceRequest::iceberg_namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::CreateIcebergNamespaceRequest;
+    /// use google_cloud_biglake_v1::model::IcebergNamespace;
+    /// let x = CreateIcebergNamespaceRequest::new().set_or_clear_iceberg_namespace(Some(IcebergNamespace::default()/* use setters */));
+    /// let x = CreateIcebergNamespaceRequest::new().set_or_clear_iceberg_namespace(None::<IcebergNamespace>);
+    /// ```
     pub fn set_or_clear_iceberg_namespace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IcebergNamespace>,
@@ -1697,6 +2165,12 @@ impl GetIcebergCatalogConfigRequest {
     }
 
     /// Sets the value of [warehouse][crate::model::GetIcebergCatalogConfigRequest::warehouse].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::GetIcebergCatalogConfigRequest;
+    /// let x = GetIcebergCatalogConfigRequest::new().set_warehouse("example");
+    /// ```
     pub fn set_warehouse<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.warehouse = v.into();
         self
@@ -1734,6 +2208,15 @@ impl IcebergCatalogConfig {
     }
 
     /// Sets the value of [overrides][crate::model::IcebergCatalogConfig::overrides].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalogConfig;
+    /// let x = IcebergCatalogConfig::new().set_overrides([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_overrides<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1746,6 +2229,15 @@ impl IcebergCatalogConfig {
     }
 
     /// Sets the value of [defaults][crate::model::IcebergCatalogConfig::defaults].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalogConfig;
+    /// let x = IcebergCatalogConfig::new().set_defaults([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_defaults<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1758,6 +2250,12 @@ impl IcebergCatalogConfig {
     }
 
     /// Sets the value of [endpoints][crate::model::IcebergCatalogConfig::endpoints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::IcebergCatalogConfig;
+    /// let x = IcebergCatalogConfig::new().set_endpoints(["a", "b", "c"]);
+    /// ```
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1792,6 +2290,12 @@ impl GetIcebergNamespaceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetIcebergNamespaceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::GetIcebergNamespaceRequest;
+    /// let x = GetIcebergNamespaceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1836,24 +2340,48 @@ impl ListIcebergNamespacesRequest {
     }
 
     /// Sets the value of [page_token][crate::model::ListIcebergNamespacesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergNamespacesRequest;
+    /// let x = ListIcebergNamespacesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListIcebergNamespacesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergNamespacesRequest;
+    /// let x = ListIcebergNamespacesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [api_parent][crate::model::ListIcebergNamespacesRequest::api_parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergNamespacesRequest;
+    /// let x = ListIcebergNamespacesRequest::new().set_api_parent("example");
+    /// ```
     pub fn set_api_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_parent = v.into();
         self
     }
 
     /// Sets the value of [parent][crate::model::ListIcebergNamespacesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergNamespacesRequest;
+    /// let x = ListIcebergNamespacesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -1885,6 +2413,17 @@ impl ListIcebergNamespacesResponse {
     }
 
     /// Sets the value of [namespaces][crate::model::ListIcebergNamespacesResponse::namespaces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergNamespacesResponse;
+    /// use wkt::ListValue;
+    /// let x = ListIcebergNamespacesResponse::new()
+    ///     .set_namespaces([
+    ///         ListValue::default()/* use setters */,
+    ///         ListValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_namespaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1896,6 +2435,12 @@ impl ListIcebergNamespacesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListIcebergNamespacesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::ListIcebergNamespacesResponse;
+    /// let x = ListIcebergNamespacesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1931,12 +2476,27 @@ impl StorageCredential {
     }
 
     /// Sets the value of [prefix][crate::model::StorageCredential::prefix].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::StorageCredential;
+    /// let x = StorageCredential::new().set_prefix("example");
+    /// ```
     pub fn set_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.prefix = v.into();
         self
     }
 
     /// Sets the value of [config][crate::model::StorageCredential::config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::StorageCredential;
+    /// let x = StorageCredential::new().set_config([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_config<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1971,6 +2531,17 @@ impl LoadIcebergTableCredentialsResponse {
     }
 
     /// Sets the value of [storage_credentials][crate::model::LoadIcebergTableCredentialsResponse::storage_credentials].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_biglake_v1::model::LoadIcebergTableCredentialsResponse;
+    /// use google_cloud_biglake_v1::model::StorageCredential;
+    /// let x = LoadIcebergTableCredentialsResponse::new()
+    ///     .set_storage_credentials([
+    ///         StorageCredential::default()/* use setters */,
+    ///         StorageCredential::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_storage_credentials<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,

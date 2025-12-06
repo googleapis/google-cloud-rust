@@ -72,6 +72,13 @@ impl OpMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OpMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::OpMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OpMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -81,6 +88,14 @@ impl OpMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OpMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::OpMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OpMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OpMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -90,6 +105,13 @@ impl OpMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OpMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::OpMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OpMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -99,6 +121,14 @@ impl OpMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OpMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::OpMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OpMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OpMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -108,24 +138,48 @@ impl OpMetadata {
     }
 
     /// Sets the value of [target][crate::model::OpMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::OpMetadata;
+    /// let x = OpMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OpMetadata::verb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::OpMetadata;
+    /// let x = OpMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OpMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::OpMetadata;
+    /// let x = OpMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OpMetadata::api_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::OpMetadata;
+    /// let x = OpMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -173,18 +227,37 @@ impl CreateMicrosoftAdDomainRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateMicrosoftAdDomainRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::CreateMicrosoftAdDomainRequest;
+    /// let x = CreateMicrosoftAdDomainRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [domain_name][crate::model::CreateMicrosoftAdDomainRequest::domain_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::CreateMicrosoftAdDomainRequest;
+    /// let x = CreateMicrosoftAdDomainRequest::new().set_domain_name("example");
+    /// ```
     pub fn set_domain_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.domain_name = v.into();
         self
     }
 
     /// Sets the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::CreateMicrosoftAdDomainRequest;
+    /// use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = CreateMicrosoftAdDomainRequest::new().set_domain(Domain::default()/* use setters */);
+    /// ```
     pub fn set_domain<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Domain>,
@@ -194,6 +267,14 @@ impl CreateMicrosoftAdDomainRequest {
     }
 
     /// Sets or clears the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::CreateMicrosoftAdDomainRequest;
+    /// use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = CreateMicrosoftAdDomainRequest::new().set_or_clear_domain(Some(Domain::default()/* use setters */));
+    /// let x = CreateMicrosoftAdDomainRequest::new().set_or_clear_domain(None::<Domain>);
+    /// ```
     pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Domain>,
@@ -227,6 +308,12 @@ impl ResetAdminPasswordRequest {
     }
 
     /// Sets the value of [name][crate::model::ResetAdminPasswordRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ResetAdminPasswordRequest;
+    /// let x = ResetAdminPasswordRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -258,6 +345,12 @@ impl ResetAdminPasswordResponse {
     }
 
     /// Sets the value of [password][crate::model::ResetAdminPasswordResponse::password].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ResetAdminPasswordResponse;
+    /// let x = ResetAdminPasswordResponse::new().set_password("example");
+    /// ```
     pub fn set_password<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.password = v.into();
         self
@@ -312,30 +405,60 @@ impl ListDomainsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDomainsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ListDomainsRequest;
+    /// let x = ListDomainsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDomainsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ListDomainsRequest;
+    /// let x = ListDomainsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDomainsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ListDomainsRequest;
+    /// let x = ListDomainsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDomainsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ListDomainsRequest;
+    /// let x = ListDomainsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDomainsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ListDomainsRequest;
+    /// let x = ListDomainsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -372,6 +495,17 @@ impl ListDomainsResponse {
     }
 
     /// Sets the value of [domains][crate::model::ListDomainsResponse::domains].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ListDomainsResponse;
+    /// use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = ListDomainsResponse::new()
+    ///     .set_domains([
+    ///         Domain::default()/* use setters */,
+    ///         Domain::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_domains<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -383,12 +517,24 @@ impl ListDomainsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDomainsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ListDomainsResponse;
+    /// let x = ListDomainsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListDomainsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ListDomainsResponse;
+    /// let x = ListDomainsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -437,6 +583,12 @@ impl GetDomainRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDomainRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::GetDomainRequest;
+    /// let x = GetDomainRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -478,6 +630,13 @@ impl UpdateDomainRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::UpdateDomainRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDomainRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -487,6 +646,14 @@ impl UpdateDomainRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::UpdateDomainRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDomainRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDomainRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -496,6 +663,13 @@ impl UpdateDomainRequest {
     }
 
     /// Sets the value of [domain][crate::model::UpdateDomainRequest::domain].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::UpdateDomainRequest;
+    /// use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = UpdateDomainRequest::new().set_domain(Domain::default()/* use setters */);
+    /// ```
     pub fn set_domain<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Domain>,
@@ -505,6 +679,14 @@ impl UpdateDomainRequest {
     }
 
     /// Sets or clears the value of [domain][crate::model::UpdateDomainRequest::domain].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::UpdateDomainRequest;
+    /// use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = UpdateDomainRequest::new().set_or_clear_domain(Some(Domain::default()/* use setters */));
+    /// let x = UpdateDomainRequest::new().set_or_clear_domain(None::<Domain>);
+    /// ```
     pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Domain>,
@@ -538,6 +720,12 @@ impl DeleteDomainRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDomainRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::DeleteDomainRequest;
+    /// let x = DeleteDomainRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -571,12 +759,25 @@ impl AttachTrustRequest {
     }
 
     /// Sets the value of [name][crate::model::AttachTrustRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::AttachTrustRequest;
+    /// let x = AttachTrustRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [trust][crate::model::AttachTrustRequest::trust].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::AttachTrustRequest;
+    /// use google_cloud_managedidentities_v1::model::Trust;
+    /// let x = AttachTrustRequest::new().set_trust(Trust::default()/* use setters */);
+    /// ```
     pub fn set_trust<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Trust>,
@@ -586,6 +787,14 @@ impl AttachTrustRequest {
     }
 
     /// Sets or clears the value of [trust][crate::model::AttachTrustRequest::trust].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::AttachTrustRequest;
+    /// use google_cloud_managedidentities_v1::model::Trust;
+    /// let x = AttachTrustRequest::new().set_or_clear_trust(Some(Trust::default()/* use setters */));
+    /// let x = AttachTrustRequest::new().set_or_clear_trust(None::<Trust>);
+    /// ```
     pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Trust>,
@@ -627,12 +836,24 @@ impl ReconfigureTrustRequest {
     }
 
     /// Sets the value of [name][crate::model::ReconfigureTrustRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ReconfigureTrustRequest;
+    /// let x = ReconfigureTrustRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [target_domain_name][crate::model::ReconfigureTrustRequest::target_domain_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ReconfigureTrustRequest;
+    /// let x = ReconfigureTrustRequest::new().set_target_domain_name("example");
+    /// ```
     pub fn set_target_domain_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -642,6 +863,12 @@ impl ReconfigureTrustRequest {
     }
 
     /// Sets the value of [target_dns_ip_addresses][crate::model::ReconfigureTrustRequest::target_dns_ip_addresses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ReconfigureTrustRequest;
+    /// let x = ReconfigureTrustRequest::new().set_target_dns_ip_addresses(["a", "b", "c"]);
+    /// ```
     pub fn set_target_dns_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -680,12 +907,25 @@ impl DetachTrustRequest {
     }
 
     /// Sets the value of [name][crate::model::DetachTrustRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::DetachTrustRequest;
+    /// let x = DetachTrustRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [trust][crate::model::DetachTrustRequest::trust].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::DetachTrustRequest;
+    /// use google_cloud_managedidentities_v1::model::Trust;
+    /// let x = DetachTrustRequest::new().set_trust(Trust::default()/* use setters */);
+    /// ```
     pub fn set_trust<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Trust>,
@@ -695,6 +935,14 @@ impl DetachTrustRequest {
     }
 
     /// Sets or clears the value of [trust][crate::model::DetachTrustRequest::trust].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::DetachTrustRequest;
+    /// use google_cloud_managedidentities_v1::model::Trust;
+    /// let x = DetachTrustRequest::new().set_or_clear_trust(Some(Trust::default()/* use setters */));
+    /// let x = DetachTrustRequest::new().set_or_clear_trust(None::<Trust>);
+    /// ```
     pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Trust>,
@@ -731,12 +979,25 @@ impl ValidateTrustRequest {
     }
 
     /// Sets the value of [name][crate::model::ValidateTrustRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ValidateTrustRequest;
+    /// let x = ValidateTrustRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [trust][crate::model::ValidateTrustRequest::trust].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ValidateTrustRequest;
+    /// use google_cloud_managedidentities_v1::model::Trust;
+    /// let x = ValidateTrustRequest::new().set_trust(Trust::default()/* use setters */);
+    /// ```
     pub fn set_trust<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Trust>,
@@ -746,6 +1007,14 @@ impl ValidateTrustRequest {
     }
 
     /// Sets or clears the value of [trust][crate::model::ValidateTrustRequest::trust].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::ValidateTrustRequest;
+    /// use google_cloud_managedidentities_v1::model::Trust;
+    /// let x = ValidateTrustRequest::new().set_or_clear_trust(Some(Trust::default()/* use setters */));
+    /// let x = ValidateTrustRequest::new().set_or_clear_trust(None::<Trust>);
+    /// ```
     pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Trust>,
@@ -826,12 +1095,27 @@ impl Domain {
     }
 
     /// Sets the value of [name][crate::model::Domain::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = Domain::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Domain::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = Domain::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -844,6 +1128,12 @@ impl Domain {
     }
 
     /// Sets the value of [authorized_networks][crate::model::Domain::authorized_networks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = Domain::new().set_authorized_networks(["a", "b", "c"]);
+    /// ```
     pub fn set_authorized_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -855,6 +1145,12 @@ impl Domain {
     }
 
     /// Sets the value of [reserved_ip_range][crate::model::Domain::reserved_ip_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = Domain::new().set_reserved_ip_range("example");
+    /// ```
     pub fn set_reserved_ip_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -864,6 +1160,12 @@ impl Domain {
     }
 
     /// Sets the value of [locations][crate::model::Domain::locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = Domain::new().set_locations(["a", "b", "c"]);
+    /// ```
     pub fn set_locations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -875,18 +1177,37 @@ impl Domain {
     }
 
     /// Sets the value of [admin][crate::model::Domain::admin].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = Domain::new().set_admin("example");
+    /// ```
     pub fn set_admin<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.admin = v.into();
         self
     }
 
     /// Sets the value of [fqdn][crate::model::Domain::fqdn].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = Domain::new().set_fqdn("example");
+    /// ```
     pub fn set_fqdn<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.fqdn = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Domain::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// use wkt::Timestamp;
+    /// let x = Domain::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -896,6 +1217,14 @@ impl Domain {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Domain::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// use wkt::Timestamp;
+    /// let x = Domain::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Domain::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -905,6 +1234,13 @@ impl Domain {
     }
 
     /// Sets the value of [update_time][crate::model::Domain::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// use wkt::Timestamp;
+    /// let x = Domain::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -914,6 +1250,14 @@ impl Domain {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Domain::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// use wkt::Timestamp;
+    /// let x = Domain::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Domain::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -923,18 +1267,44 @@ impl Domain {
     }
 
     /// Sets the value of [state][crate::model::Domain::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// use google_cloud_managedidentities_v1::model::domain::State;
+    /// let x0 = Domain::new().set_state(State::Creating);
+    /// let x1 = Domain::new().set_state(State::Ready);
+    /// let x2 = Domain::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::domain::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::Domain::status_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// let x = Domain::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [trusts][crate::model::Domain::trusts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Domain;
+    /// use google_cloud_managedidentities_v1::model::Trust;
+    /// let x = Domain::new()
+    ///     .set_trusts([
+    ///         Trust::default()/* use setters */,
+    ///         Trust::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_trusts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1179,6 +1549,12 @@ impl Trust {
     }
 
     /// Sets the value of [target_domain_name][crate::model::Trust::target_domain_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// let x = Trust::new().set_target_domain_name("example");
+    /// ```
     pub fn set_target_domain_name<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1188,6 +1564,14 @@ impl Trust {
     }
 
     /// Sets the value of [trust_type][crate::model::Trust::trust_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// use google_cloud_managedidentities_v1::model::trust::TrustType;
+    /// let x0 = Trust::new().set_trust_type(TrustType::Forest);
+    /// let x1 = Trust::new().set_trust_type(TrustType::External);
+    /// ```
     pub fn set_trust_type<T: std::convert::Into<crate::model::trust::TrustType>>(
         mut self,
         v: T,
@@ -1197,6 +1581,15 @@ impl Trust {
     }
 
     /// Sets the value of [trust_direction][crate::model::Trust::trust_direction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// use google_cloud_managedidentities_v1::model::trust::TrustDirection;
+    /// let x0 = Trust::new().set_trust_direction(TrustDirection::Inbound);
+    /// let x1 = Trust::new().set_trust_direction(TrustDirection::Outbound);
+    /// let x2 = Trust::new().set_trust_direction(TrustDirection::Bidirectional);
+    /// ```
     pub fn set_trust_direction<T: std::convert::Into<crate::model::trust::TrustDirection>>(
         mut self,
         v: T,
@@ -1206,12 +1599,24 @@ impl Trust {
     }
 
     /// Sets the value of [selective_authentication][crate::model::Trust::selective_authentication].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// let x = Trust::new().set_selective_authentication(true);
+    /// ```
     pub fn set_selective_authentication<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.selective_authentication = v.into();
         self
     }
 
     /// Sets the value of [target_dns_ip_addresses][crate::model::Trust::target_dns_ip_addresses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// let x = Trust::new().set_target_dns_ip_addresses(["a", "b", "c"]);
+    /// ```
     pub fn set_target_dns_ip_addresses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1223,6 +1628,12 @@ impl Trust {
     }
 
     /// Sets the value of [trust_handshake_secret][crate::model::Trust::trust_handshake_secret].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// let x = Trust::new().set_trust_handshake_secret("example");
+    /// ```
     pub fn set_trust_handshake_secret<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1232,6 +1643,13 @@ impl Trust {
     }
 
     /// Sets the value of [create_time][crate::model::Trust::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// use wkt::Timestamp;
+    /// let x = Trust::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1241,6 +1659,14 @@ impl Trust {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Trust::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// use wkt::Timestamp;
+    /// let x = Trust::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Trust::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1250,6 +1676,13 @@ impl Trust {
     }
 
     /// Sets the value of [update_time][crate::model::Trust::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// use wkt::Timestamp;
+    /// let x = Trust::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1259,6 +1692,14 @@ impl Trust {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Trust::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// use wkt::Timestamp;
+    /// let x = Trust::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Trust::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1268,12 +1709,27 @@ impl Trust {
     }
 
     /// Sets the value of [state][crate::model::Trust::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// use google_cloud_managedidentities_v1::model::trust::State;
+    /// let x0 = Trust::new().set_state(State::Creating);
+    /// let x1 = Trust::new().set_state(State::Updating);
+    /// let x2 = Trust::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::trust::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [state_description][crate::model::Trust::state_description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// let x = Trust::new().set_state_description("example");
+    /// ```
     pub fn set_state_description<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1283,6 +1739,13 @@ impl Trust {
     }
 
     /// Sets the value of [last_trust_heartbeat_time][crate::model::Trust::last_trust_heartbeat_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// use wkt::Timestamp;
+    /// let x = Trust::new().set_last_trust_heartbeat_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_trust_heartbeat_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1292,6 +1755,14 @@ impl Trust {
     }
 
     /// Sets or clears the value of [last_trust_heartbeat_time][crate::model::Trust::last_trust_heartbeat_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedidentities_v1::model::Trust;
+    /// use wkt::Timestamp;
+    /// let x = Trust::new().set_or_clear_last_trust_heartbeat_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Trust::new().set_or_clear_last_trust_heartbeat_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_trust_heartbeat_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,

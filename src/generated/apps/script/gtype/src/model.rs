@@ -44,6 +44,17 @@ impl AddOnWidgetSet {
     }
 
     /// Sets the value of [used_widgets][crate::model::AddOnWidgetSet::used_widgets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::AddOnWidgetSet;
+    /// use google_cloud_apps_script_type::model::add_on_widget_set::WidgetType;
+    /// let x = AddOnWidgetSet::new().set_used_widgets([
+    ///     WidgetType::DatePicker,
+    ///     WidgetType::StyledButtons,
+    ///     WidgetType::PersistentForms,
+    /// ]);
+    /// ```
     pub fn set_used_widgets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -263,18 +274,36 @@ impl MenuItemExtensionPoint {
     }
 
     /// Sets the value of [run_function][crate::model::MenuItemExtensionPoint::run_function].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::MenuItemExtensionPoint;
+    /// let x = MenuItemExtensionPoint::new().set_run_function("example");
+    /// ```
     pub fn set_run_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.run_function = v.into();
         self
     }
 
     /// Sets the value of [label][crate::model::MenuItemExtensionPoint::label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::MenuItemExtensionPoint;
+    /// let x = MenuItemExtensionPoint::new().set_label("example");
+    /// ```
     pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = v.into();
         self
     }
 
     /// Sets the value of [logo_url][crate::model::MenuItemExtensionPoint::logo_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::MenuItemExtensionPoint;
+    /// let x = MenuItemExtensionPoint::new().set_logo_url("example");
+    /// ```
     pub fn set_logo_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.logo_url = v.into();
         self
@@ -312,12 +341,25 @@ impl HomepageExtensionPoint {
     }
 
     /// Sets the value of [run_function][crate::model::HomepageExtensionPoint::run_function].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::HomepageExtensionPoint;
+    /// let x = HomepageExtensionPoint::new().set_run_function("example");
+    /// ```
     pub fn set_run_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.run_function = v.into();
         self
     }
 
     /// Sets the value of [enabled][crate::model::HomepageExtensionPoint::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::HomepageExtensionPoint;
+    /// use wkt::BoolValue;
+    /// let x = HomepageExtensionPoint::new().set_enabled(BoolValue::default()/* use setters */);
+    /// ```
     pub fn set_enabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -327,6 +369,14 @@ impl HomepageExtensionPoint {
     }
 
     /// Sets or clears the value of [enabled][crate::model::HomepageExtensionPoint::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::HomepageExtensionPoint;
+    /// use wkt::BoolValue;
+    /// let x = HomepageExtensionPoint::new().set_or_clear_enabled(Some(BoolValue::default()/* use setters */));
+    /// let x = HomepageExtensionPoint::new().set_or_clear_enabled(None::<BoolValue>);
+    /// ```
     pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::BoolValue>,
@@ -364,6 +414,12 @@ impl UniversalActionExtensionPoint {
     }
 
     /// Sets the value of [label][crate::model::UniversalActionExtensionPoint::label].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::UniversalActionExtensionPoint;
+    /// let x = UniversalActionExtensionPoint::new().set_label("example");
+    /// ```
     pub fn set_label<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.label = v.into();
         self
@@ -373,6 +429,13 @@ impl UniversalActionExtensionPoint {
     ///
     /// Note that all the setters affecting `action_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::UniversalActionExtensionPoint;
+    /// use google_cloud_apps_script_type::model::universal_action_extension_point::ActionType;
+    /// let x = UniversalActionExtensionPoint::new().set_action_type(Some(ActionType::OpenLink("example".to_string())));
+    /// ```
     pub fn set_action_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::universal_action_extension_point::ActionType>,
@@ -403,6 +466,14 @@ impl UniversalActionExtensionPoint {
     ///
     /// Note that all the setters affecting `action_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::UniversalActionExtensionPoint;
+    /// let x = UniversalActionExtensionPoint::new().set_open_link("example");
+    /// assert!(x.open_link().is_some());
+    /// assert!(x.run_function().is_none());
+    /// ```
     pub fn set_open_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action_type = std::option::Option::Some(
             crate::model::universal_action_extension_point::ActionType::OpenLink(v.into()),
@@ -428,6 +499,14 @@ impl UniversalActionExtensionPoint {
     ///
     /// Note that all the setters affecting `action_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::UniversalActionExtensionPoint;
+    /// let x = UniversalActionExtensionPoint::new().set_run_function("example");
+    /// assert!(x.run_function().is_some());
+    /// assert!(x.open_link().is_none());
+    /// ```
     pub fn set_run_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action_type = std::option::Option::Some(
             crate::model::universal_action_extension_point::ActionType::RunFunction(v.into()),
@@ -509,18 +588,37 @@ impl CommonAddOnManifest {
     }
 
     /// Sets the value of [name][crate::model::CommonAddOnManifest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::CommonAddOnManifest;
+    /// let x = CommonAddOnManifest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [logo_url][crate::model::CommonAddOnManifest::logo_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::CommonAddOnManifest;
+    /// let x = CommonAddOnManifest::new().set_logo_url("example");
+    /// ```
     pub fn set_logo_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.logo_url = v.into();
         self
     }
 
     /// Sets the value of [layout_properties][crate::model::CommonAddOnManifest::layout_properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::CommonAddOnManifest;
+    /// use google_cloud_apps_script_type::model::LayoutProperties;
+    /// let x = CommonAddOnManifest::new().set_layout_properties(LayoutProperties::default()/* use setters */);
+    /// ```
     pub fn set_layout_properties<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LayoutProperties>,
@@ -530,6 +628,14 @@ impl CommonAddOnManifest {
     }
 
     /// Sets or clears the value of [layout_properties][crate::model::CommonAddOnManifest::layout_properties].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::CommonAddOnManifest;
+    /// use google_cloud_apps_script_type::model::LayoutProperties;
+    /// let x = CommonAddOnManifest::new().set_or_clear_layout_properties(Some(LayoutProperties::default()/* use setters */));
+    /// let x = CommonAddOnManifest::new().set_or_clear_layout_properties(None::<LayoutProperties>);
+    /// ```
     pub fn set_or_clear_layout_properties<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LayoutProperties>,
@@ -539,6 +645,13 @@ impl CommonAddOnManifest {
     }
 
     /// Sets the value of [add_on_widget_set][crate::model::CommonAddOnManifest::add_on_widget_set].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::CommonAddOnManifest;
+    /// use google_cloud_apps_script_type::model::AddOnWidgetSet;
+    /// let x = CommonAddOnManifest::new().set_add_on_widget_set(AddOnWidgetSet::default()/* use setters */);
+    /// ```
     pub fn set_add_on_widget_set<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AddOnWidgetSet>,
@@ -548,6 +661,14 @@ impl CommonAddOnManifest {
     }
 
     /// Sets or clears the value of [add_on_widget_set][crate::model::CommonAddOnManifest::add_on_widget_set].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::CommonAddOnManifest;
+    /// use google_cloud_apps_script_type::model::AddOnWidgetSet;
+    /// let x = CommonAddOnManifest::new().set_or_clear_add_on_widget_set(Some(AddOnWidgetSet::default()/* use setters */));
+    /// let x = CommonAddOnManifest::new().set_or_clear_add_on_widget_set(None::<AddOnWidgetSet>);
+    /// ```
     pub fn set_or_clear_add_on_widget_set<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AddOnWidgetSet>,
@@ -557,12 +678,25 @@ impl CommonAddOnManifest {
     }
 
     /// Sets the value of [use_locale_from_app][crate::model::CommonAddOnManifest::use_locale_from_app].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::CommonAddOnManifest;
+    /// let x = CommonAddOnManifest::new().set_use_locale_from_app(true);
+    /// ```
     pub fn set_use_locale_from_app<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.use_locale_from_app = v.into();
         self
     }
 
     /// Sets the value of [homepage_trigger][crate::model::CommonAddOnManifest::homepage_trigger].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::CommonAddOnManifest;
+    /// use google_cloud_apps_script_type::model::HomepageExtensionPoint;
+    /// let x = CommonAddOnManifest::new().set_homepage_trigger(HomepageExtensionPoint::default()/* use setters */);
+    /// ```
     pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HomepageExtensionPoint>,
@@ -572,6 +706,14 @@ impl CommonAddOnManifest {
     }
 
     /// Sets or clears the value of [homepage_trigger][crate::model::CommonAddOnManifest::homepage_trigger].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::CommonAddOnManifest;
+    /// use google_cloud_apps_script_type::model::HomepageExtensionPoint;
+    /// let x = CommonAddOnManifest::new().set_or_clear_homepage_trigger(Some(HomepageExtensionPoint::default()/* use setters */));
+    /// let x = CommonAddOnManifest::new().set_or_clear_homepage_trigger(None::<HomepageExtensionPoint>);
+    /// ```
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HomepageExtensionPoint>,
@@ -581,6 +723,17 @@ impl CommonAddOnManifest {
     }
 
     /// Sets the value of [universal_actions][crate::model::CommonAddOnManifest::universal_actions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::CommonAddOnManifest;
+    /// use google_cloud_apps_script_type::model::UniversalActionExtensionPoint;
+    /// let x = CommonAddOnManifest::new()
+    ///     .set_universal_actions([
+    ///         UniversalActionExtensionPoint::default()/* use setters */,
+    ///         UniversalActionExtensionPoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_universal_actions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -592,6 +745,13 @@ impl CommonAddOnManifest {
     }
 
     /// Sets the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::CommonAddOnManifest;
+    /// use wkt::ListValue;
+    /// let x = CommonAddOnManifest::new().set_open_link_url_prefixes(ListValue::default()/* use setters */);
+    /// ```
     pub fn set_open_link_url_prefixes<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::ListValue>,
@@ -601,6 +761,14 @@ impl CommonAddOnManifest {
     }
 
     /// Sets or clears the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::CommonAddOnManifest;
+    /// use wkt::ListValue;
+    /// let x = CommonAddOnManifest::new().set_or_clear_open_link_url_prefixes(Some(ListValue::default()/* use setters */));
+    /// let x = CommonAddOnManifest::new().set_or_clear_open_link_url_prefixes(None::<ListValue>);
+    /// ```
     pub fn set_or_clear_open_link_url_prefixes<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::ListValue>,
@@ -641,12 +809,24 @@ impl LayoutProperties {
     }
 
     /// Sets the value of [primary_color][crate::model::LayoutProperties::primary_color].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::LayoutProperties;
+    /// let x = LayoutProperties::new().set_primary_color("example");
+    /// ```
     pub fn set_primary_color<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_color = v.into();
         self
     }
 
     /// Sets the value of [secondary_color][crate::model::LayoutProperties::secondary_color].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::LayoutProperties;
+    /// let x = LayoutProperties::new().set_secondary_color("example");
+    /// ```
     pub fn set_secondary_color<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secondary_color = v.into();
         self
@@ -675,6 +855,15 @@ impl HttpOptions {
     }
 
     /// Sets the value of [authorization_header][crate::model::HttpOptions::authorization_header].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type::model::HttpOptions;
+    /// use google_cloud_apps_script_type::model::HttpAuthorizationHeader;
+    /// let x0 = HttpOptions::new().set_authorization_header(HttpAuthorizationHeader::SystemIdToken);
+    /// let x1 = HttpOptions::new().set_authorization_header(HttpAuthorizationHeader::UserIdToken);
+    /// let x2 = HttpOptions::new().set_authorization_header(HttpAuthorizationHeader::None);
+    /// ```
     pub fn set_authorization_header<
         T: std::convert::Into<crate::model::HttpAuthorizationHeader>,
     >(

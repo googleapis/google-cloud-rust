@@ -48,6 +48,16 @@ impl AggregationResult {
     }
 
     /// Sets the value of [aggregate_fields][crate::model::AggregationResult::aggregate_fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::AggregationResult;
+    /// use google_cloud_firestore::model::Value;
+    /// let x = AggregationResult::new().set_aggregate_fields([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_aggregate_fields<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -102,12 +112,24 @@ impl BitSequence {
     }
 
     /// Sets the value of [bitmap][crate::model::BitSequence::bitmap].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BitSequence;
+    /// let x = BitSequence::new().set_bitmap(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_bitmap<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.bitmap = v.into();
         self
     }
 
     /// Sets the value of [padding][crate::model::BitSequence::padding].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BitSequence;
+    /// let x = BitSequence::new().set_padding(42);
+    /// ```
     pub fn set_padding<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.padding = v.into();
         self
@@ -153,6 +175,13 @@ impl BloomFilter {
     }
 
     /// Sets the value of [bits][crate::model::BloomFilter::bits].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BloomFilter;
+    /// use google_cloud_firestore::model::BitSequence;
+    /// let x = BloomFilter::new().set_bits(BitSequence::default()/* use setters */);
+    /// ```
     pub fn set_bits<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BitSequence>,
@@ -162,6 +191,14 @@ impl BloomFilter {
     }
 
     /// Sets or clears the value of [bits][crate::model::BloomFilter::bits].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BloomFilter;
+    /// use google_cloud_firestore::model::BitSequence;
+    /// let x = BloomFilter::new().set_or_clear_bits(Some(BitSequence::default()/* use setters */));
+    /// let x = BloomFilter::new().set_or_clear_bits(None::<BitSequence>);
+    /// ```
     pub fn set_or_clear_bits<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BitSequence>,
@@ -171,6 +208,12 @@ impl BloomFilter {
     }
 
     /// Sets the value of [hash_count][crate::model::BloomFilter::hash_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BloomFilter;
+    /// let x = BloomFilter::new().set_hash_count(42);
+    /// ```
     pub fn set_hash_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.hash_count = v.into();
         self
@@ -211,6 +254,12 @@ impl DocumentMask {
     }
 
     /// Sets the value of [field_paths][crate::model::DocumentMask::field_paths].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentMask;
+    /// let x = DocumentMask::new().set_field_paths(["a", "b", "c"]);
+    /// ```
     pub fn set_field_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -247,6 +296,13 @@ impl Precondition {
     ///
     /// Note that all the setters affecting `condition_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Precondition;
+    /// use google_cloud_firestore::model::precondition::ConditionType;
+    /// let x = Precondition::new().set_condition_type(Some(ConditionType::Exists(true)));
+    /// ```
     pub fn set_condition_type<
         T: std::convert::Into<std::option::Option<crate::model::precondition::ConditionType>>,
     >(
@@ -273,6 +329,14 @@ impl Precondition {
     ///
     /// Note that all the setters affecting `condition_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Precondition;
+    /// let x = Precondition::new().set_exists(true);
+    /// assert!(x.exists().is_some());
+    /// assert!(x.update_time().is_none());
+    /// ```
     pub fn set_exists<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.condition_type =
             std::option::Option::Some(crate::model::precondition::ConditionType::Exists(v.into()));
@@ -297,6 +361,15 @@ impl Precondition {
     ///
     /// Note that all the setters affecting `condition_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Precondition;
+    /// use wkt::Timestamp;
+    /// let x = Precondition::new().set_update_time(Timestamp::default()/* use setters */);
+    /// assert!(x.update_time().is_some());
+    /// assert!(x.exists().is_none());
+    /// ```
     pub fn set_update_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -364,6 +437,14 @@ impl TransactionOptions {
     ///
     /// Note that all the setters affecting `mode` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::TransactionOptions;
+    /// use google_cloud_firestore::model::transaction_options::ReadOnly;
+    /// let x = TransactionOptions::new().set_mode(Some(
+    ///     google_cloud_firestore::model::transaction_options::Mode::ReadOnly(ReadOnly::default().into())));
+    /// ```
     pub fn set_mode<
         T: std::convert::Into<std::option::Option<crate::model::transaction_options::Mode>>,
     >(
@@ -392,6 +473,15 @@ impl TransactionOptions {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::TransactionOptions;
+    /// use google_cloud_firestore::model::transaction_options::ReadOnly;
+    /// let x = TransactionOptions::new().set_read_only(ReadOnly::default()/* use setters */);
+    /// assert!(x.read_only().is_some());
+    /// assert!(x.read_write().is_none());
+    /// ```
     pub fn set_read_only<
         T: std::convert::Into<std::boxed::Box<crate::model::transaction_options::ReadOnly>>,
     >(
@@ -421,6 +511,15 @@ impl TransactionOptions {
     ///
     /// Note that all the setters affecting `mode` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::TransactionOptions;
+    /// use google_cloud_firestore::model::transaction_options::ReadWrite;
+    /// let x = TransactionOptions::new().set_read_write(ReadWrite::default()/* use setters */);
+    /// assert!(x.read_write().is_some());
+    /// assert!(x.read_only().is_none());
+    /// ```
     pub fn set_read_write<
         T: std::convert::Into<std::boxed::Box<crate::model::transaction_options::ReadWrite>>,
     >(
@@ -463,6 +562,12 @@ pub mod transaction_options {
         }
 
         /// Sets the value of [retry_transaction][crate::model::transaction_options::ReadWrite::retry_transaction].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::transaction_options::ReadWrite;
+        /// let x = ReadWrite::new().set_retry_transaction(bytes::Bytes::from_static(b"example"));
+        /// ```
         pub fn set_retry_transaction<T: std::convert::Into<::bytes::Bytes>>(
             mut self,
             v: T,
@@ -499,6 +604,14 @@ pub mod transaction_options {
         ///
         /// Note that all the setters affecting `consistency_selector` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::transaction_options::ReadOnly;
+        /// use wkt::Timestamp;
+        /// let x = ReadOnly::new().set_consistency_selector(Some(
+        ///     google_cloud_firestore::model::transaction_options::read_only::ConsistencySelector::ReadTime(Timestamp::default().into())));
+        /// ```
         pub fn set_consistency_selector<
             T: std::convert::Into<
                     std::option::Option<
@@ -531,6 +644,14 @@ pub mod transaction_options {
         ///
         /// Note that all the setters affecting `consistency_selector` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::transaction_options::ReadOnly;
+        /// use wkt::Timestamp;
+        /// let x = ReadOnly::new().set_read_time(Timestamp::default()/* use setters */);
+        /// assert!(x.read_time().is_some());
+        /// ```
         pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
             mut self,
             v: T,
@@ -665,12 +786,28 @@ impl Document {
     }
 
     /// Sets the value of [name][crate::model::Document::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Document;
+    /// let x = Document::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [fields][crate::model::Document::fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Document;
+    /// use google_cloud_firestore::model::Value;
+    /// let x = Document::new().set_fields([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_fields<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -683,6 +820,13 @@ impl Document {
     }
 
     /// Sets the value of [create_time][crate::model::Document::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Document;
+    /// use wkt::Timestamp;
+    /// let x = Document::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -692,6 +836,14 @@ impl Document {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Document::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Document;
+    /// use wkt::Timestamp;
+    /// let x = Document::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Document::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -701,6 +853,13 @@ impl Document {
     }
 
     /// Sets the value of [update_time][crate::model::Document::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Document;
+    /// use wkt::Timestamp;
+    /// let x = Document::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -710,6 +869,14 @@ impl Document {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Document::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Document;
+    /// use wkt::Timestamp;
+    /// let x = Document::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Document::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -744,6 +911,14 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// use wkt::NullValue;
+    /// let x = Value::new().set_value_type(Some(
+    ///     google_cloud_firestore::model::value::ValueType::NullValue(NullValue)));
+    /// ```
     pub fn set_value_type<
         T: std::convert::Into<std::option::Option<crate::model::value::ValueType>>,
     >(
@@ -770,6 +945,24 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// use wkt::NullValue;
+    /// let x = Value::new().set_null_value(NullValue);
+    /// assert!(x.null_value().is_some());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// ```
     pub fn set_null_value<T: std::convert::Into<wkt::NullValue>>(mut self, v: T) -> Self {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::NullValue(v.into()));
@@ -792,6 +985,23 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// let x = Value::new().set_boolean_value(true);
+    /// assert!(x.boolean_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// ```
     pub fn set_boolean_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::BooleanValue(v.into()));
@@ -814,6 +1024,23 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// let x = Value::new().set_integer_value(42);
+    /// assert!(x.integer_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// ```
     pub fn set_integer_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::IntegerValue(v.into()));
@@ -836,6 +1063,23 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// let x = Value::new().set_double_value(42.0);
+    /// assert!(x.double_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// ```
     pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::DoubleValue(v.into()));
@@ -858,6 +1102,24 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// use wkt::Timestamp;
+    /// let x = Value::new().set_timestamp_value(Timestamp::default()/* use setters */);
+    /// assert!(x.timestamp_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// ```
     pub fn set_timestamp_value<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -883,6 +1145,23 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// let x = Value::new().set_string_value("example");
+    /// assert!(x.string_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::StringValue(v.into()));
@@ -905,6 +1184,23 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// let x = Value::new().set_bytes_value(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.bytes_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// ```
     pub fn set_bytes_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::BytesValue(v.into()));
@@ -927,6 +1223,23 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// let x = Value::new().set_reference_value("example");
+    /// assert!(x.reference_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// ```
     pub fn set_reference_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::ReferenceValue(v.into()));
@@ -949,6 +1262,24 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// use gtype::model::LatLng;
+    /// let x = Value::new().set_geo_point_value(LatLng::default()/* use setters */);
+    /// assert!(x.geo_point_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// ```
     pub fn set_geo_point_value<T: std::convert::Into<std::boxed::Box<gtype::model::LatLng>>>(
         mut self,
         v: T,
@@ -974,6 +1305,24 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// use google_cloud_firestore::model::ArrayValue;
+    /// let x = Value::new().set_array_value(ArrayValue::default()/* use setters */);
+    /// assert!(x.array_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// ```
     pub fn set_array_value<T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>>(
         mut self,
         v: T,
@@ -999,6 +1348,24 @@ impl Value {
     ///
     /// Note that all the setters affecting `value_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// use google_cloud_firestore::model::MapValue;
+    /// let x = Value::new().set_map_value(MapValue::default()/* use setters */);
+    /// assert!(x.map_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// ```
     pub fn set_map_value<T: std::convert::Into<std::boxed::Box<crate::model::MapValue>>>(
         mut self,
         v: T,
@@ -1134,6 +1501,17 @@ impl ArrayValue {
     }
 
     /// Sets the value of [values][crate::model::ArrayValue::values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ArrayValue;
+    /// use google_cloud_firestore::model::Value;
+    /// let x = ArrayValue::new()
+    ///     .set_values([
+    ///         Value::default()/* use setters */,
+    ///         Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1172,6 +1550,16 @@ impl MapValue {
     }
 
     /// Sets the value of [fields][crate::model::MapValue::fields].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::MapValue;
+    /// use google_cloud_firestore::model::Value;
+    /// let x = MapValue::new().set_fields([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_fields<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1221,12 +1609,25 @@ impl GetDocumentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDocumentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::GetDocumentRequest;
+    /// let x = GetDocumentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [mask][crate::model::GetDocumentRequest::mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::GetDocumentRequest;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = GetDocumentRequest::new().set_mask(DocumentMask::default()/* use setters */);
+    /// ```
     pub fn set_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -1236,6 +1637,14 @@ impl GetDocumentRequest {
     }
 
     /// Sets or clears the value of [mask][crate::model::GetDocumentRequest::mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::GetDocumentRequest;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = GetDocumentRequest::new().set_or_clear_mask(Some(DocumentMask::default()/* use setters */));
+    /// let x = GetDocumentRequest::new().set_or_clear_mask(None::<DocumentMask>);
+    /// ```
     pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -1248,6 +1657,13 @@ impl GetDocumentRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::GetDocumentRequest;
+    /// use google_cloud_firestore::model::get_document_request::ConsistencySelector;
+    /// let x = GetDocumentRequest::new().set_consistency_selector(Some(ConsistencySelector::Transaction(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::get_document_request::ConsistencySelector>,
@@ -1278,6 +1694,14 @@ impl GetDocumentRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::GetDocumentRequest;
+    /// let x = GetDocumentRequest::new().set_transaction(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.transaction().is_some());
+    /// assert!(x.read_time().is_none());
+    /// ```
     pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
             crate::model::get_document_request::ConsistencySelector::Transaction(v.into()),
@@ -1303,6 +1727,15 @@ impl GetDocumentRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::GetDocumentRequest;
+    /// use wkt::Timestamp;
+    /// let x = GetDocumentRequest::new().set_read_time(Timestamp::default()/* use setters */);
+    /// assert!(x.read_time().is_some());
+    /// assert!(x.transaction().is_none());
+    /// ```
     pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1435,36 +1868,73 @@ impl ListDocumentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDocumentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// let x = ListDocumentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [collection_id][crate::model::ListDocumentsRequest::collection_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// let x = ListDocumentsRequest::new().set_collection_id("example");
+    /// ```
     pub fn set_collection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.collection_id = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDocumentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// let x = ListDocumentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDocumentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// let x = ListDocumentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListDocumentsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// let x = ListDocumentsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
     }
 
     /// Sets the value of [mask][crate::model::ListDocumentsRequest::mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = ListDocumentsRequest::new().set_mask(DocumentMask::default()/* use setters */);
+    /// ```
     pub fn set_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -1474,6 +1944,14 @@ impl ListDocumentsRequest {
     }
 
     /// Sets or clears the value of [mask][crate::model::ListDocumentsRequest::mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = ListDocumentsRequest::new().set_or_clear_mask(Some(DocumentMask::default()/* use setters */));
+    /// let x = ListDocumentsRequest::new().set_or_clear_mask(None::<DocumentMask>);
+    /// ```
     pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -1483,6 +1961,12 @@ impl ListDocumentsRequest {
     }
 
     /// Sets the value of [show_missing][crate::model::ListDocumentsRequest::show_missing].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// let x = ListDocumentsRequest::new().set_show_missing(true);
+    /// ```
     pub fn set_show_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_missing = v.into();
         self
@@ -1492,6 +1976,13 @@ impl ListDocumentsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// use google_cloud_firestore::model::list_documents_request::ConsistencySelector;
+    /// let x = ListDocumentsRequest::new().set_consistency_selector(Some(ConsistencySelector::Transaction(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::list_documents_request::ConsistencySelector>,
@@ -1522,6 +2013,14 @@ impl ListDocumentsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// let x = ListDocumentsRequest::new().set_transaction(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.transaction().is_some());
+    /// assert!(x.read_time().is_none());
+    /// ```
     pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
             crate::model::list_documents_request::ConsistencySelector::Transaction(v.into()),
@@ -1547,6 +2046,15 @@ impl ListDocumentsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListDocumentsRequest::new().set_read_time(Timestamp::default()/* use setters */);
+    /// assert!(x.read_time().is_some());
+    /// assert!(x.transaction().is_none());
+    /// ```
     pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -1622,6 +2130,17 @@ impl ListDocumentsResponse {
     }
 
     /// Sets the value of [documents][crate::model::ListDocumentsResponse::documents].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsResponse;
+    /// use google_cloud_firestore::model::Document;
+    /// let x = ListDocumentsResponse::new()
+    ///     .set_documents([
+    ///         Document::default()/* use setters */,
+    ///         Document::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_documents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1633,6 +2152,12 @@ impl ListDocumentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDocumentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListDocumentsResponse;
+    /// let x = ListDocumentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1698,24 +2223,49 @@ impl CreateDocumentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDocumentRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CreateDocumentRequest;
+    /// let x = CreateDocumentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [collection_id][crate::model::CreateDocumentRequest::collection_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CreateDocumentRequest;
+    /// let x = CreateDocumentRequest::new().set_collection_id("example");
+    /// ```
     pub fn set_collection_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.collection_id = v.into();
         self
     }
 
     /// Sets the value of [document_id][crate::model::CreateDocumentRequest::document_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CreateDocumentRequest;
+    /// let x = CreateDocumentRequest::new().set_document_id("example");
+    /// ```
     pub fn set_document_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.document_id = v.into();
         self
     }
 
     /// Sets the value of [document][crate::model::CreateDocumentRequest::document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CreateDocumentRequest;
+    /// use google_cloud_firestore::model::Document;
+    /// let x = CreateDocumentRequest::new().set_document(Document::default()/* use setters */);
+    /// ```
     pub fn set_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1725,6 +2275,14 @@ impl CreateDocumentRequest {
     }
 
     /// Sets or clears the value of [document][crate::model::CreateDocumentRequest::document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CreateDocumentRequest;
+    /// use google_cloud_firestore::model::Document;
+    /// let x = CreateDocumentRequest::new().set_or_clear_document(Some(Document::default()/* use setters */));
+    /// let x = CreateDocumentRequest::new().set_or_clear_document(None::<Document>);
+    /// ```
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1734,6 +2292,13 @@ impl CreateDocumentRequest {
     }
 
     /// Sets the value of [mask][crate::model::CreateDocumentRequest::mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CreateDocumentRequest;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = CreateDocumentRequest::new().set_mask(DocumentMask::default()/* use setters */);
+    /// ```
     pub fn set_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -1743,6 +2308,14 @@ impl CreateDocumentRequest {
     }
 
     /// Sets or clears the value of [mask][crate::model::CreateDocumentRequest::mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CreateDocumentRequest;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = CreateDocumentRequest::new().set_or_clear_mask(Some(DocumentMask::default()/* use setters */));
+    /// let x = CreateDocumentRequest::new().set_or_clear_mask(None::<DocumentMask>);
+    /// ```
     pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -1797,6 +2370,13 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets the value of [document][crate::model::UpdateDocumentRequest::document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::UpdateDocumentRequest;
+    /// use google_cloud_firestore::model::Document;
+    /// let x = UpdateDocumentRequest::new().set_document(Document::default()/* use setters */);
+    /// ```
     pub fn set_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1806,6 +2386,14 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets or clears the value of [document][crate::model::UpdateDocumentRequest::document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::UpdateDocumentRequest;
+    /// use google_cloud_firestore::model::Document;
+    /// let x = UpdateDocumentRequest::new().set_or_clear_document(Some(Document::default()/* use setters */));
+    /// let x = UpdateDocumentRequest::new().set_or_clear_document(None::<Document>);
+    /// ```
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -1815,6 +2403,13 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::UpdateDocumentRequest;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = UpdateDocumentRequest::new().set_update_mask(DocumentMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -1824,6 +2419,14 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::UpdateDocumentRequest;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = UpdateDocumentRequest::new().set_or_clear_update_mask(Some(DocumentMask::default()/* use setters */));
+    /// let x = UpdateDocumentRequest::new().set_or_clear_update_mask(None::<DocumentMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -1833,6 +2436,13 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets the value of [mask][crate::model::UpdateDocumentRequest::mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::UpdateDocumentRequest;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = UpdateDocumentRequest::new().set_mask(DocumentMask::default()/* use setters */);
+    /// ```
     pub fn set_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -1842,6 +2452,14 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets or clears the value of [mask][crate::model::UpdateDocumentRequest::mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::UpdateDocumentRequest;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = UpdateDocumentRequest::new().set_or_clear_mask(Some(DocumentMask::default()/* use setters */));
+    /// let x = UpdateDocumentRequest::new().set_or_clear_mask(None::<DocumentMask>);
+    /// ```
     pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -1851,6 +2469,13 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets the value of [current_document][crate::model::UpdateDocumentRequest::current_document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::UpdateDocumentRequest;
+    /// use google_cloud_firestore::model::Precondition;
+    /// let x = UpdateDocumentRequest::new().set_current_document(Precondition::default()/* use setters */);
+    /// ```
     pub fn set_current_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Precondition>,
@@ -1860,6 +2485,14 @@ impl UpdateDocumentRequest {
     }
 
     /// Sets or clears the value of [current_document][crate::model::UpdateDocumentRequest::current_document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::UpdateDocumentRequest;
+    /// use google_cloud_firestore::model::Precondition;
+    /// let x = UpdateDocumentRequest::new().set_or_clear_current_document(Some(Precondition::default()/* use setters */));
+    /// let x = UpdateDocumentRequest::new().set_or_clear_current_document(None::<Precondition>);
+    /// ```
     pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Precondition>,
@@ -1899,12 +2532,25 @@ impl DeleteDocumentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteDocumentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DeleteDocumentRequest;
+    /// let x = DeleteDocumentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [current_document][crate::model::DeleteDocumentRequest::current_document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DeleteDocumentRequest;
+    /// use google_cloud_firestore::model::Precondition;
+    /// let x = DeleteDocumentRequest::new().set_current_document(Precondition::default()/* use setters */);
+    /// ```
     pub fn set_current_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Precondition>,
@@ -1914,6 +2560,14 @@ impl DeleteDocumentRequest {
     }
 
     /// Sets or clears the value of [current_document][crate::model::DeleteDocumentRequest::current_document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DeleteDocumentRequest;
+    /// use google_cloud_firestore::model::Precondition;
+    /// let x = DeleteDocumentRequest::new().set_or_clear_current_document(Some(Precondition::default()/* use setters */));
+    /// let x = DeleteDocumentRequest::new().set_or_clear_current_document(None::<Precondition>);
+    /// ```
     pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Precondition>,
@@ -1964,12 +2618,24 @@ impl BatchGetDocumentsRequest {
     }
 
     /// Sets the value of [database][crate::model::BatchGetDocumentsRequest::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsRequest;
+    /// let x = BatchGetDocumentsRequest::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [documents][crate::model::BatchGetDocumentsRequest::documents].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsRequest;
+    /// let x = BatchGetDocumentsRequest::new().set_documents(["a", "b", "c"]);
+    /// ```
     pub fn set_documents<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1981,6 +2647,13 @@ impl BatchGetDocumentsRequest {
     }
 
     /// Sets the value of [mask][crate::model::BatchGetDocumentsRequest::mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsRequest;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = BatchGetDocumentsRequest::new().set_mask(DocumentMask::default()/* use setters */);
+    /// ```
     pub fn set_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -1990,6 +2663,14 @@ impl BatchGetDocumentsRequest {
     }
 
     /// Sets or clears the value of [mask][crate::model::BatchGetDocumentsRequest::mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsRequest;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = BatchGetDocumentsRequest::new().set_or_clear_mask(Some(DocumentMask::default()/* use setters */));
+    /// let x = BatchGetDocumentsRequest::new().set_or_clear_mask(None::<DocumentMask>);
+    /// ```
     pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -2002,6 +2683,13 @@ impl BatchGetDocumentsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsRequest;
+    /// use google_cloud_firestore::model::batch_get_documents_request::ConsistencySelector;
+    /// let x = BatchGetDocumentsRequest::new().set_consistency_selector(Some(ConsistencySelector::Transaction(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::batch_get_documents_request::ConsistencySelector>,
@@ -2032,6 +2720,15 @@ impl BatchGetDocumentsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsRequest;
+    /// let x = BatchGetDocumentsRequest::new().set_transaction(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.transaction().is_some());
+    /// assert!(x.new_transaction().is_none());
+    /// assert!(x.read_time().is_none());
+    /// ```
     pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
             crate::model::batch_get_documents_request::ConsistencySelector::Transaction(v.into()),
@@ -2059,6 +2756,16 @@ impl BatchGetDocumentsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsRequest;
+    /// use google_cloud_firestore::model::TransactionOptions;
+    /// let x = BatchGetDocumentsRequest::new().set_new_transaction(TransactionOptions::default()/* use setters */);
+    /// assert!(x.new_transaction().is_some());
+    /// assert!(x.transaction().is_none());
+    /// assert!(x.read_time().is_none());
+    /// ```
     pub fn set_new_transaction<
         T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>,
     >(
@@ -2091,6 +2798,16 @@ impl BatchGetDocumentsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsRequest;
+    /// use wkt::Timestamp;
+    /// let x = BatchGetDocumentsRequest::new().set_read_time(Timestamp::default()/* use setters */);
+    /// assert!(x.read_time().is_some());
+    /// assert!(x.transaction().is_none());
+    /// assert!(x.new_transaction().is_none());
+    /// ```
     pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2185,12 +2902,25 @@ impl BatchGetDocumentsResponse {
     }
 
     /// Sets the value of [transaction][crate::model::BatchGetDocumentsResponse::transaction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsResponse;
+    /// let x = BatchGetDocumentsResponse::new().set_transaction(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
         self
     }
 
     /// Sets the value of [read_time][crate::model::BatchGetDocumentsResponse::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsResponse;
+    /// use wkt::Timestamp;
+    /// let x = BatchGetDocumentsResponse::new().set_read_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_read_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2200,6 +2930,14 @@ impl BatchGetDocumentsResponse {
     }
 
     /// Sets or clears the value of [read_time][crate::model::BatchGetDocumentsResponse::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsResponse;
+    /// use wkt::Timestamp;
+    /// let x = BatchGetDocumentsResponse::new().set_or_clear_read_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BatchGetDocumentsResponse::new().set_or_clear_read_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2212,6 +2950,13 @@ impl BatchGetDocumentsResponse {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsResponse;
+    /// use google_cloud_firestore::model::batch_get_documents_response::Result;
+    /// let x = BatchGetDocumentsResponse::new().set_result(Some(Result::Missing("example".to_string())));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::batch_get_documents_response::Result>>,
     >(
@@ -2240,6 +2985,15 @@ impl BatchGetDocumentsResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsResponse;
+    /// use google_cloud_firestore::model::Document;
+    /// let x = BatchGetDocumentsResponse::new().set_found(Document::default()/* use setters */);
+    /// assert!(x.found().is_some());
+    /// assert!(x.missing().is_none());
+    /// ```
     pub fn set_found<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(
         mut self,
         v: T,
@@ -2268,6 +3022,14 @@ impl BatchGetDocumentsResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchGetDocumentsResponse;
+    /// let x = BatchGetDocumentsResponse::new().set_missing("example");
+    /// assert!(x.missing().is_some());
+    /// assert!(x.found().is_none());
+    /// ```
     pub fn set_missing<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
             crate::model::batch_get_documents_response::Result::Missing(v.into()),
@@ -2337,12 +3099,25 @@ impl BeginTransactionRequest {
     }
 
     /// Sets the value of [database][crate::model::BeginTransactionRequest::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BeginTransactionRequest;
+    /// let x = BeginTransactionRequest::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [options][crate::model::BeginTransactionRequest::options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BeginTransactionRequest;
+    /// use google_cloud_firestore::model::TransactionOptions;
+    /// let x = BeginTransactionRequest::new().set_options(TransactionOptions::default()/* use setters */);
+    /// ```
     pub fn set_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TransactionOptions>,
@@ -2352,6 +3127,14 @@ impl BeginTransactionRequest {
     }
 
     /// Sets or clears the value of [options][crate::model::BeginTransactionRequest::options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BeginTransactionRequest;
+    /// use google_cloud_firestore::model::TransactionOptions;
+    /// let x = BeginTransactionRequest::new().set_or_clear_options(Some(TransactionOptions::default()/* use setters */));
+    /// let x = BeginTransactionRequest::new().set_or_clear_options(None::<TransactionOptions>);
+    /// ```
     pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TransactionOptions>,
@@ -2386,6 +3169,12 @@ impl BeginTransactionResponse {
     }
 
     /// Sets the value of [transaction][crate::model::BeginTransactionResponse::transaction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BeginTransactionResponse;
+    /// let x = BeginTransactionResponse::new().set_transaction(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
         self
@@ -2425,12 +3214,29 @@ impl CommitRequest {
     }
 
     /// Sets the value of [database][crate::model::CommitRequest::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CommitRequest;
+    /// let x = CommitRequest::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [writes][crate::model::CommitRequest::writes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CommitRequest;
+    /// use google_cloud_firestore::model::Write;
+    /// let x = CommitRequest::new()
+    ///     .set_writes([
+    ///         Write::default()/* use setters */,
+    ///         Write::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_writes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2442,6 +3248,12 @@ impl CommitRequest {
     }
 
     /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CommitRequest;
+    /// let x = CommitRequest::new().set_transaction(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
         self
@@ -2479,6 +3291,17 @@ impl CommitResponse {
     }
 
     /// Sets the value of [write_results][crate::model::CommitResponse::write_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CommitResponse;
+    /// use google_cloud_firestore::model::WriteResult;
+    /// let x = CommitResponse::new()
+    ///     .set_write_results([
+    ///         WriteResult::default()/* use setters */,
+    ///         WriteResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_write_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2490,6 +3313,13 @@ impl CommitResponse {
     }
 
     /// Sets the value of [commit_time][crate::model::CommitResponse::commit_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CommitResponse;
+    /// use wkt::Timestamp;
+    /// let x = CommitResponse::new().set_commit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_commit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2499,6 +3329,14 @@ impl CommitResponse {
     }
 
     /// Sets or clears the value of [commit_time][crate::model::CommitResponse::commit_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::CommitResponse;
+    /// use wkt::Timestamp;
+    /// let x = CommitResponse::new().set_or_clear_commit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CommitResponse::new().set_or_clear_commit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2536,12 +3374,24 @@ impl RollbackRequest {
     }
 
     /// Sets the value of [database][crate::model::RollbackRequest::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RollbackRequest;
+    /// let x = RollbackRequest::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [transaction][crate::model::RollbackRequest::transaction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RollbackRequest;
+    /// let x = RollbackRequest::new().set_transaction(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
         self
@@ -2587,12 +3437,25 @@ impl RunQueryRequest {
     }
 
     /// Sets the value of [parent][crate::model::RunQueryRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryRequest;
+    /// let x = RunQueryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [explain_options][crate::model::RunQueryRequest::explain_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryRequest;
+    /// use google_cloud_firestore::model::ExplainOptions;
+    /// let x = RunQueryRequest::new().set_explain_options(ExplainOptions::default()/* use setters */);
+    /// ```
     pub fn set_explain_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExplainOptions>,
@@ -2602,6 +3465,14 @@ impl RunQueryRequest {
     }
 
     /// Sets or clears the value of [explain_options][crate::model::RunQueryRequest::explain_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryRequest;
+    /// use google_cloud_firestore::model::ExplainOptions;
+    /// let x = RunQueryRequest::new().set_or_clear_explain_options(Some(ExplainOptions::default()/* use setters */));
+    /// let x = RunQueryRequest::new().set_or_clear_explain_options(None::<ExplainOptions>);
+    /// ```
     pub fn set_or_clear_explain_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplainOptions>,
@@ -2614,6 +3485,14 @@ impl RunQueryRequest {
     ///
     /// Note that all the setters affecting `query_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryRequest;
+    /// use google_cloud_firestore::model::StructuredQuery;
+    /// let x = RunQueryRequest::new().set_query_type(Some(
+    ///     google_cloud_firestore::model::run_query_request::QueryType::StructuredQuery(StructuredQuery::default().into())));
+    /// ```
     pub fn set_query_type<
         T: std::convert::Into<std::option::Option<crate::model::run_query_request::QueryType>>,
     >(
@@ -2644,6 +3523,14 @@ impl RunQueryRequest {
     ///
     /// Note that all the setters affecting `query_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryRequest;
+    /// use google_cloud_firestore::model::StructuredQuery;
+    /// let x = RunQueryRequest::new().set_structured_query(StructuredQuery::default()/* use setters */);
+    /// assert!(x.structured_query().is_some());
+    /// ```
     pub fn set_structured_query<
         T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
     >(
@@ -2660,6 +3547,13 @@ impl RunQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryRequest;
+    /// use google_cloud_firestore::model::run_query_request::ConsistencySelector;
+    /// let x = RunQueryRequest::new().set_consistency_selector(Some(ConsistencySelector::Transaction(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::run_query_request::ConsistencySelector>,
@@ -2690,6 +3584,15 @@ impl RunQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryRequest;
+    /// let x = RunQueryRequest::new().set_transaction(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.transaction().is_some());
+    /// assert!(x.new_transaction().is_none());
+    /// assert!(x.read_time().is_none());
+    /// ```
     pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
             crate::model::run_query_request::ConsistencySelector::Transaction(v.into()),
@@ -2717,6 +3620,16 @@ impl RunQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryRequest;
+    /// use google_cloud_firestore::model::TransactionOptions;
+    /// let x = RunQueryRequest::new().set_new_transaction(TransactionOptions::default()/* use setters */);
+    /// assert!(x.new_transaction().is_some());
+    /// assert!(x.transaction().is_none());
+    /// assert!(x.read_time().is_none());
+    /// ```
     pub fn set_new_transaction<
         T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>,
     >(
@@ -2747,6 +3660,16 @@ impl RunQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryRequest;
+    /// use wkt::Timestamp;
+    /// let x = RunQueryRequest::new().set_read_time(Timestamp::default()/* use setters */);
+    /// assert!(x.read_time().is_some());
+    /// assert!(x.transaction().is_none());
+    /// assert!(x.new_transaction().is_none());
+    /// ```
     pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -2880,12 +3803,25 @@ impl RunQueryResponse {
     }
 
     /// Sets the value of [transaction][crate::model::RunQueryResponse::transaction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryResponse;
+    /// let x = RunQueryResponse::new().set_transaction(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
         self
     }
 
     /// Sets the value of [document][crate::model::RunQueryResponse::document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryResponse;
+    /// use google_cloud_firestore::model::Document;
+    /// let x = RunQueryResponse::new().set_document(Document::default()/* use setters */);
+    /// ```
     pub fn set_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -2895,6 +3831,14 @@ impl RunQueryResponse {
     }
 
     /// Sets or clears the value of [document][crate::model::RunQueryResponse::document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryResponse;
+    /// use google_cloud_firestore::model::Document;
+    /// let x = RunQueryResponse::new().set_or_clear_document(Some(Document::default()/* use setters */));
+    /// let x = RunQueryResponse::new().set_or_clear_document(None::<Document>);
+    /// ```
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -2904,6 +3848,13 @@ impl RunQueryResponse {
     }
 
     /// Sets the value of [read_time][crate::model::RunQueryResponse::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryResponse;
+    /// use wkt::Timestamp;
+    /// let x = RunQueryResponse::new().set_read_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_read_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2913,6 +3864,14 @@ impl RunQueryResponse {
     }
 
     /// Sets or clears the value of [read_time][crate::model::RunQueryResponse::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryResponse;
+    /// use wkt::Timestamp;
+    /// let x = RunQueryResponse::new().set_or_clear_read_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RunQueryResponse::new().set_or_clear_read_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2922,12 +3881,25 @@ impl RunQueryResponse {
     }
 
     /// Sets the value of [skipped_results][crate::model::RunQueryResponse::skipped_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryResponse;
+    /// let x = RunQueryResponse::new().set_skipped_results(42);
+    /// ```
     pub fn set_skipped_results<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.skipped_results = v.into();
         self
     }
 
     /// Sets the value of [explain_metrics][crate::model::RunQueryResponse::explain_metrics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryResponse;
+    /// use google_cloud_firestore::model::ExplainMetrics;
+    /// let x = RunQueryResponse::new().set_explain_metrics(ExplainMetrics::default()/* use setters */);
+    /// ```
     pub fn set_explain_metrics<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExplainMetrics>,
@@ -2937,6 +3909,14 @@ impl RunQueryResponse {
     }
 
     /// Sets or clears the value of [explain_metrics][crate::model::RunQueryResponse::explain_metrics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryResponse;
+    /// use google_cloud_firestore::model::ExplainMetrics;
+    /// let x = RunQueryResponse::new().set_or_clear_explain_metrics(Some(ExplainMetrics::default()/* use setters */));
+    /// let x = RunQueryResponse::new().set_or_clear_explain_metrics(None::<ExplainMetrics>);
+    /// ```
     pub fn set_or_clear_explain_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplainMetrics>,
@@ -2949,6 +3929,13 @@ impl RunQueryResponse {
     ///
     /// Note that all the setters affecting `continuation_selector` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryResponse;
+    /// use google_cloud_firestore::model::run_query_response::ContinuationSelector;
+    /// let x = RunQueryResponse::new().set_continuation_selector(Some(ContinuationSelector::Done(true)));
+    /// ```
     pub fn set_continuation_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::run_query_response::ContinuationSelector>,
@@ -2979,6 +3966,13 @@ impl RunQueryResponse {
     ///
     /// Note that all the setters affecting `continuation_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunQueryResponse;
+    /// let x = RunQueryResponse::new().set_done(true);
+    /// assert!(x.done().is_some());
+    /// ```
     pub fn set_done<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.continuation_selector = std::option::Option::Some(
             crate::model::run_query_response::ContinuationSelector::Done(v.into()),
@@ -3050,12 +4044,25 @@ impl RunAggregationQueryRequest {
     }
 
     /// Sets the value of [parent][crate::model::RunAggregationQueryRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryRequest;
+    /// let x = RunAggregationQueryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [explain_options][crate::model::RunAggregationQueryRequest::explain_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryRequest;
+    /// use google_cloud_firestore::model::ExplainOptions;
+    /// let x = RunAggregationQueryRequest::new().set_explain_options(ExplainOptions::default()/* use setters */);
+    /// ```
     pub fn set_explain_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExplainOptions>,
@@ -3065,6 +4072,14 @@ impl RunAggregationQueryRequest {
     }
 
     /// Sets or clears the value of [explain_options][crate::model::RunAggregationQueryRequest::explain_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryRequest;
+    /// use google_cloud_firestore::model::ExplainOptions;
+    /// let x = RunAggregationQueryRequest::new().set_or_clear_explain_options(Some(ExplainOptions::default()/* use setters */));
+    /// let x = RunAggregationQueryRequest::new().set_or_clear_explain_options(None::<ExplainOptions>);
+    /// ```
     pub fn set_or_clear_explain_options<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplainOptions>,
@@ -3077,6 +4092,14 @@ impl RunAggregationQueryRequest {
     ///
     /// Note that all the setters affecting `query_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryRequest;
+    /// use google_cloud_firestore::model::StructuredAggregationQuery;
+    /// let x = RunAggregationQueryRequest::new().set_query_type(Some(
+    ///     google_cloud_firestore::model::run_aggregation_query_request::QueryType::StructuredAggregationQuery(StructuredAggregationQuery::default().into())));
+    /// ```
     pub fn set_query_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::run_aggregation_query_request::QueryType>,
@@ -3109,6 +4132,14 @@ impl RunAggregationQueryRequest {
     ///
     /// Note that all the setters affecting `query_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryRequest;
+    /// use google_cloud_firestore::model::StructuredAggregationQuery;
+    /// let x = RunAggregationQueryRequest::new().set_structured_aggregation_query(StructuredAggregationQuery::default()/* use setters */);
+    /// assert!(x.structured_aggregation_query().is_some());
+    /// ```
     pub fn set_structured_aggregation_query<
         T: std::convert::Into<std::boxed::Box<crate::model::StructuredAggregationQuery>>,
     >(
@@ -3127,6 +4158,13 @@ impl RunAggregationQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryRequest;
+    /// use google_cloud_firestore::model::run_aggregation_query_request::ConsistencySelector;
+    /// let x = RunAggregationQueryRequest::new().set_consistency_selector(Some(ConsistencySelector::Transaction(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<
@@ -3159,6 +4197,15 @@ impl RunAggregationQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryRequest;
+    /// let x = RunAggregationQueryRequest::new().set_transaction(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.transaction().is_some());
+    /// assert!(x.new_transaction().is_none());
+    /// assert!(x.read_time().is_none());
+    /// ```
     pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.consistency_selector = std::option::Option::Some(
             crate::model::run_aggregation_query_request::ConsistencySelector::Transaction(v.into()),
@@ -3186,6 +4233,16 @@ impl RunAggregationQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryRequest;
+    /// use google_cloud_firestore::model::TransactionOptions;
+    /// let x = RunAggregationQueryRequest::new().set_new_transaction(TransactionOptions::default()/* use setters */);
+    /// assert!(x.new_transaction().is_some());
+    /// assert!(x.transaction().is_none());
+    /// assert!(x.read_time().is_none());
+    /// ```
     pub fn set_new_transaction<
         T: std::convert::Into<std::boxed::Box<crate::model::TransactionOptions>>,
     >(
@@ -3218,6 +4275,16 @@ impl RunAggregationQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryRequest;
+    /// use wkt::Timestamp;
+    /// let x = RunAggregationQueryRequest::new().set_read_time(Timestamp::default()/* use setters */);
+    /// assert!(x.read_time().is_some());
+    /// assert!(x.transaction().is_none());
+    /// assert!(x.new_transaction().is_none());
+    /// ```
     pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3340,6 +4407,13 @@ impl RunAggregationQueryResponse {
     }
 
     /// Sets the value of [result][crate::model::RunAggregationQueryResponse::result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryResponse;
+    /// use google_cloud_firestore::model::AggregationResult;
+    /// let x = RunAggregationQueryResponse::new().set_result(AggregationResult::default()/* use setters */);
+    /// ```
     pub fn set_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AggregationResult>,
@@ -3349,6 +4423,14 @@ impl RunAggregationQueryResponse {
     }
 
     /// Sets or clears the value of [result][crate::model::RunAggregationQueryResponse::result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryResponse;
+    /// use google_cloud_firestore::model::AggregationResult;
+    /// let x = RunAggregationQueryResponse::new().set_or_clear_result(Some(AggregationResult::default()/* use setters */));
+    /// let x = RunAggregationQueryResponse::new().set_or_clear_result(None::<AggregationResult>);
+    /// ```
     pub fn set_or_clear_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AggregationResult>,
@@ -3358,12 +4440,25 @@ impl RunAggregationQueryResponse {
     }
 
     /// Sets the value of [transaction][crate::model::RunAggregationQueryResponse::transaction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryResponse;
+    /// let x = RunAggregationQueryResponse::new().set_transaction(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_transaction<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.transaction = v.into();
         self
     }
 
     /// Sets the value of [read_time][crate::model::RunAggregationQueryResponse::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryResponse;
+    /// use wkt::Timestamp;
+    /// let x = RunAggregationQueryResponse::new().set_read_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_read_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3373,6 +4468,14 @@ impl RunAggregationQueryResponse {
     }
 
     /// Sets or clears the value of [read_time][crate::model::RunAggregationQueryResponse::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryResponse;
+    /// use wkt::Timestamp;
+    /// let x = RunAggregationQueryResponse::new().set_or_clear_read_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RunAggregationQueryResponse::new().set_or_clear_read_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3382,6 +4485,13 @@ impl RunAggregationQueryResponse {
     }
 
     /// Sets the value of [explain_metrics][crate::model::RunAggregationQueryResponse::explain_metrics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryResponse;
+    /// use google_cloud_firestore::model::ExplainMetrics;
+    /// let x = RunAggregationQueryResponse::new().set_explain_metrics(ExplainMetrics::default()/* use setters */);
+    /// ```
     pub fn set_explain_metrics<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExplainMetrics>,
@@ -3391,6 +4501,14 @@ impl RunAggregationQueryResponse {
     }
 
     /// Sets or clears the value of [explain_metrics][crate::model::RunAggregationQueryResponse::explain_metrics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::RunAggregationQueryResponse;
+    /// use google_cloud_firestore::model::ExplainMetrics;
+    /// let x = RunAggregationQueryResponse::new().set_or_clear_explain_metrics(Some(ExplainMetrics::default()/* use setters */));
+    /// let x = RunAggregationQueryResponse::new().set_or_clear_explain_metrics(None::<ExplainMetrics>);
+    /// ```
     pub fn set_or_clear_explain_metrics<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExplainMetrics>,
@@ -3470,24 +4588,48 @@ impl PartitionQueryRequest {
     }
 
     /// Sets the value of [parent][crate::model::PartitionQueryRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PartitionQueryRequest;
+    /// let x = PartitionQueryRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [partition_count][crate::model::PartitionQueryRequest::partition_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PartitionQueryRequest;
+    /// let x = PartitionQueryRequest::new().set_partition_count(42);
+    /// ```
     pub fn set_partition_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.partition_count = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::PartitionQueryRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PartitionQueryRequest;
+    /// let x = PartitionQueryRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::PartitionQueryRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PartitionQueryRequest;
+    /// let x = PartitionQueryRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
@@ -3497,6 +4639,14 @@ impl PartitionQueryRequest {
     ///
     /// Note that all the setters affecting `query_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PartitionQueryRequest;
+    /// use google_cloud_firestore::model::StructuredQuery;
+    /// let x = PartitionQueryRequest::new().set_query_type(Some(
+    ///     google_cloud_firestore::model::partition_query_request::QueryType::StructuredQuery(StructuredQuery::default().into())));
+    /// ```
     pub fn set_query_type<
         T: std::convert::Into<std::option::Option<crate::model::partition_query_request::QueryType>>,
     >(
@@ -3527,6 +4677,14 @@ impl PartitionQueryRequest {
     ///
     /// Note that all the setters affecting `query_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PartitionQueryRequest;
+    /// use google_cloud_firestore::model::StructuredQuery;
+    /// let x = PartitionQueryRequest::new().set_structured_query(StructuredQuery::default()/* use setters */);
+    /// assert!(x.structured_query().is_some());
+    /// ```
     pub fn set_structured_query<
         T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
     >(
@@ -3543,6 +4701,14 @@ impl PartitionQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PartitionQueryRequest;
+    /// use wkt::Timestamp;
+    /// let x = PartitionQueryRequest::new().set_consistency_selector(Some(
+    ///     google_cloud_firestore::model::partition_query_request::ConsistencySelector::ReadTime(Timestamp::default().into())));
+    /// ```
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::partition_query_request::ConsistencySelector>,
@@ -3573,6 +4739,14 @@ impl PartitionQueryRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PartitionQueryRequest;
+    /// use wkt::Timestamp;
+    /// let x = PartitionQueryRequest::new().set_read_time(Timestamp::default()/* use setters */);
+    /// assert!(x.read_time().is_some());
+    /// ```
     pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -3678,6 +4852,17 @@ impl PartitionQueryResponse {
     }
 
     /// Sets the value of [partitions][crate::model::PartitionQueryResponse::partitions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PartitionQueryResponse;
+    /// use google_cloud_firestore::model::Cursor;
+    /// let x = PartitionQueryResponse::new()
+    ///     .set_partitions([
+    ///         Cursor::default()/* use setters */,
+    ///         Cursor::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_partitions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3689,6 +4874,12 @@ impl PartitionQueryResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::PartitionQueryResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PartitionQueryResponse;
+    /// let x = PartitionQueryResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3776,18 +4967,41 @@ impl WriteRequest {
     }
 
     /// Sets the value of [database][crate::model::WriteRequest::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteRequest;
+    /// let x = WriteRequest::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [stream_id][crate::model::WriteRequest::stream_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteRequest;
+    /// let x = WriteRequest::new().set_stream_id("example");
+    /// ```
     pub fn set_stream_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.stream_id = v.into();
         self
     }
 
     /// Sets the value of [writes][crate::model::WriteRequest::writes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteRequest;
+    /// use google_cloud_firestore::model::Write;
+    /// let x = WriteRequest::new()
+    ///     .set_writes([
+    ///         Write::default()/* use setters */,
+    ///         Write::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_writes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3799,12 +5013,27 @@ impl WriteRequest {
     }
 
     /// Sets the value of [stream_token][crate::model::WriteRequest::stream_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteRequest;
+    /// let x = WriteRequest::new().set_stream_token(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_stream_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.stream_token = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::WriteRequest::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteRequest;
+    /// let x = WriteRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3856,18 +5085,41 @@ impl WriteResponse {
     }
 
     /// Sets the value of [stream_id][crate::model::WriteResponse::stream_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteResponse;
+    /// let x = WriteResponse::new().set_stream_id("example");
+    /// ```
     pub fn set_stream_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.stream_id = v.into();
         self
     }
 
     /// Sets the value of [stream_token][crate::model::WriteResponse::stream_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteResponse;
+    /// let x = WriteResponse::new().set_stream_token(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_stream_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.stream_token = v.into();
         self
     }
 
     /// Sets the value of [write_results][crate::model::WriteResponse::write_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteResponse;
+    /// use google_cloud_firestore::model::WriteResult;
+    /// let x = WriteResponse::new()
+    ///     .set_write_results([
+    ///         WriteResult::default()/* use setters */,
+    ///         WriteResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_write_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3879,6 +5131,13 @@ impl WriteResponse {
     }
 
     /// Sets the value of [commit_time][crate::model::WriteResponse::commit_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteResponse;
+    /// use wkt::Timestamp;
+    /// let x = WriteResponse::new().set_commit_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_commit_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3888,6 +5147,14 @@ impl WriteResponse {
     }
 
     /// Sets or clears the value of [commit_time][crate::model::WriteResponse::commit_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteResponse;
+    /// use wkt::Timestamp;
+    /// let x = WriteResponse::new().set_or_clear_commit_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WriteResponse::new().set_or_clear_commit_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_commit_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3926,12 +5193,27 @@ impl ListenRequest {
     }
 
     /// Sets the value of [database][crate::model::ListenRequest::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenRequest;
+    /// let x = ListenRequest::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::ListenRequest::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenRequest;
+    /// let x = ListenRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3947,6 +5229,13 @@ impl ListenRequest {
     ///
     /// Note that all the setters affecting `target_change` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenRequest;
+    /// use google_cloud_firestore::model::listen_request::TargetChange;
+    /// let x = ListenRequest::new().set_target_change(Some(TargetChange::RemoveTarget(42)));
+    /// ```
     pub fn set_target_change<
         T: std::convert::Into<std::option::Option<crate::model::listen_request::TargetChange>>,
     >(
@@ -3975,6 +5264,15 @@ impl ListenRequest {
     ///
     /// Note that all the setters affecting `target_change` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenRequest;
+    /// use google_cloud_firestore::model::Target;
+    /// let x = ListenRequest::new().set_add_target(Target::default()/* use setters */);
+    /// assert!(x.add_target().is_some());
+    /// assert!(x.remove_target().is_none());
+    /// ```
     pub fn set_add_target<T: std::convert::Into<std::boxed::Box<crate::model::Target>>>(
         mut self,
         v: T,
@@ -4003,6 +5301,14 @@ impl ListenRequest {
     ///
     /// Note that all the setters affecting `target_change` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenRequest;
+    /// let x = ListenRequest::new().set_remove_target(42);
+    /// assert!(x.remove_target().is_some());
+    /// assert!(x.add_target().is_none());
+    /// ```
     pub fn set_remove_target<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.target_change = std::option::Option::Some(
             crate::model::listen_request::TargetChange::RemoveTarget(v.into()),
@@ -4065,6 +5371,14 @@ impl ListenResponse {
     ///
     /// Note that all the setters affecting `response_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenResponse;
+    /// use google_cloud_firestore::model::TargetChange;
+    /// let x = ListenResponse::new().set_response_type(Some(
+    ///     google_cloud_firestore::model::listen_response::ResponseType::TargetChange(TargetChange::default().into())));
+    /// ```
     pub fn set_response_type<
         T: std::convert::Into<std::option::Option<crate::model::listen_response::ResponseType>>,
     >(
@@ -4095,6 +5409,18 @@ impl ListenResponse {
     ///
     /// Note that all the setters affecting `response_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenResponse;
+    /// use google_cloud_firestore::model::TargetChange;
+    /// let x = ListenResponse::new().set_target_change(TargetChange::default()/* use setters */);
+    /// assert!(x.target_change().is_some());
+    /// assert!(x.document_change().is_none());
+    /// assert!(x.document_delete().is_none());
+    /// assert!(x.document_remove().is_none());
+    /// assert!(x.filter().is_none());
+    /// ```
     pub fn set_target_change<T: std::convert::Into<std::boxed::Box<crate::model::TargetChange>>>(
         mut self,
         v: T,
@@ -4125,6 +5451,18 @@ impl ListenResponse {
     ///
     /// Note that all the setters affecting `response_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenResponse;
+    /// use google_cloud_firestore::model::DocumentChange;
+    /// let x = ListenResponse::new().set_document_change(DocumentChange::default()/* use setters */);
+    /// assert!(x.document_change().is_some());
+    /// assert!(x.target_change().is_none());
+    /// assert!(x.document_delete().is_none());
+    /// assert!(x.document_remove().is_none());
+    /// assert!(x.filter().is_none());
+    /// ```
     pub fn set_document_change<
         T: std::convert::Into<std::boxed::Box<crate::model::DocumentChange>>,
     >(
@@ -4157,6 +5495,18 @@ impl ListenResponse {
     ///
     /// Note that all the setters affecting `response_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenResponse;
+    /// use google_cloud_firestore::model::DocumentDelete;
+    /// let x = ListenResponse::new().set_document_delete(DocumentDelete::default()/* use setters */);
+    /// assert!(x.document_delete().is_some());
+    /// assert!(x.target_change().is_none());
+    /// assert!(x.document_change().is_none());
+    /// assert!(x.document_remove().is_none());
+    /// assert!(x.filter().is_none());
+    /// ```
     pub fn set_document_delete<
         T: std::convert::Into<std::boxed::Box<crate::model::DocumentDelete>>,
     >(
@@ -4189,6 +5539,18 @@ impl ListenResponse {
     ///
     /// Note that all the setters affecting `response_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenResponse;
+    /// use google_cloud_firestore::model::DocumentRemove;
+    /// let x = ListenResponse::new().set_document_remove(DocumentRemove::default()/* use setters */);
+    /// assert!(x.document_remove().is_some());
+    /// assert!(x.target_change().is_none());
+    /// assert!(x.document_change().is_none());
+    /// assert!(x.document_delete().is_none());
+    /// assert!(x.filter().is_none());
+    /// ```
     pub fn set_document_remove<
         T: std::convert::Into<std::boxed::Box<crate::model::DocumentRemove>>,
     >(
@@ -4217,6 +5579,18 @@ impl ListenResponse {
     ///
     /// Note that all the setters affecting `response_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListenResponse;
+    /// use google_cloud_firestore::model::ExistenceFilter;
+    /// let x = ListenResponse::new().set_filter(ExistenceFilter::default()/* use setters */);
+    /// assert!(x.filter().is_some());
+    /// assert!(x.target_change().is_none());
+    /// assert!(x.document_change().is_none());
+    /// assert!(x.document_delete().is_none());
+    /// assert!(x.document_remove().is_none());
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::boxed::Box<crate::model::ExistenceFilter>>>(
         mut self,
         v: T,
@@ -4353,18 +5727,37 @@ impl Target {
     }
 
     /// Sets the value of [target_id][crate::model::Target::target_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Target;
+    /// let x = Target::new().set_target_id(42);
+    /// ```
     pub fn set_target_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [once][crate::model::Target::once].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Target;
+    /// let x = Target::new().set_once(true);
+    /// ```
     pub fn set_once<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.once = v.into();
         self
     }
 
     /// Sets the value of [expected_count][crate::model::Target::expected_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Target;
+    /// use wkt::Int32Value;
+    /// let x = Target::new().set_expected_count(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_expected_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -4374,6 +5767,14 @@ impl Target {
     }
 
     /// Sets or clears the value of [expected_count][crate::model::Target::expected_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Target;
+    /// use wkt::Int32Value;
+    /// let x = Target::new().set_or_clear_expected_count(Some(Int32Value::default()/* use setters */));
+    /// let x = Target::new().set_or_clear_expected_count(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_expected_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -4386,6 +5787,14 @@ impl Target {
     ///
     /// Note that all the setters affecting `target_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Target;
+    /// use google_cloud_firestore::model::target::QueryTarget;
+    /// let x = Target::new().set_target_type(Some(
+    ///     google_cloud_firestore::model::target::TargetType::Query(QueryTarget::default().into())));
+    /// ```
     pub fn set_target_type<
         T: std::convert::Into<std::option::Option<crate::model::target::TargetType>>,
     >(
@@ -4414,6 +5823,15 @@ impl Target {
     ///
     /// Note that all the setters affecting `target_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Target;
+    /// use google_cloud_firestore::model::target::QueryTarget;
+    /// let x = Target::new().set_query(QueryTarget::default()/* use setters */);
+    /// assert!(x.query().is_some());
+    /// assert!(x.documents().is_none());
+    /// ```
     pub fn set_query<T: std::convert::Into<std::boxed::Box<crate::model::target::QueryTarget>>>(
         mut self,
         v: T,
@@ -4441,6 +5859,15 @@ impl Target {
     ///
     /// Note that all the setters affecting `target_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Target;
+    /// use google_cloud_firestore::model::target::DocumentsTarget;
+    /// let x = Target::new().set_documents(DocumentsTarget::default()/* use setters */);
+    /// assert!(x.documents().is_some());
+    /// assert!(x.query().is_none());
+    /// ```
     pub fn set_documents<
         T: std::convert::Into<std::boxed::Box<crate::model::target::DocumentsTarget>>,
     >(
@@ -4456,6 +5883,13 @@ impl Target {
     ///
     /// Note that all the setters affecting `resume_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Target;
+    /// use google_cloud_firestore::model::target::ResumeType;
+    /// let x = Target::new().set_resume_type(Some(ResumeType::ResumeToken(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_resume_type<
         T: std::convert::Into<std::option::Option<crate::model::target::ResumeType>>,
     >(
@@ -4482,6 +5916,14 @@ impl Target {
     ///
     /// Note that all the setters affecting `resume_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Target;
+    /// let x = Target::new().set_resume_token(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.resume_token().is_some());
+    /// assert!(x.read_time().is_none());
+    /// ```
     pub fn set_resume_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.resume_type =
             std::option::Option::Some(crate::model::target::ResumeType::ResumeToken(v.into()));
@@ -4504,6 +5946,15 @@ impl Target {
     ///
     /// Note that all the setters affecting `resume_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Target;
+    /// use wkt::Timestamp;
+    /// let x = Target::new().set_read_time(Timestamp::default()/* use setters */);
+    /// assert!(x.read_time().is_some());
+    /// assert!(x.resume_token().is_none());
+    /// ```
     pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -4544,6 +5995,12 @@ pub mod target {
         }
 
         /// Sets the value of [documents][crate::model::target::DocumentsTarget::documents].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::target::DocumentsTarget;
+        /// let x = DocumentsTarget::new().set_documents(["a", "b", "c"]);
+        /// ```
         pub fn set_documents<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -4585,6 +6042,12 @@ pub mod target {
         }
 
         /// Sets the value of [parent][crate::model::target::QueryTarget::parent].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::target::QueryTarget;
+        /// let x = QueryTarget::new().set_parent("example");
+        /// ```
         pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.parent = v.into();
             self
@@ -4594,6 +6057,14 @@ pub mod target {
         ///
         /// Note that all the setters affecting `query_type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::target::QueryTarget;
+        /// use google_cloud_firestore::model::StructuredQuery;
+        /// let x = QueryTarget::new().set_query_type(Some(
+        ///     google_cloud_firestore::model::target::query_target::QueryType::StructuredQuery(StructuredQuery::default().into())));
+        /// ```
         pub fn set_query_type<
             T: std::convert::Into<std::option::Option<crate::model::target::query_target::QueryType>>,
         >(
@@ -4624,6 +6095,14 @@ pub mod target {
         ///
         /// Note that all the setters affecting `query_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::target::QueryTarget;
+        /// use google_cloud_firestore::model::StructuredQuery;
+        /// let x = QueryTarget::new().set_structured_query(StructuredQuery::default()/* use setters */);
+        /// assert!(x.structured_query().is_some());
+        /// ```
         pub fn set_structured_query<
             T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
         >(
@@ -4770,6 +6249,15 @@ impl TargetChange {
     }
 
     /// Sets the value of [target_change_type][crate::model::TargetChange::target_change_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::TargetChange;
+    /// use google_cloud_firestore::model::target_change::TargetChangeType;
+    /// let x0 = TargetChange::new().set_target_change_type(TargetChangeType::Add);
+    /// let x1 = TargetChange::new().set_target_change_type(TargetChangeType::Remove);
+    /// let x2 = TargetChange::new().set_target_change_type(TargetChangeType::Current);
+    /// ```
     pub fn set_target_change_type<
         T: std::convert::Into<crate::model::target_change::TargetChangeType>,
     >(
@@ -4781,6 +6269,12 @@ impl TargetChange {
     }
 
     /// Sets the value of [target_ids][crate::model::TargetChange::target_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::TargetChange;
+    /// let x = TargetChange::new().set_target_ids([1, 2, 3]);
+    /// ```
     pub fn set_target_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4792,6 +6286,13 @@ impl TargetChange {
     }
 
     /// Sets the value of [cause][crate::model::TargetChange::cause].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::TargetChange;
+    /// use rpc::model::Status;
+    /// let x = TargetChange::new().set_cause(Status::default()/* use setters */);
+    /// ```
     pub fn set_cause<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4801,6 +6302,14 @@ impl TargetChange {
     }
 
     /// Sets or clears the value of [cause][crate::model::TargetChange::cause].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::TargetChange;
+    /// use rpc::model::Status;
+    /// let x = TargetChange::new().set_or_clear_cause(Some(Status::default()/* use setters */));
+    /// let x = TargetChange::new().set_or_clear_cause(None::<Status>);
+    /// ```
     pub fn set_or_clear_cause<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -4810,12 +6319,25 @@ impl TargetChange {
     }
 
     /// Sets the value of [resume_token][crate::model::TargetChange::resume_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::TargetChange;
+    /// let x = TargetChange::new().set_resume_token(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_resume_token<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.resume_token = v.into();
         self
     }
 
     /// Sets the value of [read_time][crate::model::TargetChange::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::TargetChange;
+    /// use wkt::Timestamp;
+    /// let x = TargetChange::new().set_read_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_read_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4825,6 +6347,14 @@ impl TargetChange {
     }
 
     /// Sets or clears the value of [read_time][crate::model::TargetChange::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::TargetChange;
+    /// use wkt::Timestamp;
+    /// let x = TargetChange::new().set_or_clear_read_time(Some(Timestamp::default()/* use setters */));
+    /// let x = TargetChange::new().set_or_clear_read_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5039,18 +6569,36 @@ impl ListCollectionIdsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCollectionIdsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListCollectionIdsRequest;
+    /// let x = ListCollectionIdsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCollectionIdsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListCollectionIdsRequest;
+    /// let x = ListCollectionIdsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCollectionIdsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListCollectionIdsRequest;
+    /// let x = ListCollectionIdsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5060,6 +6608,14 @@ impl ListCollectionIdsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListCollectionIdsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListCollectionIdsRequest::new().set_consistency_selector(Some(
+    ///     google_cloud_firestore::model::list_collection_ids_request::ConsistencySelector::ReadTime(Timestamp::default().into())));
+    /// ```
     pub fn set_consistency_selector<
         T: std::convert::Into<
                 std::option::Option<crate::model::list_collection_ids_request::ConsistencySelector>,
@@ -5090,6 +6646,14 @@ impl ListCollectionIdsRequest {
     ///
     /// Note that all the setters affecting `consistency_selector` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListCollectionIdsRequest;
+    /// use wkt::Timestamp;
+    /// let x = ListCollectionIdsRequest::new().set_read_time(Timestamp::default()/* use setters */);
+    /// assert!(x.read_time().is_some());
+    /// ```
     pub fn set_read_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
         v: T,
@@ -5157,6 +6721,12 @@ impl ListCollectionIdsResponse {
     }
 
     /// Sets the value of [collection_ids][crate::model::ListCollectionIdsResponse::collection_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListCollectionIdsResponse;
+    /// let x = ListCollectionIdsResponse::new().set_collection_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_collection_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5168,6 +6738,12 @@ impl ListCollectionIdsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCollectionIdsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ListCollectionIdsResponse;
+    /// let x = ListCollectionIdsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5210,12 +6786,29 @@ impl BatchWriteRequest {
     }
 
     /// Sets the value of [database][crate::model::BatchWriteRequest::database].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchWriteRequest;
+    /// let x = BatchWriteRequest::new().set_database("example");
+    /// ```
     pub fn set_database<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.database = v.into();
         self
     }
 
     /// Sets the value of [writes][crate::model::BatchWriteRequest::writes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchWriteRequest;
+    /// use google_cloud_firestore::model::Write;
+    /// let x = BatchWriteRequest::new()
+    ///     .set_writes([
+    ///         Write::default()/* use setters */,
+    ///         Write::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_writes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5227,6 +6820,15 @@ impl BatchWriteRequest {
     }
 
     /// Sets the value of [labels][crate::model::BatchWriteRequest::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchWriteRequest;
+    /// let x = BatchWriteRequest::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5273,6 +6875,17 @@ impl BatchWriteResponse {
     }
 
     /// Sets the value of [write_results][crate::model::BatchWriteResponse::write_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchWriteResponse;
+    /// use google_cloud_firestore::model::WriteResult;
+    /// let x = BatchWriteResponse::new()
+    ///     .set_write_results([
+    ///         WriteResult::default()/* use setters */,
+    ///         WriteResult::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_write_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5284,6 +6897,17 @@ impl BatchWriteResponse {
     }
 
     /// Sets the value of [status][crate::model::BatchWriteResponse::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::BatchWriteResponse;
+    /// use rpc::model::Status;
+    /// let x = BatchWriteResponse::new()
+    ///     .set_status([
+    ///         Status::default()/* use setters */,
+    ///         Status::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_status<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5431,6 +7055,13 @@ impl StructuredQuery {
     }
 
     /// Sets the value of [select][crate::model::StructuredQuery::select].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use google_cloud_firestore::model::structured_query::Projection;
+    /// let x = StructuredQuery::new().set_select(Projection::default()/* use setters */);
+    /// ```
     pub fn set_select<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::structured_query::Projection>,
@@ -5440,6 +7071,14 @@ impl StructuredQuery {
     }
 
     /// Sets or clears the value of [select][crate::model::StructuredQuery::select].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use google_cloud_firestore::model::structured_query::Projection;
+    /// let x = StructuredQuery::new().set_or_clear_select(Some(Projection::default()/* use setters */));
+    /// let x = StructuredQuery::new().set_or_clear_select(None::<Projection>);
+    /// ```
     pub fn set_or_clear_select<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::structured_query::Projection>,
@@ -5449,6 +7088,17 @@ impl StructuredQuery {
     }
 
     /// Sets the value of [from][crate::model::StructuredQuery::from].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use google_cloud_firestore::model::structured_query::CollectionSelector;
+    /// let x = StructuredQuery::new()
+    ///     .set_from([
+    ///         CollectionSelector::default()/* use setters */,
+    ///         CollectionSelector::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_from<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5460,6 +7110,13 @@ impl StructuredQuery {
     }
 
     /// Sets the value of [r#where][crate::model::StructuredQuery::where].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use google_cloud_firestore::model::structured_query::Filter;
+    /// let x = StructuredQuery::new().set_where(Filter::default()/* use setters */);
+    /// ```
     pub fn set_where<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::structured_query::Filter>,
@@ -5469,6 +7126,14 @@ impl StructuredQuery {
     }
 
     /// Sets or clears the value of [r#where][crate::model::StructuredQuery::where].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use google_cloud_firestore::model::structured_query::Filter;
+    /// let x = StructuredQuery::new().set_or_clear_where(Some(Filter::default()/* use setters */));
+    /// let x = StructuredQuery::new().set_or_clear_where(None::<Filter>);
+    /// ```
     pub fn set_or_clear_where<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::structured_query::Filter>,
@@ -5478,6 +7143,17 @@ impl StructuredQuery {
     }
 
     /// Sets the value of [order_by][crate::model::StructuredQuery::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use google_cloud_firestore::model::structured_query::Order;
+    /// let x = StructuredQuery::new()
+    ///     .set_order_by([
+    ///         Order::default()/* use setters */,
+    ///         Order::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_order_by<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5489,6 +7165,13 @@ impl StructuredQuery {
     }
 
     /// Sets the value of [start_at][crate::model::StructuredQuery::start_at].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use google_cloud_firestore::model::Cursor;
+    /// let x = StructuredQuery::new().set_start_at(Cursor::default()/* use setters */);
+    /// ```
     pub fn set_start_at<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cursor>,
@@ -5498,6 +7181,14 @@ impl StructuredQuery {
     }
 
     /// Sets or clears the value of [start_at][crate::model::StructuredQuery::start_at].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use google_cloud_firestore::model::Cursor;
+    /// let x = StructuredQuery::new().set_or_clear_start_at(Some(Cursor::default()/* use setters */));
+    /// let x = StructuredQuery::new().set_or_clear_start_at(None::<Cursor>);
+    /// ```
     pub fn set_or_clear_start_at<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cursor>,
@@ -5507,6 +7198,13 @@ impl StructuredQuery {
     }
 
     /// Sets the value of [end_at][crate::model::StructuredQuery::end_at].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use google_cloud_firestore::model::Cursor;
+    /// let x = StructuredQuery::new().set_end_at(Cursor::default()/* use setters */);
+    /// ```
     pub fn set_end_at<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cursor>,
@@ -5516,6 +7214,14 @@ impl StructuredQuery {
     }
 
     /// Sets or clears the value of [end_at][crate::model::StructuredQuery::end_at].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use google_cloud_firestore::model::Cursor;
+    /// let x = StructuredQuery::new().set_or_clear_end_at(Some(Cursor::default()/* use setters */));
+    /// let x = StructuredQuery::new().set_or_clear_end_at(None::<Cursor>);
+    /// ```
     pub fn set_or_clear_end_at<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cursor>,
@@ -5525,12 +7231,25 @@ impl StructuredQuery {
     }
 
     /// Sets the value of [offset][crate::model::StructuredQuery::offset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// let x = StructuredQuery::new().set_offset(42);
+    /// ```
     pub fn set_offset<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.offset = v.into();
         self
     }
 
     /// Sets the value of [limit][crate::model::StructuredQuery::limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use wkt::Int32Value;
+    /// let x = StructuredQuery::new().set_limit(Int32Value::default()/* use setters */);
+    /// ```
     pub fn set_limit<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -5540,6 +7259,14 @@ impl StructuredQuery {
     }
 
     /// Sets or clears the value of [limit][crate::model::StructuredQuery::limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use wkt::Int32Value;
+    /// let x = StructuredQuery::new().set_or_clear_limit(Some(Int32Value::default()/* use setters */));
+    /// let x = StructuredQuery::new().set_or_clear_limit(None::<Int32Value>);
+    /// ```
     pub fn set_or_clear_limit<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int32Value>,
@@ -5549,6 +7276,13 @@ impl StructuredQuery {
     }
 
     /// Sets the value of [find_nearest][crate::model::StructuredQuery::find_nearest].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use google_cloud_firestore::model::structured_query::FindNearest;
+    /// let x = StructuredQuery::new().set_find_nearest(FindNearest::default()/* use setters */);
+    /// ```
     pub fn set_find_nearest<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::structured_query::FindNearest>,
@@ -5558,6 +7292,14 @@ impl StructuredQuery {
     }
 
     /// Sets or clears the value of [find_nearest][crate::model::StructuredQuery::find_nearest].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredQuery;
+    /// use google_cloud_firestore::model::structured_query::FindNearest;
+    /// let x = StructuredQuery::new().set_or_clear_find_nearest(Some(FindNearest::default()/* use setters */));
+    /// let x = StructuredQuery::new().set_or_clear_find_nearest(None::<FindNearest>);
+    /// ```
     pub fn set_or_clear_find_nearest<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::structured_query::FindNearest>,
@@ -5600,6 +7342,12 @@ pub mod structured_query {
         }
 
         /// Sets the value of [collection_id][crate::model::structured_query::CollectionSelector::collection_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::CollectionSelector;
+        /// let x = CollectionSelector::new().set_collection_id("example");
+        /// ```
         pub fn set_collection_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -5609,6 +7357,12 @@ pub mod structured_query {
         }
 
         /// Sets the value of [all_descendants][crate::model::structured_query::CollectionSelector::all_descendants].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::CollectionSelector;
+        /// let x = CollectionSelector::new().set_all_descendants(true);
+        /// ```
         pub fn set_all_descendants<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.all_descendants = v.into();
             self
@@ -5640,6 +7394,14 @@ pub mod structured_query {
         ///
         /// Note that all the setters affecting `filter_type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::Filter;
+        /// use google_cloud_firestore::model::structured_query::CompositeFilter;
+        /// let x = Filter::new().set_filter_type(Some(
+        ///     google_cloud_firestore::model::structured_query::filter::FilterType::CompositeFilter(CompositeFilter::default().into())));
+        /// ```
         pub fn set_filter_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::structured_query::filter::FilterType>,
@@ -5673,6 +7435,16 @@ pub mod structured_query {
         ///
         /// Note that all the setters affecting `filter_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::Filter;
+        /// use google_cloud_firestore::model::structured_query::CompositeFilter;
+        /// let x = Filter::new().set_composite_filter(CompositeFilter::default()/* use setters */);
+        /// assert!(x.composite_filter().is_some());
+        /// assert!(x.field_filter().is_none());
+        /// assert!(x.unary_filter().is_none());
+        /// ```
         pub fn set_composite_filter<
             T: std::convert::Into<std::boxed::Box<crate::model::structured_query::CompositeFilter>>,
         >(
@@ -5706,6 +7478,16 @@ pub mod structured_query {
         ///
         /// Note that all the setters affecting `filter_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::Filter;
+        /// use google_cloud_firestore::model::structured_query::FieldFilter;
+        /// let x = Filter::new().set_field_filter(FieldFilter::default()/* use setters */);
+        /// assert!(x.field_filter().is_some());
+        /// assert!(x.composite_filter().is_none());
+        /// assert!(x.unary_filter().is_none());
+        /// ```
         pub fn set_field_filter<
             T: std::convert::Into<std::boxed::Box<crate::model::structured_query::FieldFilter>>,
         >(
@@ -5739,6 +7521,16 @@ pub mod structured_query {
         ///
         /// Note that all the setters affecting `filter_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::Filter;
+        /// use google_cloud_firestore::model::structured_query::UnaryFilter;
+        /// let x = Filter::new().set_unary_filter(UnaryFilter::default()/* use setters */);
+        /// assert!(x.unary_filter().is_some());
+        /// assert!(x.composite_filter().is_none());
+        /// assert!(x.field_filter().is_none());
+        /// ```
         pub fn set_unary_filter<
             T: std::convert::Into<std::boxed::Box<crate::model::structured_query::UnaryFilter>>,
         >(
@@ -5826,6 +7618,14 @@ pub mod structured_query {
         }
 
         /// Sets the value of [op][crate::model::structured_query::CompositeFilter::op].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::CompositeFilter;
+        /// use google_cloud_firestore::model::structured_query::composite_filter::Operator;
+        /// let x0 = CompositeFilter::new().set_op(Operator::And);
+        /// let x1 = CompositeFilter::new().set_op(Operator::Or);
+        /// ```
         pub fn set_op<
             T: std::convert::Into<crate::model::structured_query::composite_filter::Operator>,
         >(
@@ -5837,6 +7637,17 @@ pub mod structured_query {
         }
 
         /// Sets the value of [filters][crate::model::structured_query::CompositeFilter::filters].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::CompositeFilter;
+        /// use google_cloud_firestore::model::structured_query::Filter;
+        /// let x = CompositeFilter::new()
+        ///     .set_filters([
+        ///         Filter::default()/* use setters */,
+        ///         Filter::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_filters<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6017,6 +7828,13 @@ pub mod structured_query {
         }
 
         /// Sets the value of [field][crate::model::structured_query::FieldFilter::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FieldFilter;
+        /// use google_cloud_firestore::model::structured_query::FieldReference;
+        /// let x = FieldFilter::new().set_field(FieldReference::default()/* use setters */);
+        /// ```
         pub fn set_field<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::structured_query::FieldReference>,
@@ -6026,6 +7844,14 @@ pub mod structured_query {
         }
 
         /// Sets or clears the value of [field][crate::model::structured_query::FieldFilter::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FieldFilter;
+        /// use google_cloud_firestore::model::structured_query::FieldReference;
+        /// let x = FieldFilter::new().set_or_clear_field(Some(FieldReference::default()/* use setters */));
+        /// let x = FieldFilter::new().set_or_clear_field(None::<FieldReference>);
+        /// ```
         pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::structured_query::FieldReference>,
@@ -6035,6 +7861,15 @@ pub mod structured_query {
         }
 
         /// Sets the value of [op][crate::model::structured_query::FieldFilter::op].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FieldFilter;
+        /// use google_cloud_firestore::model::structured_query::field_filter::Operator;
+        /// let x0 = FieldFilter::new().set_op(Operator::LessThan);
+        /// let x1 = FieldFilter::new().set_op(Operator::LessThanOrEqual);
+        /// let x2 = FieldFilter::new().set_op(Operator::GreaterThan);
+        /// ```
         pub fn set_op<
             T: std::convert::Into<crate::model::structured_query::field_filter::Operator>,
         >(
@@ -6046,6 +7881,13 @@ pub mod structured_query {
         }
 
         /// Sets the value of [value][crate::model::structured_query::FieldFilter::value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FieldFilter;
+        /// use google_cloud_firestore::model::Value;
+        /// let x = FieldFilter::new().set_value(Value::default()/* use setters */);
+        /// ```
         pub fn set_value<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -6055,6 +7897,14 @@ pub mod structured_query {
         }
 
         /// Sets or clears the value of [value][crate::model::structured_query::FieldFilter::value].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FieldFilter;
+        /// use google_cloud_firestore::model::Value;
+        /// let x = FieldFilter::new().set_or_clear_value(Some(Value::default()/* use setters */));
+        /// let x = FieldFilter::new().set_or_clear_value(None::<Value>);
+        /// ```
         pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -6329,6 +8179,15 @@ pub mod structured_query {
         }
 
         /// Sets the value of [op][crate::model::structured_query::UnaryFilter::op].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::UnaryFilter;
+        /// use google_cloud_firestore::model::structured_query::unary_filter::Operator;
+        /// let x0 = UnaryFilter::new().set_op(Operator::IsNan);
+        /// let x1 = UnaryFilter::new().set_op(Operator::IsNull);
+        /// let x2 = UnaryFilter::new().set_op(Operator::IsNotNan);
+        /// ```
         pub fn set_op<
             T: std::convert::Into<crate::model::structured_query::unary_filter::Operator>,
         >(
@@ -6343,6 +8202,14 @@ pub mod structured_query {
         ///
         /// Note that all the setters affecting `operand_type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::UnaryFilter;
+        /// use google_cloud_firestore::model::structured_query::FieldReference;
+        /// let x = UnaryFilter::new().set_operand_type(Some(
+        ///     google_cloud_firestore::model::structured_query::unary_filter::OperandType::Field(FieldReference::default().into())));
+        /// ```
         pub fn set_operand_type<
             T: std::convert::Into<
                     std::option::Option<crate::model::structured_query::unary_filter::OperandType>,
@@ -6376,6 +8243,14 @@ pub mod structured_query {
         ///
         /// Note that all the setters affecting `operand_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::UnaryFilter;
+        /// use google_cloud_firestore::model::structured_query::FieldReference;
+        /// let x = UnaryFilter::new().set_field(FieldReference::default()/* use setters */);
+        /// assert!(x.field().is_some());
+        /// ```
         pub fn set_field<
             T: std::convert::Into<std::boxed::Box<crate::model::structured_query::FieldReference>>,
         >(
@@ -6598,6 +8473,13 @@ pub mod structured_query {
         }
 
         /// Sets the value of [field][crate::model::structured_query::Order::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::Order;
+        /// use google_cloud_firestore::model::structured_query::FieldReference;
+        /// let x = Order::new().set_field(FieldReference::default()/* use setters */);
+        /// ```
         pub fn set_field<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::structured_query::FieldReference>,
@@ -6607,6 +8489,14 @@ pub mod structured_query {
         }
 
         /// Sets or clears the value of [field][crate::model::structured_query::Order::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::Order;
+        /// use google_cloud_firestore::model::structured_query::FieldReference;
+        /// let x = Order::new().set_or_clear_field(Some(FieldReference::default()/* use setters */));
+        /// let x = Order::new().set_or_clear_field(None::<FieldReference>);
+        /// ```
         pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::structured_query::FieldReference>,
@@ -6616,6 +8506,14 @@ pub mod structured_query {
         }
 
         /// Sets the value of [direction][crate::model::structured_query::Order::direction].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::Order;
+        /// use google_cloud_firestore::model::structured_query::Direction;
+        /// let x0 = Order::new().set_direction(Direction::Ascending);
+        /// let x1 = Order::new().set_direction(Direction::Descending);
+        /// ```
         pub fn set_direction<T: std::convert::Into<crate::model::structured_query::Direction>>(
             mut self,
             v: T,
@@ -6655,6 +8553,12 @@ pub mod structured_query {
         }
 
         /// Sets the value of [field_path][crate::model::structured_query::FieldReference::field_path].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FieldReference;
+        /// let x = FieldReference::new().set_field_path("example");
+        /// ```
         pub fn set_field_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.field_path = v.into();
             self
@@ -6686,6 +8590,17 @@ pub mod structured_query {
         }
 
         /// Sets the value of [fields][crate::model::structured_query::Projection::fields].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::Projection;
+        /// use google_cloud_firestore::model::structured_query::FieldReference;
+        /// let x = Projection::new()
+        ///     .set_fields([
+        ///         FieldReference::default()/* use setters */,
+        ///         FieldReference::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_fields<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -6752,6 +8667,13 @@ pub mod structured_query {
         }
 
         /// Sets the value of [vector_field][crate::model::structured_query::FindNearest::vector_field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FindNearest;
+        /// use google_cloud_firestore::model::structured_query::FieldReference;
+        /// let x = FindNearest::new().set_vector_field(FieldReference::default()/* use setters */);
+        /// ```
         pub fn set_vector_field<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::structured_query::FieldReference>,
@@ -6761,6 +8683,14 @@ pub mod structured_query {
         }
 
         /// Sets or clears the value of [vector_field][crate::model::structured_query::FindNearest::vector_field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FindNearest;
+        /// use google_cloud_firestore::model::structured_query::FieldReference;
+        /// let x = FindNearest::new().set_or_clear_vector_field(Some(FieldReference::default()/* use setters */));
+        /// let x = FindNearest::new().set_or_clear_vector_field(None::<FieldReference>);
+        /// ```
         pub fn set_or_clear_vector_field<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::structured_query::FieldReference>,
@@ -6770,6 +8700,13 @@ pub mod structured_query {
         }
 
         /// Sets the value of [query_vector][crate::model::structured_query::FindNearest::query_vector].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FindNearest;
+        /// use google_cloud_firestore::model::Value;
+        /// let x = FindNearest::new().set_query_vector(Value::default()/* use setters */);
+        /// ```
         pub fn set_query_vector<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -6779,6 +8716,14 @@ pub mod structured_query {
         }
 
         /// Sets or clears the value of [query_vector][crate::model::structured_query::FindNearest::query_vector].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FindNearest;
+        /// use google_cloud_firestore::model::Value;
+        /// let x = FindNearest::new().set_or_clear_query_vector(Some(Value::default()/* use setters */));
+        /// let x = FindNearest::new().set_or_clear_query_vector(None::<Value>);
+        /// ```
         pub fn set_or_clear_query_vector<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::Value>,
@@ -6788,6 +8733,15 @@ pub mod structured_query {
         }
 
         /// Sets the value of [distance_measure][crate::model::structured_query::FindNearest::distance_measure].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FindNearest;
+        /// use google_cloud_firestore::model::structured_query::find_nearest::DistanceMeasure;
+        /// let x0 = FindNearest::new().set_distance_measure(DistanceMeasure::Euclidean);
+        /// let x1 = FindNearest::new().set_distance_measure(DistanceMeasure::Cosine);
+        /// let x2 = FindNearest::new().set_distance_measure(DistanceMeasure::DotProduct);
+        /// ```
         pub fn set_distance_measure<
             T: std::convert::Into<crate::model::structured_query::find_nearest::DistanceMeasure>,
         >(
@@ -6799,6 +8753,13 @@ pub mod structured_query {
         }
 
         /// Sets the value of [limit][crate::model::structured_query::FindNearest::limit].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FindNearest;
+        /// use wkt::Int32Value;
+        /// let x = FindNearest::new().set_limit(Int32Value::default()/* use setters */);
+        /// ```
         pub fn set_limit<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Int32Value>,
@@ -6808,6 +8769,14 @@ pub mod structured_query {
         }
 
         /// Sets or clears the value of [limit][crate::model::structured_query::FindNearest::limit].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FindNearest;
+        /// use wkt::Int32Value;
+        /// let x = FindNearest::new().set_or_clear_limit(Some(Int32Value::default()/* use setters */));
+        /// let x = FindNearest::new().set_or_clear_limit(None::<Int32Value>);
+        /// ```
         pub fn set_or_clear_limit<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Int32Value>,
@@ -6817,6 +8786,12 @@ pub mod structured_query {
         }
 
         /// Sets the value of [distance_result_field][crate::model::structured_query::FindNearest::distance_result_field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FindNearest;
+        /// let x = FindNearest::new().set_distance_result_field("example");
+        /// ```
         pub fn set_distance_result_field<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6826,6 +8801,13 @@ pub mod structured_query {
         }
 
         /// Sets the value of [distance_threshold][crate::model::structured_query::FindNearest::distance_threshold].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FindNearest;
+        /// use wkt::DoubleValue;
+        /// let x = FindNearest::new().set_distance_threshold(DoubleValue::default()/* use setters */);
+        /// ```
         pub fn set_distance_threshold<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
@@ -6835,6 +8817,14 @@ pub mod structured_query {
         }
 
         /// Sets or clears the value of [distance_threshold][crate::model::structured_query::FindNearest::distance_threshold].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_query::FindNearest;
+        /// use wkt::DoubleValue;
+        /// let x = FindNearest::new().set_or_clear_distance_threshold(Some(DoubleValue::default()/* use setters */));
+        /// let x = FindNearest::new().set_or_clear_distance_threshold(None::<DoubleValue>);
+        /// ```
         pub fn set_or_clear_distance_threshold<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::DoubleValue>,
@@ -7170,6 +9160,17 @@ impl StructuredAggregationQuery {
     }
 
     /// Sets the value of [aggregations][crate::model::StructuredAggregationQuery::aggregations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredAggregationQuery;
+    /// use google_cloud_firestore::model::structured_aggregation_query::Aggregation;
+    /// let x = StructuredAggregationQuery::new()
+    ///     .set_aggregations([
+    ///         Aggregation::default()/* use setters */,
+    ///         Aggregation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_aggregations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7184,6 +9185,14 @@ impl StructuredAggregationQuery {
     ///
     /// Note that all the setters affecting `query_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredAggregationQuery;
+    /// use google_cloud_firestore::model::StructuredQuery;
+    /// let x = StructuredAggregationQuery::new().set_query_type(Some(
+    ///     google_cloud_firestore::model::structured_aggregation_query::QueryType::StructuredQuery(StructuredQuery::default().into())));
+    /// ```
     pub fn set_query_type<
         T: std::convert::Into<
                 std::option::Option<crate::model::structured_aggregation_query::QueryType>,
@@ -7216,6 +9225,14 @@ impl StructuredAggregationQuery {
     ///
     /// Note that all the setters affecting `query_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredAggregationQuery;
+    /// use google_cloud_firestore::model::StructuredQuery;
+    /// let x = StructuredAggregationQuery::new().set_structured_query(StructuredQuery::default()/* use setters */);
+    /// assert!(x.structured_query().is_some());
+    /// ```
     pub fn set_structured_query<
         T: std::convert::Into<std::boxed::Box<crate::model::StructuredQuery>>,
     >(
@@ -7296,6 +9313,12 @@ pub mod structured_aggregation_query {
         }
 
         /// Sets the value of [alias][crate::model::structured_aggregation_query::Aggregation::alias].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_aggregation_query::Aggregation;
+        /// let x = Aggregation::new().set_alias("example");
+        /// ```
         pub fn set_alias<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.alias = v.into();
             self
@@ -7305,6 +9328,14 @@ pub mod structured_aggregation_query {
         ///
         /// Note that all the setters affecting `operator` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_aggregation_query::Aggregation;
+        /// use google_cloud_firestore::model::structured_aggregation_query::aggregation::Count;
+        /// let x = Aggregation::new().set_operator(Some(
+        ///     google_cloud_firestore::model::structured_aggregation_query::aggregation::Operator::Count(Count::default().into())));
+        /// ```
         pub fn set_operator<
             T: std::convert::Into<
                     std::option::Option<
@@ -7341,6 +9372,16 @@ pub mod structured_aggregation_query {
         ///
         /// Note that all the setters affecting `operator` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_aggregation_query::Aggregation;
+        /// use google_cloud_firestore::model::structured_aggregation_query::aggregation::Count;
+        /// let x = Aggregation::new().set_count(Count::default()/* use setters */);
+        /// assert!(x.count().is_some());
+        /// assert!(x.sum().is_none());
+        /// assert!(x.avg().is_none());
+        /// ```
         pub fn set_count<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Count>,
@@ -7377,6 +9418,16 @@ pub mod structured_aggregation_query {
         ///
         /// Note that all the setters affecting `operator` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_aggregation_query::Aggregation;
+        /// use google_cloud_firestore::model::structured_aggregation_query::aggregation::Sum;
+        /// let x = Aggregation::new().set_sum(Sum::default()/* use setters */);
+        /// assert!(x.sum().is_some());
+        /// assert!(x.count().is_none());
+        /// assert!(x.avg().is_none());
+        /// ```
         pub fn set_sum<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Sum>,
@@ -7413,6 +9464,16 @@ pub mod structured_aggregation_query {
         ///
         /// Note that all the setters affecting `operator` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::structured_aggregation_query::Aggregation;
+        /// use google_cloud_firestore::model::structured_aggregation_query::aggregation::Avg;
+        /// let x = Aggregation::new().set_avg(Avg::default()/* use setters */);
+        /// assert!(x.avg().is_some());
+        /// assert!(x.count().is_none());
+        /// assert!(x.sum().is_none());
+        /// ```
         pub fn set_avg<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::structured_aggregation_query::aggregation::Avg>,
@@ -7474,6 +9535,13 @@ pub mod structured_aggregation_query {
             }
 
             /// Sets the value of [up_to][crate::model::structured_aggregation_query::aggregation::Count::up_to].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_firestore::model::structured_aggregation_query::aggregation::Count;
+            /// use wkt::Int64Value;
+            /// let x = Count::new().set_up_to(Int64Value::default()/* use setters */);
+            /// ```
             pub fn set_up_to<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
@@ -7483,6 +9551,14 @@ pub mod structured_aggregation_query {
             }
 
             /// Sets or clears the value of [up_to][crate::model::structured_aggregation_query::aggregation::Count::up_to].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_firestore::model::structured_aggregation_query::aggregation::Count;
+            /// use wkt::Int64Value;
+            /// let x = Count::new().set_or_clear_up_to(Some(Int64Value::default()/* use setters */));
+            /// let x = Count::new().set_or_clear_up_to(None::<Int64Value>);
+            /// ```
             pub fn set_or_clear_up_to<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<wkt::Int64Value>,
@@ -7535,6 +9611,13 @@ pub mod structured_aggregation_query {
             }
 
             /// Sets the value of [field][crate::model::structured_aggregation_query::aggregation::Sum::field].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_firestore::model::structured_aggregation_query::aggregation::Sum;
+            /// use google_cloud_firestore::model::structured_query::FieldReference;
+            /// let x = Sum::new().set_field(FieldReference::default()/* use setters */);
+            /// ```
             pub fn set_field<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::structured_query::FieldReference>,
@@ -7544,6 +9627,14 @@ pub mod structured_aggregation_query {
             }
 
             /// Sets or clears the value of [field][crate::model::structured_aggregation_query::aggregation::Sum::field].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_firestore::model::structured_aggregation_query::aggregation::Sum;
+            /// use google_cloud_firestore::model::structured_query::FieldReference;
+            /// let x = Sum::new().set_or_clear_field(Some(FieldReference::default()/* use setters */));
+            /// let x = Sum::new().set_or_clear_field(None::<FieldReference>);
+            /// ```
             pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::structured_query::FieldReference>,
@@ -7586,6 +9677,13 @@ pub mod structured_aggregation_query {
             }
 
             /// Sets the value of [field][crate::model::structured_aggregation_query::aggregation::Avg::field].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_firestore::model::structured_aggregation_query::aggregation::Avg;
+            /// use google_cloud_firestore::model::structured_query::FieldReference;
+            /// let x = Avg::new().set_field(FieldReference::default()/* use setters */);
+            /// ```
             pub fn set_field<T>(mut self, v: T) -> Self
             where
                 T: std::convert::Into<crate::model::structured_query::FieldReference>,
@@ -7595,6 +9693,14 @@ pub mod structured_aggregation_query {
             }
 
             /// Sets or clears the value of [field][crate::model::structured_aggregation_query::aggregation::Avg::field].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_firestore::model::structured_aggregation_query::aggregation::Avg;
+            /// use google_cloud_firestore::model::structured_query::FieldReference;
+            /// let x = Avg::new().set_or_clear_field(Some(FieldReference::default()/* use setters */));
+            /// let x = Avg::new().set_or_clear_field(None::<FieldReference>);
+            /// ```
             pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
             where
                 T: std::convert::Into<crate::model::structured_query::FieldReference>,
@@ -7691,6 +9797,17 @@ impl Cursor {
     }
 
     /// Sets the value of [values][crate::model::Cursor::values].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Cursor;
+    /// use google_cloud_firestore::model::Value;
+    /// let x = Cursor::new()
+    ///     .set_values([
+    ///         Value::default()/* use setters */,
+    ///         Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_values<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7702,6 +9819,12 @@ impl Cursor {
     }
 
     /// Sets the value of [before][crate::model::Cursor::before].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Cursor;
+    /// let x = Cursor::new().set_before(true);
+    /// ```
     pub fn set_before<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.before = v.into();
         self
@@ -7736,6 +9859,12 @@ impl ExplainOptions {
     }
 
     /// Sets the value of [analyze][crate::model::ExplainOptions::analyze].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExplainOptions;
+    /// let x = ExplainOptions::new().set_analyze(true);
+    /// ```
     pub fn set_analyze<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.analyze = v.into();
         self
@@ -7771,6 +9900,13 @@ impl ExplainMetrics {
     }
 
     /// Sets the value of [plan_summary][crate::model::ExplainMetrics::plan_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExplainMetrics;
+    /// use google_cloud_firestore::model::PlanSummary;
+    /// let x = ExplainMetrics::new().set_plan_summary(PlanSummary::default()/* use setters */);
+    /// ```
     pub fn set_plan_summary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PlanSummary>,
@@ -7780,6 +9916,14 @@ impl ExplainMetrics {
     }
 
     /// Sets or clears the value of [plan_summary][crate::model::ExplainMetrics::plan_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExplainMetrics;
+    /// use google_cloud_firestore::model::PlanSummary;
+    /// let x = ExplainMetrics::new().set_or_clear_plan_summary(Some(PlanSummary::default()/* use setters */));
+    /// let x = ExplainMetrics::new().set_or_clear_plan_summary(None::<PlanSummary>);
+    /// ```
     pub fn set_or_clear_plan_summary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PlanSummary>,
@@ -7789,6 +9933,13 @@ impl ExplainMetrics {
     }
 
     /// Sets the value of [execution_stats][crate::model::ExplainMetrics::execution_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExplainMetrics;
+    /// use google_cloud_firestore::model::ExecutionStats;
+    /// let x = ExplainMetrics::new().set_execution_stats(ExecutionStats::default()/* use setters */);
+    /// ```
     pub fn set_execution_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExecutionStats>,
@@ -7798,6 +9949,14 @@ impl ExplainMetrics {
     }
 
     /// Sets or clears the value of [execution_stats][crate::model::ExplainMetrics::execution_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExplainMetrics;
+    /// use google_cloud_firestore::model::ExecutionStats;
+    /// let x = ExplainMetrics::new().set_or_clear_execution_stats(Some(ExecutionStats::default()/* use setters */));
+    /// let x = ExplainMetrics::new().set_or_clear_execution_stats(None::<ExecutionStats>);
+    /// ```
     pub fn set_or_clear_execution_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecutionStats>,
@@ -7833,6 +9992,17 @@ impl PlanSummary {
     }
 
     /// Sets the value of [indexes_used][crate::model::PlanSummary::indexes_used].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::PlanSummary;
+    /// use wkt::Struct;
+    /// let x = PlanSummary::new()
+    ///     .set_indexes_used([
+    ///         Struct::default()/* use setters */,
+    ///         Struct::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_indexes_used<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7887,12 +10057,25 @@ impl ExecutionStats {
     }
 
     /// Sets the value of [results_returned][crate::model::ExecutionStats::results_returned].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExecutionStats;
+    /// let x = ExecutionStats::new().set_results_returned(42);
+    /// ```
     pub fn set_results_returned<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.results_returned = v.into();
         self
     }
 
     /// Sets the value of [execution_duration][crate::model::ExecutionStats::execution_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExecutionStats;
+    /// use wkt::Duration;
+    /// let x = ExecutionStats::new().set_execution_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_execution_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7902,6 +10085,14 @@ impl ExecutionStats {
     }
 
     /// Sets or clears the value of [execution_duration][crate::model::ExecutionStats::execution_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExecutionStats;
+    /// use wkt::Duration;
+    /// let x = ExecutionStats::new().set_or_clear_execution_duration(Some(Duration::default()/* use setters */));
+    /// let x = ExecutionStats::new().set_or_clear_execution_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_execution_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7911,12 +10102,25 @@ impl ExecutionStats {
     }
 
     /// Sets the value of [read_operations][crate::model::ExecutionStats::read_operations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExecutionStats;
+    /// let x = ExecutionStats::new().set_read_operations(42);
+    /// ```
     pub fn set_read_operations<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.read_operations = v.into();
         self
     }
 
     /// Sets the value of [debug_stats][crate::model::ExecutionStats::debug_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExecutionStats;
+    /// use wkt::Struct;
+    /// let x = ExecutionStats::new().set_debug_stats(Struct::default()/* use setters */);
+    /// ```
     pub fn set_debug_stats<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -7926,6 +10130,14 @@ impl ExecutionStats {
     }
 
     /// Sets or clears the value of [debug_stats][crate::model::ExecutionStats::debug_stats].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExecutionStats;
+    /// use wkt::Struct;
+    /// let x = ExecutionStats::new().set_or_clear_debug_stats(Some(Struct::default()/* use setters */));
+    /// let x = ExecutionStats::new().set_or_clear_debug_stats(None::<Struct>);
+    /// ```
     pub fn set_or_clear_debug_stats<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -7981,6 +10193,13 @@ impl Write {
     }
 
     /// Sets the value of [update_mask][crate::model::Write::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Write;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = Write::new().set_update_mask(DocumentMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -7990,6 +10209,14 @@ impl Write {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::Write::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Write;
+    /// use google_cloud_firestore::model::DocumentMask;
+    /// let x = Write::new().set_or_clear_update_mask(Some(DocumentMask::default()/* use setters */));
+    /// let x = Write::new().set_or_clear_update_mask(None::<DocumentMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DocumentMask>,
@@ -7999,6 +10226,17 @@ impl Write {
     }
 
     /// Sets the value of [update_transforms][crate::model::Write::update_transforms].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Write;
+    /// use google_cloud_firestore::model::document_transform::FieldTransform;
+    /// let x = Write::new()
+    ///     .set_update_transforms([
+    ///         FieldTransform::default()/* use setters */,
+    ///         FieldTransform::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_update_transforms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8010,6 +10248,13 @@ impl Write {
     }
 
     /// Sets the value of [current_document][crate::model::Write::current_document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Write;
+    /// use google_cloud_firestore::model::Precondition;
+    /// let x = Write::new().set_current_document(Precondition::default()/* use setters */);
+    /// ```
     pub fn set_current_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Precondition>,
@@ -8019,6 +10264,14 @@ impl Write {
     }
 
     /// Sets or clears the value of [current_document][crate::model::Write::current_document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Write;
+    /// use google_cloud_firestore::model::Precondition;
+    /// let x = Write::new().set_or_clear_current_document(Some(Precondition::default()/* use setters */));
+    /// let x = Write::new().set_or_clear_current_document(None::<Precondition>);
+    /// ```
     pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Precondition>,
@@ -8031,6 +10284,13 @@ impl Write {
     ///
     /// Note that all the setters affecting `operation` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Write;
+    /// use google_cloud_firestore::model::write::Operation;
+    /// let x = Write::new().set_operation(Some(Operation::Delete("example".to_string())));
+    /// ```
     pub fn set_operation<
         T: std::convert::Into<std::option::Option<crate::model::write::Operation>>,
     >(
@@ -8057,6 +10317,16 @@ impl Write {
     ///
     /// Note that all the setters affecting `operation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Write;
+    /// use google_cloud_firestore::model::Document;
+    /// let x = Write::new().set_update(Document::default()/* use setters */);
+    /// assert!(x.update().is_some());
+    /// assert!(x.delete().is_none());
+    /// assert!(x.transform().is_none());
+    /// ```
     pub fn set_update<T: std::convert::Into<std::boxed::Box<crate::model::Document>>>(
         mut self,
         v: T,
@@ -8082,6 +10352,15 @@ impl Write {
     ///
     /// Note that all the setters affecting `operation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Write;
+    /// let x = Write::new().set_delete("example");
+    /// assert!(x.delete().is_some());
+    /// assert!(x.update().is_none());
+    /// assert!(x.transform().is_none());
+    /// ```
     pub fn set_delete<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation =
             std::option::Option::Some(crate::model::write::Operation::Delete(v.into()));
@@ -8106,6 +10385,16 @@ impl Write {
     ///
     /// Note that all the setters affecting `operation` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Write;
+    /// use google_cloud_firestore::model::DocumentTransform;
+    /// let x = Write::new().set_transform(DocumentTransform::default()/* use setters */);
+    /// assert!(x.transform().is_some());
+    /// assert!(x.update().is_none());
+    /// assert!(x.delete().is_none());
+    /// ```
     pub fn set_transform<
         T: std::convert::Into<std::boxed::Box<crate::model::DocumentTransform>>,
     >(
@@ -8183,12 +10472,29 @@ impl DocumentTransform {
     }
 
     /// Sets the value of [document][crate::model::DocumentTransform::document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentTransform;
+    /// let x = DocumentTransform::new().set_document("example");
+    /// ```
     pub fn set_document<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.document = v.into();
         self
     }
 
     /// Sets the value of [field_transforms][crate::model::DocumentTransform::field_transforms].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentTransform;
+    /// use google_cloud_firestore::model::document_transform::FieldTransform;
+    /// let x = DocumentTransform::new()
+    ///     .set_field_transforms([
+    ///         FieldTransform::default()/* use setters */,
+    ///         FieldTransform::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_field_transforms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8235,6 +10541,12 @@ pub mod document_transform {
         }
 
         /// Sets the value of [field_path][crate::model::document_transform::FieldTransform::field_path].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::document_transform::FieldTransform;
+        /// let x = FieldTransform::new().set_field_path("example");
+        /// ```
         pub fn set_field_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.field_path = v.into();
             self
@@ -8244,6 +10556,14 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::document_transform::FieldTransform;
+        /// use google_cloud_firestore::model::document_transform::field_transform::ServerValue;
+        /// let x0 = FieldTransform::new().set_transform_type(Some(
+        ///     google_cloud_firestore::model::document_transform::field_transform::TransformType::SetToServerValue(ServerValue::RequestTime)));
+        /// ```
         pub fn set_transform_type<
             T: std::convert::Into<
                     std::option::Option<
@@ -8277,6 +10597,19 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::document_transform::FieldTransform;
+        /// use google_cloud_firestore::model::document_transform::field_transform::ServerValue;
+        /// let x0 = FieldTransform::new().set_set_to_server_value(ServerValue::RequestTime);
+        /// assert!(x0.set_to_server_value().is_some());
+        /// assert!(x0.increment().is_none());
+        /// assert!(x0.maximum().is_none());
+        /// assert!(x0.minimum().is_none());
+        /// assert!(x0.append_missing_elements().is_none());
+        /// assert!(x0.remove_all_from_array().is_none());
+        /// ```
         pub fn set_set_to_server_value<
             T: std::convert::Into<crate::model::document_transform::field_transform::ServerValue>,
         >(
@@ -8309,6 +10642,19 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::document_transform::FieldTransform;
+        /// use google_cloud_firestore::model::Value;
+        /// let x = FieldTransform::new().set_increment(Value::default()/* use setters */);
+        /// assert!(x.increment().is_some());
+        /// assert!(x.set_to_server_value().is_none());
+        /// assert!(x.maximum().is_none());
+        /// assert!(x.minimum().is_none());
+        /// assert!(x.append_missing_elements().is_none());
+        /// assert!(x.remove_all_from_array().is_none());
+        /// ```
         pub fn set_increment<T: std::convert::Into<std::boxed::Box<crate::model::Value>>>(
             mut self,
             v: T,
@@ -8339,6 +10685,19 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::document_transform::FieldTransform;
+        /// use google_cloud_firestore::model::Value;
+        /// let x = FieldTransform::new().set_maximum(Value::default()/* use setters */);
+        /// assert!(x.maximum().is_some());
+        /// assert!(x.set_to_server_value().is_none());
+        /// assert!(x.increment().is_none());
+        /// assert!(x.minimum().is_none());
+        /// assert!(x.append_missing_elements().is_none());
+        /// assert!(x.remove_all_from_array().is_none());
+        /// ```
         pub fn set_maximum<T: std::convert::Into<std::boxed::Box<crate::model::Value>>>(
             mut self,
             v: T,
@@ -8367,6 +10726,19 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::document_transform::FieldTransform;
+        /// use google_cloud_firestore::model::Value;
+        /// let x = FieldTransform::new().set_minimum(Value::default()/* use setters */);
+        /// assert!(x.minimum().is_some());
+        /// assert!(x.set_to_server_value().is_none());
+        /// assert!(x.increment().is_none());
+        /// assert!(x.maximum().is_none());
+        /// assert!(x.append_missing_elements().is_none());
+        /// assert!(x.remove_all_from_array().is_none());
+        /// ```
         pub fn set_minimum<T: std::convert::Into<std::boxed::Box<crate::model::Value>>>(
             mut self,
             v: T,
@@ -8395,6 +10767,19 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::document_transform::FieldTransform;
+        /// use google_cloud_firestore::model::ArrayValue;
+        /// let x = FieldTransform::new().set_append_missing_elements(ArrayValue::default()/* use setters */);
+        /// assert!(x.append_missing_elements().is_some());
+        /// assert!(x.set_to_server_value().is_none());
+        /// assert!(x.increment().is_none());
+        /// assert!(x.maximum().is_none());
+        /// assert!(x.minimum().is_none());
+        /// assert!(x.remove_all_from_array().is_none());
+        /// ```
         pub fn set_append_missing_elements<
             T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>,
         >(
@@ -8427,6 +10812,19 @@ pub mod document_transform {
         ///
         /// Note that all the setters affecting `transform_type` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::document_transform::FieldTransform;
+        /// use google_cloud_firestore::model::ArrayValue;
+        /// let x = FieldTransform::new().set_remove_all_from_array(ArrayValue::default()/* use setters */);
+        /// assert!(x.remove_all_from_array().is_some());
+        /// assert!(x.set_to_server_value().is_none());
+        /// assert!(x.increment().is_none());
+        /// assert!(x.maximum().is_none());
+        /// assert!(x.minimum().is_none());
+        /// assert!(x.append_missing_elements().is_none());
+        /// ```
         pub fn set_remove_all_from_array<
             T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>,
         >(
@@ -8722,6 +11120,13 @@ impl WriteResult {
     }
 
     /// Sets the value of [update_time][crate::model::WriteResult::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteResult;
+    /// use wkt::Timestamp;
+    /// let x = WriteResult::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8731,6 +11136,14 @@ impl WriteResult {
     }
 
     /// Sets or clears the value of [update_time][crate::model::WriteResult::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteResult;
+    /// use wkt::Timestamp;
+    /// let x = WriteResult::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WriteResult::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8740,6 +11153,17 @@ impl WriteResult {
     }
 
     /// Sets the value of [transform_results][crate::model::WriteResult::transform_results].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::WriteResult;
+    /// use google_cloud_firestore::model::Value;
+    /// let x = WriteResult::new()
+    ///     .set_transform_results([
+    ///         Value::default()/* use setters */,
+    ///         Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_transform_results<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8794,6 +11218,13 @@ impl DocumentChange {
     }
 
     /// Sets the value of [document][crate::model::DocumentChange::document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentChange;
+    /// use google_cloud_firestore::model::Document;
+    /// let x = DocumentChange::new().set_document(Document::default()/* use setters */);
+    /// ```
     pub fn set_document<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -8803,6 +11234,14 @@ impl DocumentChange {
     }
 
     /// Sets or clears the value of [document][crate::model::DocumentChange::document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentChange;
+    /// use google_cloud_firestore::model::Document;
+    /// let x = DocumentChange::new().set_or_clear_document(Some(Document::default()/* use setters */));
+    /// let x = DocumentChange::new().set_or_clear_document(None::<Document>);
+    /// ```
     pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Document>,
@@ -8812,6 +11251,12 @@ impl DocumentChange {
     }
 
     /// Sets the value of [target_ids][crate::model::DocumentChange::target_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentChange;
+    /// let x = DocumentChange::new().set_target_ids([1, 2, 3]);
+    /// ```
     pub fn set_target_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8823,6 +11268,12 @@ impl DocumentChange {
     }
 
     /// Sets the value of [removed_target_ids][crate::model::DocumentChange::removed_target_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentChange;
+    /// let x = DocumentChange::new().set_removed_target_ids([1, 2, 3]);
+    /// ```
     pub fn set_removed_target_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8878,12 +11329,24 @@ impl DocumentDelete {
     }
 
     /// Sets the value of [document][crate::model::DocumentDelete::document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentDelete;
+    /// let x = DocumentDelete::new().set_document("example");
+    /// ```
     pub fn set_document<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.document = v.into();
         self
     }
 
     /// Sets the value of [removed_target_ids][crate::model::DocumentDelete::removed_target_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentDelete;
+    /// let x = DocumentDelete::new().set_removed_target_ids([1, 2, 3]);
+    /// ```
     pub fn set_removed_target_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8895,6 +11358,13 @@ impl DocumentDelete {
     }
 
     /// Sets the value of [read_time][crate::model::DocumentDelete::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentDelete;
+    /// use wkt::Timestamp;
+    /// let x = DocumentDelete::new().set_read_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_read_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8904,6 +11374,14 @@ impl DocumentDelete {
     }
 
     /// Sets or clears the value of [read_time][crate::model::DocumentDelete::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentDelete;
+    /// use wkt::Timestamp;
+    /// let x = DocumentDelete::new().set_or_clear_read_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DocumentDelete::new().set_or_clear_read_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8958,12 +11436,24 @@ impl DocumentRemove {
     }
 
     /// Sets the value of [document][crate::model::DocumentRemove::document].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentRemove;
+    /// let x = DocumentRemove::new().set_document("example");
+    /// ```
     pub fn set_document<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.document = v.into();
         self
     }
 
     /// Sets the value of [removed_target_ids][crate::model::DocumentRemove::removed_target_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentRemove;
+    /// let x = DocumentRemove::new().set_removed_target_ids([1, 2, 3]);
+    /// ```
     pub fn set_removed_target_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8975,6 +11465,13 @@ impl DocumentRemove {
     }
 
     /// Sets the value of [read_time][crate::model::DocumentRemove::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentRemove;
+    /// use wkt::Timestamp;
+    /// let x = DocumentRemove::new().set_read_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_read_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8984,6 +11481,14 @@ impl DocumentRemove {
     }
 
     /// Sets or clears the value of [read_time][crate::model::DocumentRemove::read_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::DocumentRemove;
+    /// use wkt::Timestamp;
+    /// let x = DocumentRemove::new().set_or_clear_read_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DocumentRemove::new().set_or_clear_read_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9044,18 +11549,37 @@ impl ExistenceFilter {
     }
 
     /// Sets the value of [target_id][crate::model::ExistenceFilter::target_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExistenceFilter;
+    /// let x = ExistenceFilter::new().set_target_id(42);
+    /// ```
     pub fn set_target_id<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.target_id = v.into();
         self
     }
 
     /// Sets the value of [count][crate::model::ExistenceFilter::count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExistenceFilter;
+    /// let x = ExistenceFilter::new().set_count(42);
+    /// ```
     pub fn set_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.count = v.into();
         self
     }
 
     /// Sets the value of [unchanged_names][crate::model::ExistenceFilter::unchanged_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExistenceFilter;
+    /// use google_cloud_firestore::model::BloomFilter;
+    /// let x = ExistenceFilter::new().set_unchanged_names(BloomFilter::default()/* use setters */);
+    /// ```
     pub fn set_unchanged_names<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BloomFilter>,
@@ -9065,6 +11589,14 @@ impl ExistenceFilter {
     }
 
     /// Sets or clears the value of [unchanged_names][crate::model::ExistenceFilter::unchanged_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::ExistenceFilter;
+    /// use google_cloud_firestore::model::BloomFilter;
+    /// let x = ExistenceFilter::new().set_or_clear_unchanged_names(Some(BloomFilter::default()/* use setters */));
+    /// let x = ExistenceFilter::new().set_or_clear_unchanged_names(None::<BloomFilter>);
+    /// ```
     pub fn set_or_clear_unchanged_names<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BloomFilter>,

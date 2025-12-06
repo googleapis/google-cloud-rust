@@ -52,6 +52,12 @@ impl ClassificationPredictionResult {
     }
 
     /// Sets the value of [ids][crate::model::ClassificationPredictionResult::ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::ClassificationPredictionResult;
+    /// let x = ClassificationPredictionResult::new().set_ids([1, 2, 3]);
+    /// ```
     pub fn set_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -63,6 +69,12 @@ impl ClassificationPredictionResult {
     }
 
     /// Sets the value of [display_names][crate::model::ClassificationPredictionResult::display_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::ClassificationPredictionResult;
+    /// let x = ClassificationPredictionResult::new().set_display_names(["a", "b", "c"]);
+    /// ```
     pub fn set_display_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -74,6 +86,12 @@ impl ClassificationPredictionResult {
     }
 
     /// Sets the value of [confidences][crate::model::ClassificationPredictionResult::confidences].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::ClassificationPredictionResult;
+    /// let x = ClassificationPredictionResult::new().set_confidences([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_confidences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -124,6 +142,12 @@ impl ImageObjectDetectionPredictionResult {
     }
 
     /// Sets the value of [ids][crate::model::ImageObjectDetectionPredictionResult::ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::ImageObjectDetectionPredictionResult;
+    /// let x = ImageObjectDetectionPredictionResult::new().set_ids([1, 2, 3]);
+    /// ```
     pub fn set_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -135,6 +159,12 @@ impl ImageObjectDetectionPredictionResult {
     }
 
     /// Sets the value of [display_names][crate::model::ImageObjectDetectionPredictionResult::display_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::ImageObjectDetectionPredictionResult;
+    /// let x = ImageObjectDetectionPredictionResult::new().set_display_names(["a", "b", "c"]);
+    /// ```
     pub fn set_display_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -146,6 +176,12 @@ impl ImageObjectDetectionPredictionResult {
     }
 
     /// Sets the value of [confidences][crate::model::ImageObjectDetectionPredictionResult::confidences].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::ImageObjectDetectionPredictionResult;
+    /// let x = ImageObjectDetectionPredictionResult::new().set_confidences([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_confidences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -157,6 +193,17 @@ impl ImageObjectDetectionPredictionResult {
     }
 
     /// Sets the value of [bboxes][crate::model::ImageObjectDetectionPredictionResult::bboxes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::ImageObjectDetectionPredictionResult;
+    /// use wkt::ListValue;
+    /// let x = ImageObjectDetectionPredictionResult::new()
+    ///     .set_bboxes([
+    ///         ListValue::default()/* use setters */,
+    ///         ListValue::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_bboxes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -202,12 +249,24 @@ impl ImageSegmentationPredictionResult {
     }
 
     /// Sets the value of [category_mask][crate::model::ImageSegmentationPredictionResult::category_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::ImageSegmentationPredictionResult;
+    /// let x = ImageSegmentationPredictionResult::new().set_category_mask("example");
+    /// ```
     pub fn set_category_mask<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.category_mask = v.into();
         self
     }
 
     /// Sets the value of [confidence_mask][crate::model::ImageSegmentationPredictionResult::confidence_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::ImageSegmentationPredictionResult;
+    /// let x = ImageSegmentationPredictionResult::new().set_confidence_mask("example");
+    /// ```
     pub fn set_confidence_mask<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.confidence_mask = v.into();
         self
@@ -242,6 +301,12 @@ impl TabularClassificationPredictionResult {
     }
 
     /// Sets the value of [classes][crate::model::TabularClassificationPredictionResult::classes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::TabularClassificationPredictionResult;
+    /// let x = TabularClassificationPredictionResult::new().set_classes(["a", "b", "c"]);
+    /// ```
     pub fn set_classes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -253,6 +318,12 @@ impl TabularClassificationPredictionResult {
     }
 
     /// Sets the value of [scores][crate::model::TabularClassificationPredictionResult::scores].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::TabularClassificationPredictionResult;
+    /// let x = TabularClassificationPredictionResult::new().set_scores([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_scores<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -292,18 +363,36 @@ impl TabularRegressionPredictionResult {
     }
 
     /// Sets the value of [value][crate::model::TabularRegressionPredictionResult::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::TabularRegressionPredictionResult;
+    /// let x = TabularRegressionPredictionResult::new().set_value(42.0);
+    /// ```
     pub fn set_value<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
     }
 
     /// Sets the value of [lower_bound][crate::model::TabularRegressionPredictionResult::lower_bound].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::TabularRegressionPredictionResult;
+    /// let x = TabularRegressionPredictionResult::new().set_lower_bound(42.0);
+    /// ```
     pub fn set_lower_bound<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.lower_bound = v.into();
         self
     }
 
     /// Sets the value of [upper_bound][crate::model::TabularRegressionPredictionResult::upper_bound].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::TabularRegressionPredictionResult;
+    /// let x = TabularRegressionPredictionResult::new().set_upper_bound(42.0);
+    /// ```
     pub fn set_upper_bound<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
         self.upper_bound = v.into();
         self
@@ -351,6 +440,12 @@ impl TextExtractionPredictionResult {
     }
 
     /// Sets the value of [ids][crate::model::TextExtractionPredictionResult::ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::TextExtractionPredictionResult;
+    /// let x = TextExtractionPredictionResult::new().set_ids([1, 2, 3]);
+    /// ```
     pub fn set_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -362,6 +457,12 @@ impl TextExtractionPredictionResult {
     }
 
     /// Sets the value of [display_names][crate::model::TextExtractionPredictionResult::display_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::TextExtractionPredictionResult;
+    /// let x = TextExtractionPredictionResult::new().set_display_names(["a", "b", "c"]);
+    /// ```
     pub fn set_display_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -373,6 +474,12 @@ impl TextExtractionPredictionResult {
     }
 
     /// Sets the value of [text_segment_start_offsets][crate::model::TextExtractionPredictionResult::text_segment_start_offsets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::TextExtractionPredictionResult;
+    /// let x = TextExtractionPredictionResult::new().set_text_segment_start_offsets([1, 2, 3]);
+    /// ```
     pub fn set_text_segment_start_offsets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -384,6 +491,12 @@ impl TextExtractionPredictionResult {
     }
 
     /// Sets the value of [text_segment_end_offsets][crate::model::TextExtractionPredictionResult::text_segment_end_offsets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::TextExtractionPredictionResult;
+    /// let x = TextExtractionPredictionResult::new().set_text_segment_end_offsets([1, 2, 3]);
+    /// ```
     pub fn set_text_segment_end_offsets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -395,6 +508,12 @@ impl TextExtractionPredictionResult {
     }
 
     /// Sets the value of [confidences][crate::model::TextExtractionPredictionResult::confidences].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::TextExtractionPredictionResult;
+    /// let x = TextExtractionPredictionResult::new().set_confidences([1.0, 2.0, 3.0]);
+    /// ```
     pub fn set_confidences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -432,6 +551,12 @@ impl TextSentimentPredictionResult {
     }
 
     /// Sets the value of [sentiment][crate::model::TextSentimentPredictionResult::sentiment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::TextSentimentPredictionResult;
+    /// let x = TextSentimentPredictionResult::new().set_sentiment(42);
+    /// ```
     pub fn set_sentiment<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.sentiment = v.into();
         self
@@ -479,18 +604,37 @@ impl VideoActionRecognitionPredictionResult {
     }
 
     /// Sets the value of [id][crate::model::VideoActionRecognitionPredictionResult::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoActionRecognitionPredictionResult;
+    /// let x = VideoActionRecognitionPredictionResult::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::VideoActionRecognitionPredictionResult::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoActionRecognitionPredictionResult;
+    /// let x = VideoActionRecognitionPredictionResult::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [time_segment_start][crate::model::VideoActionRecognitionPredictionResult::time_segment_start].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoActionRecognitionPredictionResult;
+    /// use wkt::Duration;
+    /// let x = VideoActionRecognitionPredictionResult::new().set_time_segment_start(Duration::default()/* use setters */);
+    /// ```
     pub fn set_time_segment_start<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -500,6 +644,14 @@ impl VideoActionRecognitionPredictionResult {
     }
 
     /// Sets or clears the value of [time_segment_start][crate::model::VideoActionRecognitionPredictionResult::time_segment_start].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoActionRecognitionPredictionResult;
+    /// use wkt::Duration;
+    /// let x = VideoActionRecognitionPredictionResult::new().set_or_clear_time_segment_start(Some(Duration::default()/* use setters */));
+    /// let x = VideoActionRecognitionPredictionResult::new().set_or_clear_time_segment_start(None::<Duration>);
+    /// ```
     pub fn set_or_clear_time_segment_start<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -509,6 +661,13 @@ impl VideoActionRecognitionPredictionResult {
     }
 
     /// Sets the value of [time_segment_end][crate::model::VideoActionRecognitionPredictionResult::time_segment_end].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoActionRecognitionPredictionResult;
+    /// use wkt::Duration;
+    /// let x = VideoActionRecognitionPredictionResult::new().set_time_segment_end(Duration::default()/* use setters */);
+    /// ```
     pub fn set_time_segment_end<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -518,6 +677,14 @@ impl VideoActionRecognitionPredictionResult {
     }
 
     /// Sets or clears the value of [time_segment_end][crate::model::VideoActionRecognitionPredictionResult::time_segment_end].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoActionRecognitionPredictionResult;
+    /// use wkt::Duration;
+    /// let x = VideoActionRecognitionPredictionResult::new().set_or_clear_time_segment_end(Some(Duration::default()/* use setters */));
+    /// let x = VideoActionRecognitionPredictionResult::new().set_or_clear_time_segment_end(None::<Duration>);
+    /// ```
     pub fn set_or_clear_time_segment_end<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -527,6 +694,13 @@ impl VideoActionRecognitionPredictionResult {
     }
 
     /// Sets the value of [confidence][crate::model::VideoActionRecognitionPredictionResult::confidence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoActionRecognitionPredictionResult;
+    /// use wkt::FloatValue;
+    /// let x = VideoActionRecognitionPredictionResult::new().set_confidence(FloatValue::default()/* use setters */);
+    /// ```
     pub fn set_confidence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -536,6 +710,14 @@ impl VideoActionRecognitionPredictionResult {
     }
 
     /// Sets or clears the value of [confidence][crate::model::VideoActionRecognitionPredictionResult::confidence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoActionRecognitionPredictionResult;
+    /// use wkt::FloatValue;
+    /// let x = VideoActionRecognitionPredictionResult::new().set_or_clear_confidence(Some(FloatValue::default()/* use setters */));
+    /// let x = VideoActionRecognitionPredictionResult::new().set_or_clear_confidence(None::<FloatValue>);
+    /// ```
     pub fn set_or_clear_confidence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -600,24 +782,49 @@ impl VideoClassificationPredictionResult {
     }
 
     /// Sets the value of [id][crate::model::VideoClassificationPredictionResult::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoClassificationPredictionResult;
+    /// let x = VideoClassificationPredictionResult::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::VideoClassificationPredictionResult::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoClassificationPredictionResult;
+    /// let x = VideoClassificationPredictionResult::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::VideoClassificationPredictionResult::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoClassificationPredictionResult;
+    /// let x = VideoClassificationPredictionResult::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [time_segment_start][crate::model::VideoClassificationPredictionResult::time_segment_start].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoClassificationPredictionResult;
+    /// use wkt::Duration;
+    /// let x = VideoClassificationPredictionResult::new().set_time_segment_start(Duration::default()/* use setters */);
+    /// ```
     pub fn set_time_segment_start<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -627,6 +834,14 @@ impl VideoClassificationPredictionResult {
     }
 
     /// Sets or clears the value of [time_segment_start][crate::model::VideoClassificationPredictionResult::time_segment_start].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoClassificationPredictionResult;
+    /// use wkt::Duration;
+    /// let x = VideoClassificationPredictionResult::new().set_or_clear_time_segment_start(Some(Duration::default()/* use setters */));
+    /// let x = VideoClassificationPredictionResult::new().set_or_clear_time_segment_start(None::<Duration>);
+    /// ```
     pub fn set_or_clear_time_segment_start<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -636,6 +851,13 @@ impl VideoClassificationPredictionResult {
     }
 
     /// Sets the value of [time_segment_end][crate::model::VideoClassificationPredictionResult::time_segment_end].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoClassificationPredictionResult;
+    /// use wkt::Duration;
+    /// let x = VideoClassificationPredictionResult::new().set_time_segment_end(Duration::default()/* use setters */);
+    /// ```
     pub fn set_time_segment_end<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -645,6 +867,14 @@ impl VideoClassificationPredictionResult {
     }
 
     /// Sets or clears the value of [time_segment_end][crate::model::VideoClassificationPredictionResult::time_segment_end].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoClassificationPredictionResult;
+    /// use wkt::Duration;
+    /// let x = VideoClassificationPredictionResult::new().set_or_clear_time_segment_end(Some(Duration::default()/* use setters */));
+    /// let x = VideoClassificationPredictionResult::new().set_or_clear_time_segment_end(None::<Duration>);
+    /// ```
     pub fn set_or_clear_time_segment_end<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -654,6 +884,13 @@ impl VideoClassificationPredictionResult {
     }
 
     /// Sets the value of [confidence][crate::model::VideoClassificationPredictionResult::confidence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoClassificationPredictionResult;
+    /// use wkt::FloatValue;
+    /// let x = VideoClassificationPredictionResult::new().set_confidence(FloatValue::default()/* use setters */);
+    /// ```
     pub fn set_confidence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -663,6 +900,14 @@ impl VideoClassificationPredictionResult {
     }
 
     /// Sets or clears the value of [confidence][crate::model::VideoClassificationPredictionResult::confidence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoClassificationPredictionResult;
+    /// use wkt::FloatValue;
+    /// let x = VideoClassificationPredictionResult::new().set_or_clear_confidence(Some(FloatValue::default()/* use setters */));
+    /// let x = VideoClassificationPredictionResult::new().set_or_clear_confidence(None::<FloatValue>);
+    /// ```
     pub fn set_or_clear_confidence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -717,18 +962,37 @@ impl VideoObjectTrackingPredictionResult {
     }
 
     /// Sets the value of [id][crate::model::VideoObjectTrackingPredictionResult::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoObjectTrackingPredictionResult;
+    /// let x = VideoObjectTrackingPredictionResult::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::VideoObjectTrackingPredictionResult::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoObjectTrackingPredictionResult;
+    /// let x = VideoObjectTrackingPredictionResult::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [time_segment_start][crate::model::VideoObjectTrackingPredictionResult::time_segment_start].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoObjectTrackingPredictionResult;
+    /// use wkt::Duration;
+    /// let x = VideoObjectTrackingPredictionResult::new().set_time_segment_start(Duration::default()/* use setters */);
+    /// ```
     pub fn set_time_segment_start<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -738,6 +1002,14 @@ impl VideoObjectTrackingPredictionResult {
     }
 
     /// Sets or clears the value of [time_segment_start][crate::model::VideoObjectTrackingPredictionResult::time_segment_start].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoObjectTrackingPredictionResult;
+    /// use wkt::Duration;
+    /// let x = VideoObjectTrackingPredictionResult::new().set_or_clear_time_segment_start(Some(Duration::default()/* use setters */));
+    /// let x = VideoObjectTrackingPredictionResult::new().set_or_clear_time_segment_start(None::<Duration>);
+    /// ```
     pub fn set_or_clear_time_segment_start<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -747,6 +1019,13 @@ impl VideoObjectTrackingPredictionResult {
     }
 
     /// Sets the value of [time_segment_end][crate::model::VideoObjectTrackingPredictionResult::time_segment_end].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoObjectTrackingPredictionResult;
+    /// use wkt::Duration;
+    /// let x = VideoObjectTrackingPredictionResult::new().set_time_segment_end(Duration::default()/* use setters */);
+    /// ```
     pub fn set_time_segment_end<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -756,6 +1035,14 @@ impl VideoObjectTrackingPredictionResult {
     }
 
     /// Sets or clears the value of [time_segment_end][crate::model::VideoObjectTrackingPredictionResult::time_segment_end].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoObjectTrackingPredictionResult;
+    /// use wkt::Duration;
+    /// let x = VideoObjectTrackingPredictionResult::new().set_or_clear_time_segment_end(Some(Duration::default()/* use setters */));
+    /// let x = VideoObjectTrackingPredictionResult::new().set_or_clear_time_segment_end(None::<Duration>);
+    /// ```
     pub fn set_or_clear_time_segment_end<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -765,6 +1052,13 @@ impl VideoObjectTrackingPredictionResult {
     }
 
     /// Sets the value of [confidence][crate::model::VideoObjectTrackingPredictionResult::confidence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoObjectTrackingPredictionResult;
+    /// use wkt::FloatValue;
+    /// let x = VideoObjectTrackingPredictionResult::new().set_confidence(FloatValue::default()/* use setters */);
+    /// ```
     pub fn set_confidence<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -774,6 +1068,14 @@ impl VideoObjectTrackingPredictionResult {
     }
 
     /// Sets or clears the value of [confidence][crate::model::VideoObjectTrackingPredictionResult::confidence].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoObjectTrackingPredictionResult;
+    /// use wkt::FloatValue;
+    /// let x = VideoObjectTrackingPredictionResult::new().set_or_clear_confidence(Some(FloatValue::default()/* use setters */));
+    /// let x = VideoObjectTrackingPredictionResult::new().set_or_clear_confidence(None::<FloatValue>);
+    /// ```
     pub fn set_or_clear_confidence<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FloatValue>,
@@ -783,6 +1085,17 @@ impl VideoObjectTrackingPredictionResult {
     }
 
     /// Sets the value of [frames][crate::model::VideoObjectTrackingPredictionResult::frames].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::VideoObjectTrackingPredictionResult;
+    /// use google_cloud_aiplatform_v1_schema_predict_prediction::model::video_object_tracking_prediction_result::Frame;
+    /// let x = VideoObjectTrackingPredictionResult::new()
+    ///     .set_frames([
+    ///         Frame::default()/* use setters */,
+    ///         Frame::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_frames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -839,6 +1152,13 @@ pub mod video_object_tracking_prediction_result {
         }
 
         /// Sets the value of [time_offset][crate::model::video_object_tracking_prediction_result::Frame::time_offset].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::video_object_tracking_prediction_result::Frame;
+        /// use wkt::Duration;
+        /// let x = Frame::new().set_time_offset(Duration::default()/* use setters */);
+        /// ```
         pub fn set_time_offset<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -848,6 +1168,14 @@ pub mod video_object_tracking_prediction_result {
         }
 
         /// Sets or clears the value of [time_offset][crate::model::video_object_tracking_prediction_result::Frame::time_offset].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::video_object_tracking_prediction_result::Frame;
+        /// use wkt::Duration;
+        /// let x = Frame::new().set_or_clear_time_offset(Some(Duration::default()/* use setters */));
+        /// let x = Frame::new().set_or_clear_time_offset(None::<Duration>);
+        /// ```
         pub fn set_or_clear_time_offset<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -857,6 +1185,13 @@ pub mod video_object_tracking_prediction_result {
         }
 
         /// Sets the value of [x_min][crate::model::video_object_tracking_prediction_result::Frame::x_min].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::video_object_tracking_prediction_result::Frame;
+        /// use wkt::FloatValue;
+        /// let x = Frame::new().set_x_min(FloatValue::default()/* use setters */);
+        /// ```
         pub fn set_x_min<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FloatValue>,
@@ -866,6 +1201,14 @@ pub mod video_object_tracking_prediction_result {
         }
 
         /// Sets or clears the value of [x_min][crate::model::video_object_tracking_prediction_result::Frame::x_min].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::video_object_tracking_prediction_result::Frame;
+        /// use wkt::FloatValue;
+        /// let x = Frame::new().set_or_clear_x_min(Some(FloatValue::default()/* use setters */));
+        /// let x = Frame::new().set_or_clear_x_min(None::<FloatValue>);
+        /// ```
         pub fn set_or_clear_x_min<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FloatValue>,
@@ -875,6 +1218,13 @@ pub mod video_object_tracking_prediction_result {
         }
 
         /// Sets the value of [x_max][crate::model::video_object_tracking_prediction_result::Frame::x_max].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::video_object_tracking_prediction_result::Frame;
+        /// use wkt::FloatValue;
+        /// let x = Frame::new().set_x_max(FloatValue::default()/* use setters */);
+        /// ```
         pub fn set_x_max<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FloatValue>,
@@ -884,6 +1234,14 @@ pub mod video_object_tracking_prediction_result {
         }
 
         /// Sets or clears the value of [x_max][crate::model::video_object_tracking_prediction_result::Frame::x_max].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::video_object_tracking_prediction_result::Frame;
+        /// use wkt::FloatValue;
+        /// let x = Frame::new().set_or_clear_x_max(Some(FloatValue::default()/* use setters */));
+        /// let x = Frame::new().set_or_clear_x_max(None::<FloatValue>);
+        /// ```
         pub fn set_or_clear_x_max<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FloatValue>,
@@ -893,6 +1251,13 @@ pub mod video_object_tracking_prediction_result {
         }
 
         /// Sets the value of [y_min][crate::model::video_object_tracking_prediction_result::Frame::y_min].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::video_object_tracking_prediction_result::Frame;
+        /// use wkt::FloatValue;
+        /// let x = Frame::new().set_y_min(FloatValue::default()/* use setters */);
+        /// ```
         pub fn set_y_min<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FloatValue>,
@@ -902,6 +1267,14 @@ pub mod video_object_tracking_prediction_result {
         }
 
         /// Sets or clears the value of [y_min][crate::model::video_object_tracking_prediction_result::Frame::y_min].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::video_object_tracking_prediction_result::Frame;
+        /// use wkt::FloatValue;
+        /// let x = Frame::new().set_or_clear_y_min(Some(FloatValue::default()/* use setters */));
+        /// let x = Frame::new().set_or_clear_y_min(None::<FloatValue>);
+        /// ```
         pub fn set_or_clear_y_min<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FloatValue>,
@@ -911,6 +1284,13 @@ pub mod video_object_tracking_prediction_result {
         }
 
         /// Sets the value of [y_max][crate::model::video_object_tracking_prediction_result::Frame::y_max].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::video_object_tracking_prediction_result::Frame;
+        /// use wkt::FloatValue;
+        /// let x = Frame::new().set_y_max(FloatValue::default()/* use setters */);
+        /// ```
         pub fn set_y_max<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::FloatValue>,
@@ -920,6 +1300,14 @@ pub mod video_object_tracking_prediction_result {
         }
 
         /// Sets or clears the value of [y_max][crate::model::video_object_tracking_prediction_result::Frame::y_max].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_aiplatform_v1_schema_predict_prediction::model::video_object_tracking_prediction_result::Frame;
+        /// use wkt::FloatValue;
+        /// let x = Frame::new().set_or_clear_y_max(Some(FloatValue::default()/* use setters */));
+        /// let x = Frame::new().set_or_clear_y_max(None::<FloatValue>);
+        /// ```
         pub fn set_or_clear_y_max<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::FloatValue>,

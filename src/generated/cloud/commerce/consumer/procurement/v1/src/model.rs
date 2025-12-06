@@ -55,6 +55,14 @@ impl AssignmentProtocol {
     ///
     /// Note that all the setters affecting `assignment_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::AssignmentProtocol;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::assignment_protocol::ManualAssignmentType;
+    /// let x = AssignmentProtocol::new().set_assignment_type(Some(
+    ///     google_cloud_commerce_consumer_procurement_v1::model::assignment_protocol::AssignmentType::ManualAssignmentType(ManualAssignmentType::default().into())));
+    /// ```
     pub fn set_assignment_type<
         T: std::convert::Into<std::option::Option<crate::model::assignment_protocol::AssignmentType>>,
     >(
@@ -87,6 +95,15 @@ impl AssignmentProtocol {
     ///
     /// Note that all the setters affecting `assignment_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::AssignmentProtocol;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::assignment_protocol::ManualAssignmentType;
+    /// let x = AssignmentProtocol::new().set_manual_assignment_type(ManualAssignmentType::default()/* use setters */);
+    /// assert!(x.manual_assignment_type().is_some());
+    /// assert!(x.auto_assignment_type().is_none());
+    /// ```
     pub fn set_manual_assignment_type<
         T: std::convert::Into<
                 std::boxed::Box<crate::model::assignment_protocol::ManualAssignmentType>,
@@ -122,6 +139,15 @@ impl AssignmentProtocol {
     ///
     /// Note that all the setters affecting `assignment_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::AssignmentProtocol;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::assignment_protocol::AutoAssignmentType;
+    /// let x = AssignmentProtocol::new().set_auto_assignment_type(AutoAssignmentType::default()/* use setters */);
+    /// assert!(x.auto_assignment_type().is_some());
+    /// assert!(x.manual_assignment_type().is_none());
+    /// ```
     pub fn set_auto_assignment_type<
         T: std::convert::Into<std::boxed::Box<crate::model::assignment_protocol::AutoAssignmentType>>,
     >(
@@ -183,6 +209,13 @@ pub mod assignment_protocol {
         }
 
         /// Sets the value of [inactive_license_ttl][crate::model::assignment_protocol::AutoAssignmentType::inactive_license_ttl].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_commerce_consumer_procurement_v1::model::assignment_protocol::AutoAssignmentType;
+        /// use wkt::Duration;
+        /// let x = AutoAssignmentType::new().set_inactive_license_ttl(Duration::default()/* use setters */);
+        /// ```
         pub fn set_inactive_license_ttl<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -192,6 +225,14 @@ pub mod assignment_protocol {
         }
 
         /// Sets or clears the value of [inactive_license_ttl][crate::model::assignment_protocol::AutoAssignmentType::inactive_license_ttl].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_commerce_consumer_procurement_v1::model::assignment_protocol::AutoAssignmentType;
+        /// use wkt::Duration;
+        /// let x = AutoAssignmentType::new().set_or_clear_inactive_license_ttl(Some(Duration::default()/* use setters */));
+        /// let x = AutoAssignmentType::new().set_or_clear_inactive_license_ttl(None::<Duration>);
+        /// ```
         pub fn set_or_clear_inactive_license_ttl<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -246,12 +287,25 @@ impl LicensePool {
     }
 
     /// Sets the value of [name][crate::model::LicensePool::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
+    /// let x = LicensePool::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [license_assignment_protocol][crate::model::LicensePool::license_assignment_protocol].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::AssignmentProtocol;
+    /// let x = LicensePool::new().set_license_assignment_protocol(AssignmentProtocol::default()/* use setters */);
+    /// ```
     pub fn set_license_assignment_protocol<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AssignmentProtocol>,
@@ -261,6 +315,14 @@ impl LicensePool {
     }
 
     /// Sets or clears the value of [license_assignment_protocol][crate::model::LicensePool::license_assignment_protocol].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::AssignmentProtocol;
+    /// let x = LicensePool::new().set_or_clear_license_assignment_protocol(Some(AssignmentProtocol::default()/* use setters */));
+    /// let x = LicensePool::new().set_or_clear_license_assignment_protocol(None::<AssignmentProtocol>);
+    /// ```
     pub fn set_or_clear_license_assignment_protocol<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AssignmentProtocol>,
@@ -270,12 +332,24 @@ impl LicensePool {
     }
 
     /// Sets the value of [available_license_count][crate::model::LicensePool::available_license_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
+    /// let x = LicensePool::new().set_available_license_count(42);
+    /// ```
     pub fn set_available_license_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.available_license_count = v.into();
         self
     }
 
     /// Sets the value of [total_license_count][crate::model::LicensePool::total_license_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
+    /// let x = LicensePool::new().set_total_license_count(42);
+    /// ```
     pub fn set_total_license_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_license_count = v.into();
         self
@@ -305,6 +379,12 @@ impl GetLicensePoolRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLicensePoolRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::GetLicensePoolRequest;
+    /// let x = GetLicensePoolRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -340,6 +420,13 @@ impl UpdateLicensePoolRequest {
     }
 
     /// Sets the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::UpdateLicensePoolRequest;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
+    /// let x = UpdateLicensePoolRequest::new().set_license_pool(LicensePool::default()/* use setters */);
+    /// ```
     pub fn set_license_pool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LicensePool>,
@@ -349,6 +436,14 @@ impl UpdateLicensePoolRequest {
     }
 
     /// Sets or clears the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::UpdateLicensePoolRequest;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
+    /// let x = UpdateLicensePoolRequest::new().set_or_clear_license_pool(Some(LicensePool::default()/* use setters */));
+    /// let x = UpdateLicensePoolRequest::new().set_or_clear_license_pool(None::<LicensePool>);
+    /// ```
     pub fn set_or_clear_license_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LicensePool>,
@@ -358,6 +453,13 @@ impl UpdateLicensePoolRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::UpdateLicensePoolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateLicensePoolRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -367,6 +469,14 @@ impl UpdateLicensePoolRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::UpdateLicensePoolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateLicensePoolRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateLicensePoolRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -405,12 +515,24 @@ impl AssignRequest {
     }
 
     /// Sets the value of [parent][crate::model::AssignRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::AssignRequest;
+    /// let x = AssignRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [usernames][crate::model::AssignRequest::usernames].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::AssignRequest;
+    /// let x = AssignRequest::new().set_usernames(["a", "b", "c"]);
+    /// ```
     pub fn set_usernames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -473,12 +595,24 @@ impl UnassignRequest {
     }
 
     /// Sets the value of [parent][crate::model::UnassignRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::UnassignRequest;
+    /// let x = UnassignRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [usernames][crate::model::UnassignRequest::usernames].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::UnassignRequest;
+    /// let x = UnassignRequest::new().set_usernames(["a", "b", "c"]);
+    /// ```
     pub fn set_usernames<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -545,18 +679,36 @@ impl EnumerateLicensedUsersRequest {
     }
 
     /// Sets the value of [parent][crate::model::EnumerateLicensedUsersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::EnumerateLicensedUsersRequest;
+    /// let x = EnumerateLicensedUsersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::EnumerateLicensedUsersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::EnumerateLicensedUsersRequest;
+    /// let x = EnumerateLicensedUsersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::EnumerateLicensedUsersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::EnumerateLicensedUsersRequest;
+    /// let x = EnumerateLicensedUsersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -594,12 +746,25 @@ impl LicensedUser {
     }
 
     /// Sets the value of [username][crate::model::LicensedUser::username].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LicensedUser;
+    /// let x = LicensedUser::new().set_username("example");
+    /// ```
     pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.username = v.into();
         self
     }
 
     /// Sets the value of [assign_time][crate::model::LicensedUser::assign_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LicensedUser;
+    /// use wkt::Timestamp;
+    /// let x = LicensedUser::new().set_assign_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_assign_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -609,6 +774,14 @@ impl LicensedUser {
     }
 
     /// Sets or clears the value of [assign_time][crate::model::LicensedUser::assign_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LicensedUser;
+    /// use wkt::Timestamp;
+    /// let x = LicensedUser::new().set_or_clear_assign_time(Some(Timestamp::default()/* use setters */));
+    /// let x = LicensedUser::new().set_or_clear_assign_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_assign_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -618,6 +791,13 @@ impl LicensedUser {
     }
 
     /// Sets the value of [recent_usage_time][crate::model::LicensedUser::recent_usage_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LicensedUser;
+    /// use wkt::Timestamp;
+    /// let x = LicensedUser::new().set_recent_usage_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_recent_usage_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -627,6 +807,14 @@ impl LicensedUser {
     }
 
     /// Sets or clears the value of [recent_usage_time][crate::model::LicensedUser::recent_usage_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LicensedUser;
+    /// use wkt::Timestamp;
+    /// let x = LicensedUser::new().set_or_clear_recent_usage_time(Some(Timestamp::default()/* use setters */));
+    /// let x = LicensedUser::new().set_or_clear_recent_usage_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_recent_usage_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -665,6 +853,17 @@ impl EnumerateLicensedUsersResponse {
     }
 
     /// Sets the value of [licensed_users][crate::model::EnumerateLicensedUsersResponse::licensed_users].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::EnumerateLicensedUsersResponse;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LicensedUser;
+    /// let x = EnumerateLicensedUsersResponse::new()
+    ///     .set_licensed_users([
+    ///         LicensedUser::default()/* use setters */,
+    ///         LicensedUser::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_licensed_users<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -676,6 +875,12 @@ impl EnumerateLicensedUsersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::EnumerateLicensedUsersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::EnumerateLicensedUsersResponse;
+    /// let x = EnumerateLicensedUsersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -747,18 +952,41 @@ impl Order {
     }
 
     /// Sets the value of [name][crate::model::Order::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Order;
+    /// let x = Order::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::Order::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Order;
+    /// let x = Order::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [line_items][crate::model::Order::line_items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Order;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItem;
+    /// let x = Order::new()
+    ///     .set_line_items([
+    ///         LineItem::default()/* use setters */,
+    ///         LineItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_line_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -770,6 +998,17 @@ impl Order {
     }
 
     /// Sets the value of [cancelled_line_items][crate::model::Order::cancelled_line_items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Order;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItem;
+    /// let x = Order::new()
+    ///     .set_cancelled_line_items([
+    ///         LineItem::default()/* use setters */,
+    ///         LineItem::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cancelled_line_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -781,6 +1020,13 @@ impl Order {
     }
 
     /// Sets the value of [create_time][crate::model::Order::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Order;
+    /// use wkt::Timestamp;
+    /// let x = Order::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -790,6 +1036,14 @@ impl Order {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Order::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Order;
+    /// use wkt::Timestamp;
+    /// let x = Order::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Order::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -799,6 +1053,13 @@ impl Order {
     }
 
     /// Sets the value of [update_time][crate::model::Order::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Order;
+    /// use wkt::Timestamp;
+    /// let x = Order::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -808,6 +1069,14 @@ impl Order {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Order::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Order;
+    /// use wkt::Timestamp;
+    /// let x = Order::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Order::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -817,6 +1086,12 @@ impl Order {
     }
 
     /// Sets the value of [etag][crate::model::Order::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Order;
+    /// let x = Order::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -860,12 +1135,25 @@ impl LineItem {
     }
 
     /// Sets the value of [line_item_id][crate::model::LineItem::line_item_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItem;
+    /// let x = LineItem::new().set_line_item_id("example");
+    /// ```
     pub fn set_line_item_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.line_item_id = v.into();
         self
     }
 
     /// Sets the value of [line_item_info][crate::model::LineItem::line_item_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItem;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+    /// let x = LineItem::new().set_line_item_info(LineItemInfo::default()/* use setters */);
+    /// ```
     pub fn set_line_item_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LineItemInfo>,
@@ -875,6 +1163,14 @@ impl LineItem {
     }
 
     /// Sets or clears the value of [line_item_info][crate::model::LineItem::line_item_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItem;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+    /// let x = LineItem::new().set_or_clear_line_item_info(Some(LineItemInfo::default()/* use setters */));
+    /// let x = LineItem::new().set_or_clear_line_item_info(None::<LineItemInfo>);
+    /// ```
     pub fn set_or_clear_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LineItemInfo>,
@@ -884,6 +1180,13 @@ impl LineItem {
     }
 
     /// Sets the value of [pending_change][crate::model::LineItem::pending_change].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItem;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// let x = LineItem::new().set_pending_change(LineItemChange::default()/* use setters */);
+    /// ```
     pub fn set_pending_change<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LineItemChange>,
@@ -893,6 +1196,14 @@ impl LineItem {
     }
 
     /// Sets or clears the value of [pending_change][crate::model::LineItem::pending_change].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItem;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// let x = LineItem::new().set_or_clear_pending_change(Some(LineItemChange::default()/* use setters */));
+    /// let x = LineItem::new().set_or_clear_pending_change(None::<LineItemChange>);
+    /// ```
     pub fn set_or_clear_pending_change<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LineItemChange>,
@@ -902,6 +1213,17 @@ impl LineItem {
     }
 
     /// Sets the value of [change_history][crate::model::LineItem::change_history].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItem;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// let x = LineItem::new()
+    ///     .set_change_history([
+    ///         LineItemChange::default()/* use setters */,
+    ///         LineItemChange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_change_history<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -972,12 +1294,27 @@ impl LineItemChange {
     }
 
     /// Sets the value of [change_id][crate::model::LineItemChange::change_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// let x = LineItemChange::new().set_change_id("example");
+    /// ```
     pub fn set_change_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.change_id = v.into();
         self
     }
 
     /// Sets the value of [change_type][crate::model::LineItemChange::change_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemChangeType;
+    /// let x0 = LineItemChange::new().set_change_type(LineItemChangeType::Create);
+    /// let x1 = LineItemChange::new().set_change_type(LineItemChangeType::Update);
+    /// let x2 = LineItemChange::new().set_change_type(LineItemChangeType::Cancel);
+    /// ```
     pub fn set_change_type<T: std::convert::Into<crate::model::LineItemChangeType>>(
         mut self,
         v: T,
@@ -987,6 +1324,13 @@ impl LineItemChange {
     }
 
     /// Sets the value of [old_line_item_info][crate::model::LineItemChange::old_line_item_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+    /// let x = LineItemChange::new().set_old_line_item_info(LineItemInfo::default()/* use setters */);
+    /// ```
     pub fn set_old_line_item_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LineItemInfo>,
@@ -996,6 +1340,14 @@ impl LineItemChange {
     }
 
     /// Sets or clears the value of [old_line_item_info][crate::model::LineItemChange::old_line_item_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+    /// let x = LineItemChange::new().set_or_clear_old_line_item_info(Some(LineItemInfo::default()/* use setters */));
+    /// let x = LineItemChange::new().set_or_clear_old_line_item_info(None::<LineItemInfo>);
+    /// ```
     pub fn set_or_clear_old_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LineItemInfo>,
@@ -1005,6 +1357,13 @@ impl LineItemChange {
     }
 
     /// Sets the value of [new_line_item_info][crate::model::LineItemChange::new_line_item_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+    /// let x = LineItemChange::new().set_new_line_item_info(LineItemInfo::default()/* use setters */);
+    /// ```
     pub fn set_new_line_item_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::LineItemInfo>,
@@ -1014,6 +1373,14 @@ impl LineItemChange {
     }
 
     /// Sets or clears the value of [new_line_item_info][crate::model::LineItemChange::new_line_item_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+    /// let x = LineItemChange::new().set_or_clear_new_line_item_info(Some(LineItemInfo::default()/* use setters */));
+    /// let x = LineItemChange::new().set_or_clear_new_line_item_info(None::<LineItemInfo>);
+    /// ```
     pub fn set_or_clear_new_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::LineItemInfo>,
@@ -1023,6 +1390,15 @@ impl LineItemChange {
     }
 
     /// Sets the value of [change_state][crate::model::LineItemChange::change_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemChangeState;
+    /// let x0 = LineItemChange::new().set_change_state(LineItemChangeState::PendingApproval);
+    /// let x1 = LineItemChange::new().set_change_state(LineItemChangeState::Approved);
+    /// let x2 = LineItemChange::new().set_change_state(LineItemChangeState::Completed);
+    /// ```
     pub fn set_change_state<T: std::convert::Into<crate::model::LineItemChangeState>>(
         mut self,
         v: T,
@@ -1032,12 +1408,27 @@ impl LineItemChange {
     }
 
     /// Sets the value of [state_reason][crate::model::LineItemChange::state_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// let x = LineItemChange::new().set_state_reason("example");
+    /// ```
     pub fn set_state_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state_reason = v.into();
         self
     }
 
     /// Sets the value of [change_state_reason_type][crate::model::LineItemChange::change_state_reason_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemChangeStateReasonType;
+    /// let x0 = LineItemChange::new().set_change_state_reason_type(LineItemChangeStateReasonType::Expired);
+    /// let x1 = LineItemChange::new().set_change_state_reason_type(LineItemChangeStateReasonType::UserCancelled);
+    /// let x2 = LineItemChange::new().set_change_state_reason_type(LineItemChangeStateReasonType::SystemCancelled);
+    /// ```
     pub fn set_change_state_reason_type<
         T: std::convert::Into<crate::model::LineItemChangeStateReasonType>,
     >(
@@ -1049,6 +1440,13 @@ impl LineItemChange {
     }
 
     /// Sets the value of [change_effective_time][crate::model::LineItemChange::change_effective_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use wkt::Timestamp;
+    /// let x = LineItemChange::new().set_change_effective_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_change_effective_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1058,6 +1456,14 @@ impl LineItemChange {
     }
 
     /// Sets or clears the value of [change_effective_time][crate::model::LineItemChange::change_effective_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use wkt::Timestamp;
+    /// let x = LineItemChange::new().set_or_clear_change_effective_time(Some(Timestamp::default()/* use setters */));
+    /// let x = LineItemChange::new().set_or_clear_change_effective_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_change_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1067,6 +1473,13 @@ impl LineItemChange {
     }
 
     /// Sets the value of [create_time][crate::model::LineItemChange::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use wkt::Timestamp;
+    /// let x = LineItemChange::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1076,6 +1489,14 @@ impl LineItemChange {
     }
 
     /// Sets or clears the value of [create_time][crate::model::LineItemChange::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use wkt::Timestamp;
+    /// let x = LineItemChange::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = LineItemChange::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1085,6 +1506,13 @@ impl LineItemChange {
     }
 
     /// Sets the value of [update_time][crate::model::LineItemChange::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use wkt::Timestamp;
+    /// let x = LineItemChange::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1094,6 +1522,14 @@ impl LineItemChange {
     }
 
     /// Sets or clears the value of [update_time][crate::model::LineItemChange::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemChange;
+    /// use wkt::Timestamp;
+    /// let x = LineItemChange::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = LineItemChange::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1133,12 +1569,29 @@ impl LineItemInfo {
     }
 
     /// Sets the value of [offer][crate::model::LineItemInfo::offer].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+    /// let x = LineItemInfo::new().set_offer("example");
+    /// ```
     pub fn set_offer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.offer = v.into();
         self
     }
 
     /// Sets the value of [parameters][crate::model::LineItemInfo::parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::Parameter;
+    /// let x = LineItemInfo::new()
+    ///     .set_parameters([
+    ///         Parameter::default()/* use setters */,
+    ///         Parameter::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_parameters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1150,6 +1603,13 @@ impl LineItemInfo {
     }
 
     /// Sets the value of [subscription][crate::model::LineItemInfo::subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::Subscription;
+    /// let x = LineItemInfo::new().set_subscription(Subscription::default()/* use setters */);
+    /// ```
     pub fn set_subscription<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
@@ -1159,6 +1619,14 @@ impl LineItemInfo {
     }
 
     /// Sets or clears the value of [subscription][crate::model::LineItemInfo::subscription].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::Subscription;
+    /// let x = LineItemInfo::new().set_or_clear_subscription(Some(Subscription::default()/* use setters */));
+    /// let x = LineItemInfo::new().set_or_clear_subscription(None::<Subscription>);
+    /// ```
     pub fn set_or_clear_subscription<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Subscription>,
@@ -1193,12 +1661,25 @@ impl Parameter {
     }
 
     /// Sets the value of [name][crate::model::Parameter::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Parameter;
+    /// let x = Parameter::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::Parameter::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Parameter;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::parameter::Value;
+    /// let x = Parameter::new().set_value(Value::default()/* use setters */);
+    /// ```
     pub fn set_value<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::parameter::Value>,
@@ -1208,6 +1689,14 @@ impl Parameter {
     }
 
     /// Sets or clears the value of [value][crate::model::Parameter::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Parameter;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::parameter::Value;
+    /// let x = Parameter::new().set_or_clear_value(Some(Value::default()/* use setters */));
+    /// let x = Parameter::new().set_or_clear_value(None::<Value>);
+    /// ```
     pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::parameter::Value>,
@@ -1246,6 +1735,13 @@ pub mod parameter {
         ///
         /// Note that all the setters affecting `kind` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_commerce_consumer_procurement_v1::model::parameter::Value;
+        /// use google_cloud_commerce_consumer_procurement_v1::model::parameter::value::Kind;
+        /// let x = Value::new().set_kind(Some(Kind::Int64Value(42)));
+        /// ```
         pub fn set_kind<
             T: std::convert::Into<std::option::Option<crate::model::parameter::value::Kind>>,
         >(
@@ -1272,6 +1768,15 @@ pub mod parameter {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_commerce_consumer_procurement_v1::model::parameter::Value;
+        /// let x = Value::new().set_int64_value(42);
+        /// assert!(x.int64_value().is_some());
+        /// assert!(x.string_value().is_none());
+        /// assert!(x.double_value().is_none());
+        /// ```
         pub fn set_int64_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
                 crate::model::parameter::value::Kind::Int64Value(v.into()),
@@ -1297,6 +1802,15 @@ pub mod parameter {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_commerce_consumer_procurement_v1::model::parameter::Value;
+        /// let x = Value::new().set_string_value("example");
+        /// assert!(x.string_value().is_some());
+        /// assert!(x.int64_value().is_none());
+        /// assert!(x.double_value().is_none());
+        /// ```
         pub fn set_string_value<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1325,6 +1839,15 @@ pub mod parameter {
         ///
         /// Note that all the setters affecting `kind` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_commerce_consumer_procurement_v1::model::parameter::Value;
+        /// let x = Value::new().set_double_value(42.0);
+        /// assert!(x.double_value().is_some());
+        /// assert!(x.int64_value().is_none());
+        /// assert!(x.string_value().is_none());
+        /// ```
         pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.kind = std::option::Option::Some(
                 crate::model::parameter::value::Kind::DoubleValue(v.into()),
@@ -1382,6 +1905,13 @@ impl Subscription {
     }
 
     /// Sets the value of [start_time][crate::model::Subscription::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Subscription;
+    /// use wkt::Timestamp;
+    /// let x = Subscription::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1391,6 +1921,14 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Subscription::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Subscription;
+    /// use wkt::Timestamp;
+    /// let x = Subscription::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Subscription::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1400,6 +1938,13 @@ impl Subscription {
     }
 
     /// Sets the value of [end_time][crate::model::Subscription::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Subscription;
+    /// use wkt::Timestamp;
+    /// let x = Subscription::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1409,6 +1954,14 @@ impl Subscription {
     }
 
     /// Sets or clears the value of [end_time][crate::model::Subscription::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Subscription;
+    /// use wkt::Timestamp;
+    /// let x = Subscription::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Subscription::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1418,6 +1971,12 @@ impl Subscription {
     }
 
     /// Sets the value of [auto_renewal_enabled][crate::model::Subscription::auto_renewal_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::Subscription;
+    /// let x = Subscription::new().set_auto_renewal_enabled(true);
+    /// ```
     pub fn set_auto_renewal_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.auto_renewal_enabled = v.into();
         self
@@ -1465,18 +2024,41 @@ impl PlaceOrderRequest {
     }
 
     /// Sets the value of [parent][crate::model::PlaceOrderRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::PlaceOrderRequest;
+    /// let x = PlaceOrderRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::PlaceOrderRequest::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::PlaceOrderRequest;
+    /// let x = PlaceOrderRequest::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [line_item_info][crate::model::PlaceOrderRequest::line_item_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::PlaceOrderRequest;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+    /// let x = PlaceOrderRequest::new()
+    ///     .set_line_item_info([
+    ///         LineItemInfo::default()/* use setters */,
+    ///         LineItemInfo::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_line_item_info<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1488,6 +2070,12 @@ impl PlaceOrderRequest {
     }
 
     /// Sets the value of [request_id][crate::model::PlaceOrderRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::PlaceOrderRequest;
+    /// let x = PlaceOrderRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1541,6 +2129,12 @@ impl GetOrderRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOrderRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::GetOrderRequest;
+    /// let x = GetOrderRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1598,24 +2192,48 @@ impl ListOrdersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOrdersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::ListOrdersRequest;
+    /// let x = ListOrdersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOrdersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::ListOrdersRequest;
+    /// let x = ListOrdersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOrdersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::ListOrdersRequest;
+    /// let x = ListOrdersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListOrdersRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::ListOrdersRequest;
+    /// let x = ListOrdersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -1650,6 +2268,17 @@ impl ListOrdersResponse {
     }
 
     /// Sets the value of [orders][crate::model::ListOrdersResponse::orders].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::ListOrdersResponse;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::Order;
+    /// let x = ListOrdersResponse::new()
+    ///     .set_orders([
+    ///         Order::default()/* use setters */,
+    ///         Order::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_orders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1661,6 +2290,12 @@ impl ListOrdersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOrdersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::ListOrdersResponse;
+    /// let x = ListOrdersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1720,12 +2355,29 @@ impl ModifyOrderRequest {
     }
 
     /// Sets the value of [name][crate::model::ModifyOrderRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::ModifyOrderRequest;
+    /// let x = ModifyOrderRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [modifications][crate::model::ModifyOrderRequest::modifications].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::ModifyOrderRequest;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::modify_order_request::Modification;
+    /// let x = ModifyOrderRequest::new()
+    ///     .set_modifications([
+    ///         Modification::default()/* use setters */,
+    ///         Modification::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_modifications<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1737,12 +2389,24 @@ impl ModifyOrderRequest {
     }
 
     /// Sets the value of [display_name][crate::model::ModifyOrderRequest::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::ModifyOrderRequest;
+    /// let x = ModifyOrderRequest::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::ModifyOrderRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::ModifyOrderRequest;
+    /// let x = ModifyOrderRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -1794,6 +2458,12 @@ pub mod modify_order_request {
         }
 
         /// Sets the value of [line_item_id][crate::model::modify_order_request::Modification::line_item_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_commerce_consumer_procurement_v1::model::modify_order_request::Modification;
+        /// let x = Modification::new().set_line_item_id("example");
+        /// ```
         pub fn set_line_item_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1803,6 +2473,15 @@ pub mod modify_order_request {
         }
 
         /// Sets the value of [change_type][crate::model::modify_order_request::Modification::change_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_commerce_consumer_procurement_v1::model::modify_order_request::Modification;
+        /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemChangeType;
+        /// let x0 = Modification::new().set_change_type(LineItemChangeType::Create);
+        /// let x1 = Modification::new().set_change_type(LineItemChangeType::Update);
+        /// let x2 = Modification::new().set_change_type(LineItemChangeType::Cancel);
+        /// ```
         pub fn set_change_type<T: std::convert::Into<crate::model::LineItemChangeType>>(
             mut self,
             v: T,
@@ -1812,6 +2491,13 @@ pub mod modify_order_request {
         }
 
         /// Sets the value of [new_line_item_info][crate::model::modify_order_request::Modification::new_line_item_info].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_commerce_consumer_procurement_v1::model::modify_order_request::Modification;
+        /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+        /// let x = Modification::new().set_new_line_item_info(LineItemInfo::default()/* use setters */);
+        /// ```
         pub fn set_new_line_item_info<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::LineItemInfo>,
@@ -1821,6 +2507,14 @@ pub mod modify_order_request {
         }
 
         /// Sets or clears the value of [new_line_item_info][crate::model::modify_order_request::Modification::new_line_item_info].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_commerce_consumer_procurement_v1::model::modify_order_request::Modification;
+        /// use google_cloud_commerce_consumer_procurement_v1::model::LineItemInfo;
+        /// let x = Modification::new().set_or_clear_new_line_item_info(Some(LineItemInfo::default()/* use setters */));
+        /// let x = Modification::new().set_or_clear_new_line_item_info(None::<LineItemInfo>);
+        /// ```
         pub fn set_or_clear_new_line_item_info<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::LineItemInfo>,
@@ -1830,6 +2524,14 @@ pub mod modify_order_request {
         }
 
         /// Sets the value of [auto_renewal_behavior][crate::model::modify_order_request::Modification::auto_renewal_behavior].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_commerce_consumer_procurement_v1::model::modify_order_request::Modification;
+        /// use google_cloud_commerce_consumer_procurement_v1::model::AutoRenewalBehavior;
+        /// let x0 = Modification::new().set_auto_renewal_behavior(AutoRenewalBehavior::Enable);
+        /// let x1 = Modification::new().set_auto_renewal_behavior(AutoRenewalBehavior::Disable);
+        /// ```
         pub fn set_auto_renewal_behavior<
             T: std::convert::Into<crate::model::AutoRenewalBehavior>,
         >(
@@ -1897,18 +2599,38 @@ impl CancelOrderRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelOrderRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::CancelOrderRequest;
+    /// let x = CancelOrderRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::CancelOrderRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::CancelOrderRequest;
+    /// let x = CancelOrderRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [cancellation_policy][crate::model::CancelOrderRequest::cancellation_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::model::CancelOrderRequest;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::cancel_order_request::CancellationPolicy;
+    /// let x0 = CancelOrderRequest::new().set_cancellation_policy(CancellationPolicy::CancelImmediately);
+    /// let x1 = CancelOrderRequest::new().set_cancellation_policy(CancellationPolicy::CancelAtTermEnd);
+    /// ```
     pub fn set_cancellation_policy<
         T: std::convert::Into<crate::model::cancel_order_request::CancellationPolicy>,
     >(

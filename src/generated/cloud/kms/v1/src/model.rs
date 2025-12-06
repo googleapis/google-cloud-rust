@@ -73,18 +73,37 @@ impl CreateKeyHandleRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateKeyHandleRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateKeyHandleRequest;
+    /// let x = CreateKeyHandleRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [key_handle_id][crate::model::CreateKeyHandleRequest::key_handle_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateKeyHandleRequest;
+    /// let x = CreateKeyHandleRequest::new().set_key_handle_id("example");
+    /// ```
     pub fn set_key_handle_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_handle_id = v.into();
         self
     }
 
     /// Sets the value of [key_handle][crate::model::CreateKeyHandleRequest::key_handle].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateKeyHandleRequest;
+    /// use google_cloud_kms_v1::model::KeyHandle;
+    /// let x = CreateKeyHandleRequest::new().set_key_handle(KeyHandle::default()/* use setters */);
+    /// ```
     pub fn set_key_handle<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KeyHandle>,
@@ -94,6 +113,14 @@ impl CreateKeyHandleRequest {
     }
 
     /// Sets or clears the value of [key_handle][crate::model::CreateKeyHandleRequest::key_handle].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateKeyHandleRequest;
+    /// use google_cloud_kms_v1::model::KeyHandle;
+    /// let x = CreateKeyHandleRequest::new().set_or_clear_key_handle(Some(KeyHandle::default()/* use setters */));
+    /// let x = CreateKeyHandleRequest::new().set_or_clear_key_handle(None::<KeyHandle>);
+    /// ```
     pub fn set_or_clear_key_handle<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KeyHandle>,
@@ -131,6 +158,12 @@ impl GetKeyHandleRequest {
     }
 
     /// Sets the value of [name][crate::model::GetKeyHandleRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetKeyHandleRequest;
+    /// let x = GetKeyHandleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -191,18 +224,36 @@ impl KeyHandle {
     }
 
     /// Sets the value of [name][crate::model::KeyHandle::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::KeyHandle;
+    /// let x = KeyHandle::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [kms_key][crate::model::KeyHandle::kms_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::KeyHandle;
+    /// let x = KeyHandle::new().set_kms_key("example");
+    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
     }
 
     /// Sets the value of [resource_type_selector][crate::model::KeyHandle::resource_type_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::KeyHandle;
+    /// let x = KeyHandle::new().set_resource_type_selector("example");
+    /// ```
     pub fn set_resource_type_selector<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -290,24 +341,48 @@ impl ListKeyHandlesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListKeyHandlesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyHandlesRequest;
+    /// let x = ListKeyHandlesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListKeyHandlesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyHandlesRequest;
+    /// let x = ListKeyHandlesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListKeyHandlesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyHandlesRequest;
+    /// let x = ListKeyHandlesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListKeyHandlesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyHandlesRequest;
+    /// let x = ListKeyHandlesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -348,6 +423,17 @@ impl ListKeyHandlesResponse {
     }
 
     /// Sets the value of [key_handles][crate::model::ListKeyHandlesResponse::key_handles].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyHandlesResponse;
+    /// use google_cloud_kms_v1::model::KeyHandle;
+    /// let x = ListKeyHandlesResponse::new()
+    ///     .set_key_handles([
+    ///         KeyHandle::default()/* use setters */,
+    ///         KeyHandle::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_key_handles<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -359,6 +445,12 @@ impl ListKeyHandlesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListKeyHandlesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyHandlesResponse;
+    /// let x = ListKeyHandlesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -414,6 +506,13 @@ impl UpdateAutokeyConfigRequest {
     }
 
     /// Sets the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateAutokeyConfigRequest;
+    /// use google_cloud_kms_v1::model::AutokeyConfig;
+    /// let x = UpdateAutokeyConfigRequest::new().set_autokey_config(AutokeyConfig::default()/* use setters */);
+    /// ```
     pub fn set_autokey_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AutokeyConfig>,
@@ -423,6 +522,14 @@ impl UpdateAutokeyConfigRequest {
     }
 
     /// Sets or clears the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateAutokeyConfigRequest;
+    /// use google_cloud_kms_v1::model::AutokeyConfig;
+    /// let x = UpdateAutokeyConfigRequest::new().set_or_clear_autokey_config(Some(AutokeyConfig::default()/* use setters */));
+    /// let x = UpdateAutokeyConfigRequest::new().set_or_clear_autokey_config(None::<AutokeyConfig>);
+    /// ```
     pub fn set_or_clear_autokey_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AutokeyConfig>,
@@ -432,6 +539,13 @@ impl UpdateAutokeyConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAutokeyConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateAutokeyConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAutokeyConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -441,6 +555,14 @@ impl UpdateAutokeyConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAutokeyConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateAutokeyConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAutokeyConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAutokeyConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -478,6 +600,12 @@ impl GetAutokeyConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAutokeyConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetAutokeyConfigRequest;
+    /// let x = GetAutokeyConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -535,18 +663,39 @@ impl AutokeyConfig {
     }
 
     /// Sets the value of [name][crate::model::AutokeyConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AutokeyConfig;
+    /// let x = AutokeyConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [key_project][crate::model::AutokeyConfig::key_project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AutokeyConfig;
+    /// let x = AutokeyConfig::new().set_key_project("example");
+    /// ```
     pub fn set_key_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_project = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::AutokeyConfig::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AutokeyConfig;
+    /// use google_cloud_kms_v1::model::autokey_config::State;
+    /// let x0 = AutokeyConfig::new().set_state(State::Active);
+    /// let x1 = AutokeyConfig::new().set_state(State::KeyProjectDeleted);
+    /// let x2 = AutokeyConfig::new().set_state(State::Uninitialized);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::autokey_config::State>>(
         mut self,
         v: T,
@@ -556,6 +705,12 @@ impl AutokeyConfig {
     }
 
     /// Sets the value of [etag][crate::model::AutokeyConfig::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AutokeyConfig;
+    /// let x = AutokeyConfig::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -736,6 +891,12 @@ impl ShowEffectiveAutokeyConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::ShowEffectiveAutokeyConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ShowEffectiveAutokeyConfigRequest;
+    /// let x = ShowEffectiveAutokeyConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
@@ -768,6 +929,12 @@ impl ShowEffectiveAutokeyConfigResponse {
     }
 
     /// Sets the value of [key_project][crate::model::ShowEffectiveAutokeyConfigResponse::key_project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ShowEffectiveAutokeyConfigResponse;
+    /// let x = ShowEffectiveAutokeyConfigResponse::new().set_key_project("example");
+    /// ```
     pub fn set_key_project<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_project = v.into();
         self
@@ -833,30 +1000,60 @@ impl ListEkmConnectionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEkmConnectionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListEkmConnectionsRequest;
+    /// let x = ListEkmConnectionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEkmConnectionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListEkmConnectionsRequest;
+    /// let x = ListEkmConnectionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEkmConnectionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListEkmConnectionsRequest;
+    /// let x = ListEkmConnectionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEkmConnectionsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListEkmConnectionsRequest;
+    /// let x = ListEkmConnectionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEkmConnectionsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListEkmConnectionsRequest;
+    /// let x = ListEkmConnectionsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -908,6 +1105,17 @@ impl ListEkmConnectionsResponse {
     }
 
     /// Sets the value of [ekm_connections][crate::model::ListEkmConnectionsResponse::ekm_connections].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListEkmConnectionsResponse;
+    /// use google_cloud_kms_v1::model::EkmConnection;
+    /// let x = ListEkmConnectionsResponse::new()
+    ///     .set_ekm_connections([
+    ///         EkmConnection::default()/* use setters */,
+    ///         EkmConnection::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ekm_connections<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -919,12 +1127,24 @@ impl ListEkmConnectionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEkmConnectionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListEkmConnectionsResponse;
+    /// let x = ListEkmConnectionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListEkmConnectionsResponse::total_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListEkmConnectionsResponse;
+    /// let x = ListEkmConnectionsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -974,6 +1194,12 @@ impl GetEkmConnectionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEkmConnectionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetEkmConnectionRequest;
+    /// let x = GetEkmConnectionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1019,12 +1245,24 @@ impl CreateEkmConnectionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEkmConnectionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateEkmConnectionRequest;
+    /// let x = CreateEkmConnectionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [ekm_connection_id][crate::model::CreateEkmConnectionRequest::ekm_connection_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateEkmConnectionRequest;
+    /// let x = CreateEkmConnectionRequest::new().set_ekm_connection_id("example");
+    /// ```
     pub fn set_ekm_connection_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1034,6 +1272,13 @@ impl CreateEkmConnectionRequest {
     }
 
     /// Sets the value of [ekm_connection][crate::model::CreateEkmConnectionRequest::ekm_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateEkmConnectionRequest;
+    /// use google_cloud_kms_v1::model::EkmConnection;
+    /// let x = CreateEkmConnectionRequest::new().set_ekm_connection(EkmConnection::default()/* use setters */);
+    /// ```
     pub fn set_ekm_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EkmConnection>,
@@ -1043,6 +1288,14 @@ impl CreateEkmConnectionRequest {
     }
 
     /// Sets or clears the value of [ekm_connection][crate::model::CreateEkmConnectionRequest::ekm_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateEkmConnectionRequest;
+    /// use google_cloud_kms_v1::model::EkmConnection;
+    /// let x = CreateEkmConnectionRequest::new().set_or_clear_ekm_connection(Some(EkmConnection::default()/* use setters */));
+    /// let x = CreateEkmConnectionRequest::new().set_or_clear_ekm_connection(None::<EkmConnection>);
+    /// ```
     pub fn set_or_clear_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EkmConnection>,
@@ -1083,6 +1336,13 @@ impl UpdateEkmConnectionRequest {
     }
 
     /// Sets the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateEkmConnectionRequest;
+    /// use google_cloud_kms_v1::model::EkmConnection;
+    /// let x = UpdateEkmConnectionRequest::new().set_ekm_connection(EkmConnection::default()/* use setters */);
+    /// ```
     pub fn set_ekm_connection<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EkmConnection>,
@@ -1092,6 +1352,14 @@ impl UpdateEkmConnectionRequest {
     }
 
     /// Sets or clears the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateEkmConnectionRequest;
+    /// use google_cloud_kms_v1::model::EkmConnection;
+    /// let x = UpdateEkmConnectionRequest::new().set_or_clear_ekm_connection(Some(EkmConnection::default()/* use setters */));
+    /// let x = UpdateEkmConnectionRequest::new().set_or_clear_ekm_connection(None::<EkmConnection>);
+    /// ```
     pub fn set_or_clear_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EkmConnection>,
@@ -1101,6 +1369,13 @@ impl UpdateEkmConnectionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEkmConnectionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateEkmConnectionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEkmConnectionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1110,6 +1385,14 @@ impl UpdateEkmConnectionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEkmConnectionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateEkmConnectionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEkmConnectionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateEkmConnectionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1148,6 +1431,12 @@ impl GetEkmConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEkmConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetEkmConfigRequest;
+    /// let x = GetEkmConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1184,6 +1473,13 @@ impl UpdateEkmConfigRequest {
     }
 
     /// Sets the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateEkmConfigRequest;
+    /// use google_cloud_kms_v1::model::EkmConfig;
+    /// let x = UpdateEkmConfigRequest::new().set_ekm_config(EkmConfig::default()/* use setters */);
+    /// ```
     pub fn set_ekm_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EkmConfig>,
@@ -1193,6 +1489,14 @@ impl UpdateEkmConfigRequest {
     }
 
     /// Sets or clears the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateEkmConfigRequest;
+    /// use google_cloud_kms_v1::model::EkmConfig;
+    /// let x = UpdateEkmConfigRequest::new().set_or_clear_ekm_config(Some(EkmConfig::default()/* use setters */));
+    /// let x = UpdateEkmConfigRequest::new().set_or_clear_ekm_config(None::<EkmConfig>);
+    /// ```
     pub fn set_or_clear_ekm_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EkmConfig>,
@@ -1202,6 +1506,13 @@ impl UpdateEkmConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEkmConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateEkmConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEkmConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1211,6 +1522,14 @@ impl UpdateEkmConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEkmConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateEkmConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEkmConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateEkmConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1290,30 +1609,60 @@ impl Certificate {
     }
 
     /// Sets the value of [raw_der][crate::model::Certificate::raw_der].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Certificate;
+    /// let x = Certificate::new().set_raw_der(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_raw_der<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.raw_der = v.into();
         self
     }
 
     /// Sets the value of [parsed][crate::model::Certificate::parsed].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Certificate;
+    /// let x = Certificate::new().set_parsed(true);
+    /// ```
     pub fn set_parsed<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.parsed = v.into();
         self
     }
 
     /// Sets the value of [issuer][crate::model::Certificate::issuer].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Certificate;
+    /// let x = Certificate::new().set_issuer("example");
+    /// ```
     pub fn set_issuer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.issuer = v.into();
         self
     }
 
     /// Sets the value of [subject][crate::model::Certificate::subject].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Certificate;
+    /// let x = Certificate::new().set_subject("example");
+    /// ```
     pub fn set_subject<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subject = v.into();
         self
     }
 
     /// Sets the value of [subject_alternative_dns_names][crate::model::Certificate::subject_alternative_dns_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Certificate;
+    /// let x = Certificate::new().set_subject_alternative_dns_names(["a", "b", "c"]);
+    /// ```
     pub fn set_subject_alternative_dns_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1325,6 +1674,13 @@ impl Certificate {
     }
 
     /// Sets the value of [not_before_time][crate::model::Certificate::not_before_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_not_before_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_not_before_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1334,6 +1690,14 @@ impl Certificate {
     }
 
     /// Sets or clears the value of [not_before_time][crate::model::Certificate::not_before_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_or_clear_not_before_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Certificate::new().set_or_clear_not_before_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_not_before_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1343,6 +1707,13 @@ impl Certificate {
     }
 
     /// Sets the value of [not_after_time][crate::model::Certificate::not_after_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_not_after_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_not_after_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1352,6 +1723,14 @@ impl Certificate {
     }
 
     /// Sets or clears the value of [not_after_time][crate::model::Certificate::not_after_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Certificate;
+    /// use wkt::Timestamp;
+    /// let x = Certificate::new().set_or_clear_not_after_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Certificate::new().set_or_clear_not_after_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_not_after_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1361,12 +1740,24 @@ impl Certificate {
     }
 
     /// Sets the value of [serial_number][crate::model::Certificate::serial_number].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Certificate;
+    /// let x = Certificate::new().set_serial_number("example");
+    /// ```
     pub fn set_serial_number<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.serial_number = v.into();
         self
     }
 
     /// Sets the value of [sha256_fingerprint][crate::model::Certificate::sha256_fingerprint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Certificate;
+    /// let x = Certificate::new().set_sha256_fingerprint("example");
+    /// ```
     pub fn set_sha256_fingerprint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1455,12 +1846,25 @@ impl EkmConnection {
     }
 
     /// Sets the value of [name][crate::model::EkmConnection::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EkmConnection;
+    /// let x = EkmConnection::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::EkmConnection::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EkmConnection;
+    /// use wkt::Timestamp;
+    /// let x = EkmConnection::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1470,6 +1874,14 @@ impl EkmConnection {
     }
 
     /// Sets or clears the value of [create_time][crate::model::EkmConnection::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EkmConnection;
+    /// use wkt::Timestamp;
+    /// let x = EkmConnection::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EkmConnection::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1479,6 +1891,17 @@ impl EkmConnection {
     }
 
     /// Sets the value of [service_resolvers][crate::model::EkmConnection::service_resolvers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EkmConnection;
+    /// use google_cloud_kms_v1::model::ekm_connection::ServiceResolver;
+    /// let x = EkmConnection::new()
+    ///     .set_service_resolvers([
+    ///         ServiceResolver::default()/* use setters */,
+    ///         ServiceResolver::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_service_resolvers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1490,12 +1913,26 @@ impl EkmConnection {
     }
 
     /// Sets the value of [etag][crate::model::EkmConnection::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EkmConnection;
+    /// let x = EkmConnection::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [key_management_mode][crate::model::EkmConnection::key_management_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EkmConnection;
+    /// use google_cloud_kms_v1::model::ekm_connection::KeyManagementMode;
+    /// let x0 = EkmConnection::new().set_key_management_mode(KeyManagementMode::Manual);
+    /// let x1 = EkmConnection::new().set_key_management_mode(KeyManagementMode::CloudKms);
+    /// ```
     pub fn set_key_management_mode<
         T: std::convert::Into<crate::model::ekm_connection::KeyManagementMode>,
     >(
@@ -1507,6 +1944,12 @@ impl EkmConnection {
     }
 
     /// Sets the value of [crypto_space_path][crate::model::EkmConnection::crypto_space_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EkmConnection;
+    /// let x = EkmConnection::new().set_crypto_space_path("example");
+    /// ```
     pub fn set_crypto_space_path<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1568,6 +2011,12 @@ pub mod ekm_connection {
         }
 
         /// Sets the value of [service_directory_service][crate::model::ekm_connection::ServiceResolver::service_directory_service].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::ekm_connection::ServiceResolver;
+        /// let x = ServiceResolver::new().set_service_directory_service("example");
+        /// ```
         pub fn set_service_directory_service<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1577,6 +2026,12 @@ pub mod ekm_connection {
         }
 
         /// Sets the value of [endpoint_filter][crate::model::ekm_connection::ServiceResolver::endpoint_filter].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::ekm_connection::ServiceResolver;
+        /// let x = ServiceResolver::new().set_endpoint_filter("example");
+        /// ```
         pub fn set_endpoint_filter<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -1586,12 +2041,29 @@ pub mod ekm_connection {
         }
 
         /// Sets the value of [hostname][crate::model::ekm_connection::ServiceResolver::hostname].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::ekm_connection::ServiceResolver;
+        /// let x = ServiceResolver::new().set_hostname("example");
+        /// ```
         pub fn set_hostname<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.hostname = v.into();
             self
         }
 
         /// Sets the value of [server_certificates][crate::model::ekm_connection::ServiceResolver::server_certificates].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::ekm_connection::ServiceResolver;
+        /// use google_cloud_kms_v1::model::Certificate;
+        /// let x = ServiceResolver::new()
+        ///     .set_server_certificates([
+        ///         Certificate::default()/* use setters */,
+        ///         Certificate::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_server_certificates<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1822,12 +2294,24 @@ impl EkmConfig {
     }
 
     /// Sets the value of [name][crate::model::EkmConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EkmConfig;
+    /// let x = EkmConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [default_ekm_connection][crate::model::EkmConfig::default_ekm_connection].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EkmConfig;
+    /// let x = EkmConfig::new().set_default_ekm_connection("example");
+    /// ```
     pub fn set_default_ekm_connection<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1866,6 +2350,12 @@ impl VerifyConnectivityRequest {
     }
 
     /// Sets the value of [name][crate::model::VerifyConnectivityRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::VerifyConnectivityRequest;
+    /// let x = VerifyConnectivityRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1930,12 +2420,25 @@ impl KeyRing {
     }
 
     /// Sets the value of [name][crate::model::KeyRing::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::KeyRing;
+    /// let x = KeyRing::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::KeyRing::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::KeyRing;
+    /// use wkt::Timestamp;
+    /// let x = KeyRing::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1945,6 +2448,14 @@ impl KeyRing {
     }
 
     /// Sets or clears the value of [create_time][crate::model::KeyRing::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::KeyRing;
+    /// use wkt::Timestamp;
+    /// let x = KeyRing::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = KeyRing::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2107,12 +2618,25 @@ impl CryptoKey {
     }
 
     /// Sets the value of [name][crate::model::CryptoKey::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// let x = CryptoKey::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [primary][crate::model::CryptoKey::primary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = CryptoKey::new().set_primary(CryptoKeyVersion::default()/* use setters */);
+    /// ```
     pub fn set_primary<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKeyVersion>,
@@ -2122,6 +2646,14 @@ impl CryptoKey {
     }
 
     /// Sets or clears the value of [primary][crate::model::CryptoKey::primary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = CryptoKey::new().set_or_clear_primary(Some(CryptoKeyVersion::default()/* use setters */));
+    /// let x = CryptoKey::new().set_or_clear_primary(None::<CryptoKeyVersion>);
+    /// ```
     pub fn set_or_clear_primary<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKeyVersion>,
@@ -2131,6 +2663,15 @@ impl CryptoKey {
     }
 
     /// Sets the value of [purpose][crate::model::CryptoKey::purpose].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use google_cloud_kms_v1::model::crypto_key::CryptoKeyPurpose;
+    /// let x0 = CryptoKey::new().set_purpose(CryptoKeyPurpose::EncryptDecrypt);
+    /// let x1 = CryptoKey::new().set_purpose(CryptoKeyPurpose::AsymmetricSign);
+    /// let x2 = CryptoKey::new().set_purpose(CryptoKeyPurpose::AsymmetricDecrypt);
+    /// ```
     pub fn set_purpose<T: std::convert::Into<crate::model::crypto_key::CryptoKeyPurpose>>(
         mut self,
         v: T,
@@ -2140,6 +2681,13 @@ impl CryptoKey {
     }
 
     /// Sets the value of [create_time][crate::model::CryptoKey::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKey::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2149,6 +2697,14 @@ impl CryptoKey {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CryptoKey::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKey::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CryptoKey::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2158,6 +2714,13 @@ impl CryptoKey {
     }
 
     /// Sets the value of [next_rotation_time][crate::model::CryptoKey::next_rotation_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKey::new().set_next_rotation_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_next_rotation_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2167,6 +2730,14 @@ impl CryptoKey {
     }
 
     /// Sets or clears the value of [next_rotation_time][crate::model::CryptoKey::next_rotation_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKey::new().set_or_clear_next_rotation_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CryptoKey::new().set_or_clear_next_rotation_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_next_rotation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2176,6 +2747,13 @@ impl CryptoKey {
     }
 
     /// Sets the value of [version_template][crate::model::CryptoKey::version_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use google_cloud_kms_v1::model::CryptoKeyVersionTemplate;
+    /// let x = CryptoKey::new().set_version_template(CryptoKeyVersionTemplate::default()/* use setters */);
+    /// ```
     pub fn set_version_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKeyVersionTemplate>,
@@ -2185,6 +2763,14 @@ impl CryptoKey {
     }
 
     /// Sets or clears the value of [version_template][crate::model::CryptoKey::version_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use google_cloud_kms_v1::model::CryptoKeyVersionTemplate;
+    /// let x = CryptoKey::new().set_or_clear_version_template(Some(CryptoKeyVersionTemplate::default()/* use setters */));
+    /// let x = CryptoKey::new().set_or_clear_version_template(None::<CryptoKeyVersionTemplate>);
+    /// ```
     pub fn set_or_clear_version_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKeyVersionTemplate>,
@@ -2194,6 +2780,15 @@ impl CryptoKey {
     }
 
     /// Sets the value of [labels][crate::model::CryptoKey::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// let x = CryptoKey::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2206,12 +2801,25 @@ impl CryptoKey {
     }
 
     /// Sets the value of [import_only][crate::model::CryptoKey::import_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// let x = CryptoKey::new().set_import_only(true);
+    /// ```
     pub fn set_import_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.import_only = v.into();
         self
     }
 
     /// Sets the value of [destroy_scheduled_duration][crate::model::CryptoKey::destroy_scheduled_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use wkt::Duration;
+    /// let x = CryptoKey::new().set_destroy_scheduled_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_destroy_scheduled_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2221,6 +2829,14 @@ impl CryptoKey {
     }
 
     /// Sets or clears the value of [destroy_scheduled_duration][crate::model::CryptoKey::destroy_scheduled_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use wkt::Duration;
+    /// let x = CryptoKey::new().set_or_clear_destroy_scheduled_duration(Some(Duration::default()/* use setters */));
+    /// let x = CryptoKey::new().set_or_clear_destroy_scheduled_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_destroy_scheduled_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2230,6 +2846,12 @@ impl CryptoKey {
     }
 
     /// Sets the value of [crypto_key_backend][crate::model::CryptoKey::crypto_key_backend].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// let x = CryptoKey::new().set_crypto_key_backend("example");
+    /// ```
     pub fn set_crypto_key_backend<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2239,6 +2861,13 @@ impl CryptoKey {
     }
 
     /// Sets the value of [key_access_justifications_policy][crate::model::CryptoKey::key_access_justifications_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use google_cloud_kms_v1::model::KeyAccessJustificationsPolicy;
+    /// let x = CryptoKey::new().set_key_access_justifications_policy(KeyAccessJustificationsPolicy::default()/* use setters */);
+    /// ```
     pub fn set_key_access_justifications_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KeyAccessJustificationsPolicy>,
@@ -2248,6 +2877,14 @@ impl CryptoKey {
     }
 
     /// Sets or clears the value of [key_access_justifications_policy][crate::model::CryptoKey::key_access_justifications_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use google_cloud_kms_v1::model::KeyAccessJustificationsPolicy;
+    /// let x = CryptoKey::new().set_or_clear_key_access_justifications_policy(Some(KeyAccessJustificationsPolicy::default()/* use setters */));
+    /// let x = CryptoKey::new().set_or_clear_key_access_justifications_policy(None::<KeyAccessJustificationsPolicy>);
+    /// ```
     pub fn set_or_clear_key_access_justifications_policy<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2263,6 +2900,14 @@ impl CryptoKey {
     ///
     /// Note that all the setters affecting `rotation_schedule` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use wkt::Duration;
+    /// let x = CryptoKey::new().set_rotation_schedule(Some(
+    ///     google_cloud_kms_v1::model::crypto_key::RotationSchedule::RotationPeriod(Duration::default().into())));
+    /// ```
     pub fn set_rotation_schedule<
         T: std::convert::Into<std::option::Option<crate::model::crypto_key::RotationSchedule>>,
     >(
@@ -2291,6 +2936,14 @@ impl CryptoKey {
     ///
     /// Note that all the setters affecting `rotation_schedule` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKey;
+    /// use wkt::Duration;
+    /// let x = CryptoKey::new().set_rotation_period(Duration::default()/* use setters */);
+    /// assert!(x.rotation_period().is_some());
+    /// ```
     pub fn set_rotation_period<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(
         mut self,
         v: T,
@@ -2595,6 +3248,15 @@ impl CryptoKeyVersionTemplate {
     }
 
     /// Sets the value of [protection_level][crate::model::CryptoKeyVersionTemplate::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersionTemplate;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = CryptoKeyVersionTemplate::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = CryptoKeyVersionTemplate::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = CryptoKeyVersionTemplate::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -2604,6 +3266,15 @@ impl CryptoKeyVersionTemplate {
     }
 
     /// Sets the value of [algorithm][crate::model::CryptoKeyVersionTemplate::algorithm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersionTemplate;
+    /// use google_cloud_kms_v1::model::crypto_key_version::CryptoKeyVersionAlgorithm;
+    /// let x0 = CryptoKeyVersionTemplate::new().set_algorithm(CryptoKeyVersionAlgorithm::GoogleSymmetricEncryption);
+    /// let x1 = CryptoKeyVersionTemplate::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes128Gcm);
+    /// let x2 = CryptoKeyVersionTemplate::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes256Gcm);
+    /// ```
     pub fn set_algorithm<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
     >(
@@ -2647,6 +3318,14 @@ impl KeyOperationAttestation {
     }
 
     /// Sets the value of [format][crate::model::KeyOperationAttestation::format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::KeyOperationAttestation;
+    /// use google_cloud_kms_v1::model::key_operation_attestation::AttestationFormat;
+    /// let x0 = KeyOperationAttestation::new().set_format(AttestationFormat::CaviumV1Compressed);
+    /// let x1 = KeyOperationAttestation::new().set_format(AttestationFormat::CaviumV2Compressed);
+    /// ```
     pub fn set_format<
         T: std::convert::Into<crate::model::key_operation_attestation::AttestationFormat>,
     >(
@@ -2658,12 +3337,25 @@ impl KeyOperationAttestation {
     }
 
     /// Sets the value of [content][crate::model::KeyOperationAttestation::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::KeyOperationAttestation;
+    /// let x = KeyOperationAttestation::new().set_content(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [cert_chains][crate::model::KeyOperationAttestation::cert_chains].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::KeyOperationAttestation;
+    /// use google_cloud_kms_v1::model::key_operation_attestation::CertificateChains;
+    /// let x = KeyOperationAttestation::new().set_cert_chains(CertificateChains::default()/* use setters */);
+    /// ```
     pub fn set_cert_chains<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::key_operation_attestation::CertificateChains>,
@@ -2673,6 +3365,14 @@ impl KeyOperationAttestation {
     }
 
     /// Sets or clears the value of [cert_chains][crate::model::KeyOperationAttestation::cert_chains].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::KeyOperationAttestation;
+    /// use google_cloud_kms_v1::model::key_operation_attestation::CertificateChains;
+    /// let x = KeyOperationAttestation::new().set_or_clear_cert_chains(Some(CertificateChains::default()/* use setters */));
+    /// let x = KeyOperationAttestation::new().set_or_clear_cert_chains(None::<CertificateChains>);
+    /// ```
     pub fn set_or_clear_cert_chains<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::key_operation_attestation::CertificateChains>,
@@ -2717,6 +3417,12 @@ pub mod key_operation_attestation {
         }
 
         /// Sets the value of [cavium_certs][crate::model::key_operation_attestation::CertificateChains::cavium_certs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::key_operation_attestation::CertificateChains;
+        /// let x = CertificateChains::new().set_cavium_certs(["a", "b", "c"]);
+        /// ```
         pub fn set_cavium_certs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2728,6 +3434,12 @@ pub mod key_operation_attestation {
         }
 
         /// Sets the value of [google_card_certs][crate::model::key_operation_attestation::CertificateChains::google_card_certs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::key_operation_attestation::CertificateChains;
+        /// let x = CertificateChains::new().set_google_card_certs(["a", "b", "c"]);
+        /// ```
         pub fn set_google_card_certs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2739,6 +3451,12 @@ pub mod key_operation_attestation {
         }
 
         /// Sets the value of [google_partition_certs][crate::model::key_operation_attestation::CertificateChains::google_partition_certs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::key_operation_attestation::CertificateChains;
+        /// let x = CertificateChains::new().set_google_partition_certs(["a", "b", "c"]);
+        /// ```
         pub fn set_google_partition_certs<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -3054,12 +3772,27 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [name][crate::model::CryptoKeyVersion::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = CryptoKeyVersion::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::CryptoKeyVersion::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use google_cloud_kms_v1::model::crypto_key_version::CryptoKeyVersionState;
+    /// let x0 = CryptoKeyVersion::new().set_state(CryptoKeyVersionState::PendingGeneration);
+    /// let x1 = CryptoKeyVersion::new().set_state(CryptoKeyVersionState::Enabled);
+    /// let x2 = CryptoKeyVersion::new().set_state(CryptoKeyVersionState::Disabled);
+    /// ```
     pub fn set_state<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionState>,
     >(
@@ -3071,6 +3804,15 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [protection_level][crate::model::CryptoKeyVersion::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = CryptoKeyVersion::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = CryptoKeyVersion::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = CryptoKeyVersion::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -3080,6 +3822,15 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [algorithm][crate::model::CryptoKeyVersion::algorithm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use google_cloud_kms_v1::model::crypto_key_version::CryptoKeyVersionAlgorithm;
+    /// let x0 = CryptoKeyVersion::new().set_algorithm(CryptoKeyVersionAlgorithm::GoogleSymmetricEncryption);
+    /// let x1 = CryptoKeyVersion::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes128Gcm);
+    /// let x2 = CryptoKeyVersion::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes256Gcm);
+    /// ```
     pub fn set_algorithm<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
     >(
@@ -3091,6 +3842,13 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [attestation][crate::model::CryptoKeyVersion::attestation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use google_cloud_kms_v1::model::KeyOperationAttestation;
+    /// let x = CryptoKeyVersion::new().set_attestation(KeyOperationAttestation::default()/* use setters */);
+    /// ```
     pub fn set_attestation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KeyOperationAttestation>,
@@ -3100,6 +3858,14 @@ impl CryptoKeyVersion {
     }
 
     /// Sets or clears the value of [attestation][crate::model::CryptoKeyVersion::attestation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use google_cloud_kms_v1::model::KeyOperationAttestation;
+    /// let x = CryptoKeyVersion::new().set_or_clear_attestation(Some(KeyOperationAttestation::default()/* use setters */));
+    /// let x = CryptoKeyVersion::new().set_or_clear_attestation(None::<KeyOperationAttestation>);
+    /// ```
     pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KeyOperationAttestation>,
@@ -3109,6 +3875,13 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [create_time][crate::model::CryptoKeyVersion::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKeyVersion::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3118,6 +3891,14 @@ impl CryptoKeyVersion {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CryptoKeyVersion::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKeyVersion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CryptoKeyVersion::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3127,6 +3908,13 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [generate_time][crate::model::CryptoKeyVersion::generate_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKeyVersion::new().set_generate_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_generate_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3136,6 +3924,14 @@ impl CryptoKeyVersion {
     }
 
     /// Sets or clears the value of [generate_time][crate::model::CryptoKeyVersion::generate_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKeyVersion::new().set_or_clear_generate_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CryptoKeyVersion::new().set_or_clear_generate_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_generate_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3145,6 +3941,13 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [destroy_time][crate::model::CryptoKeyVersion::destroy_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKeyVersion::new().set_destroy_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_destroy_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3154,6 +3957,14 @@ impl CryptoKeyVersion {
     }
 
     /// Sets or clears the value of [destroy_time][crate::model::CryptoKeyVersion::destroy_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKeyVersion::new().set_or_clear_destroy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CryptoKeyVersion::new().set_or_clear_destroy_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_destroy_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3163,6 +3974,13 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [destroy_event_time][crate::model::CryptoKeyVersion::destroy_event_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKeyVersion::new().set_destroy_event_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_destroy_event_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3172,6 +3990,14 @@ impl CryptoKeyVersion {
     }
 
     /// Sets or clears the value of [destroy_event_time][crate::model::CryptoKeyVersion::destroy_event_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKeyVersion::new().set_or_clear_destroy_event_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CryptoKeyVersion::new().set_or_clear_destroy_event_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_destroy_event_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3181,12 +4007,25 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [import_job][crate::model::CryptoKeyVersion::import_job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = CryptoKeyVersion::new().set_import_job("example");
+    /// ```
     pub fn set_import_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.import_job = v.into();
         self
     }
 
     /// Sets the value of [import_time][crate::model::CryptoKeyVersion::import_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKeyVersion::new().set_import_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_import_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3196,6 +4035,14 @@ impl CryptoKeyVersion {
     }
 
     /// Sets or clears the value of [import_time][crate::model::CryptoKeyVersion::import_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use wkt::Timestamp;
+    /// let x = CryptoKeyVersion::new().set_or_clear_import_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CryptoKeyVersion::new().set_or_clear_import_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_import_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3205,6 +4052,12 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [import_failure_reason][crate::model::CryptoKeyVersion::import_failure_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = CryptoKeyVersion::new().set_import_failure_reason("example");
+    /// ```
     pub fn set_import_failure_reason<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3214,6 +4067,12 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [generation_failure_reason][crate::model::CryptoKeyVersion::generation_failure_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = CryptoKeyVersion::new().set_generation_failure_reason("example");
+    /// ```
     pub fn set_generation_failure_reason<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3223,6 +4082,12 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [external_destruction_failure_reason][crate::model::CryptoKeyVersion::external_destruction_failure_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = CryptoKeyVersion::new().set_external_destruction_failure_reason("example");
+    /// ```
     pub fn set_external_destruction_failure_reason<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3232,6 +4097,13 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [external_protection_level_options][crate::model::CryptoKeyVersion::external_protection_level_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use google_cloud_kms_v1::model::ExternalProtectionLevelOptions;
+    /// let x = CryptoKeyVersion::new().set_external_protection_level_options(ExternalProtectionLevelOptions::default()/* use setters */);
+    /// ```
     pub fn set_external_protection_level_options<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExternalProtectionLevelOptions>,
@@ -3241,6 +4113,14 @@ impl CryptoKeyVersion {
     }
 
     /// Sets or clears the value of [external_protection_level_options][crate::model::CryptoKeyVersion::external_protection_level_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// use google_cloud_kms_v1::model::ExternalProtectionLevelOptions;
+    /// let x = CryptoKeyVersion::new().set_or_clear_external_protection_level_options(Some(ExternalProtectionLevelOptions::default()/* use setters */));
+    /// let x = CryptoKeyVersion::new().set_or_clear_external_protection_level_options(None::<ExternalProtectionLevelOptions>);
+    /// ```
     pub fn set_or_clear_external_protection_level_options<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3253,6 +4133,12 @@ impl CryptoKeyVersion {
     }
 
     /// Sets the value of [reimport_eligible][crate::model::CryptoKeyVersion::reimport_eligible].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = CryptoKeyVersion::new().set_reimport_eligible(true);
+    /// ```
     pub fn set_reimport_eligible<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reimport_eligible = v.into();
         self
@@ -4198,12 +5084,25 @@ impl ChecksummedData {
     }
 
     /// Sets the value of [data][crate::model::ChecksummedData::data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ChecksummedData;
+    /// let x = ChecksummedData::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
     /// Sets the value of [crc32c_checksum][crate::model::ChecksummedData::crc32c_checksum].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ChecksummedData;
+    /// use wkt::Int64Value;
+    /// let x = ChecksummedData::new().set_crc32c_checksum(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_crc32c_checksum<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -4213,6 +5112,14 @@ impl ChecksummedData {
     }
 
     /// Sets or clears the value of [crc32c_checksum][crate::model::ChecksummedData::crc32c_checksum].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ChecksummedData;
+    /// use wkt::Int64Value;
+    /// let x = ChecksummedData::new().set_or_clear_crc32c_checksum(Some(Int64Value::default()/* use setters */));
+    /// let x = ChecksummedData::new().set_or_clear_crc32c_checksum(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_crc32c_checksum<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -4311,12 +5218,27 @@ impl PublicKey {
     }
 
     /// Sets the value of [pem][crate::model::PublicKey::pem].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::PublicKey;
+    /// let x = PublicKey::new().set_pem("example");
+    /// ```
     pub fn set_pem<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pem = v.into();
         self
     }
 
     /// Sets the value of [algorithm][crate::model::PublicKey::algorithm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::PublicKey;
+    /// use google_cloud_kms_v1::model::crypto_key_version::CryptoKeyVersionAlgorithm;
+    /// let x0 = PublicKey::new().set_algorithm(CryptoKeyVersionAlgorithm::GoogleSymmetricEncryption);
+    /// let x1 = PublicKey::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes128Gcm);
+    /// let x2 = PublicKey::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes256Gcm);
+    /// ```
     pub fn set_algorithm<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
     >(
@@ -4328,6 +5250,13 @@ impl PublicKey {
     }
 
     /// Sets the value of [pem_crc32c][crate::model::PublicKey::pem_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::PublicKey;
+    /// use wkt::Int64Value;
+    /// let x = PublicKey::new().set_pem_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_pem_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -4337,6 +5266,14 @@ impl PublicKey {
     }
 
     /// Sets or clears the value of [pem_crc32c][crate::model::PublicKey::pem_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::PublicKey;
+    /// use wkt::Int64Value;
+    /// let x = PublicKey::new().set_or_clear_pem_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = PublicKey::new().set_or_clear_pem_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_pem_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -4346,12 +5283,27 @@ impl PublicKey {
     }
 
     /// Sets the value of [name][crate::model::PublicKey::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::PublicKey;
+    /// let x = PublicKey::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [protection_level][crate::model::PublicKey::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::PublicKey;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = PublicKey::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = PublicKey::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = PublicKey::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -4361,6 +5313,15 @@ impl PublicKey {
     }
 
     /// Sets the value of [public_key_format][crate::model::PublicKey::public_key_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::PublicKey;
+    /// use google_cloud_kms_v1::model::public_key::PublicKeyFormat;
+    /// let x0 = PublicKey::new().set_public_key_format(PublicKeyFormat::Pem);
+    /// let x1 = PublicKey::new().set_public_key_format(PublicKeyFormat::Der);
+    /// let x2 = PublicKey::new().set_public_key_format(PublicKeyFormat::NistPqc);
+    /// ```
     pub fn set_public_key_format<
         T: std::convert::Into<crate::model::public_key::PublicKeyFormat>,
     >(
@@ -4372,6 +5333,13 @@ impl PublicKey {
     }
 
     /// Sets the value of [public_key][crate::model::PublicKey::public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::PublicKey;
+    /// use google_cloud_kms_v1::model::ChecksummedData;
+    /// let x = PublicKey::new().set_public_key(ChecksummedData::default()/* use setters */);
+    /// ```
     pub fn set_public_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ChecksummedData>,
@@ -4381,6 +5349,14 @@ impl PublicKey {
     }
 
     /// Sets or clears the value of [public_key][crate::model::PublicKey::public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::PublicKey;
+    /// use google_cloud_kms_v1::model::ChecksummedData;
+    /// let x = PublicKey::new().set_or_clear_public_key(Some(ChecksummedData::default()/* use setters */));
+    /// let x = PublicKey::new().set_or_clear_public_key(None::<ChecksummedData>);
+    /// ```
     pub fn set_or_clear_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ChecksummedData>,
@@ -4703,12 +5679,27 @@ impl ImportJob {
     }
 
     /// Sets the value of [name][crate::model::ImportJob::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// let x = ImportJob::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [import_method][crate::model::ImportJob::import_method].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use google_cloud_kms_v1::model::import_job::ImportMethod;
+    /// let x0 = ImportJob::new().set_import_method(ImportMethod::RsaOaep3072Sha1Aes256);
+    /// let x1 = ImportJob::new().set_import_method(ImportMethod::RsaOaep4096Sha1Aes256);
+    /// let x2 = ImportJob::new().set_import_method(ImportMethod::RsaOaep3072Sha256Aes256);
+    /// ```
     pub fn set_import_method<T: std::convert::Into<crate::model::import_job::ImportMethod>>(
         mut self,
         v: T,
@@ -4718,6 +5709,15 @@ impl ImportJob {
     }
 
     /// Sets the value of [protection_level][crate::model::ImportJob::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = ImportJob::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = ImportJob::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = ImportJob::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -4727,6 +5727,13 @@ impl ImportJob {
     }
 
     /// Sets the value of [create_time][crate::model::ImportJob::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use wkt::Timestamp;
+    /// let x = ImportJob::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4736,6 +5743,14 @@ impl ImportJob {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ImportJob::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use wkt::Timestamp;
+    /// let x = ImportJob::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportJob::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4745,6 +5760,13 @@ impl ImportJob {
     }
 
     /// Sets the value of [generate_time][crate::model::ImportJob::generate_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use wkt::Timestamp;
+    /// let x = ImportJob::new().set_generate_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_generate_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4754,6 +5776,14 @@ impl ImportJob {
     }
 
     /// Sets or clears the value of [generate_time][crate::model::ImportJob::generate_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use wkt::Timestamp;
+    /// let x = ImportJob::new().set_or_clear_generate_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportJob::new().set_or_clear_generate_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_generate_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4763,6 +5793,13 @@ impl ImportJob {
     }
 
     /// Sets the value of [expire_time][crate::model::ImportJob::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use wkt::Timestamp;
+    /// let x = ImportJob::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4772,6 +5809,14 @@ impl ImportJob {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::ImportJob::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use wkt::Timestamp;
+    /// let x = ImportJob::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportJob::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4781,6 +5826,13 @@ impl ImportJob {
     }
 
     /// Sets the value of [expire_event_time][crate::model::ImportJob::expire_event_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use wkt::Timestamp;
+    /// let x = ImportJob::new().set_expire_event_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_event_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4790,6 +5842,14 @@ impl ImportJob {
     }
 
     /// Sets or clears the value of [expire_event_time][crate::model::ImportJob::expire_event_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use wkt::Timestamp;
+    /// let x = ImportJob::new().set_or_clear_expire_event_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ImportJob::new().set_or_clear_expire_event_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_event_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4799,6 +5859,15 @@ impl ImportJob {
     }
 
     /// Sets the value of [state][crate::model::ImportJob::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use google_cloud_kms_v1::model::import_job::ImportJobState;
+    /// let x0 = ImportJob::new().set_state(ImportJobState::PendingGeneration);
+    /// let x1 = ImportJob::new().set_state(ImportJobState::Active);
+    /// let x2 = ImportJob::new().set_state(ImportJobState::Expired);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::import_job::ImportJobState>>(
         mut self,
         v: T,
@@ -4808,6 +5877,13 @@ impl ImportJob {
     }
 
     /// Sets the value of [public_key][crate::model::ImportJob::public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use google_cloud_kms_v1::model::import_job::WrappingPublicKey;
+    /// let x = ImportJob::new().set_public_key(WrappingPublicKey::default()/* use setters */);
+    /// ```
     pub fn set_public_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::import_job::WrappingPublicKey>,
@@ -4817,6 +5893,14 @@ impl ImportJob {
     }
 
     /// Sets or clears the value of [public_key][crate::model::ImportJob::public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use google_cloud_kms_v1::model::import_job::WrappingPublicKey;
+    /// let x = ImportJob::new().set_or_clear_public_key(Some(WrappingPublicKey::default()/* use setters */));
+    /// let x = ImportJob::new().set_or_clear_public_key(None::<WrappingPublicKey>);
+    /// ```
     pub fn set_or_clear_public_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::import_job::WrappingPublicKey>,
@@ -4826,6 +5910,13 @@ impl ImportJob {
     }
 
     /// Sets the value of [attestation][crate::model::ImportJob::attestation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use google_cloud_kms_v1::model::KeyOperationAttestation;
+    /// let x = ImportJob::new().set_attestation(KeyOperationAttestation::default()/* use setters */);
+    /// ```
     pub fn set_attestation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KeyOperationAttestation>,
@@ -4835,6 +5926,14 @@ impl ImportJob {
     }
 
     /// Sets or clears the value of [attestation][crate::model::ImportJob::attestation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// use google_cloud_kms_v1::model::KeyOperationAttestation;
+    /// let x = ImportJob::new().set_or_clear_attestation(Some(KeyOperationAttestation::default()/* use setters */));
+    /// let x = ImportJob::new().set_or_clear_attestation(None::<KeyOperationAttestation>);
+    /// ```
     pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KeyOperationAttestation>,
@@ -4879,6 +5978,12 @@ pub mod import_job {
         }
 
         /// Sets the value of [pem][crate::model::import_job::WrappingPublicKey::pem].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::import_job::WrappingPublicKey;
+        /// let x = WrappingPublicKey::new().set_pem("example");
+        /// ```
         pub fn set_pem<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.pem = v.into();
             self
@@ -5281,6 +6386,12 @@ impl ExternalProtectionLevelOptions {
     }
 
     /// Sets the value of [external_key_uri][crate::model::ExternalProtectionLevelOptions::external_key_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ExternalProtectionLevelOptions;
+    /// let x = ExternalProtectionLevelOptions::new().set_external_key_uri("example");
+    /// ```
     pub fn set_external_key_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5290,6 +6401,12 @@ impl ExternalProtectionLevelOptions {
     }
 
     /// Sets the value of [ekm_connection_key_path][crate::model::ExternalProtectionLevelOptions::ekm_connection_key_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ExternalProtectionLevelOptions;
+    /// let x = ExternalProtectionLevelOptions::new().set_ekm_connection_key_path("example");
+    /// ```
     pub fn set_ekm_connection_key_path<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5335,6 +6452,17 @@ impl KeyAccessJustificationsPolicy {
     }
 
     /// Sets the value of [allowed_access_reasons][crate::model::KeyAccessJustificationsPolicy::allowed_access_reasons].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::KeyAccessJustificationsPolicy;
+    /// use google_cloud_kms_v1::model::AccessReason;
+    /// let x = KeyAccessJustificationsPolicy::new().set_allowed_access_reasons([
+    ///     AccessReason::CustomerInitiatedSupport,
+    ///     AccessReason::GoogleInitiatedService,
+    ///     AccessReason::ThirdPartyDataRequest,
+    /// ]);
+    /// ```
     pub fn set_allowed_access_reasons<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5405,30 +6533,60 @@ impl ListKeyRingsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListKeyRingsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyRingsRequest;
+    /// let x = ListKeyRingsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListKeyRingsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyRingsRequest;
+    /// let x = ListKeyRingsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListKeyRingsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyRingsRequest;
+    /// let x = ListKeyRingsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListKeyRingsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyRingsRequest;
+    /// let x = ListKeyRingsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListKeyRingsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyRingsRequest;
+    /// let x = ListKeyRingsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5496,24 +6654,49 @@ impl ListCryptoKeysRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCryptoKeysRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeysRequest;
+    /// let x = ListCryptoKeysRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCryptoKeysRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeysRequest;
+    /// let x = ListCryptoKeysRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCryptoKeysRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeysRequest;
+    /// let x = ListCryptoKeysRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [version_view][crate::model::ListCryptoKeysRequest::version_view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeysRequest;
+    /// use google_cloud_kms_v1::model::crypto_key_version::CryptoKeyVersionView;
+    /// let x0 = ListCryptoKeysRequest::new().set_version_view(CryptoKeyVersionView::Full);
+    /// ```
     pub fn set_version_view<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionView>,
     >(
@@ -5525,12 +6708,24 @@ impl ListCryptoKeysRequest {
     }
 
     /// Sets the value of [filter][crate::model::ListCryptoKeysRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeysRequest;
+    /// let x = ListCryptoKeysRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCryptoKeysRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeysRequest;
+    /// let x = ListCryptoKeysRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5599,24 +6794,49 @@ impl ListCryptoKeyVersionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCryptoKeyVersionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeyVersionsRequest;
+    /// let x = ListCryptoKeyVersionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCryptoKeyVersionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeyVersionsRequest;
+    /// let x = ListCryptoKeyVersionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCryptoKeyVersionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeyVersionsRequest;
+    /// let x = ListCryptoKeyVersionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::ListCryptoKeyVersionsRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeyVersionsRequest;
+    /// use google_cloud_kms_v1::model::crypto_key_version::CryptoKeyVersionView;
+    /// let x0 = ListCryptoKeyVersionsRequest::new().set_view(CryptoKeyVersionView::Full);
+    /// ```
     pub fn set_view<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionView>,
     >(
@@ -5628,12 +6848,24 @@ impl ListCryptoKeyVersionsRequest {
     }
 
     /// Sets the value of [filter][crate::model::ListCryptoKeyVersionsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeyVersionsRequest;
+    /// let x = ListCryptoKeyVersionsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListCryptoKeyVersionsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeyVersionsRequest;
+    /// let x = ListCryptoKeyVersionsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5698,30 +6930,60 @@ impl ListImportJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListImportJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListImportJobsRequest;
+    /// let x = ListImportJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListImportJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListImportJobsRequest;
+    /// let x = ListImportJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListImportJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListImportJobsRequest;
+    /// let x = ListImportJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListImportJobsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListImportJobsRequest;
+    /// let x = ListImportJobsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListImportJobsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListImportJobsRequest;
+    /// let x = ListImportJobsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -5773,6 +7035,17 @@ impl ListKeyRingsResponse {
     }
 
     /// Sets the value of [key_rings][crate::model::ListKeyRingsResponse::key_rings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyRingsResponse;
+    /// use google_cloud_kms_v1::model::KeyRing;
+    /// let x = ListKeyRingsResponse::new()
+    ///     .set_key_rings([
+    ///         KeyRing::default()/* use setters */,
+    ///         KeyRing::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_key_rings<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5784,12 +7057,24 @@ impl ListKeyRingsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListKeyRingsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyRingsResponse;
+    /// let x = ListKeyRingsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListKeyRingsResponse::total_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListKeyRingsResponse;
+    /// let x = ListKeyRingsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -5855,6 +7140,17 @@ impl ListCryptoKeysResponse {
     }
 
     /// Sets the value of [crypto_keys][crate::model::ListCryptoKeysResponse::crypto_keys].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeysResponse;
+    /// use google_cloud_kms_v1::model::CryptoKey;
+    /// let x = ListCryptoKeysResponse::new()
+    ///     .set_crypto_keys([
+    ///         CryptoKey::default()/* use setters */,
+    ///         CryptoKey::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_crypto_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5866,12 +7162,24 @@ impl ListCryptoKeysResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCryptoKeysResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeysResponse;
+    /// let x = ListCryptoKeysResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListCryptoKeysResponse::total_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeysResponse;
+    /// let x = ListCryptoKeysResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -5938,6 +7246,17 @@ impl ListCryptoKeyVersionsResponse {
     }
 
     /// Sets the value of [crypto_key_versions][crate::model::ListCryptoKeyVersionsResponse::crypto_key_versions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeyVersionsResponse;
+    /// use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = ListCryptoKeyVersionsResponse::new()
+    ///     .set_crypto_key_versions([
+    ///         CryptoKeyVersion::default()/* use setters */,
+    ///         CryptoKeyVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_crypto_key_versions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5949,12 +7268,24 @@ impl ListCryptoKeyVersionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCryptoKeyVersionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeyVersionsResponse;
+    /// let x = ListCryptoKeyVersionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListCryptoKeyVersionsResponse::total_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListCryptoKeyVersionsResponse;
+    /// let x = ListCryptoKeyVersionsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -6020,6 +7351,17 @@ impl ListImportJobsResponse {
     }
 
     /// Sets the value of [import_jobs][crate::model::ListImportJobsResponse::import_jobs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListImportJobsResponse;
+    /// use google_cloud_kms_v1::model::ImportJob;
+    /// let x = ListImportJobsResponse::new()
+    ///     .set_import_jobs([
+    ///         ImportJob::default()/* use setters */,
+    ///         ImportJob::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_import_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6031,12 +7373,24 @@ impl ListImportJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListImportJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListImportJobsResponse;
+    /// let x = ListImportJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [total_size][crate::model::ListImportJobsResponse::total_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListImportJobsResponse;
+    /// let x = ListImportJobsResponse::new().set_total_size(42);
+    /// ```
     pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.total_size = v.into();
         self
@@ -6086,6 +7440,12 @@ impl GetKeyRingRequest {
     }
 
     /// Sets the value of [name][crate::model::GetKeyRingRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetKeyRingRequest;
+    /// let x = GetKeyRingRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6121,6 +7481,12 @@ impl GetCryptoKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCryptoKeyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetCryptoKeyRequest;
+    /// let x = GetCryptoKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6156,6 +7522,12 @@ impl GetCryptoKeyVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCryptoKeyVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetCryptoKeyVersionRequest;
+    /// let x = GetCryptoKeyVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6204,12 +7576,27 @@ impl GetPublicKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPublicKeyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetPublicKeyRequest;
+    /// let x = GetPublicKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [public_key_format][crate::model::GetPublicKeyRequest::public_key_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetPublicKeyRequest;
+    /// use google_cloud_kms_v1::model::public_key::PublicKeyFormat;
+    /// let x0 = GetPublicKeyRequest::new().set_public_key_format(PublicKeyFormat::Pem);
+    /// let x1 = GetPublicKeyRequest::new().set_public_key_format(PublicKeyFormat::Der);
+    /// let x2 = GetPublicKeyRequest::new().set_public_key_format(PublicKeyFormat::NistPqc);
+    /// ```
     pub fn set_public_key_format<
         T: std::convert::Into<crate::model::public_key::PublicKeyFormat>,
     >(
@@ -6250,6 +7637,12 @@ impl GetImportJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetImportJobRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetImportJobRequest;
+    /// let x = GetImportJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6295,18 +7688,37 @@ impl CreateKeyRingRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateKeyRingRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateKeyRingRequest;
+    /// let x = CreateKeyRingRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [key_ring_id][crate::model::CreateKeyRingRequest::key_ring_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateKeyRingRequest;
+    /// let x = CreateKeyRingRequest::new().set_key_ring_id("example");
+    /// ```
     pub fn set_key_ring_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_ring_id = v.into();
         self
     }
 
     /// Sets the value of [key_ring][crate::model::CreateKeyRingRequest::key_ring].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateKeyRingRequest;
+    /// use google_cloud_kms_v1::model::KeyRing;
+    /// let x = CreateKeyRingRequest::new().set_key_ring(KeyRing::default()/* use setters */);
+    /// ```
     pub fn set_key_ring<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::KeyRing>,
@@ -6316,6 +7728,14 @@ impl CreateKeyRingRequest {
     }
 
     /// Sets or clears the value of [key_ring][crate::model::CreateKeyRingRequest::key_ring].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateKeyRingRequest;
+    /// use google_cloud_kms_v1::model::KeyRing;
+    /// let x = CreateKeyRingRequest::new().set_or_clear_key_ring(Some(KeyRing::default()/* use setters */));
+    /// let x = CreateKeyRingRequest::new().set_or_clear_key_ring(None::<KeyRing>);
+    /// ```
     pub fn set_or_clear_key_ring<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::KeyRing>,
@@ -6379,18 +7799,37 @@ impl CreateCryptoKeyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCryptoKeyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateCryptoKeyRequest;
+    /// let x = CreateCryptoKeyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [crypto_key_id][crate::model::CreateCryptoKeyRequest::crypto_key_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateCryptoKeyRequest;
+    /// let x = CreateCryptoKeyRequest::new().set_crypto_key_id("example");
+    /// ```
     pub fn set_crypto_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.crypto_key_id = v.into();
         self
     }
 
     /// Sets the value of [crypto_key][crate::model::CreateCryptoKeyRequest::crypto_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateCryptoKeyRequest;
+    /// use google_cloud_kms_v1::model::CryptoKey;
+    /// let x = CreateCryptoKeyRequest::new().set_crypto_key(CryptoKey::default()/* use setters */);
+    /// ```
     pub fn set_crypto_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKey>,
@@ -6400,6 +7839,14 @@ impl CreateCryptoKeyRequest {
     }
 
     /// Sets or clears the value of [crypto_key][crate::model::CreateCryptoKeyRequest::crypto_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateCryptoKeyRequest;
+    /// use google_cloud_kms_v1::model::CryptoKey;
+    /// let x = CreateCryptoKeyRequest::new().set_or_clear_crypto_key(Some(CryptoKey::default()/* use setters */));
+    /// let x = CreateCryptoKeyRequest::new().set_or_clear_crypto_key(None::<CryptoKey>);
+    /// ```
     pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKey>,
@@ -6409,6 +7856,12 @@ impl CreateCryptoKeyRequest {
     }
 
     /// Sets the value of [skip_initial_version_creation][crate::model::CreateCryptoKeyRequest::skip_initial_version_creation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateCryptoKeyRequest;
+    /// let x = CreateCryptoKeyRequest::new().set_skip_initial_version_creation(true);
+    /// ```
     pub fn set_skip_initial_version_creation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_initial_version_creation = v.into();
         self
@@ -6452,12 +7905,25 @@ impl CreateCryptoKeyVersionRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCryptoKeyVersionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateCryptoKeyVersionRequest;
+    /// let x = CreateCryptoKeyVersionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [crypto_key_version][crate::model::CreateCryptoKeyVersionRequest::crypto_key_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateCryptoKeyVersionRequest;
+    /// use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = CreateCryptoKeyVersionRequest::new().set_crypto_key_version(CryptoKeyVersion::default()/* use setters */);
+    /// ```
     pub fn set_crypto_key_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKeyVersion>,
@@ -6467,6 +7933,14 @@ impl CreateCryptoKeyVersionRequest {
     }
 
     /// Sets or clears the value of [crypto_key_version][crate::model::CreateCryptoKeyVersionRequest::crypto_key_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateCryptoKeyVersionRequest;
+    /// use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = CreateCryptoKeyVersionRequest::new().set_or_clear_crypto_key_version(Some(CryptoKeyVersion::default()/* use setters */));
+    /// let x = CreateCryptoKeyVersionRequest::new().set_or_clear_crypto_key_version(None::<CryptoKeyVersion>);
+    /// ```
     pub fn set_or_clear_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKeyVersion>,
@@ -6606,12 +8080,24 @@ impl ImportCryptoKeyVersionRequest {
     }
 
     /// Sets the value of [parent][crate::model::ImportCryptoKeyVersionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportCryptoKeyVersionRequest;
+    /// let x = ImportCryptoKeyVersionRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [crypto_key_version][crate::model::ImportCryptoKeyVersionRequest::crypto_key_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportCryptoKeyVersionRequest;
+    /// let x = ImportCryptoKeyVersionRequest::new().set_crypto_key_version("example");
+    /// ```
     pub fn set_crypto_key_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6621,6 +8107,15 @@ impl ImportCryptoKeyVersionRequest {
     }
 
     /// Sets the value of [algorithm][crate::model::ImportCryptoKeyVersionRequest::algorithm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportCryptoKeyVersionRequest;
+    /// use google_cloud_kms_v1::model::crypto_key_version::CryptoKeyVersionAlgorithm;
+    /// let x0 = ImportCryptoKeyVersionRequest::new().set_algorithm(CryptoKeyVersionAlgorithm::GoogleSymmetricEncryption);
+    /// let x1 = ImportCryptoKeyVersionRequest::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes128Gcm);
+    /// let x2 = ImportCryptoKeyVersionRequest::new().set_algorithm(CryptoKeyVersionAlgorithm::Aes256Gcm);
+    /// ```
     pub fn set_algorithm<
         T: std::convert::Into<crate::model::crypto_key_version::CryptoKeyVersionAlgorithm>,
     >(
@@ -6632,12 +8127,24 @@ impl ImportCryptoKeyVersionRequest {
     }
 
     /// Sets the value of [import_job][crate::model::ImportCryptoKeyVersionRequest::import_job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportCryptoKeyVersionRequest;
+    /// let x = ImportCryptoKeyVersionRequest::new().set_import_job("example");
+    /// ```
     pub fn set_import_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.import_job = v.into();
         self
     }
 
     /// Sets the value of [wrapped_key][crate::model::ImportCryptoKeyVersionRequest::wrapped_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportCryptoKeyVersionRequest;
+    /// let x = ImportCryptoKeyVersionRequest::new().set_wrapped_key(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.wrapped_key = v.into();
         self
@@ -6647,6 +8154,13 @@ impl ImportCryptoKeyVersionRequest {
     ///
     /// Note that all the setters affecting `wrapped_key_material` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportCryptoKeyVersionRequest;
+    /// use google_cloud_kms_v1::model::import_crypto_key_version_request::WrappedKeyMaterial;
+    /// let x = ImportCryptoKeyVersionRequest::new().set_wrapped_key_material(Some(WrappedKeyMaterial::RsaAesWrappedKey(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_wrapped_key_material<
         T: std::convert::Into<
                 std::option::Option<
@@ -6677,6 +8191,13 @@ impl ImportCryptoKeyVersionRequest {
     ///
     /// Note that all the setters affecting `wrapped_key_material` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportCryptoKeyVersionRequest;
+    /// let x = ImportCryptoKeyVersionRequest::new().set_rsa_aes_wrapped_key(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.rsa_aes_wrapped_key().is_some());
+    /// ```
     pub fn set_rsa_aes_wrapped_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.wrapped_key_material = std::option::Option::Some(
             crate::model::import_crypto_key_version_request::WrappedKeyMaterial::RsaAesWrappedKey(
@@ -6751,18 +8272,37 @@ impl CreateImportJobRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateImportJobRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateImportJobRequest;
+    /// let x = CreateImportJobRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [import_job_id][crate::model::CreateImportJobRequest::import_job_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateImportJobRequest;
+    /// let x = CreateImportJobRequest::new().set_import_job_id("example");
+    /// ```
     pub fn set_import_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.import_job_id = v.into();
         self
     }
 
     /// Sets the value of [import_job][crate::model::CreateImportJobRequest::import_job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateImportJobRequest;
+    /// use google_cloud_kms_v1::model::ImportJob;
+    /// let x = CreateImportJobRequest::new().set_import_job(ImportJob::default()/* use setters */);
+    /// ```
     pub fn set_import_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ImportJob>,
@@ -6772,6 +8312,14 @@ impl CreateImportJobRequest {
     }
 
     /// Sets or clears the value of [import_job][crate::model::CreateImportJobRequest::import_job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateImportJobRequest;
+    /// use google_cloud_kms_v1::model::ImportJob;
+    /// let x = CreateImportJobRequest::new().set_or_clear_import_job(Some(ImportJob::default()/* use setters */));
+    /// let x = CreateImportJobRequest::new().set_or_clear_import_job(None::<ImportJob>);
+    /// ```
     pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ImportJob>,
@@ -6811,6 +8359,13 @@ impl UpdateCryptoKeyRequest {
     }
 
     /// Sets the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateCryptoKeyRequest;
+    /// use google_cloud_kms_v1::model::CryptoKey;
+    /// let x = UpdateCryptoKeyRequest::new().set_crypto_key(CryptoKey::default()/* use setters */);
+    /// ```
     pub fn set_crypto_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKey>,
@@ -6820,6 +8375,14 @@ impl UpdateCryptoKeyRequest {
     }
 
     /// Sets or clears the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateCryptoKeyRequest;
+    /// use google_cloud_kms_v1::model::CryptoKey;
+    /// let x = UpdateCryptoKeyRequest::new().set_or_clear_crypto_key(Some(CryptoKey::default()/* use setters */));
+    /// let x = UpdateCryptoKeyRequest::new().set_or_clear_crypto_key(None::<CryptoKey>);
+    /// ```
     pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKey>,
@@ -6829,6 +8392,13 @@ impl UpdateCryptoKeyRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateCryptoKeyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCryptoKeyRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6838,6 +8408,14 @@ impl UpdateCryptoKeyRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCryptoKeyRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateCryptoKeyRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCryptoKeyRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCryptoKeyRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6878,6 +8456,13 @@ impl UpdateCryptoKeyVersionRequest {
     }
 
     /// Sets the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateCryptoKeyVersionRequest;
+    /// use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = UpdateCryptoKeyVersionRequest::new().set_crypto_key_version(CryptoKeyVersion::default()/* use setters */);
+    /// ```
     pub fn set_crypto_key_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKeyVersion>,
@@ -6887,6 +8472,14 @@ impl UpdateCryptoKeyVersionRequest {
     }
 
     /// Sets or clears the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateCryptoKeyVersionRequest;
+    /// use google_cloud_kms_v1::model::CryptoKeyVersion;
+    /// let x = UpdateCryptoKeyVersionRequest::new().set_or_clear_crypto_key_version(Some(CryptoKeyVersion::default()/* use setters */));
+    /// let x = UpdateCryptoKeyVersionRequest::new().set_or_clear_crypto_key_version(None::<CryptoKeyVersion>);
+    /// ```
     pub fn set_or_clear_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CryptoKeyVersion>,
@@ -6896,6 +8489,13 @@ impl UpdateCryptoKeyVersionRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyVersionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateCryptoKeyVersionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCryptoKeyVersionRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6905,6 +8505,14 @@ impl UpdateCryptoKeyVersionRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCryptoKeyVersionRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateCryptoKeyVersionRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCryptoKeyVersionRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCryptoKeyVersionRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6948,12 +8556,24 @@ impl UpdateCryptoKeyPrimaryVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::UpdateCryptoKeyPrimaryVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateCryptoKeyPrimaryVersionRequest;
+    /// let x = UpdateCryptoKeyPrimaryVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [crypto_key_version_id][crate::model::UpdateCryptoKeyPrimaryVersionRequest::crypto_key_version_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::UpdateCryptoKeyPrimaryVersionRequest;
+    /// let x = UpdateCryptoKeyPrimaryVersionRequest::new().set_crypto_key_version_id("example");
+    /// ```
     pub fn set_crypto_key_version_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6991,6 +8611,12 @@ impl DestroyCryptoKeyVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::DestroyCryptoKeyVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DestroyCryptoKeyVersionRequest;
+    /// let x = DestroyCryptoKeyVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7025,6 +8651,12 @@ impl RestoreCryptoKeyVersionRequest {
     }
 
     /// Sets the value of [name][crate::model::RestoreCryptoKeyVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RestoreCryptoKeyVersionRequest;
+    /// let x = RestoreCryptoKeyVersionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7157,18 +8789,36 @@ impl EncryptRequest {
     }
 
     /// Sets the value of [name][crate::model::EncryptRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptRequest;
+    /// let x = EncryptRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [plaintext][crate::model::EncryptRequest::plaintext].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptRequest;
+    /// let x = EncryptRequest::new().set_plaintext(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_plaintext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
 
     /// Sets the value of [additional_authenticated_data][crate::model::EncryptRequest::additional_authenticated_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptRequest;
+    /// let x = EncryptRequest::new().set_additional_authenticated_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -7178,6 +8828,13 @@ impl EncryptRequest {
     }
 
     /// Sets the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = EncryptRequest::new().set_plaintext_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7187,6 +8844,14 @@ impl EncryptRequest {
     }
 
     /// Sets or clears the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = EncryptRequest::new().set_or_clear_plaintext_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = EncryptRequest::new().set_or_clear_plaintext_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7196,6 +8861,13 @@ impl EncryptRequest {
     }
 
     /// Sets the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = EncryptRequest::new().set_additional_authenticated_data_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7205,6 +8877,14 @@ impl EncryptRequest {
     }
 
     /// Sets or clears the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = EncryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = EncryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
         mut self,
         v: std::option::Option<T>,
@@ -7308,18 +8988,36 @@ impl DecryptRequest {
     }
 
     /// Sets the value of [name][crate::model::DecryptRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecryptRequest;
+    /// let x = DecryptRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ciphertext][crate::model::DecryptRequest::ciphertext].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecryptRequest;
+    /// let x = DecryptRequest::new().set_ciphertext(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_ciphertext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
     /// Sets the value of [additional_authenticated_data][crate::model::DecryptRequest::additional_authenticated_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecryptRequest;
+    /// let x = DecryptRequest::new().set_additional_authenticated_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -7329,6 +9027,13 @@ impl DecryptRequest {
     }
 
     /// Sets the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = DecryptRequest::new().set_ciphertext_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7338,6 +9043,14 @@ impl DecryptRequest {
     }
 
     /// Sets or clears the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = DecryptRequest::new().set_or_clear_ciphertext_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = DecryptRequest::new().set_or_clear_ciphertext_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7347,6 +9060,13 @@ impl DecryptRequest {
     }
 
     /// Sets the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = DecryptRequest::new().set_additional_authenticated_data_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7356,6 +9076,14 @@ impl DecryptRequest {
     }
 
     /// Sets or clears the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = DecryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = DecryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
         mut self,
         v: std::option::Option<T>,
@@ -7505,18 +9233,36 @@ impl RawEncryptRequest {
     }
 
     /// Sets the value of [name][crate::model::RawEncryptRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptRequest;
+    /// let x = RawEncryptRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [plaintext][crate::model::RawEncryptRequest::plaintext].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptRequest;
+    /// let x = RawEncryptRequest::new().set_plaintext(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_plaintext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
 
     /// Sets the value of [additional_authenticated_data][crate::model::RawEncryptRequest::additional_authenticated_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptRequest;
+    /// let x = RawEncryptRequest::new().set_additional_authenticated_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -7526,6 +9272,13 @@ impl RawEncryptRequest {
     }
 
     /// Sets the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = RawEncryptRequest::new().set_plaintext_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7535,6 +9288,14 @@ impl RawEncryptRequest {
     }
 
     /// Sets or clears the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = RawEncryptRequest::new().set_or_clear_plaintext_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = RawEncryptRequest::new().set_or_clear_plaintext_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7544,6 +9305,13 @@ impl RawEncryptRequest {
     }
 
     /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = RawEncryptRequest::new().set_additional_authenticated_data_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7553,6 +9321,14 @@ impl RawEncryptRequest {
     }
 
     /// Sets or clears the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = RawEncryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = RawEncryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
         mut self,
         v: std::option::Option<T>,
@@ -7565,6 +9341,12 @@ impl RawEncryptRequest {
     }
 
     /// Sets the value of [initialization_vector][crate::model::RawEncryptRequest::initialization_vector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptRequest;
+    /// let x = RawEncryptRequest::new().set_initialization_vector(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_initialization_vector<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -7574,6 +9356,13 @@ impl RawEncryptRequest {
     }
 
     /// Sets the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = RawEncryptRequest::new().set_initialization_vector_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7583,6 +9372,14 @@ impl RawEncryptRequest {
     }
 
     /// Sets or clears the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = RawEncryptRequest::new().set_or_clear_initialization_vector_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = RawEncryptRequest::new().set_or_clear_initialization_vector_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7706,18 +9503,36 @@ impl RawDecryptRequest {
     }
 
     /// Sets the value of [name][crate::model::RawDecryptRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptRequest;
+    /// let x = RawDecryptRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ciphertext][crate::model::RawDecryptRequest::ciphertext].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptRequest;
+    /// let x = RawDecryptRequest::new().set_ciphertext(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_ciphertext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
     /// Sets the value of [additional_authenticated_data][crate::model::RawDecryptRequest::additional_authenticated_data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptRequest;
+    /// let x = RawDecryptRequest::new().set_additional_authenticated_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_additional_authenticated_data<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -7727,6 +9542,12 @@ impl RawDecryptRequest {
     }
 
     /// Sets the value of [initialization_vector][crate::model::RawDecryptRequest::initialization_vector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptRequest;
+    /// let x = RawDecryptRequest::new().set_initialization_vector(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_initialization_vector<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -7736,12 +9557,25 @@ impl RawDecryptRequest {
     }
 
     /// Sets the value of [tag_length][crate::model::RawDecryptRequest::tag_length].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptRequest;
+    /// let x = RawDecryptRequest::new().set_tag_length(42);
+    /// ```
     pub fn set_tag_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.tag_length = v.into();
         self
     }
 
     /// Sets the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = RawDecryptRequest::new().set_ciphertext_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7751,6 +9585,14 @@ impl RawDecryptRequest {
     }
 
     /// Sets or clears the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = RawDecryptRequest::new().set_or_clear_ciphertext_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = RawDecryptRequest::new().set_or_clear_ciphertext_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7760,6 +9602,13 @@ impl RawDecryptRequest {
     }
 
     /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = RawDecryptRequest::new().set_additional_authenticated_data_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7769,6 +9618,14 @@ impl RawDecryptRequest {
     }
 
     /// Sets or clears the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = RawDecryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = RawDecryptRequest::new().set_or_clear_additional_authenticated_data_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
         mut self,
         v: std::option::Option<T>,
@@ -7781,6 +9638,13 @@ impl RawDecryptRequest {
     }
 
     /// Sets the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = RawDecryptRequest::new().set_initialization_vector_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7790,6 +9654,14 @@ impl RawDecryptRequest {
     }
 
     /// Sets or clears the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = RawDecryptRequest::new().set_or_clear_initialization_vector_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = RawDecryptRequest::new().set_or_clear_initialization_vector_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7898,12 +9770,25 @@ impl AsymmetricSignRequest {
     }
 
     /// Sets the value of [name][crate::model::AsymmetricSignRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignRequest;
+    /// let x = AsymmetricSignRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [digest][crate::model::AsymmetricSignRequest::digest].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignRequest;
+    /// use google_cloud_kms_v1::model::Digest;
+    /// let x = AsymmetricSignRequest::new().set_digest(Digest::default()/* use setters */);
+    /// ```
     pub fn set_digest<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Digest>,
@@ -7913,6 +9798,14 @@ impl AsymmetricSignRequest {
     }
 
     /// Sets or clears the value of [digest][crate::model::AsymmetricSignRequest::digest].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignRequest;
+    /// use google_cloud_kms_v1::model::Digest;
+    /// let x = AsymmetricSignRequest::new().set_or_clear_digest(Some(Digest::default()/* use setters */));
+    /// let x = AsymmetricSignRequest::new().set_or_clear_digest(None::<Digest>);
+    /// ```
     pub fn set_or_clear_digest<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Digest>,
@@ -7922,6 +9815,13 @@ impl AsymmetricSignRequest {
     }
 
     /// Sets the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignRequest;
+    /// use wkt::Int64Value;
+    /// let x = AsymmetricSignRequest::new().set_digest_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_digest_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7931,6 +9831,14 @@ impl AsymmetricSignRequest {
     }
 
     /// Sets or clears the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignRequest;
+    /// use wkt::Int64Value;
+    /// let x = AsymmetricSignRequest::new().set_or_clear_digest_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = AsymmetricSignRequest::new().set_or_clear_digest_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_digest_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7940,12 +9848,25 @@ impl AsymmetricSignRequest {
     }
 
     /// Sets the value of [data][crate::model::AsymmetricSignRequest::data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignRequest;
+    /// let x = AsymmetricSignRequest::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
     /// Sets the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignRequest;
+    /// use wkt::Int64Value;
+    /// let x = AsymmetricSignRequest::new().set_data_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_data_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -7955,6 +9876,14 @@ impl AsymmetricSignRequest {
     }
 
     /// Sets or clears the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignRequest;
+    /// use wkt::Int64Value;
+    /// let x = AsymmetricSignRequest::new().set_or_clear_data_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = AsymmetricSignRequest::new().set_or_clear_data_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8025,18 +9954,37 @@ impl AsymmetricDecryptRequest {
     }
 
     /// Sets the value of [name][crate::model::AsymmetricDecryptRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricDecryptRequest;
+    /// let x = AsymmetricDecryptRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ciphertext][crate::model::AsymmetricDecryptRequest::ciphertext].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricDecryptRequest;
+    /// let x = AsymmetricDecryptRequest::new().set_ciphertext(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_ciphertext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
     /// Sets the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricDecryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = AsymmetricDecryptRequest::new().set_ciphertext_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8046,6 +9994,14 @@ impl AsymmetricDecryptRequest {
     }
 
     /// Sets or clears the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricDecryptRequest;
+    /// use wkt::Int64Value;
+    /// let x = AsymmetricDecryptRequest::new().set_or_clear_ciphertext_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = AsymmetricDecryptRequest::new().set_or_clear_ciphertext_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8111,18 +10067,37 @@ impl MacSignRequest {
     }
 
     /// Sets the value of [name][crate::model::MacSignRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacSignRequest;
+    /// let x = MacSignRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data][crate::model::MacSignRequest::data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacSignRequest;
+    /// let x = MacSignRequest::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
     /// Sets the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacSignRequest;
+    /// use wkt::Int64Value;
+    /// let x = MacSignRequest::new().set_data_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_data_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8132,6 +10107,14 @@ impl MacSignRequest {
     }
 
     /// Sets or clears the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacSignRequest;
+    /// use wkt::Int64Value;
+    /// let x = MacSignRequest::new().set_or_clear_data_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = MacSignRequest::new().set_or_clear_data_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8227,18 +10210,37 @@ impl MacVerifyRequest {
     }
 
     /// Sets the value of [name][crate::model::MacVerifyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyRequest;
+    /// let x = MacVerifyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [data][crate::model::MacVerifyRequest::data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyRequest;
+    /// let x = MacVerifyRequest::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
     /// Sets the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyRequest;
+    /// use wkt::Int64Value;
+    /// let x = MacVerifyRequest::new().set_data_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_data_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8248,6 +10250,14 @@ impl MacVerifyRequest {
     }
 
     /// Sets or clears the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyRequest;
+    /// use wkt::Int64Value;
+    /// let x = MacVerifyRequest::new().set_or_clear_data_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = MacVerifyRequest::new().set_or_clear_data_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8257,12 +10267,25 @@ impl MacVerifyRequest {
     }
 
     /// Sets the value of [mac][crate::model::MacVerifyRequest::mac].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyRequest;
+    /// let x = MacVerifyRequest::new().set_mac(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_mac<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.mac = v.into();
         self
     }
 
     /// Sets the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyRequest;
+    /// use wkt::Int64Value;
+    /// let x = MacVerifyRequest::new().set_mac_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_mac_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8272,6 +10295,14 @@ impl MacVerifyRequest {
     }
 
     /// Sets or clears the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyRequest;
+    /// use wkt::Int64Value;
+    /// let x = MacVerifyRequest::new().set_or_clear_mac_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = MacVerifyRequest::new().set_or_clear_mac_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_mac_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8342,18 +10373,37 @@ impl DecapsulateRequest {
     }
 
     /// Sets the value of [name][crate::model::DecapsulateRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecapsulateRequest;
+    /// let x = DecapsulateRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ciphertext][crate::model::DecapsulateRequest::ciphertext].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecapsulateRequest;
+    /// let x = DecapsulateRequest::new().set_ciphertext(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_ciphertext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
     /// Sets the value of [ciphertext_crc32c][crate::model::DecapsulateRequest::ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecapsulateRequest;
+    /// use wkt::Int64Value;
+    /// let x = DecapsulateRequest::new().set_ciphertext_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8363,6 +10413,14 @@ impl DecapsulateRequest {
     }
 
     /// Sets or clears the value of [ciphertext_crc32c][crate::model::DecapsulateRequest::ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecapsulateRequest;
+    /// use wkt::Int64Value;
+    /// let x = DecapsulateRequest::new().set_or_clear_ciphertext_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = DecapsulateRequest::new().set_or_clear_ciphertext_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8411,18 +10469,39 @@ impl GenerateRandomBytesRequest {
     }
 
     /// Sets the value of [location][crate::model::GenerateRandomBytesRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GenerateRandomBytesRequest;
+    /// let x = GenerateRandomBytesRequest::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [length_bytes][crate::model::GenerateRandomBytesRequest::length_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GenerateRandomBytesRequest;
+    /// let x = GenerateRandomBytesRequest::new().set_length_bytes(42);
+    /// ```
     pub fn set_length_bytes<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.length_bytes = v.into();
         self
     }
 
     /// Sets the value of [protection_level][crate::model::GenerateRandomBytesRequest::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GenerateRandomBytesRequest;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = GenerateRandomBytesRequest::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = GenerateRandomBytesRequest::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = GenerateRandomBytesRequest::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -8530,18 +10609,37 @@ impl EncryptResponse {
     }
 
     /// Sets the value of [name][crate::model::EncryptResponse::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptResponse;
+    /// let x = EncryptResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [ciphertext][crate::model::EncryptResponse::ciphertext].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptResponse;
+    /// let x = EncryptResponse::new().set_ciphertext(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_ciphertext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
     /// Sets the value of [ciphertext_crc32c][crate::model::EncryptResponse::ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptResponse;
+    /// use wkt::Int64Value;
+    /// let x = EncryptResponse::new().set_ciphertext_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8551,6 +10649,14 @@ impl EncryptResponse {
     }
 
     /// Sets or clears the value of [ciphertext_crc32c][crate::model::EncryptResponse::ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptResponse;
+    /// use wkt::Int64Value;
+    /// let x = EncryptResponse::new().set_or_clear_ciphertext_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = EncryptResponse::new().set_or_clear_ciphertext_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8560,12 +10666,24 @@ impl EncryptResponse {
     }
 
     /// Sets the value of [verified_plaintext_crc32c][crate::model::EncryptResponse::verified_plaintext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptResponse;
+    /// let x = EncryptResponse::new().set_verified_plaintext_crc32c(true);
+    /// ```
     pub fn set_verified_plaintext_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_plaintext_crc32c = v.into();
         self
     }
 
     /// Sets the value of [verified_additional_authenticated_data_crc32c][crate::model::EncryptResponse::verified_additional_authenticated_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptResponse;
+    /// let x = EncryptResponse::new().set_verified_additional_authenticated_data_crc32c(true);
+    /// ```
     pub fn set_verified_additional_authenticated_data_crc32c<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -8575,6 +10693,15 @@ impl EncryptResponse {
     }
 
     /// Sets the value of [protection_level][crate::model::EncryptResponse::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::EncryptResponse;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = EncryptResponse::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = EncryptResponse::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = EncryptResponse::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -8646,12 +10773,25 @@ impl DecryptResponse {
     }
 
     /// Sets the value of [plaintext][crate::model::DecryptResponse::plaintext].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecryptResponse;
+    /// let x = DecryptResponse::new().set_plaintext(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_plaintext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
 
     /// Sets the value of [plaintext_crc32c][crate::model::DecryptResponse::plaintext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecryptResponse;
+    /// use wkt::Int64Value;
+    /// let x = DecryptResponse::new().set_plaintext_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8661,6 +10801,14 @@ impl DecryptResponse {
     }
 
     /// Sets or clears the value of [plaintext_crc32c][crate::model::DecryptResponse::plaintext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecryptResponse;
+    /// use wkt::Int64Value;
+    /// let x = DecryptResponse::new().set_or_clear_plaintext_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = DecryptResponse::new().set_or_clear_plaintext_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8670,12 +10818,27 @@ impl DecryptResponse {
     }
 
     /// Sets the value of [used_primary][crate::model::DecryptResponse::used_primary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecryptResponse;
+    /// let x = DecryptResponse::new().set_used_primary(true);
+    /// ```
     pub fn set_used_primary<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.used_primary = v.into();
         self
     }
 
     /// Sets the value of [protection_level][crate::model::DecryptResponse::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecryptResponse;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = DecryptResponse::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = DecryptResponse::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = DecryptResponse::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -8824,12 +10987,24 @@ impl RawEncryptResponse {
     }
 
     /// Sets the value of [ciphertext][crate::model::RawEncryptResponse::ciphertext].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptResponse;
+    /// let x = RawEncryptResponse::new().set_ciphertext(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_ciphertext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.ciphertext = v.into();
         self
     }
 
     /// Sets the value of [initialization_vector][crate::model::RawEncryptResponse::initialization_vector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptResponse;
+    /// let x = RawEncryptResponse::new().set_initialization_vector(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_initialization_vector<T: std::convert::Into<::bytes::Bytes>>(
         mut self,
         v: T,
@@ -8839,12 +11014,25 @@ impl RawEncryptResponse {
     }
 
     /// Sets the value of [tag_length][crate::model::RawEncryptResponse::tag_length].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptResponse;
+    /// let x = RawEncryptResponse::new().set_tag_length(42);
+    /// ```
     pub fn set_tag_length<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.tag_length = v.into();
         self
     }
 
     /// Sets the value of [ciphertext_crc32c][crate::model::RawEncryptResponse::ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptResponse;
+    /// use wkt::Int64Value;
+    /// let x = RawEncryptResponse::new().set_ciphertext_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8854,6 +11042,14 @@ impl RawEncryptResponse {
     }
 
     /// Sets or clears the value of [ciphertext_crc32c][crate::model::RawEncryptResponse::ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptResponse;
+    /// use wkt::Int64Value;
+    /// let x = RawEncryptResponse::new().set_or_clear_ciphertext_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = RawEncryptResponse::new().set_or_clear_ciphertext_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8863,6 +11059,13 @@ impl RawEncryptResponse {
     }
 
     /// Sets the value of [initialization_vector_crc32c][crate::model::RawEncryptResponse::initialization_vector_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptResponse;
+    /// use wkt::Int64Value;
+    /// let x = RawEncryptResponse::new().set_initialization_vector_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8872,6 +11075,14 @@ impl RawEncryptResponse {
     }
 
     /// Sets or clears the value of [initialization_vector_crc32c][crate::model::RawEncryptResponse::initialization_vector_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptResponse;
+    /// use wkt::Int64Value;
+    /// let x = RawEncryptResponse::new().set_or_clear_initialization_vector_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = RawEncryptResponse::new().set_or_clear_initialization_vector_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_initialization_vector_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -8881,12 +11092,24 @@ impl RawEncryptResponse {
     }
 
     /// Sets the value of [verified_plaintext_crc32c][crate::model::RawEncryptResponse::verified_plaintext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptResponse;
+    /// let x = RawEncryptResponse::new().set_verified_plaintext_crc32c(true);
+    /// ```
     pub fn set_verified_plaintext_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_plaintext_crc32c = v.into();
         self
     }
 
     /// Sets the value of [verified_additional_authenticated_data_crc32c][crate::model::RawEncryptResponse::verified_additional_authenticated_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptResponse;
+    /// let x = RawEncryptResponse::new().set_verified_additional_authenticated_data_crc32c(true);
+    /// ```
     pub fn set_verified_additional_authenticated_data_crc32c<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -8896,6 +11119,12 @@ impl RawEncryptResponse {
     }
 
     /// Sets the value of [verified_initialization_vector_crc32c][crate::model::RawEncryptResponse::verified_initialization_vector_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptResponse;
+    /// let x = RawEncryptResponse::new().set_verified_initialization_vector_crc32c(true);
+    /// ```
     pub fn set_verified_initialization_vector_crc32c<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -8905,12 +11134,27 @@ impl RawEncryptResponse {
     }
 
     /// Sets the value of [name][crate::model::RawEncryptResponse::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptResponse;
+    /// let x = RawEncryptResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [protection_level][crate::model::RawEncryptResponse::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawEncryptResponse;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = RawEncryptResponse::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = RawEncryptResponse::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = RawEncryptResponse::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -9028,12 +11272,25 @@ impl RawDecryptResponse {
     }
 
     /// Sets the value of [plaintext][crate::model::RawDecryptResponse::plaintext].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptResponse;
+    /// let x = RawDecryptResponse::new().set_plaintext(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_plaintext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
 
     /// Sets the value of [plaintext_crc32c][crate::model::RawDecryptResponse::plaintext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptResponse;
+    /// use wkt::Int64Value;
+    /// let x = RawDecryptResponse::new().set_plaintext_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -9043,6 +11300,14 @@ impl RawDecryptResponse {
     }
 
     /// Sets or clears the value of [plaintext_crc32c][crate::model::RawDecryptResponse::plaintext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptResponse;
+    /// use wkt::Int64Value;
+    /// let x = RawDecryptResponse::new().set_or_clear_plaintext_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = RawDecryptResponse::new().set_or_clear_plaintext_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -9052,6 +11317,15 @@ impl RawDecryptResponse {
     }
 
     /// Sets the value of [protection_level][crate::model::RawDecryptResponse::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptResponse;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = RawDecryptResponse::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = RawDecryptResponse::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = RawDecryptResponse::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -9061,12 +11335,24 @@ impl RawDecryptResponse {
     }
 
     /// Sets the value of [verified_ciphertext_crc32c][crate::model::RawDecryptResponse::verified_ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptResponse;
+    /// let x = RawDecryptResponse::new().set_verified_ciphertext_crc32c(true);
+    /// ```
     pub fn set_verified_ciphertext_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_ciphertext_crc32c = v.into();
         self
     }
 
     /// Sets the value of [verified_additional_authenticated_data_crc32c][crate::model::RawDecryptResponse::verified_additional_authenticated_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptResponse;
+    /// let x = RawDecryptResponse::new().set_verified_additional_authenticated_data_crc32c(true);
+    /// ```
     pub fn set_verified_additional_authenticated_data_crc32c<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -9076,6 +11362,12 @@ impl RawDecryptResponse {
     }
 
     /// Sets the value of [verified_initialization_vector_crc32c][crate::model::RawDecryptResponse::verified_initialization_vector_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RawDecryptResponse;
+    /// let x = RawDecryptResponse::new().set_verified_initialization_vector_crc32c(true);
+    /// ```
     pub fn set_verified_initialization_vector_crc32c<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -9181,12 +11473,25 @@ impl AsymmetricSignResponse {
     }
 
     /// Sets the value of [signature][crate::model::AsymmetricSignResponse::signature].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignResponse;
+    /// let x = AsymmetricSignResponse::new().set_signature(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_signature<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.signature = v.into();
         self
     }
 
     /// Sets the value of [signature_crc32c][crate::model::AsymmetricSignResponse::signature_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignResponse;
+    /// use wkt::Int64Value;
+    /// let x = AsymmetricSignResponse::new().set_signature_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_signature_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -9196,6 +11501,14 @@ impl AsymmetricSignResponse {
     }
 
     /// Sets or clears the value of [signature_crc32c][crate::model::AsymmetricSignResponse::signature_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignResponse;
+    /// use wkt::Int64Value;
+    /// let x = AsymmetricSignResponse::new().set_or_clear_signature_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = AsymmetricSignResponse::new().set_or_clear_signature_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_signature_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -9205,24 +11518,51 @@ impl AsymmetricSignResponse {
     }
 
     /// Sets the value of [verified_digest_crc32c][crate::model::AsymmetricSignResponse::verified_digest_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignResponse;
+    /// let x = AsymmetricSignResponse::new().set_verified_digest_crc32c(true);
+    /// ```
     pub fn set_verified_digest_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_digest_crc32c = v.into();
         self
     }
 
     /// Sets the value of [name][crate::model::AsymmetricSignResponse::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignResponse;
+    /// let x = AsymmetricSignResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [verified_data_crc32c][crate::model::AsymmetricSignResponse::verified_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignResponse;
+    /// let x = AsymmetricSignResponse::new().set_verified_data_crc32c(true);
+    /// ```
     pub fn set_verified_data_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_data_crc32c = v.into();
         self
     }
 
     /// Sets the value of [protection_level][crate::model::AsymmetricSignResponse::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricSignResponse;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = AsymmetricSignResponse::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = AsymmetricSignResponse::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = AsymmetricSignResponse::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -9302,12 +11642,25 @@ impl AsymmetricDecryptResponse {
     }
 
     /// Sets the value of [plaintext][crate::model::AsymmetricDecryptResponse::plaintext].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricDecryptResponse;
+    /// let x = AsymmetricDecryptResponse::new().set_plaintext(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_plaintext<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.plaintext = v.into();
         self
     }
 
     /// Sets the value of [plaintext_crc32c][crate::model::AsymmetricDecryptResponse::plaintext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricDecryptResponse;
+    /// use wkt::Int64Value;
+    /// let x = AsymmetricDecryptResponse::new().set_plaintext_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -9317,6 +11670,14 @@ impl AsymmetricDecryptResponse {
     }
 
     /// Sets or clears the value of [plaintext_crc32c][crate::model::AsymmetricDecryptResponse::plaintext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricDecryptResponse;
+    /// use wkt::Int64Value;
+    /// let x = AsymmetricDecryptResponse::new().set_or_clear_plaintext_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = AsymmetricDecryptResponse::new().set_or_clear_plaintext_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -9326,12 +11687,27 @@ impl AsymmetricDecryptResponse {
     }
 
     /// Sets the value of [verified_ciphertext_crc32c][crate::model::AsymmetricDecryptResponse::verified_ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricDecryptResponse;
+    /// let x = AsymmetricDecryptResponse::new().set_verified_ciphertext_crc32c(true);
+    /// ```
     pub fn set_verified_ciphertext_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_ciphertext_crc32c = v.into();
         self
     }
 
     /// Sets the value of [protection_level][crate::model::AsymmetricDecryptResponse::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AsymmetricDecryptResponse;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = AsymmetricDecryptResponse::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = AsymmetricDecryptResponse::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = AsymmetricDecryptResponse::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -9417,18 +11793,37 @@ impl MacSignResponse {
     }
 
     /// Sets the value of [name][crate::model::MacSignResponse::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacSignResponse;
+    /// let x = MacSignResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [mac][crate::model::MacSignResponse::mac].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacSignResponse;
+    /// let x = MacSignResponse::new().set_mac(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_mac<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.mac = v.into();
         self
     }
 
     /// Sets the value of [mac_crc32c][crate::model::MacSignResponse::mac_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacSignResponse;
+    /// use wkt::Int64Value;
+    /// let x = MacSignResponse::new().set_mac_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_mac_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -9438,6 +11833,14 @@ impl MacSignResponse {
     }
 
     /// Sets or clears the value of [mac_crc32c][crate::model::MacSignResponse::mac_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacSignResponse;
+    /// use wkt::Int64Value;
+    /// let x = MacSignResponse::new().set_or_clear_mac_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = MacSignResponse::new().set_or_clear_mac_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_mac_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -9447,12 +11850,27 @@ impl MacSignResponse {
     }
 
     /// Sets the value of [verified_data_crc32c][crate::model::MacSignResponse::verified_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacSignResponse;
+    /// let x = MacSignResponse::new().set_verified_data_crc32c(true);
+    /// ```
     pub fn set_verified_data_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_data_crc32c = v.into();
         self
     }
 
     /// Sets the value of [protection_level][crate::model::MacSignResponse::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacSignResponse;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = MacSignResponse::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = MacSignResponse::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = MacSignResponse::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -9555,36 +11973,75 @@ impl MacVerifyResponse {
     }
 
     /// Sets the value of [name][crate::model::MacVerifyResponse::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyResponse;
+    /// let x = MacVerifyResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [success][crate::model::MacVerifyResponse::success].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyResponse;
+    /// let x = MacVerifyResponse::new().set_success(true);
+    /// ```
     pub fn set_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.success = v.into();
         self
     }
 
     /// Sets the value of [verified_data_crc32c][crate::model::MacVerifyResponse::verified_data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyResponse;
+    /// let x = MacVerifyResponse::new().set_verified_data_crc32c(true);
+    /// ```
     pub fn set_verified_data_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_data_crc32c = v.into();
         self
     }
 
     /// Sets the value of [verified_mac_crc32c][crate::model::MacVerifyResponse::verified_mac_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyResponse;
+    /// let x = MacVerifyResponse::new().set_verified_mac_crc32c(true);
+    /// ```
     pub fn set_verified_mac_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_mac_crc32c = v.into();
         self
     }
 
     /// Sets the value of [verified_success_integrity][crate::model::MacVerifyResponse::verified_success_integrity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyResponse;
+    /// let x = MacVerifyResponse::new().set_verified_success_integrity(true);
+    /// ```
     pub fn set_verified_success_integrity<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_success_integrity = v.into();
         self
     }
 
     /// Sets the value of [protection_level][crate::model::MacVerifyResponse::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::MacVerifyResponse;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = MacVerifyResponse::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = MacVerifyResponse::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = MacVerifyResponse::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -9679,18 +12136,36 @@ impl DecapsulateResponse {
     }
 
     /// Sets the value of [name][crate::model::DecapsulateResponse::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecapsulateResponse;
+    /// let x = DecapsulateResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [shared_secret][crate::model::DecapsulateResponse::shared_secret].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecapsulateResponse;
+    /// let x = DecapsulateResponse::new().set_shared_secret(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_shared_secret<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.shared_secret = v.into();
         self
     }
 
     /// Sets the value of [shared_secret_crc32c][crate::model::DecapsulateResponse::shared_secret_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecapsulateResponse;
+    /// let x = DecapsulateResponse::new().set_shared_secret_crc32c(42);
+    /// ```
     pub fn set_shared_secret_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -9700,6 +12175,13 @@ impl DecapsulateResponse {
     }
 
     /// Sets or clears the value of [shared_secret_crc32c][crate::model::DecapsulateResponse::shared_secret_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecapsulateResponse;
+    /// let x = DecapsulateResponse::new().set_or_clear_shared_secret_crc32c(Some(42));
+    /// let x = DecapsulateResponse::new().set_or_clear_shared_secret_crc32c(None::<i32>);
+    /// ```
     pub fn set_or_clear_shared_secret_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -9709,12 +12191,27 @@ impl DecapsulateResponse {
     }
 
     /// Sets the value of [verified_ciphertext_crc32c][crate::model::DecapsulateResponse::verified_ciphertext_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecapsulateResponse;
+    /// let x = DecapsulateResponse::new().set_verified_ciphertext_crc32c(true);
+    /// ```
     pub fn set_verified_ciphertext_crc32c<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.verified_ciphertext_crc32c = v.into();
         self
     }
 
     /// Sets the value of [protection_level][crate::model::DecapsulateResponse::protection_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DecapsulateResponse;
+    /// use google_cloud_kms_v1::model::ProtectionLevel;
+    /// let x0 = DecapsulateResponse::new().set_protection_level(ProtectionLevel::Software);
+    /// let x1 = DecapsulateResponse::new().set_protection_level(ProtectionLevel::Hsm);
+    /// let x2 = DecapsulateResponse::new().set_protection_level(ProtectionLevel::External);
+    /// ```
     pub fn set_protection_level<T: std::convert::Into<crate::model::ProtectionLevel>>(
         mut self,
         v: T,
@@ -9766,12 +12263,25 @@ impl GenerateRandomBytesResponse {
     }
 
     /// Sets the value of [data][crate::model::GenerateRandomBytesResponse::data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GenerateRandomBytesResponse;
+    /// let x = GenerateRandomBytesResponse::new().set_data(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.data = v.into();
         self
     }
 
     /// Sets the value of [data_crc32c][crate::model::GenerateRandomBytesResponse::data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GenerateRandomBytesResponse;
+    /// use wkt::Int64Value;
+    /// let x = GenerateRandomBytesResponse::new().set_data_crc32c(Int64Value::default()/* use setters */);
+    /// ```
     pub fn set_data_crc32c<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -9781,6 +12291,14 @@ impl GenerateRandomBytesResponse {
     }
 
     /// Sets or clears the value of [data_crc32c][crate::model::GenerateRandomBytesResponse::data_crc32c].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GenerateRandomBytesResponse;
+    /// use wkt::Int64Value;
+    /// let x = GenerateRandomBytesResponse::new().set_or_clear_data_crc32c(Some(Int64Value::default()/* use setters */));
+    /// let x = GenerateRandomBytesResponse::new().set_or_clear_data_crc32c(None::<Int64Value>);
+    /// ```
     pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Int64Value>,
@@ -9817,6 +12335,13 @@ impl Digest {
     ///
     /// Note that all the setters affecting `digest` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Digest;
+    /// use google_cloud_kms_v1::model::digest::Digest as DigestOneOf;
+    /// let x = Digest::new().set_digest(Some(DigestOneOf::Sha256(bytes::Bytes::from_static(b"example"))));
+    /// ```
     pub fn set_digest<T: std::convert::Into<std::option::Option<crate::model::digest::Digest>>>(
         mut self,
         v: T,
@@ -9841,6 +12366,15 @@ impl Digest {
     ///
     /// Note that all the setters affecting `digest` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Digest;
+    /// let x = Digest::new().set_sha256(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.sha256().is_some());
+    /// assert!(x.sha384().is_none());
+    /// assert!(x.sha512().is_none());
+    /// ```
     pub fn set_sha256<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha256(v.into()));
         self
@@ -9862,6 +12396,15 @@ impl Digest {
     ///
     /// Note that all the setters affecting `digest` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Digest;
+    /// let x = Digest::new().set_sha384(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.sha384().is_some());
+    /// assert!(x.sha256().is_none());
+    /// assert!(x.sha512().is_none());
+    /// ```
     pub fn set_sha384<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha384(v.into()));
         self
@@ -9883,6 +12426,15 @@ impl Digest {
     ///
     /// Note that all the setters affecting `digest` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Digest;
+    /// let x = Digest::new().set_sha512(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.sha512().is_some());
+    /// assert!(x.sha256().is_none());
+    /// assert!(x.sha384().is_none());
+    /// ```
     pub fn set_sha512<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.digest = std::option::Option::Some(crate::model::digest::Digest::Sha512(v.into()));
         self
@@ -9949,12 +12501,24 @@ impl LocationMetadata {
     }
 
     /// Sets the value of [hsm_available][crate::model::LocationMetadata::hsm_available].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::LocationMetadata;
+    /// let x = LocationMetadata::new().set_hsm_available(true);
+    /// ```
     pub fn set_hsm_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.hsm_available = v.into();
         self
     }
 
     /// Sets the value of [ekm_available][crate::model::LocationMetadata::ekm_available].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::LocationMetadata;
+    /// let x = LocationMetadata::new().set_ekm_available(true);
+    /// ```
     pub fn set_ekm_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ekm_available = v.into();
         self

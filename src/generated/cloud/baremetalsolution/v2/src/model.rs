@@ -77,6 +77,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -86,6 +93,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -95,6 +110,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -104,6 +126,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -113,30 +143,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -258,18 +318,37 @@ impl Instance {
     }
 
     /// Sets the value of [name][crate::model::Instance::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = Instance::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::Instance::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = Instance::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -279,6 +358,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -288,6 +375,13 @@ impl Instance {
     }
 
     /// Sets the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -297,6 +391,14 @@ impl Instance {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -306,24 +408,54 @@ impl Instance {
     }
 
     /// Sets the value of [machine_type][crate::model::Instance::machine_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = Instance::new().set_machine_type("example");
+    /// ```
     pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.machine_type = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Instance::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// use google_cloud_baremetalsolution_v2::model::instance::State;
+    /// let x0 = Instance::new().set_state(State::Provisioning);
+    /// let x1 = Instance::new().set_state(State::Running);
+    /// let x2 = Instance::new().set_state(State::Deleted);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::instance::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [hyperthreading_enabled][crate::model::Instance::hyperthreading_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = Instance::new().set_hyperthreading_enabled(true);
+    /// ```
     pub fn set_hyperthreading_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.hyperthreading_enabled = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Instance::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = Instance::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -336,6 +468,17 @@ impl Instance {
     }
 
     /// Sets the value of [luns][crate::model::Instance::luns].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// use google_cloud_baremetalsolution_v2::model::Lun;
+    /// let x = Instance::new()
+    ///     .set_luns([
+    ///         Lun::default()/* use setters */,
+    ///         Lun::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_luns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -347,6 +490,17 @@ impl Instance {
     }
 
     /// Sets the value of [volumes][crate::model::Instance::volumes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Instance::new()
+    ///     .set_volumes([
+    ///         Volume::default()/* use setters */,
+    ///         Volume::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -358,6 +512,17 @@ impl Instance {
     }
 
     /// Sets the value of [networks][crate::model::Instance::networks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = Instance::new()
+    ///     .set_networks([
+    ///         Network::default()/* use setters */,
+    ///         Network::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -369,6 +534,12 @@ impl Instance {
     }
 
     /// Sets the value of [interactive_serial_console_enabled][crate::model::Instance::interactive_serial_console_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = Instance::new().set_interactive_serial_console_enabled(true);
+    /// ```
     pub fn set_interactive_serial_console_enabled<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -378,18 +549,36 @@ impl Instance {
     }
 
     /// Sets the value of [os_image][crate::model::Instance::os_image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = Instance::new().set_os_image("example");
+    /// ```
     pub fn set_os_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.os_image = v.into();
         self
     }
 
     /// Sets the value of [pod][crate::model::Instance::pod].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = Instance::new().set_pod("example");
+    /// ```
     pub fn set_pod<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pod = v.into();
         self
     }
 
     /// Sets the value of [network_template][crate::model::Instance::network_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = Instance::new().set_network_template("example");
+    /// ```
     pub fn set_network_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -399,6 +588,17 @@ impl Instance {
     }
 
     /// Sets the value of [logical_interfaces][crate::model::Instance::logical_interfaces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// use google_cloud_baremetalsolution_v2::model::LogicalInterface;
+    /// let x = Instance::new()
+    ///     .set_logical_interfaces([
+    ///         LogicalInterface::default()/* use setters */,
+    ///         LogicalInterface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_logical_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -410,12 +610,26 @@ impl Instance {
     }
 
     /// Sets the value of [login_info][crate::model::Instance::login_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = Instance::new().set_login_info("example");
+    /// ```
     pub fn set_login_info<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.login_info = v.into();
         self
     }
 
     /// Sets the value of [workload_profile][crate::model::Instance::workload_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// use google_cloud_baremetalsolution_v2::model::WorkloadProfile;
+    /// let x0 = Instance::new().set_workload_profile(WorkloadProfile::Generic);
+    /// let x1 = Instance::new().set_workload_profile(WorkloadProfile::Hana);
+    /// ```
     pub fn set_workload_profile<T: std::convert::Into<crate::model::WorkloadProfile>>(
         mut self,
         v: T,
@@ -425,6 +639,12 @@ impl Instance {
     }
 
     /// Sets the value of [firmware_version][crate::model::Instance::firmware_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = Instance::new().set_firmware_version("example");
+    /// ```
     pub fn set_firmware_version<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -629,6 +849,12 @@ impl GetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::GetInstanceRequest;
+    /// let x = GetInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -667,24 +893,48 @@ impl ListInstancesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInstancesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -719,6 +969,17 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListInstancesResponse;
+    /// use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = ListInstancesResponse::new()
+    ///     .set_instances([
+    ///         Instance::default()/* use setters */,
+    ///         Instance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -730,12 +991,24 @@ impl ListInstancesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListInstancesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -793,6 +1066,13 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateInstanceRequest;
+    /// use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = UpdateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
+    /// ```
     pub fn set_instance<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -802,6 +1082,14 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateInstanceRequest;
+    /// use google_cloud_baremetalsolution_v2::model::Instance;
+    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
+    /// let x = UpdateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
+    /// ```
     pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Instance>,
@@ -811,6 +1099,13 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateInstanceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstanceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -820,6 +1115,14 @@ impl UpdateInstanceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateInstanceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInstanceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -855,12 +1158,24 @@ impl RenameInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::RenameInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::RenameInstanceRequest;
+    /// let x = RenameInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [new_instance_id][crate::model::RenameInstanceRequest::new_instance_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::RenameInstanceRequest;
+    /// let x = RenameInstanceRequest::new().set_new_instance_id("example");
+    /// ```
     pub fn set_new_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_instance_id = v.into();
         self
@@ -889,6 +1204,12 @@ impl ResetInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::ResetInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ResetInstanceRequest;
+    /// let x = ResetInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -917,6 +1238,12 @@ impl StartInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::StartInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::StartInstanceRequest;
+    /// let x = StartInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -964,6 +1291,12 @@ impl StopInstanceRequest {
     }
 
     /// Sets the value of [name][crate::model::StopInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::StopInstanceRequest;
+    /// let x = StopInstanceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1011,6 +1344,12 @@ impl EnableInteractiveSerialConsoleRequest {
     }
 
     /// Sets the value of [name][crate::model::EnableInteractiveSerialConsoleRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::EnableInteractiveSerialConsoleRequest;
+    /// let x = EnableInteractiveSerialConsoleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1058,6 +1397,12 @@ impl DisableInteractiveSerialConsoleRequest {
     }
 
     /// Sets the value of [name][crate::model::DisableInteractiveSerialConsoleRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::DisableInteractiveSerialConsoleRequest;
+    /// let x = DisableInteractiveSerialConsoleRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1111,18 +1456,36 @@ impl DetachLunRequest {
     }
 
     /// Sets the value of [instance][crate::model::DetachLunRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::DetachLunRequest;
+    /// let x = DetachLunRequest::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [lun][crate::model::DetachLunRequest::lun].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::DetachLunRequest;
+    /// let x = DetachLunRequest::new().set_lun("example");
+    /// ```
     pub fn set_lun<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.lun = v.into();
         self
     }
 
     /// Sets the value of [skip_reboot][crate::model::DetachLunRequest::skip_reboot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::DetachLunRequest;
+    /// let x = DetachLunRequest::new().set_skip_reboot(true);
+    /// ```
     pub fn set_skip_reboot<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.skip_reboot = v.into();
         self
@@ -1161,12 +1524,24 @@ impl ServerNetworkTemplate {
     }
 
     /// Sets the value of [name][crate::model::ServerNetworkTemplate::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ServerNetworkTemplate;
+    /// let x = ServerNetworkTemplate::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [applicable_instance_types][crate::model::ServerNetworkTemplate::applicable_instance_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ServerNetworkTemplate;
+    /// let x = ServerNetworkTemplate::new().set_applicable_instance_types(["a", "b", "c"]);
+    /// ```
     pub fn set_applicable_instance_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1178,6 +1553,17 @@ impl ServerNetworkTemplate {
     }
 
     /// Sets the value of [logical_interfaces][crate::model::ServerNetworkTemplate::logical_interfaces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ServerNetworkTemplate;
+    /// use google_cloud_baremetalsolution_v2::model::server_network_template::LogicalInterface;
+    /// let x = ServerNetworkTemplate::new()
+    ///     .set_logical_interfaces([
+    ///         LogicalInterface::default()/* use setters */,
+    ///         LogicalInterface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_logical_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1226,12 +1612,26 @@ pub mod server_network_template {
         }
 
         /// Sets the value of [name][crate::model::server_network_template::LogicalInterface::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::server_network_template::LogicalInterface;
+        /// let x = LogicalInterface::new().set_name("example");
+        /// ```
         pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.name = v.into();
             self
         }
 
         /// Sets the value of [r#type][crate::model::server_network_template::LogicalInterface::type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::server_network_template::LogicalInterface;
+        /// use google_cloud_baremetalsolution_v2::model::server_network_template::logical_interface::InterfaceType;
+        /// let x0 = LogicalInterface::new().set_type(InterfaceType::Bond);
+        /// let x1 = LogicalInterface::new().set_type(InterfaceType::Nic);
+        /// ```
         pub fn set_type<
             T: std::convert::Into<
                     crate::model::server_network_template::logical_interface::InterfaceType,
@@ -1245,6 +1645,12 @@ pub mod server_network_template {
         }
 
         /// Sets the value of [required][crate::model::server_network_template::LogicalInterface::required].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::server_network_template::LogicalInterface;
+        /// let x = LogicalInterface::new().set_required(true);
+        /// ```
         pub fn set_required<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.required = v.into();
             self
@@ -1449,30 +1855,64 @@ impl Lun {
     }
 
     /// Sets the value of [name][crate::model::Lun::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// let x = Lun::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::Lun::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// let x = Lun::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Lun::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// use google_cloud_baremetalsolution_v2::model::lun::State;
+    /// let x0 = Lun::new().set_state(State::Creating);
+    /// let x1 = Lun::new().set_state(State::Updating);
+    /// let x2 = Lun::new().set_state(State::Ready);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::lun::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [size_gb][crate::model::Lun::size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// let x = Lun::new().set_size_gb(42);
+    /// ```
     pub fn set_size_gb<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_gb = v.into();
         self
     }
 
     /// Sets the value of [multiprotocol_type][crate::model::Lun::multiprotocol_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// use google_cloud_baremetalsolution_v2::model::lun::MultiprotocolType;
+    /// let x0 = Lun::new().set_multiprotocol_type(MultiprotocolType::Linux);
+    /// ```
     pub fn set_multiprotocol_type<T: std::convert::Into<crate::model::lun::MultiprotocolType>>(
         mut self,
         v: T,
@@ -1482,24 +1922,50 @@ impl Lun {
     }
 
     /// Sets the value of [storage_volume][crate::model::Lun::storage_volume].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// let x = Lun::new().set_storage_volume("example");
+    /// ```
     pub fn set_storage_volume<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_volume = v.into();
         self
     }
 
     /// Sets the value of [shareable][crate::model::Lun::shareable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// let x = Lun::new().set_shareable(true);
+    /// ```
     pub fn set_shareable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.shareable = v.into();
         self
     }
 
     /// Sets the value of [boot_lun][crate::model::Lun::boot_lun].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// let x = Lun::new().set_boot_lun(true);
+    /// ```
     pub fn set_boot_lun<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.boot_lun = v.into();
         self
     }
 
     /// Sets the value of [storage_type][crate::model::Lun::storage_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// use google_cloud_baremetalsolution_v2::model::lun::StorageType;
+    /// let x0 = Lun::new().set_storage_type(StorageType::Ssd);
+    /// let x1 = Lun::new().set_storage_type(StorageType::Hdd);
+    /// ```
     pub fn set_storage_type<T: std::convert::Into<crate::model::lun::StorageType>>(
         mut self,
         v: T,
@@ -1509,12 +1975,25 @@ impl Lun {
     }
 
     /// Sets the value of [wwid][crate::model::Lun::wwid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// let x = Lun::new().set_wwid("example");
+    /// ```
     pub fn set_wwid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.wwid = v.into();
         self
     }
 
     /// Sets the value of [expire_time][crate::model::Lun::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// use wkt::Timestamp;
+    /// let x = Lun::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1524,6 +2003,14 @@ impl Lun {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Lun::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// use wkt::Timestamp;
+    /// let x = Lun::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Lun::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1533,6 +2020,12 @@ impl Lun {
     }
 
     /// Sets the value of [instances][crate::model::Lun::instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Lun;
+    /// let x = Lun::new().set_instances(["a", "b", "c"]);
+    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1982,6 +2475,12 @@ impl GetLunRequest {
     }
 
     /// Sets the value of [name][crate::model::GetLunRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::GetLunRequest;
+    /// let x = GetLunRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2017,18 +2516,36 @@ impl ListLunsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListLunsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListLunsRequest;
+    /// let x = ListLunsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListLunsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListLunsRequest;
+    /// let x = ListLunsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListLunsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListLunsRequest;
+    /// let x = ListLunsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2063,6 +2580,17 @@ impl ListLunsResponse {
     }
 
     /// Sets the value of [luns][crate::model::ListLunsResponse::luns].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListLunsResponse;
+    /// use google_cloud_baremetalsolution_v2::model::Lun;
+    /// let x = ListLunsResponse::new()
+    ///     .set_luns([
+    ///         Lun::default()/* use setters */,
+    ///         Lun::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_luns<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2074,12 +2602,24 @@ impl ListLunsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListLunsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListLunsResponse;
+    /// let x = ListLunsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListLunsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListLunsResponse;
+    /// let x = ListLunsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2127,6 +2667,12 @@ impl EvictLunRequest {
     }
 
     /// Sets the value of [name][crate::model::EvictLunRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::EvictLunRequest;
+    /// let x = EvictLunRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2206,30 +2752,62 @@ impl Network {
     }
 
     /// Sets the value of [name][crate::model::Network::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = Network::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::Network::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = Network::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::Network::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// use google_cloud_baremetalsolution_v2::model::network::Type;
+    /// let x0 = Network::new().set_type(Type::Client);
+    /// let x1 = Network::new().set_type(Type::Private);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::network::Type>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [ip_address][crate::model::Network::ip_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = Network::new().set_ip_address("example");
+    /// ```
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
         self
     }
 
     /// Sets the value of [mac_address][crate::model::Network::mac_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = Network::new().set_mac_address(["a", "b", "c"]);
+    /// ```
     pub fn set_mac_address<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2241,24 +2819,52 @@ impl Network {
     }
 
     /// Sets the value of [state][crate::model::Network::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// use google_cloud_baremetalsolution_v2::model::network::State;
+    /// let x0 = Network::new().set_state(State::Provisioning);
+    /// let x1 = Network::new().set_state(State::Provisioned);
+    /// let x2 = Network::new().set_state(State::Deprovisioning);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::network::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [vlan_id][crate::model::Network::vlan_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = Network::new().set_vlan_id("example");
+    /// ```
     pub fn set_vlan_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.vlan_id = v.into();
         self
     }
 
     /// Sets the value of [cidr][crate::model::Network::cidr].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = Network::new().set_cidr("example");
+    /// ```
     pub fn set_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cidr = v.into();
         self
     }
 
     /// Sets the value of [vrf][crate::model::Network::vrf].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// use google_cloud_baremetalsolution_v2::model::Vrf;
+    /// let x = Network::new().set_vrf(Vrf::default()/* use setters */);
+    /// ```
     pub fn set_vrf<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Vrf>,
@@ -2268,6 +2874,14 @@ impl Network {
     }
 
     /// Sets or clears the value of [vrf][crate::model::Network::vrf].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// use google_cloud_baremetalsolution_v2::model::Vrf;
+    /// let x = Network::new().set_or_clear_vrf(Some(Vrf::default()/* use setters */));
+    /// let x = Network::new().set_or_clear_vrf(None::<Vrf>);
+    /// ```
     pub fn set_or_clear_vrf<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Vrf>,
@@ -2277,6 +2891,15 @@ impl Network {
     }
 
     /// Sets the value of [labels][crate::model::Network::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = Network::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2289,12 +2912,29 @@ impl Network {
     }
 
     /// Sets the value of [services_cidr][crate::model::Network::services_cidr].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = Network::new().set_services_cidr("example");
+    /// ```
     pub fn set_services_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.services_cidr = v.into();
         self
     }
 
     /// Sets the value of [reservations][crate::model::Network::reservations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// use google_cloud_baremetalsolution_v2::model::NetworkAddressReservation;
+    /// let x = Network::new()
+    ///     .set_reservations([
+    ///         NetworkAddressReservation::default()/* use setters */,
+    ///         NetworkAddressReservation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_reservations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2306,12 +2946,29 @@ impl Network {
     }
 
     /// Sets the value of [pod][crate::model::Network::pod].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = Network::new().set_pod("example");
+    /// ```
     pub fn set_pod<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pod = v.into();
         self
     }
 
     /// Sets the value of [mount_points][crate::model::Network::mount_points].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// use google_cloud_baremetalsolution_v2::model::NetworkMountPoint;
+    /// let x = Network::new()
+    ///     .set_mount_points([
+    ///         NetworkMountPoint::default()/* use setters */,
+    ///         NetworkMountPoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_mount_points<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2323,12 +2980,24 @@ impl Network {
     }
 
     /// Sets the value of [jumbo_frames_enabled][crate::model::Network::jumbo_frames_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = Network::new().set_jumbo_frames_enabled(true);
+    /// ```
     pub fn set_jumbo_frames_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.jumbo_frames_enabled = v.into();
         self
     }
 
     /// Sets the value of [gateway_ip][crate::model::Network::gateway_ip].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = Network::new().set_gateway_ip("example");
+    /// ```
     pub fn set_gateway_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gateway_ip = v.into();
         self
@@ -2651,18 +3320,36 @@ impl NetworkAddressReservation {
     }
 
     /// Sets the value of [start_address][crate::model::NetworkAddressReservation::start_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkAddressReservation;
+    /// let x = NetworkAddressReservation::new().set_start_address("example");
+    /// ```
     pub fn set_start_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.start_address = v.into();
         self
     }
 
     /// Sets the value of [end_address][crate::model::NetworkAddressReservation::end_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkAddressReservation;
+    /// let x = NetworkAddressReservation::new().set_end_address("example");
+    /// ```
     pub fn set_end_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.end_address = v.into();
         self
     }
 
     /// Sets the value of [note][crate::model::NetworkAddressReservation::note].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkAddressReservation;
+    /// let x = NetworkAddressReservation::new().set_note("example");
+    /// ```
     pub fn set_note<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.note = v.into();
         self
@@ -2703,18 +3390,39 @@ impl Vrf {
     }
 
     /// Sets the value of [name][crate::model::Vrf::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Vrf;
+    /// let x = Vrf::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Vrf::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Vrf;
+    /// use google_cloud_baremetalsolution_v2::model::vrf::State;
+    /// let x0 = Vrf::new().set_state(State::Provisioning);
+    /// let x1 = Vrf::new().set_state(State::Provisioned);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::vrf::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [qos_policy][crate::model::Vrf::qos_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Vrf;
+    /// use google_cloud_baremetalsolution_v2::model::vrf::QosPolicy;
+    /// let x = Vrf::new().set_qos_policy(QosPolicy::default()/* use setters */);
+    /// ```
     pub fn set_qos_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::vrf::QosPolicy>,
@@ -2724,6 +3432,14 @@ impl Vrf {
     }
 
     /// Sets or clears the value of [qos_policy][crate::model::Vrf::qos_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Vrf;
+    /// use google_cloud_baremetalsolution_v2::model::vrf::QosPolicy;
+    /// let x = Vrf::new().set_or_clear_qos_policy(Some(QosPolicy::default()/* use setters */));
+    /// let x = Vrf::new().set_or_clear_qos_policy(None::<QosPolicy>);
+    /// ```
     pub fn set_or_clear_qos_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::vrf::QosPolicy>,
@@ -2733,6 +3449,17 @@ impl Vrf {
     }
 
     /// Sets the value of [vlan_attachments][crate::model::Vrf::vlan_attachments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Vrf;
+    /// use google_cloud_baremetalsolution_v2::model::vrf::VlanAttachment;
+    /// let x = Vrf::new()
+    ///     .set_vlan_attachments([
+    ///         VlanAttachment::default()/* use setters */,
+    ///         VlanAttachment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_vlan_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2771,6 +3498,12 @@ pub mod vrf {
         }
 
         /// Sets the value of [bandwidth_gbps][crate::model::vrf::QosPolicy::bandwidth_gbps].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::vrf::QosPolicy;
+        /// let x = QosPolicy::new().set_bandwidth_gbps(42.0);
+        /// ```
         pub fn set_bandwidth_gbps<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
             self.bandwidth_gbps = v.into();
             self
@@ -2819,30 +3552,61 @@ pub mod vrf {
         }
 
         /// Sets the value of [peer_vlan_id][crate::model::vrf::VlanAttachment::peer_vlan_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::vrf::VlanAttachment;
+        /// let x = VlanAttachment::new().set_peer_vlan_id(42);
+        /// ```
         pub fn set_peer_vlan_id<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.peer_vlan_id = v.into();
             self
         }
 
         /// Sets the value of [peer_ip][crate::model::vrf::VlanAttachment::peer_ip].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::vrf::VlanAttachment;
+        /// let x = VlanAttachment::new().set_peer_ip("example");
+        /// ```
         pub fn set_peer_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.peer_ip = v.into();
             self
         }
 
         /// Sets the value of [router_ip][crate::model::vrf::VlanAttachment::router_ip].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::vrf::VlanAttachment;
+        /// let x = VlanAttachment::new().set_router_ip("example");
+        /// ```
         pub fn set_router_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.router_ip = v.into();
             self
         }
 
         /// Sets the value of [pairing_key][crate::model::vrf::VlanAttachment::pairing_key].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::vrf::VlanAttachment;
+        /// let x = VlanAttachment::new().set_pairing_key("example");
+        /// ```
         pub fn set_pairing_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.pairing_key = v.into();
             self
         }
 
         /// Sets the value of [qos_policy][crate::model::vrf::VlanAttachment::qos_policy].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::vrf::VlanAttachment;
+        /// use google_cloud_baremetalsolution_v2::model::vrf::QosPolicy;
+        /// let x = VlanAttachment::new().set_qos_policy(QosPolicy::default()/* use setters */);
+        /// ```
         pub fn set_qos_policy<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::vrf::QosPolicy>,
@@ -2852,6 +3616,14 @@ pub mod vrf {
         }
 
         /// Sets or clears the value of [qos_policy][crate::model::vrf::VlanAttachment::qos_policy].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::vrf::VlanAttachment;
+        /// use google_cloud_baremetalsolution_v2::model::vrf::QosPolicy;
+        /// let x = VlanAttachment::new().set_or_clear_qos_policy(Some(QosPolicy::default()/* use setters */));
+        /// let x = VlanAttachment::new().set_or_clear_qos_policy(None::<QosPolicy>);
+        /// ```
         pub fn set_or_clear_qos_policy<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::vrf::QosPolicy>,
@@ -2861,12 +3633,24 @@ pub mod vrf {
         }
 
         /// Sets the value of [id][crate::model::vrf::VlanAttachment::id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::vrf::VlanAttachment;
+        /// let x = VlanAttachment::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [interconnect_attachment][crate::model::vrf::VlanAttachment::interconnect_attachment].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::vrf::VlanAttachment;
+        /// let x = VlanAttachment::new().set_interconnect_attachment("example");
+        /// ```
         pub fn set_interconnect_attachment<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3044,6 +3828,17 @@ impl LogicalInterface {
     }
 
     /// Sets the value of [logical_network_interfaces][crate::model::LogicalInterface::logical_network_interfaces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::LogicalInterface;
+    /// use google_cloud_baremetalsolution_v2::model::logical_interface::LogicalNetworkInterface;
+    /// let x = LogicalInterface::new()
+    ///     .set_logical_network_interfaces([
+    ///         LogicalNetworkInterface::default()/* use setters */,
+    ///         LogicalNetworkInterface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_logical_network_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3055,12 +3850,24 @@ impl LogicalInterface {
     }
 
     /// Sets the value of [name][crate::model::LogicalInterface::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::LogicalInterface;
+    /// let x = LogicalInterface::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [interface_index][crate::model::LogicalInterface::interface_index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::LogicalInterface;
+    /// let x = LogicalInterface::new().set_interface_index(42);
+    /// ```
     #[deprecated]
     pub fn set_interface_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.interface_index = v.into();
@@ -3108,24 +3915,50 @@ pub mod logical_interface {
         }
 
         /// Sets the value of [network][crate::model::logical_interface::LogicalNetworkInterface::network].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::logical_interface::LogicalNetworkInterface;
+        /// let x = LogicalNetworkInterface::new().set_network("example");
+        /// ```
         pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network = v.into();
             self
         }
 
         /// Sets the value of [ip_address][crate::model::logical_interface::LogicalNetworkInterface::ip_address].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::logical_interface::LogicalNetworkInterface;
+        /// let x = LogicalNetworkInterface::new().set_ip_address("example");
+        /// ```
         pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ip_address = v.into();
             self
         }
 
         /// Sets the value of [default_gateway][crate::model::logical_interface::LogicalNetworkInterface::default_gateway].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::logical_interface::LogicalNetworkInterface;
+        /// let x = LogicalNetworkInterface::new().set_default_gateway(true);
+        /// ```
         pub fn set_default_gateway<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.default_gateway = v.into();
             self
         }
 
         /// Sets the value of [network_type][crate::model::logical_interface::LogicalNetworkInterface::network_type].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::logical_interface::LogicalNetworkInterface;
+        /// use google_cloud_baremetalsolution_v2::model::network::Type;
+        /// let x0 = LogicalNetworkInterface::new().set_network_type(Type::Client);
+        /// let x1 = LogicalNetworkInterface::new().set_network_type(Type::Private);
+        /// ```
         pub fn set_network_type<T: std::convert::Into<crate::model::network::Type>>(
             mut self,
             v: T,
@@ -3135,6 +3968,12 @@ pub mod logical_interface {
         }
 
         /// Sets the value of [id][crate::model::logical_interface::LogicalNetworkInterface::id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::logical_interface::LogicalNetworkInterface;
+        /// let x = LogicalNetworkInterface::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
@@ -3164,6 +4003,12 @@ impl GetNetworkRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNetworkRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::GetNetworkRequest;
+    /// let x = GetNetworkRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3202,24 +4047,48 @@ impl ListNetworksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNetworksRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNetworksRequest;
+    /// let x = ListNetworksRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNetworksRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNetworksRequest;
+    /// let x = ListNetworksRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNetworksRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNetworksRequest;
+    /// let x = ListNetworksRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListNetworksRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNetworksRequest;
+    /// let x = ListNetworksRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -3254,6 +4123,17 @@ impl ListNetworksResponse {
     }
 
     /// Sets the value of [networks][crate::model::ListNetworksResponse::networks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNetworksResponse;
+    /// use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = ListNetworksResponse::new()
+    ///     .set_networks([
+    ///         Network::default()/* use setters */,
+    ///         Network::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3265,12 +4145,24 @@ impl ListNetworksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNetworksResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNetworksResponse;
+    /// let x = ListNetworksResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListNetworksResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNetworksResponse;
+    /// let x = ListNetworksResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3326,6 +4218,13 @@ impl UpdateNetworkRequest {
     }
 
     /// Sets the value of [network][crate::model::UpdateNetworkRequest::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateNetworkRequest;
+    /// use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = UpdateNetworkRequest::new().set_network(Network::default()/* use setters */);
+    /// ```
     pub fn set_network<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Network>,
@@ -3335,6 +4234,14 @@ impl UpdateNetworkRequest {
     }
 
     /// Sets or clears the value of [network][crate::model::UpdateNetworkRequest::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateNetworkRequest;
+    /// use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = UpdateNetworkRequest::new().set_or_clear_network(Some(Network::default()/* use setters */));
+    /// let x = UpdateNetworkRequest::new().set_or_clear_network(None::<Network>);
+    /// ```
     pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Network>,
@@ -3344,6 +4251,13 @@ impl UpdateNetworkRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateNetworkRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateNetworkRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNetworkRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3353,6 +4267,14 @@ impl UpdateNetworkRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNetworkRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateNetworkRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNetworkRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateNetworkRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3387,6 +4309,13 @@ impl NetworkUsage {
     }
 
     /// Sets the value of [network][crate::model::NetworkUsage::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkUsage;
+    /// use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = NetworkUsage::new().set_network(Network::default()/* use setters */);
+    /// ```
     pub fn set_network<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Network>,
@@ -3396,6 +4325,14 @@ impl NetworkUsage {
     }
 
     /// Sets or clears the value of [network][crate::model::NetworkUsage::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkUsage;
+    /// use google_cloud_baremetalsolution_v2::model::Network;
+    /// let x = NetworkUsage::new().set_or_clear_network(Some(Network::default()/* use setters */));
+    /// let x = NetworkUsage::new().set_or_clear_network(None::<Network>);
+    /// ```
     pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Network>,
@@ -3405,6 +4342,12 @@ impl NetworkUsage {
     }
 
     /// Sets the value of [used_ips][crate::model::NetworkUsage::used_ips].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkUsage;
+    /// let x = NetworkUsage::new().set_used_ips(["a", "b", "c"]);
+    /// ```
     pub fn set_used_ips<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3438,6 +4381,12 @@ impl ListNetworkUsageRequest {
     }
 
     /// Sets the value of [location][crate::model::ListNetworkUsageRequest::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNetworkUsageRequest;
+    /// let x = ListNetworkUsageRequest::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
@@ -3466,6 +4415,17 @@ impl ListNetworkUsageResponse {
     }
 
     /// Sets the value of [networks][crate::model::ListNetworkUsageResponse::networks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNetworkUsageResponse;
+    /// use google_cloud_baremetalsolution_v2::model::NetworkUsage;
+    /// let x = ListNetworkUsageResponse::new()
+    ///     .set_networks([
+    ///         NetworkUsage::default()/* use setters */,
+    ///         NetworkUsage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3508,12 +4468,24 @@ impl NetworkMountPoint {
     }
 
     /// Sets the value of [instance][crate::model::NetworkMountPoint::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkMountPoint;
+    /// let x = NetworkMountPoint::new().set_instance("example");
+    /// ```
     pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance = v.into();
         self
     }
 
     /// Sets the value of [logical_interface][crate::model::NetworkMountPoint::logical_interface].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkMountPoint;
+    /// let x = NetworkMountPoint::new().set_logical_interface("example");
+    /// ```
     pub fn set_logical_interface<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3523,12 +4495,24 @@ impl NetworkMountPoint {
     }
 
     /// Sets the value of [default_gateway][crate::model::NetworkMountPoint::default_gateway].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkMountPoint;
+    /// let x = NetworkMountPoint::new().set_default_gateway(true);
+    /// ```
     pub fn set_default_gateway<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.default_gateway = v.into();
         self
     }
 
     /// Sets the value of [ip_address][crate::model::NetworkMountPoint::ip_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkMountPoint;
+    /// let x = NetworkMountPoint::new().set_ip_address("example");
+    /// ```
     pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ip_address = v.into();
         self
@@ -3561,12 +4545,24 @@ impl RenameNetworkRequest {
     }
 
     /// Sets the value of [name][crate::model::RenameNetworkRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::RenameNetworkRequest;
+    /// let x = RenameNetworkRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [new_network_id][crate::model::RenameNetworkRequest::new_network_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::RenameNetworkRequest;
+    /// let x = RenameNetworkRequest::new().set_new_network_id("example");
+    /// ```
     pub fn set_new_network_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_network_id = v.into();
         self
@@ -3622,24 +4618,51 @@ impl NfsShare {
     }
 
     /// Sets the value of [name][crate::model::NfsShare::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// let x = NfsShare::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [nfs_share_id][crate::model::NfsShare::nfs_share_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// let x = NfsShare::new().set_nfs_share_id("example");
+    /// ```
     pub fn set_nfs_share_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.nfs_share_id = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::NfsShare::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// let x = NfsShare::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::NfsShare::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// use google_cloud_baremetalsolution_v2::model::nfs_share::State;
+    /// let x0 = NfsShare::new().set_state(State::Provisioned);
+    /// let x1 = NfsShare::new().set_state(State::Creating);
+    /// let x2 = NfsShare::new().set_state(State::Updating);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::nfs_share::State>>(
         mut self,
         v: T,
@@ -3649,12 +4672,29 @@ impl NfsShare {
     }
 
     /// Sets the value of [volume][crate::model::NfsShare::volume].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// let x = NfsShare::new().set_volume("example");
+    /// ```
     pub fn set_volume<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume = v.into();
         self
     }
 
     /// Sets the value of [allowed_clients][crate::model::NfsShare::allowed_clients].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// use google_cloud_baremetalsolution_v2::model::nfs_share::AllowedClient;
+    /// let x = NfsShare::new()
+    ///     .set_allowed_clients([
+    ///         AllowedClient::default()/* use setters */,
+    ///         AllowedClient::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_allowed_clients<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3666,6 +4706,15 @@ impl NfsShare {
     }
 
     /// Sets the value of [labels][crate::model::NfsShare::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// let x = NfsShare::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3678,12 +4727,26 @@ impl NfsShare {
     }
 
     /// Sets the value of [requested_size_gib][crate::model::NfsShare::requested_size_gib].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// let x = NfsShare::new().set_requested_size_gib(42);
+    /// ```
     pub fn set_requested_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.requested_size_gib = v.into();
         self
     }
 
     /// Sets the value of [storage_type][crate::model::NfsShare::storage_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// use google_cloud_baremetalsolution_v2::model::nfs_share::StorageType;
+    /// let x0 = NfsShare::new().set_storage_type(StorageType::Ssd);
+    /// let x1 = NfsShare::new().set_storage_type(StorageType::Hdd);
+    /// ```
     pub fn set_storage_type<T: std::convert::Into<crate::model::nfs_share::StorageType>>(
         mut self,
         v: T,
@@ -3746,18 +4809,36 @@ pub mod nfs_share {
         }
 
         /// Sets the value of [network][crate::model::nfs_share::AllowedClient::network].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::nfs_share::AllowedClient;
+        /// let x = AllowedClient::new().set_network("example");
+        /// ```
         pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network = v.into();
             self
         }
 
         /// Sets the value of [share_ip][crate::model::nfs_share::AllowedClient::share_ip].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::nfs_share::AllowedClient;
+        /// let x = AllowedClient::new().set_share_ip("example");
+        /// ```
         pub fn set_share_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.share_ip = v.into();
             self
         }
 
         /// Sets the value of [allowed_clients_cidr][crate::model::nfs_share::AllowedClient::allowed_clients_cidr].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::nfs_share::AllowedClient;
+        /// let x = AllowedClient::new().set_allowed_clients_cidr("example");
+        /// ```
         pub fn set_allowed_clients_cidr<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -3767,6 +4848,14 @@ pub mod nfs_share {
         }
 
         /// Sets the value of [mount_permissions][crate::model::nfs_share::AllowedClient::mount_permissions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::nfs_share::AllowedClient;
+        /// use google_cloud_baremetalsolution_v2::model::nfs_share::MountPermissions;
+        /// let x0 = AllowedClient::new().set_mount_permissions(MountPermissions::Read);
+        /// let x1 = AllowedClient::new().set_mount_permissions(MountPermissions::ReadWrite);
+        /// ```
         pub fn set_mount_permissions<
             T: std::convert::Into<crate::model::nfs_share::MountPermissions>,
         >(
@@ -3778,24 +4867,48 @@ pub mod nfs_share {
         }
 
         /// Sets the value of [allow_dev][crate::model::nfs_share::AllowedClient::allow_dev].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::nfs_share::AllowedClient;
+        /// let x = AllowedClient::new().set_allow_dev(true);
+        /// ```
         pub fn set_allow_dev<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_dev = v.into();
             self
         }
 
         /// Sets the value of [allow_suid][crate::model::nfs_share::AllowedClient::allow_suid].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::nfs_share::AllowedClient;
+        /// let x = AllowedClient::new().set_allow_suid(true);
+        /// ```
         pub fn set_allow_suid<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_suid = v.into();
             self
         }
 
         /// Sets the value of [no_root_squash][crate::model::nfs_share::AllowedClient::no_root_squash].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::nfs_share::AllowedClient;
+        /// let x = AllowedClient::new().set_no_root_squash(true);
+        /// ```
         pub fn set_no_root_squash<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.no_root_squash = v.into();
             self
         }
 
         /// Sets the value of [nfs_path][crate::model::nfs_share::AllowedClient::nfs_path].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::nfs_share::AllowedClient;
+        /// let x = AllowedClient::new().set_nfs_path("example");
+        /// ```
         pub fn set_nfs_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.nfs_path = v.into();
             self
@@ -4235,6 +5348,12 @@ impl GetNfsShareRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNfsShareRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::GetNfsShareRequest;
+    /// let x = GetNfsShareRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4273,24 +5392,48 @@ impl ListNfsSharesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNfsSharesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNfsSharesRequest;
+    /// let x = ListNfsSharesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNfsSharesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNfsSharesRequest;
+    /// let x = ListNfsSharesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNfsSharesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNfsSharesRequest;
+    /// let x = ListNfsSharesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListNfsSharesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNfsSharesRequest;
+    /// let x = ListNfsSharesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -4325,6 +5468,17 @@ impl ListNfsSharesResponse {
     }
 
     /// Sets the value of [nfs_shares][crate::model::ListNfsSharesResponse::nfs_shares].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNfsSharesResponse;
+    /// use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// let x = ListNfsSharesResponse::new()
+    ///     .set_nfs_shares([
+    ///         NfsShare::default()/* use setters */,
+    ///         NfsShare::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_nfs_shares<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4336,12 +5490,24 @@ impl ListNfsSharesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNfsSharesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNfsSharesResponse;
+    /// let x = ListNfsSharesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListNfsSharesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListNfsSharesResponse;
+    /// let x = ListNfsSharesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4398,6 +5564,13 @@ impl UpdateNfsShareRequest {
     }
 
     /// Sets the value of [nfs_share][crate::model::UpdateNfsShareRequest::nfs_share].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateNfsShareRequest;
+    /// use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// let x = UpdateNfsShareRequest::new().set_nfs_share(NfsShare::default()/* use setters */);
+    /// ```
     pub fn set_nfs_share<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NfsShare>,
@@ -4407,6 +5580,14 @@ impl UpdateNfsShareRequest {
     }
 
     /// Sets or clears the value of [nfs_share][crate::model::UpdateNfsShareRequest::nfs_share].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateNfsShareRequest;
+    /// use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// let x = UpdateNfsShareRequest::new().set_or_clear_nfs_share(Some(NfsShare::default()/* use setters */));
+    /// let x = UpdateNfsShareRequest::new().set_or_clear_nfs_share(None::<NfsShare>);
+    /// ```
     pub fn set_or_clear_nfs_share<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NfsShare>,
@@ -4416,6 +5597,13 @@ impl UpdateNfsShareRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateNfsShareRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateNfsShareRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNfsShareRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4425,6 +5613,14 @@ impl UpdateNfsShareRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNfsShareRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateNfsShareRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNfsShareRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateNfsShareRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4460,12 +5656,24 @@ impl RenameNfsShareRequest {
     }
 
     /// Sets the value of [name][crate::model::RenameNfsShareRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::RenameNfsShareRequest;
+    /// let x = RenameNfsShareRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [new_nfsshare_id][crate::model::RenameNfsShareRequest::new_nfsshare_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::RenameNfsShareRequest;
+    /// let x = RenameNfsShareRequest::new().set_new_nfsshare_id("example");
+    /// ```
     pub fn set_new_nfsshare_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_nfsshare_id = v.into();
         self
@@ -4497,12 +5705,25 @@ impl CreateNfsShareRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateNfsShareRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateNfsShareRequest;
+    /// let x = CreateNfsShareRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [nfs_share][crate::model::CreateNfsShareRequest::nfs_share].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateNfsShareRequest;
+    /// use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// let x = CreateNfsShareRequest::new().set_nfs_share(NfsShare::default()/* use setters */);
+    /// ```
     pub fn set_nfs_share<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NfsShare>,
@@ -4512,6 +5733,14 @@ impl CreateNfsShareRequest {
     }
 
     /// Sets or clears the value of [nfs_share][crate::model::CreateNfsShareRequest::nfs_share].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateNfsShareRequest;
+    /// use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// let x = CreateNfsShareRequest::new().set_or_clear_nfs_share(Some(NfsShare::default()/* use setters */));
+    /// let x = CreateNfsShareRequest::new().set_or_clear_nfs_share(None::<NfsShare>);
+    /// ```
     pub fn set_or_clear_nfs_share<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NfsShare>,
@@ -4543,6 +5772,12 @@ impl DeleteNfsShareRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteNfsShareRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::DeleteNfsShareRequest;
+    /// let x = DeleteNfsShareRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4585,24 +5820,48 @@ impl OSImage {
     }
 
     /// Sets the value of [name][crate::model::OSImage::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OSImage;
+    /// let x = OSImage::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [code][crate::model::OSImage::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OSImage;
+    /// let x = OSImage::new().set_code("example");
+    /// ```
     pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::OSImage::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OSImage;
+    /// let x = OSImage::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [applicable_instance_types][crate::model::OSImage::applicable_instance_types].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OSImage;
+    /// let x = OSImage::new().set_applicable_instance_types(["a", "b", "c"]);
+    /// ```
     pub fn set_applicable_instance_types<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4614,6 +5873,12 @@ impl OSImage {
     }
 
     /// Sets the value of [supported_network_templates][crate::model::OSImage::supported_network_templates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::OSImage;
+    /// let x = OSImage::new().set_supported_network_templates(["a", "b", "c"]);
+    /// ```
     pub fn set_supported_network_templates<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4656,18 +5921,36 @@ impl ListOSImagesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOSImagesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListOSImagesRequest;
+    /// let x = ListOSImagesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOSImagesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListOSImagesRequest;
+    /// let x = ListOSImagesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOSImagesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListOSImagesRequest;
+    /// let x = ListOSImagesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4700,6 +5983,17 @@ impl ListOSImagesResponse {
     }
 
     /// Sets the value of [os_images][crate::model::ListOSImagesResponse::os_images].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListOSImagesResponse;
+    /// use google_cloud_baremetalsolution_v2::model::OSImage;
+    /// let x = ListOSImagesResponse::new()
+    ///     .set_os_images([
+    ///         OSImage::default()/* use setters */,
+    ///         OSImage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_os_images<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4711,6 +6005,12 @@ impl ListOSImagesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOSImagesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListOSImagesResponse;
+    /// let x = ListOSImagesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4797,12 +6097,29 @@ impl ProvisioningConfig {
     }
 
     /// Sets the value of [name][crate::model::ProvisioningConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = ProvisioningConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [instances][crate::model::ProvisioningConfig::instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// let x = ProvisioningConfig::new()
+    ///     .set_instances([
+    ///         InstanceConfig::default()/* use setters */,
+    ///         InstanceConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4814,6 +6131,17 @@ impl ProvisioningConfig {
     }
 
     /// Sets the value of [networks][crate::model::ProvisioningConfig::networks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// use google_cloud_baremetalsolution_v2::model::NetworkConfig;
+    /// let x = ProvisioningConfig::new()
+    ///     .set_networks([
+    ///         NetworkConfig::default()/* use setters */,
+    ///         NetworkConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_networks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4825,6 +6153,17 @@ impl ProvisioningConfig {
     }
 
     /// Sets the value of [volumes][crate::model::ProvisioningConfig::volumes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// let x = ProvisioningConfig::new()
+    ///     .set_volumes([
+    ///         VolumeConfig::default()/* use setters */,
+    ///         VolumeConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4836,12 +6175,24 @@ impl ProvisioningConfig {
     }
 
     /// Sets the value of [ticket_id][crate::model::ProvisioningConfig::ticket_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = ProvisioningConfig::new().set_ticket_id("example");
+    /// ```
     pub fn set_ticket_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ticket_id = v.into();
         self
     }
 
     /// Sets the value of [handover_service_account][crate::model::ProvisioningConfig::handover_service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = ProvisioningConfig::new().set_handover_service_account("example");
+    /// ```
     pub fn set_handover_service_account<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4851,6 +6202,12 @@ impl ProvisioningConfig {
     }
 
     /// Sets the value of [email][crate::model::ProvisioningConfig::email].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = ProvisioningConfig::new().set_email("example");
+    /// ```
     #[deprecated]
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
@@ -4858,6 +6215,15 @@ impl ProvisioningConfig {
     }
 
     /// Sets the value of [state][crate::model::ProvisioningConfig::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// use google_cloud_baremetalsolution_v2::model::provisioning_config::State;
+    /// let x0 = ProvisioningConfig::new().set_state(State::Draft);
+    /// let x1 = ProvisioningConfig::new().set_state(State::Submitted);
+    /// let x2 = ProvisioningConfig::new().set_state(State::Provisioning);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::provisioning_config::State>>(
         mut self,
         v: T,
@@ -4867,12 +6233,25 @@ impl ProvisioningConfig {
     }
 
     /// Sets the value of [location][crate::model::ProvisioningConfig::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = ProvisioningConfig::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::ProvisioningConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// use wkt::Timestamp;
+    /// let x = ProvisioningConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4882,6 +6261,14 @@ impl ProvisioningConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ProvisioningConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// use wkt::Timestamp;
+    /// let x = ProvisioningConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ProvisioningConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -4891,6 +6278,12 @@ impl ProvisioningConfig {
     }
 
     /// Sets the value of [cloud_console_uri][crate::model::ProvisioningConfig::cloud_console_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = ProvisioningConfig::new().set_cloud_console_uri("example");
+    /// ```
     pub fn set_cloud_console_uri<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4900,18 +6293,36 @@ impl ProvisioningConfig {
     }
 
     /// Sets the value of [vpc_sc_enabled][crate::model::ProvisioningConfig::vpc_sc_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = ProvisioningConfig::new().set_vpc_sc_enabled(true);
+    /// ```
     pub fn set_vpc_sc_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.vpc_sc_enabled = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::ProvisioningConfig::status_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = ProvisioningConfig::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [custom_id][crate::model::ProvisioningConfig::custom_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = ProvisioningConfig::new().set_custom_id("example");
+    /// ```
     pub fn set_custom_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.custom_id = v.into();
         self
@@ -5124,12 +6535,25 @@ impl SubmitProvisioningConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::SubmitProvisioningConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::SubmitProvisioningConfigRequest;
+    /// let x = SubmitProvisioningConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [provisioning_config][crate::model::SubmitProvisioningConfigRequest::provisioning_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::SubmitProvisioningConfigRequest;
+    /// use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = SubmitProvisioningConfigRequest::new().set_provisioning_config(ProvisioningConfig::default()/* use setters */);
+    /// ```
     pub fn set_provisioning_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProvisioningConfig>,
@@ -5139,6 +6563,14 @@ impl SubmitProvisioningConfigRequest {
     }
 
     /// Sets or clears the value of [provisioning_config][crate::model::SubmitProvisioningConfigRequest::provisioning_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::SubmitProvisioningConfigRequest;
+    /// use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = SubmitProvisioningConfigRequest::new().set_or_clear_provisioning_config(Some(ProvisioningConfig::default()/* use setters */));
+    /// let x = SubmitProvisioningConfigRequest::new().set_or_clear_provisioning_config(None::<ProvisioningConfig>);
+    /// ```
     pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProvisioningConfig>,
@@ -5148,6 +6580,12 @@ impl SubmitProvisioningConfigRequest {
     }
 
     /// Sets the value of [email][crate::model::SubmitProvisioningConfigRequest::email].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::SubmitProvisioningConfigRequest;
+    /// let x = SubmitProvisioningConfigRequest::new().set_email("example");
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
@@ -5176,6 +6614,13 @@ impl SubmitProvisioningConfigResponse {
     }
 
     /// Sets the value of [provisioning_config][crate::model::SubmitProvisioningConfigResponse::provisioning_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::SubmitProvisioningConfigResponse;
+    /// use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = SubmitProvisioningConfigResponse::new().set_provisioning_config(ProvisioningConfig::default()/* use setters */);
+    /// ```
     pub fn set_provisioning_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProvisioningConfig>,
@@ -5185,6 +6630,14 @@ impl SubmitProvisioningConfigResponse {
     }
 
     /// Sets or clears the value of [provisioning_config][crate::model::SubmitProvisioningConfigResponse::provisioning_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::SubmitProvisioningConfigResponse;
+    /// use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = SubmitProvisioningConfigResponse::new().set_or_clear_provisioning_config(Some(ProvisioningConfig::default()/* use setters */));
+    /// let x = SubmitProvisioningConfigResponse::new().set_or_clear_provisioning_config(None::<ProvisioningConfig>);
+    /// ```
     pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProvisioningConfig>,
@@ -5234,12 +6687,27 @@ impl ProvisioningQuota {
     }
 
     /// Sets the value of [name][crate::model::ProvisioningQuota::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
+    /// let x = ProvisioningQuota::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [asset_type][crate::model::ProvisioningQuota::asset_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
+    /// use google_cloud_baremetalsolution_v2::model::provisioning_quota::AssetType;
+    /// let x0 = ProvisioningQuota::new().set_asset_type(AssetType::Server);
+    /// let x1 = ProvisioningQuota::new().set_asset_type(AssetType::Storage);
+    /// let x2 = ProvisioningQuota::new().set_asset_type(AssetType::Network);
+    /// ```
     pub fn set_asset_type<T: std::convert::Into<crate::model::provisioning_quota::AssetType>>(
         mut self,
         v: T,
@@ -5249,18 +6717,36 @@ impl ProvisioningQuota {
     }
 
     /// Sets the value of [gcp_service][crate::model::ProvisioningQuota::gcp_service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
+    /// let x = ProvisioningQuota::new().set_gcp_service("example");
+    /// ```
     pub fn set_gcp_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_service = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::ProvisioningQuota::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
+    /// let x = ProvisioningQuota::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [available_count][crate::model::ProvisioningQuota::available_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
+    /// let x = ProvisioningQuota::new().set_available_count(42);
+    /// ```
     pub fn set_available_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.available_count = v.into();
         self
@@ -5270,6 +6756,14 @@ impl ProvisioningQuota {
     ///
     /// Note that all the setters affecting `quota` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
+    /// use google_cloud_baremetalsolution_v2::model::InstanceQuota;
+    /// let x = ProvisioningQuota::new().set_quota(Some(
+    ///     google_cloud_baremetalsolution_v2::model::provisioning_quota::Quota::InstanceQuota(InstanceQuota::default().into())));
+    /// ```
     pub fn set_quota<
         T: std::convert::Into<std::option::Option<crate::model::provisioning_quota::Quota>>,
     >(
@@ -5300,6 +6794,14 @@ impl ProvisioningQuota {
     ///
     /// Note that all the setters affecting `quota` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
+    /// use google_cloud_baremetalsolution_v2::model::InstanceQuota;
+    /// let x = ProvisioningQuota::new().set_instance_quota(InstanceQuota::default()/* use setters */);
+    /// assert!(x.instance_quota().is_some());
+    /// ```
     pub fn set_instance_quota<
         T: std::convert::Into<std::boxed::Box<crate::model::InstanceQuota>>,
     >(
@@ -5316,6 +6818,13 @@ impl ProvisioningQuota {
     ///
     /// Note that all the setters affecting `availability` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
+    /// use google_cloud_baremetalsolution_v2::model::provisioning_quota::Availability;
+    /// let x = ProvisioningQuota::new().set_availability(Some(Availability::ServerCount(42)));
+    /// ```
     pub fn set_availability<
         T: std::convert::Into<std::option::Option<crate::model::provisioning_quota::Availability>>,
     >(
@@ -5344,6 +6853,15 @@ impl ProvisioningQuota {
     ///
     /// Note that all the setters affecting `availability` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
+    /// let x = ProvisioningQuota::new().set_server_count(42);
+    /// assert!(x.server_count().is_some());
+    /// assert!(x.network_bandwidth().is_none());
+    /// assert!(x.storage_gib().is_none());
+    /// ```
     pub fn set_server_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.availability = std::option::Option::Some(
             crate::model::provisioning_quota::Availability::ServerCount(v.into()),
@@ -5369,6 +6887,15 @@ impl ProvisioningQuota {
     ///
     /// Note that all the setters affecting `availability` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
+    /// let x = ProvisioningQuota::new().set_network_bandwidth(42);
+    /// assert!(x.network_bandwidth().is_some());
+    /// assert!(x.server_count().is_none());
+    /// assert!(x.storage_gib().is_none());
+    /// ```
     pub fn set_network_bandwidth<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.availability = std::option::Option::Some(
             crate::model::provisioning_quota::Availability::NetworkBandwidth(v.into()),
@@ -5394,6 +6921,15 @@ impl ProvisioningQuota {
     ///
     /// Note that all the setters affecting `availability` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
+    /// let x = ProvisioningQuota::new().set_storage_gib(42);
+    /// assert!(x.storage_gib().is_some());
+    /// assert!(x.server_count().is_none());
+    /// assert!(x.network_bandwidth().is_none());
+    /// ```
     pub fn set_storage_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.availability = std::option::Option::Some(
             crate::model::provisioning_quota::Availability::StorageGib(v.into()),
@@ -5598,18 +7134,36 @@ impl ListProvisioningQuotasRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListProvisioningQuotasRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListProvisioningQuotasRequest;
+    /// let x = ListProvisioningQuotasRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListProvisioningQuotasRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListProvisioningQuotasRequest;
+    /// let x = ListProvisioningQuotasRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListProvisioningQuotasRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListProvisioningQuotasRequest;
+    /// let x = ListProvisioningQuotasRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -5642,6 +7196,17 @@ impl ListProvisioningQuotasResponse {
     }
 
     /// Sets the value of [provisioning_quotas][crate::model::ListProvisioningQuotasResponse::provisioning_quotas].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListProvisioningQuotasResponse;
+    /// use google_cloud_baremetalsolution_v2::model::ProvisioningQuota;
+    /// let x = ListProvisioningQuotasResponse::new()
+    ///     .set_provisioning_quotas([
+    ///         ProvisioningQuota::default()/* use setters */,
+    ///         ProvisioningQuota::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_provisioning_quotas<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5653,6 +7218,12 @@ impl ListProvisioningQuotasResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListProvisioningQuotasResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListProvisioningQuotasResponse;
+    /// let x = ListProvisioningQuotasResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5743,36 +7314,73 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [name][crate::model::InstanceConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::InstanceConfig::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [instance_type][crate::model::InstanceConfig::instance_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_instance_type("example");
+    /// ```
     pub fn set_instance_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_type = v.into();
         self
     }
 
     /// Sets the value of [hyperthreading][crate::model::InstanceConfig::hyperthreading].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_hyperthreading(true);
+    /// ```
     pub fn set_hyperthreading<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.hyperthreading = v.into();
         self
     }
 
     /// Sets the value of [os_image][crate::model::InstanceConfig::os_image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_os_image("example");
+    /// ```
     pub fn set_os_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.os_image = v.into();
         self
     }
 
     /// Sets the value of [client_network][crate::model::InstanceConfig::client_network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// use google_cloud_baremetalsolution_v2::model::instance_config::NetworkAddress;
+    /// let x = InstanceConfig::new().set_client_network(NetworkAddress::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_client_network<T>(mut self, v: T) -> Self
     where
@@ -5783,6 +7391,14 @@ impl InstanceConfig {
     }
 
     /// Sets or clears the value of [client_network][crate::model::InstanceConfig::client_network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// use google_cloud_baremetalsolution_v2::model::instance_config::NetworkAddress;
+    /// let x = InstanceConfig::new().set_or_clear_client_network(Some(NetworkAddress::default()/* use setters */));
+    /// let x = InstanceConfig::new().set_or_clear_client_network(None::<NetworkAddress>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_client_network<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -5793,6 +7409,13 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [private_network][crate::model::InstanceConfig::private_network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// use google_cloud_baremetalsolution_v2::model::instance_config::NetworkAddress;
+    /// let x = InstanceConfig::new().set_private_network(NetworkAddress::default()/* use setters */);
+    /// ```
     #[deprecated]
     pub fn set_private_network<T>(mut self, v: T) -> Self
     where
@@ -5803,6 +7426,14 @@ impl InstanceConfig {
     }
 
     /// Sets or clears the value of [private_network][crate::model::InstanceConfig::private_network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// use google_cloud_baremetalsolution_v2::model::instance_config::NetworkAddress;
+    /// let x = InstanceConfig::new().set_or_clear_private_network(Some(NetworkAddress::default()/* use setters */));
+    /// let x = InstanceConfig::new().set_or_clear_private_network(None::<NetworkAddress>);
+    /// ```
     #[deprecated]
     pub fn set_or_clear_private_network<T>(mut self, v: std::option::Option<T>) -> Self
     where
@@ -5813,18 +7444,38 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [user_note][crate::model::InstanceConfig::user_note].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_user_note("example");
+    /// ```
     pub fn set_user_note<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_note = v.into();
         self
     }
 
     /// Sets the value of [account_networks_enabled][crate::model::InstanceConfig::account_networks_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_account_networks_enabled(true);
+    /// ```
     pub fn set_account_networks_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.account_networks_enabled = v.into();
         self
     }
 
     /// Sets the value of [network_config][crate::model::InstanceConfig::network_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// use google_cloud_baremetalsolution_v2::model::instance_config::NetworkConfig;
+    /// let x0 = InstanceConfig::new().set_network_config(NetworkConfig::SingleVlan);
+    /// let x1 = InstanceConfig::new().set_network_config(NetworkConfig::MultiVlan);
+    /// ```
     pub fn set_network_config<
         T: std::convert::Into<crate::model::instance_config::NetworkConfig>,
     >(
@@ -5836,6 +7487,12 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [network_template][crate::model::InstanceConfig::network_template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_network_template("example");
+    /// ```
     pub fn set_network_template<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -5845,6 +7502,17 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [logical_interfaces][crate::model::InstanceConfig::logical_interfaces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// use google_cloud_baremetalsolution_v2::model::LogicalInterface;
+    /// let x = InstanceConfig::new()
+    ///     .set_logical_interfaces([
+    ///         LogicalInterface::default()/* use setters */,
+    ///         LogicalInterface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_logical_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5856,6 +7524,12 @@ impl InstanceConfig {
     }
 
     /// Sets the value of [ssh_key_names][crate::model::InstanceConfig::ssh_key_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceConfig;
+    /// let x = InstanceConfig::new().set_ssh_key_names(["a", "b", "c"]);
+    /// ```
     pub fn set_ssh_key_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5900,18 +7574,36 @@ pub mod instance_config {
         }
 
         /// Sets the value of [network_id][crate::model::instance_config::NetworkAddress::network_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::instance_config::NetworkAddress;
+        /// let x = NetworkAddress::new().set_network_id("example");
+        /// ```
         pub fn set_network_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network_id = v.into();
             self
         }
 
         /// Sets the value of [address][crate::model::instance_config::NetworkAddress::address].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::instance_config::NetworkAddress;
+        /// let x = NetworkAddress::new().set_address("example");
+        /// ```
         pub fn set_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.address = v.into();
             self
         }
 
         /// Sets the value of [existing_network_id][crate::model::instance_config::NetworkAddress::existing_network_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::instance_config::NetworkAddress;
+        /// let x = NetworkAddress::new().set_existing_network_id("example");
+        /// ```
         pub fn set_existing_network_id<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -6117,24 +7809,50 @@ impl VolumeConfig {
     }
 
     /// Sets the value of [name][crate::model::VolumeConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// let x = VolumeConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::VolumeConfig::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// let x = VolumeConfig::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [snapshots_enabled][crate::model::VolumeConfig::snapshots_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// let x = VolumeConfig::new().set_snapshots_enabled(true);
+    /// ```
     pub fn set_snapshots_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.snapshots_enabled = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::VolumeConfig::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// use google_cloud_baremetalsolution_v2::model::volume_config::Type;
+    /// let x0 = VolumeConfig::new().set_type(Type::Flash);
+    /// let x1 = VolumeConfig::new().set_type(Type::Disk);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::volume_config::Type>>(
         mut self,
         v: T,
@@ -6144,6 +7862,14 @@ impl VolumeConfig {
     }
 
     /// Sets the value of [protocol][crate::model::VolumeConfig::protocol].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// use google_cloud_baremetalsolution_v2::model::volume_config::Protocol;
+    /// let x0 = VolumeConfig::new().set_protocol(Protocol::Fc);
+    /// let x1 = VolumeConfig::new().set_protocol(Protocol::Nfs);
+    /// ```
     pub fn set_protocol<T: std::convert::Into<crate::model::volume_config::Protocol>>(
         mut self,
         v: T,
@@ -6153,12 +7879,29 @@ impl VolumeConfig {
     }
 
     /// Sets the value of [size_gb][crate::model::VolumeConfig::size_gb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// let x = VolumeConfig::new().set_size_gb(42);
+    /// ```
     pub fn set_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.size_gb = v.into();
         self
     }
 
     /// Sets the value of [lun_ranges][crate::model::VolumeConfig::lun_ranges].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// use google_cloud_baremetalsolution_v2::model::volume_config::LunRange;
+    /// let x = VolumeConfig::new()
+    ///     .set_lun_ranges([
+    ///         LunRange::default()/* use setters */,
+    ///         LunRange::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_lun_ranges<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6170,6 +7913,12 @@ impl VolumeConfig {
     }
 
     /// Sets the value of [machine_ids][crate::model::VolumeConfig::machine_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// let x = VolumeConfig::new().set_machine_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_machine_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6181,6 +7930,17 @@ impl VolumeConfig {
     }
 
     /// Sets the value of [nfs_exports][crate::model::VolumeConfig::nfs_exports].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// use google_cloud_baremetalsolution_v2::model::volume_config::NfsExport;
+    /// let x = VolumeConfig::new()
+    ///     .set_nfs_exports([
+    ///         NfsExport::default()/* use setters */,
+    ///         NfsExport::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_nfs_exports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6192,18 +7952,39 @@ impl VolumeConfig {
     }
 
     /// Sets the value of [user_note][crate::model::VolumeConfig::user_note].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// let x = VolumeConfig::new().set_user_note("example");
+    /// ```
     pub fn set_user_note<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_note = v.into();
         self
     }
 
     /// Sets the value of [gcp_service][crate::model::VolumeConfig::gcp_service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// let x = VolumeConfig::new().set_gcp_service("example");
+    /// ```
     pub fn set_gcp_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_service = v.into();
         self
     }
 
     /// Sets the value of [performance_tier][crate::model::VolumeConfig::performance_tier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeConfig;
+    /// use google_cloud_baremetalsolution_v2::model::VolumePerformanceTier;
+    /// let x0 = VolumeConfig::new().set_performance_tier(VolumePerformanceTier::Shared);
+    /// let x1 = VolumeConfig::new().set_performance_tier(VolumePerformanceTier::Assigned);
+    /// let x2 = VolumeConfig::new().set_performance_tier(VolumePerformanceTier::Ht);
+    /// ```
     pub fn set_performance_tier<T: std::convert::Into<crate::model::VolumePerformanceTier>>(
         mut self,
         v: T,
@@ -6243,12 +8024,24 @@ pub mod volume_config {
         }
 
         /// Sets the value of [quantity][crate::model::volume_config::LunRange::quantity].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume_config::LunRange;
+        /// let x = LunRange::new().set_quantity(42);
+        /// ```
         pub fn set_quantity<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.quantity = v.into();
             self
         }
 
         /// Sets the value of [size_gb][crate::model::volume_config::LunRange::size_gb].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume_config::LunRange;
+        /// let x = LunRange::new().set_size_gb(42);
+        /// ```
         pub fn set_size_gb<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.size_gb = v.into();
             self
@@ -6294,12 +8087,26 @@ pub mod volume_config {
         }
 
         /// Sets the value of [network_id][crate::model::volume_config::NfsExport::network_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume_config::NfsExport;
+        /// let x = NfsExport::new().set_network_id("example");
+        /// ```
         pub fn set_network_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network_id = v.into();
             self
         }
 
         /// Sets the value of [permissions][crate::model::volume_config::NfsExport::permissions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume_config::NfsExport;
+        /// use google_cloud_baremetalsolution_v2::model::volume_config::nfs_export::Permissions;
+        /// let x0 = NfsExport::new().set_permissions(Permissions::ReadOnly);
+        /// let x1 = NfsExport::new().set_permissions(Permissions::ReadWrite);
+        /// ```
         pub fn set_permissions<
             T: std::convert::Into<crate::model::volume_config::nfs_export::Permissions>,
         >(
@@ -6311,18 +8118,36 @@ pub mod volume_config {
         }
 
         /// Sets the value of [no_root_squash][crate::model::volume_config::NfsExport::no_root_squash].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume_config::NfsExport;
+        /// let x = NfsExport::new().set_no_root_squash(true);
+        /// ```
         pub fn set_no_root_squash<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.no_root_squash = v.into();
             self
         }
 
         /// Sets the value of [allow_suid][crate::model::volume_config::NfsExport::allow_suid].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume_config::NfsExport;
+        /// let x = NfsExport::new().set_allow_suid(true);
+        /// ```
         pub fn set_allow_suid<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_suid = v.into();
             self
         }
 
         /// Sets the value of [allow_dev][crate::model::volume_config::NfsExport::allow_dev].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume_config::NfsExport;
+        /// let x = NfsExport::new().set_allow_dev(true);
+        /// ```
         pub fn set_allow_dev<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_dev = v.into();
             self
@@ -6332,6 +8157,13 @@ pub mod volume_config {
         ///
         /// Note that all the setters affecting `client` are mutually
         /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume_config::NfsExport;
+        /// use google_cloud_baremetalsolution_v2::model::volume_config::nfs_export::Client;
+        /// let x = NfsExport::new().set_client(Some(Client::MachineId("example".to_string())));
+        /// ```
         pub fn set_client<
             T: std::convert::Into<
                     std::option::Option<crate::model::volume_config::nfs_export::Client>,
@@ -6362,6 +8194,14 @@ pub mod volume_config {
         ///
         /// Note that all the setters affecting `client` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume_config::NfsExport;
+        /// let x = NfsExport::new().set_machine_id("example");
+        /// assert!(x.machine_id().is_some());
+        /// assert!(x.cidr().is_none());
+        /// ```
         pub fn set_machine_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.client = std::option::Option::Some(
                 crate::model::volume_config::nfs_export::Client::MachineId(v.into()),
@@ -6387,6 +8227,14 @@ pub mod volume_config {
         ///
         /// Note that all the setters affecting `client` are
         /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume_config::NfsExport;
+        /// let x = NfsExport::new().set_cidr("example");
+        /// assert!(x.cidr().is_some());
+        /// assert!(x.machine_id().is_none());
+        /// ```
         pub fn set_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.client = std::option::Option::Some(
                 crate::model::volume_config::nfs_export::Client::Cidr(v.into()),
@@ -6868,18 +8716,38 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [name][crate::model::NetworkConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::NetworkConfig::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::NetworkConfig::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkConfig;
+    /// use google_cloud_baremetalsolution_v2::model::network_config::Type;
+    /// let x0 = NetworkConfig::new().set_type(Type::Client);
+    /// let x1 = NetworkConfig::new().set_type(Type::Private);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::network_config::Type>>(
         mut self,
         v: T,
@@ -6889,6 +8757,15 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [bandwidth][crate::model::NetworkConfig::bandwidth].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkConfig;
+    /// use google_cloud_baremetalsolution_v2::model::network_config::Bandwidth;
+    /// let x0 = NetworkConfig::new().set_bandwidth(Bandwidth::Bw1Gbps);
+    /// let x1 = NetworkConfig::new().set_bandwidth(Bandwidth::Bw2Gbps);
+    /// let x2 = NetworkConfig::new().set_bandwidth(Bandwidth::Bw5Gbps);
+    /// ```
     pub fn set_bandwidth<T: std::convert::Into<crate::model::network_config::Bandwidth>>(
         mut self,
         v: T,
@@ -6898,6 +8775,17 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [vlan_attachments][crate::model::NetworkConfig::vlan_attachments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkConfig;
+    /// use google_cloud_baremetalsolution_v2::model::network_config::IntakeVlanAttachment;
+    /// let x = NetworkConfig::new()
+    ///     .set_vlan_attachments([
+    ///         IntakeVlanAttachment::default()/* use setters */,
+    ///         IntakeVlanAttachment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_vlan_attachments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6909,12 +8797,27 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [cidr][crate::model::NetworkConfig::cidr].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_cidr("example");
+    /// ```
     pub fn set_cidr<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cidr = v.into();
         self
     }
 
     /// Sets the value of [service_cidr][crate::model::NetworkConfig::service_cidr].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkConfig;
+    /// use google_cloud_baremetalsolution_v2::model::network_config::ServiceCidr;
+    /// let x0 = NetworkConfig::new().set_service_cidr(ServiceCidr::Disabled);
+    /// let x1 = NetworkConfig::new().set_service_cidr(ServiceCidr::High26);
+    /// let x2 = NetworkConfig::new().set_service_cidr(ServiceCidr::High27);
+    /// ```
     pub fn set_service_cidr<T: std::convert::Into<crate::model::network_config::ServiceCidr>>(
         mut self,
         v: T,
@@ -6924,24 +8827,48 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [user_note][crate::model::NetworkConfig::user_note].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_user_note("example");
+    /// ```
     pub fn set_user_note<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_note = v.into();
         self
     }
 
     /// Sets the value of [gcp_service][crate::model::NetworkConfig::gcp_service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_gcp_service("example");
+    /// ```
     pub fn set_gcp_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_service = v.into();
         self
     }
 
     /// Sets the value of [vlan_same_project][crate::model::NetworkConfig::vlan_same_project].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_vlan_same_project(true);
+    /// ```
     pub fn set_vlan_same_project<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.vlan_same_project = v.into();
         self
     }
 
     /// Sets the value of [jumbo_frames_enabled][crate::model::NetworkConfig::jumbo_frames_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_jumbo_frames_enabled(true);
+    /// ```
     pub fn set_jumbo_frames_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.jumbo_frames_enabled = v.into();
         self
@@ -6978,12 +8905,24 @@ pub mod network_config {
         }
 
         /// Sets the value of [id][crate::model::network_config::IntakeVlanAttachment::id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::network_config::IntakeVlanAttachment;
+        /// let x = IntakeVlanAttachment::new().set_id("example");
+        /// ```
         pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.id = v.into();
             self
         }
 
         /// Sets the value of [pairing_key][crate::model::network_config::IntakeVlanAttachment::pairing_key].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::network_config::IntakeVlanAttachment;
+        /// let x = IntakeVlanAttachment::new().set_pairing_key("example");
+        /// ```
         pub fn set_pairing_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.pairing_key = v.into();
             self
@@ -7452,12 +9391,24 @@ impl InstanceQuota {
     }
 
     /// Sets the value of [name][crate::model::InstanceQuota::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceQuota;
+    /// let x = InstanceQuota::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [instance_type][crate::model::InstanceQuota::instance_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceQuota;
+    /// let x = InstanceQuota::new().set_instance_type("example");
+    /// ```
     #[deprecated]
     pub fn set_instance_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.instance_type = v.into();
@@ -7465,18 +9416,36 @@ impl InstanceQuota {
     }
 
     /// Sets the value of [gcp_service][crate::model::InstanceQuota::gcp_service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceQuota;
+    /// let x = InstanceQuota::new().set_gcp_service("example");
+    /// ```
     pub fn set_gcp_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.gcp_service = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::InstanceQuota::location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceQuota;
+    /// let x = InstanceQuota::new().set_location("example");
+    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [available_machine_count][crate::model::InstanceQuota::available_machine_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::InstanceQuota;
+    /// let x = InstanceQuota::new().set_available_machine_count(42);
+    /// ```
     pub fn set_available_machine_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.available_machine_count = v.into();
         self
@@ -7505,6 +9474,12 @@ impl GetProvisioningConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProvisioningConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::GetProvisioningConfigRequest;
+    /// let x = GetProvisioningConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7541,12 +9516,25 @@ impl CreateProvisioningConfigRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateProvisioningConfigRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateProvisioningConfigRequest;
+    /// let x = CreateProvisioningConfigRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [provisioning_config][crate::model::CreateProvisioningConfigRequest::provisioning_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateProvisioningConfigRequest;
+    /// use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = CreateProvisioningConfigRequest::new().set_provisioning_config(ProvisioningConfig::default()/* use setters */);
+    /// ```
     pub fn set_provisioning_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProvisioningConfig>,
@@ -7556,6 +9544,14 @@ impl CreateProvisioningConfigRequest {
     }
 
     /// Sets or clears the value of [provisioning_config][crate::model::CreateProvisioningConfigRequest::provisioning_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateProvisioningConfigRequest;
+    /// use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = CreateProvisioningConfigRequest::new().set_or_clear_provisioning_config(Some(ProvisioningConfig::default()/* use setters */));
+    /// let x = CreateProvisioningConfigRequest::new().set_or_clear_provisioning_config(None::<ProvisioningConfig>);
+    /// ```
     pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProvisioningConfig>,
@@ -7565,6 +9561,12 @@ impl CreateProvisioningConfigRequest {
     }
 
     /// Sets the value of [email][crate::model::CreateProvisioningConfigRequest::email].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateProvisioningConfigRequest;
+    /// let x = CreateProvisioningConfigRequest::new().set_email("example");
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
@@ -7600,6 +9602,13 @@ impl UpdateProvisioningConfigRequest {
     }
 
     /// Sets the value of [provisioning_config][crate::model::UpdateProvisioningConfigRequest::provisioning_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateProvisioningConfigRequest;
+    /// use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = UpdateProvisioningConfigRequest::new().set_provisioning_config(ProvisioningConfig::default()/* use setters */);
+    /// ```
     pub fn set_provisioning_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ProvisioningConfig>,
@@ -7609,6 +9618,14 @@ impl UpdateProvisioningConfigRequest {
     }
 
     /// Sets or clears the value of [provisioning_config][crate::model::UpdateProvisioningConfigRequest::provisioning_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateProvisioningConfigRequest;
+    /// use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// let x = UpdateProvisioningConfigRequest::new().set_or_clear_provisioning_config(Some(ProvisioningConfig::default()/* use setters */));
+    /// let x = UpdateProvisioningConfigRequest::new().set_or_clear_provisioning_config(None::<ProvisioningConfig>);
+    /// ```
     pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ProvisioningConfig>,
@@ -7618,6 +9635,13 @@ impl UpdateProvisioningConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateProvisioningConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateProvisioningConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateProvisioningConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7627,6 +9651,14 @@ impl UpdateProvisioningConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateProvisioningConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateProvisioningConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateProvisioningConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateProvisioningConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -7636,6 +9668,12 @@ impl UpdateProvisioningConfigRequest {
     }
 
     /// Sets the value of [email][crate::model::UpdateProvisioningConfigRequest::email].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateProvisioningConfigRequest;
+    /// let x = UpdateProvisioningConfigRequest::new().set_email("example");
+    /// ```
     pub fn set_email<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.email = v.into();
         self
@@ -7668,12 +9706,24 @@ impl SSHKey {
     }
 
     /// Sets the value of [name][crate::model::SSHKey::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::SSHKey;
+    /// let x = SSHKey::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [public_key][crate::model::SSHKey::public_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::SSHKey;
+    /// let x = SSHKey::new().set_public_key("example");
+    /// ```
     pub fn set_public_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.public_key = v.into();
         self
@@ -7709,18 +9759,36 @@ impl ListSSHKeysRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListSSHKeysRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListSSHKeysRequest;
+    /// let x = ListSSHKeysRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListSSHKeysRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListSSHKeysRequest;
+    /// let x = ListSSHKeysRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListSSHKeysRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListSSHKeysRequest;
+    /// let x = ListSSHKeysRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -7753,6 +9821,17 @@ impl ListSSHKeysResponse {
     }
 
     /// Sets the value of [ssh_keys][crate::model::ListSSHKeysResponse::ssh_keys].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListSSHKeysResponse;
+    /// use google_cloud_baremetalsolution_v2::model::SSHKey;
+    /// let x = ListSSHKeysResponse::new()
+    ///     .set_ssh_keys([
+    ///         SSHKey::default()/* use setters */,
+    ///         SSHKey::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ssh_keys<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7764,6 +9843,12 @@ impl ListSSHKeysResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListSSHKeysResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListSSHKeysResponse;
+    /// let x = ListSSHKeysResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7816,12 +9901,25 @@ impl CreateSSHKeyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateSSHKeyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateSSHKeyRequest;
+    /// let x = CreateSSHKeyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [ssh_key][crate::model::CreateSSHKeyRequest::ssh_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateSSHKeyRequest;
+    /// use google_cloud_baremetalsolution_v2::model::SSHKey;
+    /// let x = CreateSSHKeyRequest::new().set_ssh_key(SSHKey::default()/* use setters */);
+    /// ```
     pub fn set_ssh_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SSHKey>,
@@ -7831,6 +9929,14 @@ impl CreateSSHKeyRequest {
     }
 
     /// Sets or clears the value of [ssh_key][crate::model::CreateSSHKeyRequest::ssh_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateSSHKeyRequest;
+    /// use google_cloud_baremetalsolution_v2::model::SSHKey;
+    /// let x = CreateSSHKeyRequest::new().set_or_clear_ssh_key(Some(SSHKey::default()/* use setters */));
+    /// let x = CreateSSHKeyRequest::new().set_or_clear_ssh_key(None::<SSHKey>);
+    /// ```
     pub fn set_or_clear_ssh_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SSHKey>,
@@ -7840,6 +9946,12 @@ impl CreateSSHKeyRequest {
     }
 
     /// Sets the value of [ssh_key_id][crate::model::CreateSSHKeyRequest::ssh_key_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateSSHKeyRequest;
+    /// let x = CreateSSHKeyRequest::new().set_ssh_key_id("example");
+    /// ```
     pub fn set_ssh_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.ssh_key_id = v.into();
         self
@@ -7869,6 +9981,12 @@ impl DeleteSSHKeyRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteSSHKeyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::DeleteSSHKeyRequest;
+    /// let x = DeleteSSHKeyRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7983,18 +10101,38 @@ impl Volume {
     }
 
     /// Sets the value of [name][crate::model::Volume::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::Volume::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [storage_type][crate::model::Volume::storage_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// use google_cloud_baremetalsolution_v2::model::volume::StorageType;
+    /// let x0 = Volume::new().set_storage_type(StorageType::Ssd);
+    /// let x1 = Volume::new().set_storage_type(StorageType::Hdd);
+    /// ```
     pub fn set_storage_type<T: std::convert::Into<crate::model::volume::StorageType>>(
         mut self,
         v: T,
@@ -8004,54 +10142,112 @@ impl Volume {
     }
 
     /// Sets the value of [state][crate::model::Volume::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// use google_cloud_baremetalsolution_v2::model::volume::State;
+    /// let x0 = Volume::new().set_state(State::Creating);
+    /// let x1 = Volume::new().set_state(State::Ready);
+    /// let x2 = Volume::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::volume::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [requested_size_gib][crate::model::Volume::requested_size_gib].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_requested_size_gib(42);
+    /// ```
     pub fn set_requested_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.requested_size_gib = v.into();
         self
     }
 
     /// Sets the value of [originally_requested_size_gib][crate::model::Volume::originally_requested_size_gib].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_originally_requested_size_gib(42);
+    /// ```
     pub fn set_originally_requested_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.originally_requested_size_gib = v.into();
         self
     }
 
     /// Sets the value of [current_size_gib][crate::model::Volume::current_size_gib].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_current_size_gib(42);
+    /// ```
     pub fn set_current_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.current_size_gib = v.into();
         self
     }
 
     /// Sets the value of [emergency_size_gib][crate::model::Volume::emergency_size_gib].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_emergency_size_gib(42);
+    /// ```
     pub fn set_emergency_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.emergency_size_gib = v.into();
         self
     }
 
     /// Sets the value of [max_size_gib][crate::model::Volume::max_size_gib].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_max_size_gib(42);
+    /// ```
     pub fn set_max_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.max_size_gib = v.into();
         self
     }
 
     /// Sets the value of [auto_grown_size_gib][crate::model::Volume::auto_grown_size_gib].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_auto_grown_size_gib(42);
+    /// ```
     pub fn set_auto_grown_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.auto_grown_size_gib = v.into();
         self
     }
 
     /// Sets the value of [remaining_space_gib][crate::model::Volume::remaining_space_gib].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_remaining_space_gib(42);
+    /// ```
     pub fn set_remaining_space_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.remaining_space_gib = v.into();
         self
     }
 
     /// Sets the value of [snapshot_reservation_detail][crate::model::Volume::snapshot_reservation_detail].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// use google_cloud_baremetalsolution_v2::model::volume::SnapshotReservationDetail;
+    /// let x = Volume::new().set_snapshot_reservation_detail(SnapshotReservationDetail::default()/* use setters */);
+    /// ```
     pub fn set_snapshot_reservation_detail<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::volume::SnapshotReservationDetail>,
@@ -8061,6 +10257,14 @@ impl Volume {
     }
 
     /// Sets or clears the value of [snapshot_reservation_detail][crate::model::Volume::snapshot_reservation_detail].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// use google_cloud_baremetalsolution_v2::model::volume::SnapshotReservationDetail;
+    /// let x = Volume::new().set_or_clear_snapshot_reservation_detail(Some(SnapshotReservationDetail::default()/* use setters */));
+    /// let x = Volume::new().set_or_clear_snapshot_reservation_detail(None::<SnapshotReservationDetail>);
+    /// ```
     pub fn set_or_clear_snapshot_reservation_detail<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::volume::SnapshotReservationDetail>,
@@ -8070,6 +10274,15 @@ impl Volume {
     }
 
     /// Sets the value of [snapshot_auto_delete_behavior][crate::model::Volume::snapshot_auto_delete_behavior].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// use google_cloud_baremetalsolution_v2::model::volume::SnapshotAutoDeleteBehavior;
+    /// let x0 = Volume::new().set_snapshot_auto_delete_behavior(SnapshotAutoDeleteBehavior::Disabled);
+    /// let x1 = Volume::new().set_snapshot_auto_delete_behavior(SnapshotAutoDeleteBehavior::OldestFirst);
+    /// let x2 = Volume::new().set_snapshot_auto_delete_behavior(SnapshotAutoDeleteBehavior::NewestFirst);
+    /// ```
     pub fn set_snapshot_auto_delete_behavior<
         T: std::convert::Into<crate::model::volume::SnapshotAutoDeleteBehavior>,
     >(
@@ -8081,6 +10294,15 @@ impl Volume {
     }
 
     /// Sets the value of [labels][crate::model::Volume::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -8093,18 +10315,38 @@ impl Volume {
     }
 
     /// Sets the value of [snapshot_enabled][crate::model::Volume::snapshot_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_snapshot_enabled(true);
+    /// ```
     pub fn set_snapshot_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.snapshot_enabled = v.into();
         self
     }
 
     /// Sets the value of [pod][crate::model::Volume::pod].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_pod("example");
+    /// ```
     pub fn set_pod<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pod = v.into();
         self
     }
 
     /// Sets the value of [protocol][crate::model::Volume::protocol].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// use google_cloud_baremetalsolution_v2::model::volume::Protocol;
+    /// let x0 = Volume::new().set_protocol(Protocol::FibreChannel);
+    /// let x1 = Volume::new().set_protocol(Protocol::Nfs);
+    /// ```
     pub fn set_protocol<T: std::convert::Into<crate::model::volume::Protocol>>(
         mut self,
         v: T,
@@ -8114,12 +10356,27 @@ impl Volume {
     }
 
     /// Sets the value of [boot_volume][crate::model::Volume::boot_volume].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_boot_volume(true);
+    /// ```
     pub fn set_boot_volume<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.boot_volume = v.into();
         self
     }
 
     /// Sets the value of [performance_tier][crate::model::Volume::performance_tier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// use google_cloud_baremetalsolution_v2::model::VolumePerformanceTier;
+    /// let x0 = Volume::new().set_performance_tier(VolumePerformanceTier::Shared);
+    /// let x1 = Volume::new().set_performance_tier(VolumePerformanceTier::Assigned);
+    /// let x2 = Volume::new().set_performance_tier(VolumePerformanceTier::Ht);
+    /// ```
     pub fn set_performance_tier<T: std::convert::Into<crate::model::VolumePerformanceTier>>(
         mut self,
         v: T,
@@ -8129,12 +10386,26 @@ impl Volume {
     }
 
     /// Sets the value of [notes][crate::model::Volume::notes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_notes("example");
+    /// ```
     pub fn set_notes<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.notes = v.into();
         self
     }
 
     /// Sets the value of [workload_profile][crate::model::Volume::workload_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// use google_cloud_baremetalsolution_v2::model::volume::WorkloadProfile;
+    /// let x0 = Volume::new().set_workload_profile(WorkloadProfile::Generic);
+    /// let x1 = Volume::new().set_workload_profile(WorkloadProfile::Hana);
+    /// ```
     pub fn set_workload_profile<T: std::convert::Into<crate::model::volume::WorkloadProfile>>(
         mut self,
         v: T,
@@ -8144,6 +10415,13 @@ impl Volume {
     }
 
     /// Sets the value of [expire_time][crate::model::Volume::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// use wkt::Timestamp;
+    /// let x = Volume::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8153,6 +10431,14 @@ impl Volume {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Volume::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// use wkt::Timestamp;
+    /// let x = Volume::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Volume::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -8162,6 +10448,12 @@ impl Volume {
     }
 
     /// Sets the value of [instances][crate::model::Volume::instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_instances(["a", "b", "c"]);
+    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8173,6 +10465,12 @@ impl Volume {
     }
 
     /// Sets the value of [attached][crate::model::Volume::attached].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = Volume::new().set_attached(true);
+    /// ```
     pub fn set_attached<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.attached = v.into();
         self
@@ -8223,18 +10521,36 @@ pub mod volume {
         }
 
         /// Sets the value of [reserved_space_gib][crate::model::volume::SnapshotReservationDetail::reserved_space_gib].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume::SnapshotReservationDetail;
+        /// let x = SnapshotReservationDetail::new().set_reserved_space_gib(42);
+        /// ```
         pub fn set_reserved_space_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.reserved_space_gib = v.into();
             self
         }
 
         /// Sets the value of [reserved_space_used_percent][crate::model::volume::SnapshotReservationDetail::reserved_space_used_percent].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume::SnapshotReservationDetail;
+        /// let x = SnapshotReservationDetail::new().set_reserved_space_used_percent(42);
+        /// ```
         pub fn set_reserved_space_used_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.reserved_space_used_percent = v.into();
             self
         }
 
         /// Sets the value of [reserved_space_remaining_gib][crate::model::volume::SnapshotReservationDetail::reserved_space_remaining_gib].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume::SnapshotReservationDetail;
+        /// let x = SnapshotReservationDetail::new().set_reserved_space_remaining_gib(42);
+        /// ```
         pub fn set_reserved_space_remaining_gib<T: std::convert::Into<i64>>(
             mut self,
             v: T,
@@ -8244,6 +10560,12 @@ pub mod volume {
         }
 
         /// Sets the value of [reserved_space_percent][crate::model::volume::SnapshotReservationDetail::reserved_space_percent].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_baremetalsolution_v2::model::volume::SnapshotReservationDetail;
+        /// let x = SnapshotReservationDetail::new().set_reserved_space_percent(42);
+        /// ```
         pub fn set_reserved_space_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.reserved_space_percent = v.into();
             self
@@ -8969,6 +11291,12 @@ impl GetVolumeRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVolumeRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::GetVolumeRequest;
+    /// let x = GetVolumeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9007,24 +11335,48 @@ impl ListVolumesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVolumesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumesRequest;
+    /// let x = ListVolumesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVolumesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumesRequest;
+    /// let x = ListVolumesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVolumesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumesRequest;
+    /// let x = ListVolumesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListVolumesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumesRequest;
+    /// let x = ListVolumesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -9059,6 +11411,17 @@ impl ListVolumesResponse {
     }
 
     /// Sets the value of [volumes][crate::model::ListVolumesResponse::volumes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumesResponse;
+    /// use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = ListVolumesResponse::new()
+    ///     .set_volumes([
+    ///         Volume::default()/* use setters */,
+    ///         Volume::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9070,12 +11433,24 @@ impl ListVolumesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVolumesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumesResponse;
+    /// let x = ListVolumesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListVolumesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumesResponse;
+    /// let x = ListVolumesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9131,6 +11506,13 @@ impl UpdateVolumeRequest {
     }
 
     /// Sets the value of [volume][crate::model::UpdateVolumeRequest::volume].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateVolumeRequest;
+    /// use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = UpdateVolumeRequest::new().set_volume(Volume::default()/* use setters */);
+    /// ```
     pub fn set_volume<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Volume>,
@@ -9140,6 +11522,14 @@ impl UpdateVolumeRequest {
     }
 
     /// Sets or clears the value of [volume][crate::model::UpdateVolumeRequest::volume].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateVolumeRequest;
+    /// use google_cloud_baremetalsolution_v2::model::Volume;
+    /// let x = UpdateVolumeRequest::new().set_or_clear_volume(Some(Volume::default()/* use setters */));
+    /// let x = UpdateVolumeRequest::new().set_or_clear_volume(None::<Volume>);
+    /// ```
     pub fn set_or_clear_volume<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Volume>,
@@ -9149,6 +11539,13 @@ impl UpdateVolumeRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateVolumeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateVolumeRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9158,6 +11555,14 @@ impl UpdateVolumeRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::UpdateVolumeRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateVolumeRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateVolumeRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9193,12 +11598,24 @@ impl RenameVolumeRequest {
     }
 
     /// Sets the value of [name][crate::model::RenameVolumeRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::RenameVolumeRequest;
+    /// let x = RenameVolumeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [new_volume_id][crate::model::RenameVolumeRequest::new_volume_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::RenameVolumeRequest;
+    /// let x = RenameVolumeRequest::new().set_new_volume_id("example");
+    /// ```
     pub fn set_new_volume_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.new_volume_id = v.into();
         self
@@ -9227,6 +11644,12 @@ impl EvictVolumeRequest {
     }
 
     /// Sets the value of [name][crate::model::EvictVolumeRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::EvictVolumeRequest;
+    /// let x = EvictVolumeRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9258,12 +11681,24 @@ impl ResizeVolumeRequest {
     }
 
     /// Sets the value of [volume][crate::model::ResizeVolumeRequest::volume].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ResizeVolumeRequest;
+    /// let x = ResizeVolumeRequest::new().set_volume("example");
+    /// ```
     pub fn set_volume<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume = v.into();
         self
     }
 
     /// Sets the value of [size_gib][crate::model::ResizeVolumeRequest::size_gib].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ResizeVolumeRequest;
+    /// let x = ResizeVolumeRequest::new().set_size_gib(42);
+    /// ```
     pub fn set_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size_gib = v.into();
         self
@@ -9308,24 +11743,49 @@ impl VolumeSnapshot {
     }
 
     /// Sets the value of [name][crate::model::VolumeSnapshot::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
+    /// let x = VolumeSnapshot::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [id][crate::model::VolumeSnapshot::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
+    /// let x = VolumeSnapshot::new().set_id("example");
+    /// ```
     pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.id = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::VolumeSnapshot::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
+    /// let x = VolumeSnapshot::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::VolumeSnapshot::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
+    /// use wkt::Timestamp;
+    /// let x = VolumeSnapshot::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9335,6 +11795,14 @@ impl VolumeSnapshot {
     }
 
     /// Sets or clears the value of [create_time][crate::model::VolumeSnapshot::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
+    /// use wkt::Timestamp;
+    /// let x = VolumeSnapshot::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = VolumeSnapshot::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9344,12 +11812,26 @@ impl VolumeSnapshot {
     }
 
     /// Sets the value of [storage_volume][crate::model::VolumeSnapshot::storage_volume].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
+    /// let x = VolumeSnapshot::new().set_storage_volume("example");
+    /// ```
     pub fn set_storage_volume<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.storage_volume = v.into();
         self
     }
 
     /// Sets the value of [r#type][crate::model::VolumeSnapshot::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
+    /// use google_cloud_baremetalsolution_v2::model::volume_snapshot::SnapshotType;
+    /// let x0 = VolumeSnapshot::new().set_type(SnapshotType::AdHoc);
+    /// let x1 = VolumeSnapshot::new().set_type(SnapshotType::Scheduled);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::volume_snapshot::SnapshotType>>(
         mut self,
         v: T,
@@ -9519,6 +12001,12 @@ impl GetVolumeSnapshotRequest {
     }
 
     /// Sets the value of [name][crate::model::GetVolumeSnapshotRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::GetVolumeSnapshotRequest;
+    /// let x = GetVolumeSnapshotRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9554,18 +12042,36 @@ impl ListVolumeSnapshotsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListVolumeSnapshotsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumeSnapshotsRequest;
+    /// let x = ListVolumeSnapshotsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListVolumeSnapshotsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumeSnapshotsRequest;
+    /// let x = ListVolumeSnapshotsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListVolumeSnapshotsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumeSnapshotsRequest;
+    /// let x = ListVolumeSnapshotsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -9600,6 +12106,17 @@ impl ListVolumeSnapshotsResponse {
     }
 
     /// Sets the value of [volume_snapshots][crate::model::ListVolumeSnapshotsResponse::volume_snapshots].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumeSnapshotsResponse;
+    /// use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
+    /// let x = ListVolumeSnapshotsResponse::new()
+    ///     .set_volume_snapshots([
+    ///         VolumeSnapshot::default()/* use setters */,
+    ///         VolumeSnapshot::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_volume_snapshots<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9611,12 +12128,24 @@ impl ListVolumeSnapshotsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListVolumeSnapshotsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumeSnapshotsResponse;
+    /// let x = ListVolumeSnapshotsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListVolumeSnapshotsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::ListVolumeSnapshotsResponse;
+    /// let x = ListVolumeSnapshotsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9664,6 +12193,12 @@ impl DeleteVolumeSnapshotRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteVolumeSnapshotRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::DeleteVolumeSnapshotRequest;
+    /// let x = DeleteVolumeSnapshotRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9695,12 +12230,25 @@ impl CreateVolumeSnapshotRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateVolumeSnapshotRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateVolumeSnapshotRequest;
+    /// let x = CreateVolumeSnapshotRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [volume_snapshot][crate::model::CreateVolumeSnapshotRequest::volume_snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateVolumeSnapshotRequest;
+    /// use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
+    /// let x = CreateVolumeSnapshotRequest::new().set_volume_snapshot(VolumeSnapshot::default()/* use setters */);
+    /// ```
     pub fn set_volume_snapshot<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VolumeSnapshot>,
@@ -9710,6 +12258,14 @@ impl CreateVolumeSnapshotRequest {
     }
 
     /// Sets or clears the value of [volume_snapshot][crate::model::CreateVolumeSnapshotRequest::volume_snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::CreateVolumeSnapshotRequest;
+    /// use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
+    /// let x = CreateVolumeSnapshotRequest::new().set_or_clear_volume_snapshot(Some(VolumeSnapshot::default()/* use setters */));
+    /// let x = CreateVolumeSnapshotRequest::new().set_or_clear_volume_snapshot(None::<VolumeSnapshot>);
+    /// ```
     pub fn set_or_clear_volume_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VolumeSnapshot>,
@@ -9742,6 +12298,12 @@ impl RestoreVolumeSnapshotRequest {
     }
 
     /// Sets the value of [volume_snapshot][crate::model::RestoreVolumeSnapshotRequest::volume_snapshot].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_baremetalsolution_v2::model::RestoreVolumeSnapshotRequest;
+    /// let x = RestoreVolumeSnapshotRequest::new().set_volume_snapshot("example");
+    /// ```
     pub fn set_volume_snapshot<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.volume_snapshot = v.into();
         self

@@ -107,24 +107,51 @@ impl Endpoint {
     }
 
     /// Sets the value of [name][crate::model::Endpoint::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [address][crate::model::Endpoint::address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_address("example");
+    /// ```
     pub fn set_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.address = v.into();
         self
     }
 
     /// Sets the value of [port][crate::model::Endpoint::port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_port(42);
+    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::Endpoint::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -137,12 +164,24 @@ impl Endpoint {
     }
 
     /// Sets the value of [network][crate::model::Endpoint::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Endpoint::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
@@ -219,18 +258,36 @@ impl ResolveServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::ResolveServiceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ResolveServiceRequest;
+    /// let x = ResolveServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [max_endpoints][crate::model::ResolveServiceRequest::max_endpoints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ResolveServiceRequest;
+    /// let x = ResolveServiceRequest::new().set_max_endpoints(42);
+    /// ```
     pub fn set_max_endpoints<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_endpoints = v.into();
         self
     }
 
     /// Sets the value of [endpoint_filter][crate::model::ResolveServiceRequest::endpoint_filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ResolveServiceRequest;
+    /// let x = ResolveServiceRequest::new().set_endpoint_filter("example");
+    /// ```
     pub fn set_endpoint_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint_filter = v.into();
         self
@@ -261,6 +318,13 @@ impl ResolveServiceResponse {
     }
 
     /// Sets the value of [service][crate::model::ResolveServiceResponse::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ResolveServiceResponse;
+    /// use google_cloud_servicedirectory_v1::model::Service;
+    /// let x = ResolveServiceResponse::new().set_service(Service::default()/* use setters */);
+    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -270,6 +334,14 @@ impl ResolveServiceResponse {
     }
 
     /// Sets or clears the value of [service][crate::model::ResolveServiceResponse::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ResolveServiceResponse;
+    /// use google_cloud_servicedirectory_v1::model::Service;
+    /// let x = ResolveServiceResponse::new().set_or_clear_service(Some(Service::default()/* use setters */));
+    /// let x = ResolveServiceResponse::new().set_or_clear_service(None::<Service>);
+    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -315,12 +387,27 @@ impl Namespace {
     }
 
     /// Sets the value of [name][crate::model::Namespace::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Namespace;
+    /// let x = Namespace::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Namespace::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Namespace;
+    /// let x = Namespace::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -333,6 +420,12 @@ impl Namespace {
     }
 
     /// Sets the value of [uid][crate::model::Namespace::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Namespace;
+    /// let x = Namespace::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
@@ -377,18 +470,37 @@ impl CreateNamespaceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateNamespaceRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::CreateNamespaceRequest;
+    /// let x = CreateNamespaceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [namespace_id][crate::model::CreateNamespaceRequest::namespace_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::CreateNamespaceRequest;
+    /// let x = CreateNamespaceRequest::new().set_namespace_id("example");
+    /// ```
     pub fn set_namespace_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.namespace_id = v.into();
         self
     }
 
     /// Sets the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::CreateNamespaceRequest;
+    /// use google_cloud_servicedirectory_v1::model::Namespace;
+    /// let x = CreateNamespaceRequest::new().set_namespace(Namespace::default()/* use setters */);
+    /// ```
     pub fn set_namespace<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Namespace>,
@@ -398,6 +510,14 @@ impl CreateNamespaceRequest {
     }
 
     /// Sets or clears the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::CreateNamespaceRequest;
+    /// use google_cloud_servicedirectory_v1::model::Namespace;
+    /// let x = CreateNamespaceRequest::new().set_or_clear_namespace(Some(Namespace::default()/* use setters */));
+    /// let x = CreateNamespaceRequest::new().set_or_clear_namespace(None::<Namespace>);
+    /// ```
     pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Namespace>,
@@ -482,30 +602,60 @@ impl ListNamespacesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListNamespacesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListNamespacesRequest;
+    /// let x = ListNamespacesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListNamespacesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListNamespacesRequest;
+    /// let x = ListNamespacesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListNamespacesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListNamespacesRequest;
+    /// let x = ListNamespacesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListNamespacesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListNamespacesRequest;
+    /// let x = ListNamespacesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListNamespacesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListNamespacesRequest;
+    /// let x = ListNamespacesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -541,6 +691,17 @@ impl ListNamespacesResponse {
     }
 
     /// Sets the value of [namespaces][crate::model::ListNamespacesResponse::namespaces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListNamespacesResponse;
+    /// use google_cloud_servicedirectory_v1::model::Namespace;
+    /// let x = ListNamespacesResponse::new()
+    ///     .set_namespaces([
+    ///         Namespace::default()/* use setters */,
+    ///         Namespace::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_namespaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -552,6 +713,12 @@ impl ListNamespacesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListNamespacesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListNamespacesResponse;
+    /// let x = ListNamespacesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -597,6 +764,12 @@ impl GetNamespaceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetNamespaceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::GetNamespaceRequest;
+    /// let x = GetNamespaceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -631,6 +804,13 @@ impl UpdateNamespaceRequest {
     }
 
     /// Sets the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::UpdateNamespaceRequest;
+    /// use google_cloud_servicedirectory_v1::model::Namespace;
+    /// let x = UpdateNamespaceRequest::new().set_namespace(Namespace::default()/* use setters */);
+    /// ```
     pub fn set_namespace<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Namespace>,
@@ -640,6 +820,14 @@ impl UpdateNamespaceRequest {
     }
 
     /// Sets or clears the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::UpdateNamespaceRequest;
+    /// use google_cloud_servicedirectory_v1::model::Namespace;
+    /// let x = UpdateNamespaceRequest::new().set_or_clear_namespace(Some(Namespace::default()/* use setters */));
+    /// let x = UpdateNamespaceRequest::new().set_or_clear_namespace(None::<Namespace>);
+    /// ```
     pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Namespace>,
@@ -649,6 +837,13 @@ impl UpdateNamespaceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::UpdateNamespaceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNamespaceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -658,6 +853,14 @@ impl UpdateNamespaceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::UpdateNamespaceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateNamespaceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateNamespaceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -692,6 +895,12 @@ impl DeleteNamespaceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteNamespaceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::DeleteNamespaceRequest;
+    /// let x = DeleteNamespaceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -735,18 +944,37 @@ impl CreateServiceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::CreateServiceRequest;
+    /// let x = CreateServiceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [service_id][crate::model::CreateServiceRequest::service_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::CreateServiceRequest;
+    /// let x = CreateServiceRequest::new().set_service_id("example");
+    /// ```
     pub fn set_service_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_id = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::CreateServiceRequest::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::CreateServiceRequest;
+    /// use google_cloud_servicedirectory_v1::model::Service;
+    /// let x = CreateServiceRequest::new().set_service(Service::default()/* use setters */);
+    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -756,6 +984,14 @@ impl CreateServiceRequest {
     }
 
     /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::CreateServiceRequest;
+    /// use google_cloud_servicedirectory_v1::model::Service;
+    /// let x = CreateServiceRequest::new().set_or_clear_service(Some(Service::default()/* use setters */));
+    /// let x = CreateServiceRequest::new().set_or_clear_service(None::<Service>);
+    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -843,30 +1079,60 @@ impl ListServicesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServicesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServicesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListServicesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListServicesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -902,6 +1168,17 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListServicesResponse;
+    /// use google_cloud_servicedirectory_v1::model::Service;
+    /// let x = ListServicesResponse::new()
+    ///     .set_services([
+    ///         Service::default()/* use setters */,
+    ///         Service::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -913,6 +1190,12 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListServicesResponse;
+    /// let x = ListServicesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -960,6 +1243,12 @@ impl GetServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServiceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::GetServiceRequest;
+    /// let x = GetServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -994,6 +1283,13 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::UpdateServiceRequest;
+    /// use google_cloud_servicedirectory_v1::model::Service;
+    /// let x = UpdateServiceRequest::new().set_service(Service::default()/* use setters */);
+    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -1003,6 +1299,14 @@ impl UpdateServiceRequest {
     }
 
     /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::UpdateServiceRequest;
+    /// use google_cloud_servicedirectory_v1::model::Service;
+    /// let x = UpdateServiceRequest::new().set_or_clear_service(Some(Service::default()/* use setters */));
+    /// let x = UpdateServiceRequest::new().set_or_clear_service(None::<Service>);
+    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -1012,6 +1316,13 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::UpdateServiceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateServiceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1021,6 +1332,14 @@ impl UpdateServiceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::UpdateServiceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateServiceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateServiceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1055,6 +1374,12 @@ impl DeleteServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::DeleteServiceRequest;
+    /// let x = DeleteServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1098,18 +1423,37 @@ impl CreateEndpointRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEndpointRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::CreateEndpointRequest;
+    /// let x = CreateEndpointRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [endpoint_id][crate::model::CreateEndpointRequest::endpoint_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::CreateEndpointRequest;
+    /// let x = CreateEndpointRequest::new().set_endpoint_id("example");
+    /// ```
     pub fn set_endpoint_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.endpoint_id = v.into();
         self
     }
 
     /// Sets the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::CreateEndpointRequest;
+    /// use google_cloud_servicedirectory_v1::model::Endpoint;
+    /// let x = CreateEndpointRequest::new().set_endpoint(Endpoint::default()/* use setters */);
+    /// ```
     pub fn set_endpoint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Endpoint>,
@@ -1119,6 +1463,14 @@ impl CreateEndpointRequest {
     }
 
     /// Sets or clears the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::CreateEndpointRequest;
+    /// use google_cloud_servicedirectory_v1::model::Endpoint;
+    /// let x = CreateEndpointRequest::new().set_or_clear_endpoint(Some(Endpoint::default()/* use setters */));
+    /// let x = CreateEndpointRequest::new().set_or_clear_endpoint(None::<Endpoint>);
+    /// ```
     pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Endpoint>,
@@ -1209,30 +1561,60 @@ impl ListEndpointsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEndpointsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListEndpointsRequest;
+    /// let x = ListEndpointsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEndpointsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListEndpointsRequest;
+    /// let x = ListEndpointsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEndpointsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListEndpointsRequest;
+    /// let x = ListEndpointsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEndpointsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListEndpointsRequest;
+    /// let x = ListEndpointsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEndpointsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListEndpointsRequest;
+    /// let x = ListEndpointsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1268,6 +1650,17 @@ impl ListEndpointsResponse {
     }
 
     /// Sets the value of [endpoints][crate::model::ListEndpointsResponse::endpoints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListEndpointsResponse;
+    /// use google_cloud_servicedirectory_v1::model::Endpoint;
+    /// let x = ListEndpointsResponse::new()
+    ///     .set_endpoints([
+    ///         Endpoint::default()/* use setters */,
+    ///         Endpoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1279,6 +1672,12 @@ impl ListEndpointsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEndpointsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::ListEndpointsResponse;
+    /// let x = ListEndpointsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1326,6 +1725,12 @@ impl GetEndpointRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEndpointRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::GetEndpointRequest;
+    /// let x = GetEndpointRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1360,6 +1765,13 @@ impl UpdateEndpointRequest {
     }
 
     /// Sets the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::UpdateEndpointRequest;
+    /// use google_cloud_servicedirectory_v1::model::Endpoint;
+    /// let x = UpdateEndpointRequest::new().set_endpoint(Endpoint::default()/* use setters */);
+    /// ```
     pub fn set_endpoint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Endpoint>,
@@ -1369,6 +1781,14 @@ impl UpdateEndpointRequest {
     }
 
     /// Sets or clears the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::UpdateEndpointRequest;
+    /// use google_cloud_servicedirectory_v1::model::Endpoint;
+    /// let x = UpdateEndpointRequest::new().set_or_clear_endpoint(Some(Endpoint::default()/* use setters */));
+    /// let x = UpdateEndpointRequest::new().set_or_clear_endpoint(None::<Endpoint>);
+    /// ```
     pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Endpoint>,
@@ -1378,6 +1798,13 @@ impl UpdateEndpointRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::UpdateEndpointRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEndpointRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1387,6 +1814,14 @@ impl UpdateEndpointRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::UpdateEndpointRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateEndpointRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateEndpointRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1421,6 +1856,12 @@ impl DeleteEndpointRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEndpointRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::DeleteEndpointRequest;
+    /// let x = DeleteEndpointRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1490,12 +1931,27 @@ impl Service {
     }
 
     /// Sets the value of [name][crate::model::Service::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Service;
+    /// let x = Service::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::Service::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Service;
+    /// let x = Service::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1508,6 +1964,17 @@ impl Service {
     }
 
     /// Sets the value of [endpoints][crate::model::Service::endpoints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Service;
+    /// use google_cloud_servicedirectory_v1::model::Endpoint;
+    /// let x = Service::new()
+    ///     .set_endpoints([
+    ///         Endpoint::default()/* use setters */,
+    ///         Endpoint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_endpoints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1519,6 +1986,12 @@ impl Service {
     }
 
     /// Sets the value of [uid][crate::model::Service::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_servicedirectory_v1::model::Service;
+    /// let x = Service::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self

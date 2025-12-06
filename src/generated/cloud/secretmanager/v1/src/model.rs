@@ -185,7 +185,7 @@ impl Secret {
     /// Sets the value of [name][crate::model::Secret::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// let x = Secret::new().set_name("example");
     /// ```
@@ -197,7 +197,7 @@ impl Secret {
     /// Sets the value of [replication][crate::model::Secret::replication].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use google_cloud_secretmanager_v1::model::Replication;
     /// let x = Secret::new().set_replication(Replication::default()/* use setters */);
@@ -213,7 +213,7 @@ impl Secret {
     /// Sets or clears the value of [replication][crate::model::Secret::replication].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use google_cloud_secretmanager_v1::model::Replication;
     /// let x = Secret::new().set_or_clear_replication(Some(Replication::default()/* use setters */));
@@ -230,7 +230,7 @@ impl Secret {
     /// Sets the value of [create_time][crate::model::Secret::create_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use wkt::Timestamp;
     /// let x = Secret::new().set_create_time(Timestamp::default()/* use setters */);
@@ -246,7 +246,7 @@ impl Secret {
     /// Sets or clears the value of [create_time][crate::model::Secret::create_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use wkt::Timestamp;
     /// let x = Secret::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
@@ -263,7 +263,7 @@ impl Secret {
     /// Sets the value of [labels][crate::model::Secret::labels].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// let x = Secret::new().set_labels([
     ///     ("key0", "abc"),
@@ -284,7 +284,7 @@ impl Secret {
     /// Sets the value of [topics][crate::model::Secret::topics].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use google_cloud_secretmanager_v1::model::Topic;
     /// let x = Secret::new()
@@ -306,7 +306,7 @@ impl Secret {
     /// Sets the value of [etag][crate::model::Secret::etag].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// let x = Secret::new().set_etag("example");
     /// ```
@@ -318,7 +318,7 @@ impl Secret {
     /// Sets the value of [rotation][crate::model::Secret::rotation].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use google_cloud_secretmanager_v1::model::Rotation;
     /// let x = Secret::new().set_rotation(Rotation::default()/* use setters */);
@@ -334,7 +334,7 @@ impl Secret {
     /// Sets or clears the value of [rotation][crate::model::Secret::rotation].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use google_cloud_secretmanager_v1::model::Rotation;
     /// let x = Secret::new().set_or_clear_rotation(Some(Rotation::default()/* use setters */));
@@ -351,7 +351,7 @@ impl Secret {
     /// Sets the value of [version_aliases][crate::model::Secret::version_aliases].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// let x = Secret::new().set_version_aliases([
     ///     ("key0", 123),
@@ -372,7 +372,7 @@ impl Secret {
     /// Sets the value of [annotations][crate::model::Secret::annotations].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// let x = Secret::new().set_annotations([
     ///     ("key0", "abc"),
@@ -393,7 +393,7 @@ impl Secret {
     /// Sets the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use wkt::Duration;
     /// let x = Secret::new().set_version_destroy_ttl(Duration::default()/* use setters */);
@@ -409,7 +409,7 @@ impl Secret {
     /// Sets or clears the value of [version_destroy_ttl][crate::model::Secret::version_destroy_ttl].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use wkt::Duration;
     /// let x = Secret::new().set_or_clear_version_destroy_ttl(Some(Duration::default()/* use setters */));
@@ -426,7 +426,7 @@ impl Secret {
     /// Sets the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
     /// let x = Secret::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
@@ -442,7 +442,7 @@ impl Secret {
     /// Sets or clears the value of [customer_managed_encryption][crate::model::Secret::customer_managed_encryption].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
     /// let x = Secret::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryption::default()/* use setters */));
@@ -459,7 +459,7 @@ impl Secret {
     /// Sets the value of [tags][crate::model::Secret::tags].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// let x = Secret::new().set_tags([
     ///     ("key0", "abc"),
@@ -483,11 +483,11 @@ impl Secret {
     /// exclusive.
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
-    /// use google_cloud_secretmanager_v1::model::secret;
     /// use wkt::Timestamp;
-    /// let x = Secret::new().set_expiration(Some(secret::Expiration::ExpireTime(Timestamp::default().into())));
+    /// let x = Secret::new().set_expiration(Some(
+    ///     google_cloud_secretmanager_v1::model::secret::Expiration::ExpireTime(Timestamp::default().into())));
     /// ```
     pub fn set_expiration<
         T: std::convert::Into<std::option::Option<crate::model::secret::Expiration>>,
@@ -517,7 +517,7 @@ impl Secret {
     /// mutually exclusive.
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use wkt::Timestamp;
     /// let x = Secret::new().set_expire_time(Timestamp::default()/* use setters */);
@@ -551,7 +551,7 @@ impl Secret {
     /// mutually exclusive.
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Secret;
     /// use wkt::Duration;
     /// let x = Secret::new().set_ttl(Duration::default()/* use setters */);
@@ -698,7 +698,7 @@ impl SecretVersion {
     /// Sets the value of [name][crate::model::SecretVersion::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// let x = SecretVersion::new().set_name("example");
     /// ```
@@ -710,7 +710,7 @@ impl SecretVersion {
     /// Sets the value of [create_time][crate::model::SecretVersion::create_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// use wkt::Timestamp;
     /// let x = SecretVersion::new().set_create_time(Timestamp::default()/* use setters */);
@@ -726,7 +726,7 @@ impl SecretVersion {
     /// Sets or clears the value of [create_time][crate::model::SecretVersion::create_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// use wkt::Timestamp;
     /// let x = SecretVersion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
@@ -743,7 +743,7 @@ impl SecretVersion {
     /// Sets the value of [destroy_time][crate::model::SecretVersion::destroy_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// use wkt::Timestamp;
     /// let x = SecretVersion::new().set_destroy_time(Timestamp::default()/* use setters */);
@@ -759,7 +759,7 @@ impl SecretVersion {
     /// Sets or clears the value of [destroy_time][crate::model::SecretVersion::destroy_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// use wkt::Timestamp;
     /// let x = SecretVersion::new().set_or_clear_destroy_time(Some(Timestamp::default()/* use setters */));
@@ -776,7 +776,7 @@ impl SecretVersion {
     /// Sets the value of [state][crate::model::SecretVersion::state].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// use google_cloud_secretmanager_v1::model::secret_version::State;
     /// let x0 = SecretVersion::new().set_state(State::Enabled);
@@ -794,7 +794,7 @@ impl SecretVersion {
     /// Sets the value of [replication_status][crate::model::SecretVersion::replication_status].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// use google_cloud_secretmanager_v1::model::ReplicationStatus;
     /// let x = SecretVersion::new().set_replication_status(ReplicationStatus::default()/* use setters */);
@@ -810,7 +810,7 @@ impl SecretVersion {
     /// Sets or clears the value of [replication_status][crate::model::SecretVersion::replication_status].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// use google_cloud_secretmanager_v1::model::ReplicationStatus;
     /// let x = SecretVersion::new().set_or_clear_replication_status(Some(ReplicationStatus::default()/* use setters */));
@@ -827,7 +827,7 @@ impl SecretVersion {
     /// Sets the value of [etag][crate::model::SecretVersion::etag].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// let x = SecretVersion::new().set_etag("example");
     /// ```
@@ -839,7 +839,7 @@ impl SecretVersion {
     /// Sets the value of [client_specified_payload_checksum][crate::model::SecretVersion::client_specified_payload_checksum].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// let x = SecretVersion::new().set_client_specified_payload_checksum(true);
     /// ```
@@ -854,7 +854,7 @@ impl SecretVersion {
     /// Sets the value of [scheduled_destroy_time][crate::model::SecretVersion::scheduled_destroy_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// use wkt::Timestamp;
     /// let x = SecretVersion::new().set_scheduled_destroy_time(Timestamp::default()/* use setters */);
@@ -870,7 +870,7 @@ impl SecretVersion {
     /// Sets or clears the value of [scheduled_destroy_time][crate::model::SecretVersion::scheduled_destroy_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// use wkt::Timestamp;
     /// let x = SecretVersion::new().set_or_clear_scheduled_destroy_time(Some(Timestamp::default()/* use setters */));
@@ -887,7 +887,7 @@ impl SecretVersion {
     /// Sets the value of [customer_managed_encryption][crate::model::SecretVersion::customer_managed_encryption].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
     /// let x = SecretVersion::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
@@ -903,7 +903,7 @@ impl SecretVersion {
     /// Sets or clears the value of [customer_managed_encryption][crate::model::SecretVersion::customer_managed_encryption].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretVersion;
     /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
     /// let x = SecretVersion::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryptionStatus::default()/* use setters */));
@@ -1108,11 +1108,11 @@ impl Replication {
     /// exclusive.
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Replication;
-    /// use google_cloud_secretmanager_v1::model::replication;
     /// use google_cloud_secretmanager_v1::model::replication::Automatic;
-    /// let x = Replication::new().set_replication(Some(replication::Replication::Automatic(Automatic::default().into())));
+    /// let x = Replication::new().set_replication(Some(
+    ///     google_cloud_secretmanager_v1::model::replication::Replication::Automatic(Automatic::default().into())));
     /// ```
     pub fn set_replication<
         T: std::convert::Into<std::option::Option<crate::model::replication::Replication>>,
@@ -1144,7 +1144,7 @@ impl Replication {
     /// mutually exclusive.
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Replication;
     /// use google_cloud_secretmanager_v1::model::replication::Automatic;
     /// let x = Replication::new().set_automatic(Automatic::default()/* use setters */);
@@ -1182,7 +1182,7 @@ impl Replication {
     /// mutually exclusive.
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Replication;
     /// use google_cloud_secretmanager_v1::model::replication::UserManaged;
     /// let x = Replication::new().set_user_managed(UserManaged::default()/* use setters */);
@@ -1247,7 +1247,7 @@ pub mod replication {
         /// Sets the value of [customer_managed_encryption][crate::model::replication::Automatic::customer_managed_encryption].
         ///
         /// # Example
-        /// ```
+        /// ```ignore,no_run
         /// # use google_cloud_secretmanager_v1::model::replication::Automatic;
         /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
         /// let x = Automatic::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
@@ -1263,7 +1263,7 @@ pub mod replication {
         /// Sets or clears the value of [customer_managed_encryption][crate::model::replication::Automatic::customer_managed_encryption].
         ///
         /// # Example
-        /// ```
+        /// ```ignore,no_run
         /// # use google_cloud_secretmanager_v1::model::replication::Automatic;
         /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
         /// let x = Automatic::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryption::default()/* use setters */));
@@ -1316,7 +1316,7 @@ pub mod replication {
         /// Sets the value of [replicas][crate::model::replication::UserManaged::replicas].
         ///
         /// # Example
-        /// ```
+        /// ```ignore,no_run
         /// # use google_cloud_secretmanager_v1::model::replication::UserManaged;
         /// use google_cloud_secretmanager_v1::model::replication::user_managed::Replica;
         /// let x = UserManaged::new()
@@ -1385,7 +1385,7 @@ pub mod replication {
             /// Sets the value of [location][crate::model::replication::user_managed::Replica::location].
             ///
             /// # Example
-            /// ```
+            /// ```ignore,no_run
             /// # use google_cloud_secretmanager_v1::model::replication::user_managed::Replica;
             /// let x = Replica::new().set_location("example");
             /// ```
@@ -1400,7 +1400,7 @@ pub mod replication {
             /// Sets the value of [customer_managed_encryption][crate::model::replication::user_managed::Replica::customer_managed_encryption].
             ///
             /// # Example
-            /// ```
+            /// ```ignore,no_run
             /// # use google_cloud_secretmanager_v1::model::replication::user_managed::Replica;
             /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
             /// let x = Replica::new().set_customer_managed_encryption(CustomerManagedEncryption::default()/* use setters */);
@@ -1416,7 +1416,7 @@ pub mod replication {
             /// Sets or clears the value of [customer_managed_encryption][crate::model::replication::user_managed::Replica::customer_managed_encryption].
             ///
             /// # Example
-            /// ```
+            /// ```ignore,no_run
             /// # use google_cloud_secretmanager_v1::model::replication::user_managed::Replica;
             /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
             /// let x = Replica::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryption::default()/* use setters */));
@@ -1492,7 +1492,7 @@ impl CustomerManagedEncryption {
     /// Sets the value of [kms_key_name][crate::model::CustomerManagedEncryption::kms_key_name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryption;
     /// let x = CustomerManagedEncryption::new().set_kms_key_name("example");
     /// ```
@@ -1536,11 +1536,11 @@ impl ReplicationStatus {
     /// exclusive.
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ReplicationStatus;
-    /// use google_cloud_secretmanager_v1::model::replication_status;
     /// use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
-    /// let x = ReplicationStatus::new().set_replication_status(Some(replication_status::ReplicationStatus::Automatic(AutomaticStatus::default().into())));
+    /// let x = ReplicationStatus::new().set_replication_status(Some(
+    ///     google_cloud_secretmanager_v1::model::replication_status::ReplicationStatus::Automatic(AutomaticStatus::default().into())));
     /// ```
     pub fn set_replication_status<
         T: std::convert::Into<
@@ -1577,7 +1577,7 @@ impl ReplicationStatus {
     /// mutually exclusive.
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ReplicationStatus;
     /// use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
     /// let x = ReplicationStatus::new().set_automatic(AutomaticStatus::default()/* use setters */);
@@ -1619,7 +1619,7 @@ impl ReplicationStatus {
     /// mutually exclusive.
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ReplicationStatus;
     /// use google_cloud_secretmanager_v1::model::replication_status::UserManagedStatus;
     /// let x = ReplicationStatus::new().set_user_managed(UserManagedStatus::default()/* use setters */);
@@ -1681,7 +1681,7 @@ pub mod replication_status {
         /// Sets the value of [customer_managed_encryption][crate::model::replication_status::AutomaticStatus::customer_managed_encryption].
         ///
         /// # Example
-        /// ```
+        /// ```ignore,no_run
         /// # use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
         /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
         /// let x = AutomaticStatus::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
@@ -1697,7 +1697,7 @@ pub mod replication_status {
         /// Sets or clears the value of [customer_managed_encryption][crate::model::replication_status::AutomaticStatus::customer_managed_encryption].
         ///
         /// # Example
-        /// ```
+        /// ```ignore,no_run
         /// # use google_cloud_secretmanager_v1::model::replication_status::AutomaticStatus;
         /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
         /// let x = AutomaticStatus::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryptionStatus::default()/* use setters */));
@@ -1751,7 +1751,7 @@ pub mod replication_status {
         /// Sets the value of [replicas][crate::model::replication_status::UserManagedStatus::replicas].
         ///
         /// # Example
-        /// ```
+        /// ```ignore,no_run
         /// # use google_cloud_secretmanager_v1::model::replication_status::UserManagedStatus;
         /// use google_cloud_secretmanager_v1::model::replication_status::user_managed_status::ReplicaStatus;
         /// let x = UserManagedStatus::new()
@@ -1814,7 +1814,7 @@ pub mod replication_status {
             /// Sets the value of [location][crate::model::replication_status::user_managed_status::ReplicaStatus::location].
             ///
             /// # Example
-            /// ```
+            /// ```ignore,no_run
             /// # use google_cloud_secretmanager_v1::model::replication_status::user_managed_status::ReplicaStatus;
             /// let x = ReplicaStatus::new().set_location("example");
             /// ```
@@ -1829,7 +1829,7 @@ pub mod replication_status {
             /// Sets the value of [customer_managed_encryption][crate::model::replication_status::user_managed_status::ReplicaStatus::customer_managed_encryption].
             ///
             /// # Example
-            /// ```
+            /// ```ignore,no_run
             /// # use google_cloud_secretmanager_v1::model::replication_status::user_managed_status::ReplicaStatus;
             /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
             /// let x = ReplicaStatus::new().set_customer_managed_encryption(CustomerManagedEncryptionStatus::default()/* use setters */);
@@ -1845,7 +1845,7 @@ pub mod replication_status {
             /// Sets or clears the value of [customer_managed_encryption][crate::model::replication_status::user_managed_status::ReplicaStatus::customer_managed_encryption].
             ///
             /// # Example
-            /// ```
+            /// ```ignore,no_run
             /// # use google_cloud_secretmanager_v1::model::replication_status::user_managed_status::ReplicaStatus;
             /// use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
             /// let x = ReplicaStatus::new().set_or_clear_customer_managed_encryption(Some(CustomerManagedEncryptionStatus::default()/* use setters */));
@@ -1922,7 +1922,7 @@ impl CustomerManagedEncryptionStatus {
     /// Sets the value of [kms_key_version_name][crate::model::CustomerManagedEncryptionStatus::kms_key_version_name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::CustomerManagedEncryptionStatus;
     /// let x = CustomerManagedEncryptionStatus::new().set_kms_key_version_name("example");
     /// ```
@@ -1964,7 +1964,7 @@ impl Topic {
     /// Sets the value of [name][crate::model::Topic::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Topic;
     /// let x = Topic::new().set_name("example");
     /// ```
@@ -2033,7 +2033,7 @@ impl Rotation {
     /// Sets the value of [next_rotation_time][crate::model::Rotation::next_rotation_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Rotation;
     /// use wkt::Timestamp;
     /// let x = Rotation::new().set_next_rotation_time(Timestamp::default()/* use setters */);
@@ -2049,7 +2049,7 @@ impl Rotation {
     /// Sets or clears the value of [next_rotation_time][crate::model::Rotation::next_rotation_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Rotation;
     /// use wkt::Timestamp;
     /// let x = Rotation::new().set_or_clear_next_rotation_time(Some(Timestamp::default()/* use setters */));
@@ -2066,7 +2066,7 @@ impl Rotation {
     /// Sets the value of [rotation_period][crate::model::Rotation::rotation_period].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Rotation;
     /// use wkt::Duration;
     /// let x = Rotation::new().set_rotation_period(Duration::default()/* use setters */);
@@ -2082,7 +2082,7 @@ impl Rotation {
     /// Sets or clears the value of [rotation_period][crate::model::Rotation::rotation_period].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::Rotation;
     /// use wkt::Duration;
     /// let x = Rotation::new().set_or_clear_rotation_period(Some(Duration::default()/* use setters */));
@@ -2148,7 +2148,7 @@ impl SecretPayload {
     /// Sets the value of [data][crate::model::SecretPayload::data].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretPayload;
     /// let x = SecretPayload::new().set_data(bytes::Bytes::from_static(b"example"));
     /// ```
@@ -2160,7 +2160,7 @@ impl SecretPayload {
     /// Sets the value of [data_crc32c][crate::model::SecretPayload::data_crc32c].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretPayload;
     /// let x = SecretPayload::new().set_data_crc32c(42);
     /// ```
@@ -2175,7 +2175,7 @@ impl SecretPayload {
     /// Sets or clears the value of [data_crc32c][crate::model::SecretPayload::data_crc32c].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::SecretPayload;
     /// let x = SecretPayload::new().set_or_clear_data_crc32c(Some(42));
     /// let x = SecretPayload::new().set_or_clear_data_crc32c(None::<i32>);
@@ -2238,7 +2238,7 @@ impl ListSecretsRequest {
     /// Sets the value of [parent][crate::model::ListSecretsRequest::parent].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
     /// let x = ListSecretsRequest::new().set_parent("example");
     /// ```
@@ -2250,7 +2250,7 @@ impl ListSecretsRequest {
     /// Sets the value of [page_size][crate::model::ListSecretsRequest::page_size].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
     /// let x = ListSecretsRequest::new().set_page_size(42);
     /// ```
@@ -2262,7 +2262,7 @@ impl ListSecretsRequest {
     /// Sets the value of [page_token][crate::model::ListSecretsRequest::page_token].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
     /// let x = ListSecretsRequest::new().set_page_token("example");
     /// ```
@@ -2274,7 +2274,7 @@ impl ListSecretsRequest {
     /// Sets the value of [filter][crate::model::ListSecretsRequest::filter].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretsRequest;
     /// let x = ListSecretsRequest::new().set_filter("example");
     /// ```
@@ -2330,7 +2330,7 @@ impl ListSecretsResponse {
     /// Sets the value of [secrets][crate::model::ListSecretsResponse::secrets].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretsResponse;
     /// use google_cloud_secretmanager_v1::model::Secret;
     /// let x = ListSecretsResponse::new()
@@ -2352,7 +2352,7 @@ impl ListSecretsResponse {
     /// Sets the value of [next_page_token][crate::model::ListSecretsResponse::next_page_token].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretsResponse;
     /// let x = ListSecretsResponse::new().set_next_page_token("example");
     /// ```
@@ -2364,7 +2364,7 @@ impl ListSecretsResponse {
     /// Sets the value of [total_size][crate::model::ListSecretsResponse::total_size].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretsResponse;
     /// let x = ListSecretsResponse::new().set_total_size(42);
     /// ```
@@ -2432,7 +2432,7 @@ impl CreateSecretRequest {
     /// Sets the value of [parent][crate::model::CreateSecretRequest::parent].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
     /// let x = CreateSecretRequest::new().set_parent("example");
     /// ```
@@ -2444,7 +2444,7 @@ impl CreateSecretRequest {
     /// Sets the value of [secret_id][crate::model::CreateSecretRequest::secret_id].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
     /// let x = CreateSecretRequest::new().set_secret_id("example");
     /// ```
@@ -2456,7 +2456,7 @@ impl CreateSecretRequest {
     /// Sets the value of [secret][crate::model::CreateSecretRequest::secret].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
     /// use google_cloud_secretmanager_v1::model::Secret;
     /// let x = CreateSecretRequest::new().set_secret(Secret::default()/* use setters */);
@@ -2472,7 +2472,7 @@ impl CreateSecretRequest {
     /// Sets or clears the value of [secret][crate::model::CreateSecretRequest::secret].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::CreateSecretRequest;
     /// use google_cloud_secretmanager_v1::model::Secret;
     /// let x = CreateSecretRequest::new().set_or_clear_secret(Some(Secret::default()/* use setters */));
@@ -2526,7 +2526,7 @@ impl AddSecretVersionRequest {
     /// Sets the value of [parent][crate::model::AddSecretVersionRequest::parent].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::AddSecretVersionRequest;
     /// let x = AddSecretVersionRequest::new().set_parent("example");
     /// ```
@@ -2538,7 +2538,7 @@ impl AddSecretVersionRequest {
     /// Sets the value of [payload][crate::model::AddSecretVersionRequest::payload].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::AddSecretVersionRequest;
     /// use google_cloud_secretmanager_v1::model::SecretPayload;
     /// let x = AddSecretVersionRequest::new().set_payload(SecretPayload::default()/* use setters */);
@@ -2554,7 +2554,7 @@ impl AddSecretVersionRequest {
     /// Sets or clears the value of [payload][crate::model::AddSecretVersionRequest::payload].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::AddSecretVersionRequest;
     /// use google_cloud_secretmanager_v1::model::SecretPayload;
     /// let x = AddSecretVersionRequest::new().set_or_clear_payload(Some(SecretPayload::default()/* use setters */));
@@ -2600,7 +2600,7 @@ impl GetSecretRequest {
     /// Sets the value of [name][crate::model::GetSecretRequest::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::GetSecretRequest;
     /// let x = GetSecretRequest::new().set_name("example");
     /// ```
@@ -2659,7 +2659,7 @@ impl ListSecretVersionsRequest {
     /// Sets the value of [parent][crate::model::ListSecretVersionsRequest::parent].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
     /// let x = ListSecretVersionsRequest::new().set_parent("example");
     /// ```
@@ -2671,7 +2671,7 @@ impl ListSecretVersionsRequest {
     /// Sets the value of [page_size][crate::model::ListSecretVersionsRequest::page_size].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
     /// let x = ListSecretVersionsRequest::new().set_page_size(42);
     /// ```
@@ -2683,7 +2683,7 @@ impl ListSecretVersionsRequest {
     /// Sets the value of [page_token][crate::model::ListSecretVersionsRequest::page_token].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
     /// let x = ListSecretVersionsRequest::new().set_page_token("example");
     /// ```
@@ -2695,7 +2695,7 @@ impl ListSecretVersionsRequest {
     /// Sets the value of [filter][crate::model::ListSecretVersionsRequest::filter].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsRequest;
     /// let x = ListSecretVersionsRequest::new().set_filter("example");
     /// ```
@@ -2752,7 +2752,7 @@ impl ListSecretVersionsResponse {
     /// Sets the value of [versions][crate::model::ListSecretVersionsResponse::versions].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsResponse;
     /// use google_cloud_secretmanager_v1::model::SecretVersion;
     /// let x = ListSecretVersionsResponse::new()
@@ -2774,7 +2774,7 @@ impl ListSecretVersionsResponse {
     /// Sets the value of [next_page_token][crate::model::ListSecretVersionsResponse::next_page_token].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsResponse;
     /// let x = ListSecretVersionsResponse::new().set_next_page_token("example");
     /// ```
@@ -2786,7 +2786,7 @@ impl ListSecretVersionsResponse {
     /// Sets the value of [total_size][crate::model::ListSecretVersionsResponse::total_size].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::ListSecretVersionsResponse;
     /// let x = ListSecretVersionsResponse::new().set_total_size(42);
     /// ```
@@ -2847,7 +2847,7 @@ impl GetSecretVersionRequest {
     /// Sets the value of [name][crate::model::GetSecretVersionRequest::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::GetSecretVersionRequest;
     /// let x = GetSecretVersionRequest::new().set_name("example");
     /// ```
@@ -2890,7 +2890,7 @@ impl UpdateSecretRequest {
     /// Sets the value of [secret][crate::model::UpdateSecretRequest::secret].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::UpdateSecretRequest;
     /// use google_cloud_secretmanager_v1::model::Secret;
     /// let x = UpdateSecretRequest::new().set_secret(Secret::default()/* use setters */);
@@ -2906,7 +2906,7 @@ impl UpdateSecretRequest {
     /// Sets or clears the value of [secret][crate::model::UpdateSecretRequest::secret].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::UpdateSecretRequest;
     /// use google_cloud_secretmanager_v1::model::Secret;
     /// let x = UpdateSecretRequest::new().set_or_clear_secret(Some(Secret::default()/* use setters */));
@@ -2923,7 +2923,7 @@ impl UpdateSecretRequest {
     /// Sets the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::UpdateSecretRequest;
     /// use wkt::FieldMask;
     /// let x = UpdateSecretRequest::new().set_update_mask(FieldMask::default()/* use setters */);
@@ -2939,7 +2939,7 @@ impl UpdateSecretRequest {
     /// Sets or clears the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::UpdateSecretRequest;
     /// use wkt::FieldMask;
     /// let x = UpdateSecretRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
@@ -2991,7 +2991,7 @@ impl AccessSecretVersionRequest {
     /// Sets the value of [name][crate::model::AccessSecretVersionRequest::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionRequest;
     /// let x = AccessSecretVersionRequest::new().set_name("example");
     /// ```
@@ -3036,7 +3036,7 @@ impl AccessSecretVersionResponse {
     /// Sets the value of [name][crate::model::AccessSecretVersionResponse::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionResponse;
     /// let x = AccessSecretVersionResponse::new().set_name("example");
     /// ```
@@ -3048,7 +3048,7 @@ impl AccessSecretVersionResponse {
     /// Sets the value of [payload][crate::model::AccessSecretVersionResponse::payload].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionResponse;
     /// use google_cloud_secretmanager_v1::model::SecretPayload;
     /// let x = AccessSecretVersionResponse::new().set_payload(SecretPayload::default()/* use setters */);
@@ -3064,7 +3064,7 @@ impl AccessSecretVersionResponse {
     /// Sets or clears the value of [payload][crate::model::AccessSecretVersionResponse::payload].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::AccessSecretVersionResponse;
     /// use google_cloud_secretmanager_v1::model::SecretPayload;
     /// let x = AccessSecretVersionResponse::new().set_or_clear_payload(Some(SecretPayload::default()/* use setters */));
@@ -3117,7 +3117,7 @@ impl DeleteSecretRequest {
     /// Sets the value of [name][crate::model::DeleteSecretRequest::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::DeleteSecretRequest;
     /// let x = DeleteSecretRequest::new().set_name("example");
     /// ```
@@ -3129,7 +3129,7 @@ impl DeleteSecretRequest {
     /// Sets the value of [etag][crate::model::DeleteSecretRequest::etag].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::DeleteSecretRequest;
     /// let x = DeleteSecretRequest::new().set_etag("example");
     /// ```
@@ -3179,7 +3179,7 @@ impl DisableSecretVersionRequest {
     /// Sets the value of [name][crate::model::DisableSecretVersionRequest::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::DisableSecretVersionRequest;
     /// let x = DisableSecretVersionRequest::new().set_name("example");
     /// ```
@@ -3191,7 +3191,7 @@ impl DisableSecretVersionRequest {
     /// Sets the value of [etag][crate::model::DisableSecretVersionRequest::etag].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::DisableSecretVersionRequest;
     /// let x = DisableSecretVersionRequest::new().set_etag("example");
     /// ```
@@ -3241,7 +3241,7 @@ impl EnableSecretVersionRequest {
     /// Sets the value of [name][crate::model::EnableSecretVersionRequest::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::EnableSecretVersionRequest;
     /// let x = EnableSecretVersionRequest::new().set_name("example");
     /// ```
@@ -3253,7 +3253,7 @@ impl EnableSecretVersionRequest {
     /// Sets the value of [etag][crate::model::EnableSecretVersionRequest::etag].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::EnableSecretVersionRequest;
     /// let x = EnableSecretVersionRequest::new().set_etag("example");
     /// ```
@@ -3303,7 +3303,7 @@ impl DestroySecretVersionRequest {
     /// Sets the value of [name][crate::model::DestroySecretVersionRequest::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::DestroySecretVersionRequest;
     /// let x = DestroySecretVersionRequest::new().set_name("example");
     /// ```
@@ -3315,7 +3315,7 @@ impl DestroySecretVersionRequest {
     /// Sets the value of [etag][crate::model::DestroySecretVersionRequest::etag].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_secretmanager_v1::model::DestroySecretVersionRequest;
     /// let x = DestroySecretVersionRequest::new().set_etag("example");
     /// ```
