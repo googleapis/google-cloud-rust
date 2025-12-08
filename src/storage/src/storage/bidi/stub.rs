@@ -14,15 +14,7 @@
 
 use crate::model::Object;
 use crate::model_ext::ReadRange;
-use crate::read_object::dynamic::ReadObjectResponse;
-
-pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
-    fn object(&self) -> &Object;
-    fn read_range(
-        &self,
-        range: ReadRange,
-    ) -> impl Future<Output = Box<dyn ReadObjectResponse + Send>> + Send + Sync;
-}
+use crate::read_object::ReadObjectResponse;
 
 pub(crate) mod dynamic {
     use super::{Object, ReadObjectResponse, ReadRange};
@@ -30,16 +22,16 @@ pub(crate) mod dynamic {
     #[async_trait::async_trait]
     pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
         fn object(&self) -> &Object;
-        async fn read_range(&self, range: ReadRange) -> Box<dyn ReadObjectResponse + Send>;
+        async fn read_range(&self, range: ReadRange) -> ReadObjectResponse;
     }
 
     #[async_trait::async_trait]
-    impl<T: super::ObjectDescriptor> ObjectDescriptor for T {
+    impl<T: crate::stub::ObjectDescriptor> ObjectDescriptor for T {
         fn object(&self) -> &Object {
             T::object(self)
         }
 
-        async fn read_range(&self, range: ReadRange) -> Box<dyn ReadObjectResponse + Send> {
+        async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
             T::read_range(self, range).await
         }
     }

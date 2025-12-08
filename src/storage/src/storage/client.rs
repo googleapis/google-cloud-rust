@@ -260,13 +260,17 @@ where
     /// * `bucket` - the bucket name containing the object. In
     ///   `projects/_/buckets/{bucket_id}` format.
     /// * `object` - the object name.
-    pub fn open_object<B, O>(&self, bucket: B, object: O) -> OpenObject
+    pub fn open_object<B, O>(&self, bucket: B, object: O) -> OpenObject<S>
     where
         B: Into<String>,
         O: Into<String>,
     {
-        self.stub
-            .open_object(bucket.into(), object.into(), self.options.clone())
+        OpenObject::new(
+            bucket.into(),
+            object.into(),
+            self.stub.clone(),
+            self.options.clone(),
+        )
     }
 }
 
