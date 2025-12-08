@@ -140,4 +140,24 @@ mod tests {
         assert!(got.is_err(), "{got:?}");
         Ok(())
     }
+
+    #[test]
+    fn sample_range() {
+        let sampler = RandomSize::Range(20, 30);
+        for _ in 0..100 {
+            let got = sampler.sample(&mut rand::rng());
+            assert!((20..=30).contains(&got), "{got} outside [20, 30] range");
+        }
+    }
+
+    #[test]
+    fn sample_list() {
+        use std::collections::HashSet;
+        let sampler = RandomSize::Values(vec![2, 3, 5, 7, 11]);
+        let set = HashSet::<u64>::from_iter([2, 3, 5, 7, 11]);
+        for _ in 0..100 {
+            let got = sampler.sample(&mut rand::rng());
+            assert!(set.contains(&got), "{got} is not in {set:?}");
+        }
+    }
 }
