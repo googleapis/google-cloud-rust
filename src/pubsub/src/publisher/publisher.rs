@@ -696,7 +696,7 @@ mod tests {
         let mut messages = Vec::new();
         // We want the number of messages to be a multiple of num_ordering_keys
         // and message_count_threshold. Otherwise, the final batch of each
-        // ordering key may fail the message len assertation.
+        // ordering key may fail the message len assertion.
         for i in 0..(2 * message_count_threshold * num_ordering_keys) {
             messages.push(
                 PubsubMessage::new()
