@@ -21,6 +21,7 @@ mod dataset;
 mod experiment;
 mod json;
 mod names;
+mod random_size;
 mod sample;
 
 use anyhow::{Result, bail};

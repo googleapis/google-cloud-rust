@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::args::Args;
+use super::random_size::RandomSize;
 use super::sample::Protocol;
 use anyhow::Result;
 use rand::distr::Uniform;
@@ -40,7 +41,7 @@ pub struct Range {
 pub struct ExperimentGenerator {
     read_count: Uniform<u64>,
     read_offset: Uniform<u64>,
-    read_length: Uniform<u64>,
+    read_length: RandomSize,
     objects: Vec<String>,
     bucket_name: String,
     protocols: Vec<Protocol>,
@@ -51,13 +52,12 @@ impl ExperimentGenerator {
     pub fn new(args: &Args, objects: Vec<String>) -> Result<Self> {
         let read_count =
             Uniform::new_inclusive(args.min_concurrent_reads, args.max_concurrent_reads)?;
-        let max_offset = (args.min_range_count - 1) * args.max_range_size;
+        let max_offset = (args.min_range_count - 1) * args.range_size.max();
         let read_offset = Uniform::new_inclusive(0, max_offset)?;
-        let read_length = Uniform::new_inclusive(args.min_range_size, args.max_range_size)?;
         Ok(Self {
             read_count,
             read_offset,
-            read_length,
+            read_length: args.range_size.clone(),
             objects,
             bucket_name: format!("projects/_/buckets/{}", args.bucket_name),
             protocols: args.protocols.clone(),
@@ -70,7 +70,7 @@ impl ExperimentGenerator {
         use rand::Rng;
         let mut rng = rand::rng();
         let read_count = rng.sample(self.read_count);
-        let read_length = rng.sample(self.read_length);
+        let read_length = self.read_length.sample(&mut rng);
         let protocol = self
             .protocols
             .choose(&mut rng)
@@ -106,8 +106,7 @@ mod tests {
     #[test]
     fn generate_some() -> anyhow::Result<()> {
         let mut args = Args::try_parse_from(["unused", "--bucket-name=unused"])?;
-        args.min_range_size = 8 * 1024;
-        args.max_range_size = 16 * 1024;
+        args.range_size = RandomSize::Range(8 * 1024, 16 * 1024);
         args.min_concurrent_reads = 1;
         args.max_concurrent_reads = 16;
         args.protocols = vec![Protocol::Json];
@@ -117,8 +116,8 @@ mod tests {
             ExperimentGenerator::new(&args, objects.iter().map(|s| s.to_string()).collect())?;
 
         let concurrent_reads_range = args.min_concurrent_reads..=args.max_concurrent_reads;
-        let offset_range = 0..=(args.min_range_count * args.max_range_size);
-        let length_range = args.min_range_size..=args.max_range_size;
+        let offset_range = 0..=(args.min_range_count * args.range_size.max());
+        let length_range = args.range_size.min()..=args.range_size.max();
         for _ in 0..100 {
             let experiment = generator.generate();
             assert_eq!(experiment.protocol, Protocol::Json, "{experiment:?}");
