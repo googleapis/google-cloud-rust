@@ -53,10 +53,10 @@ impl Runner {
         let mut ttfb = None;
         let mut size = 0;
         while let Some(b) = reader.next().await.transpose()? {
-            let _ = ttfb.get_or_insert(Instant::now() - start);
+            let _ = ttfb.get_or_insert(start.elapsed());
             size += b.len();
         }
-        let ttlb = Instant::now() - start;
+        let ttlb = start.elapsed();
         let ttfb = ttfb.unwrap_or(ttlb);
         Ok(Attempt { size, ttfb, ttlb })
     }

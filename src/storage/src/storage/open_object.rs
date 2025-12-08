@@ -12,16 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::bidi::connector::Connector;
-use super::bidi::transport::ObjectDescriptorTransport;
 use crate::Result;
-use crate::google::storage::v2::BidiReadObjectSpec;
-use crate::model_ext::KeyAes256;
+use crate::model_ext::{KeyAes256, OpenObjectRequest};
 use crate::object_descriptor::ObjectDescriptor;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::request_options::RequestOptions;
-use gaxi::grpc::Client as GrpcClient;
-use gaxi::prost::ToProto;
+use std::sync::Arc;
 
 /// A request builder for [Storage::open_object][crate::client::Storage::open_object].
 ///
@@ -42,33 +38,17 @@ use gaxi::prost::ToProto;
 /// }
 /// ```
 #[derive(Clone, Debug)]
-pub struct OpenObject {
-    spec: BidiReadObjectSpec,
+pub struct OpenObject<S = crate::storage::transport::Storage> {
+    stub: Arc<S>,
+    request: OpenObjectRequest,
     options: RequestOptions,
-    client: GrpcClient,
     reconnect_attempts: u32,
 }
 
-impl OpenObject {
-    pub(crate) fn new(
-        bucket: String,
-        object: String,
-        client: GrpcClient,
-        options: RequestOptions,
-    ) -> Self {
-        let spec = BidiReadObjectSpec {
-            bucket,
-            object,
-            ..BidiReadObjectSpec::default()
-        };
-        Self {
-            spec,
-            options,
-            client,
-            reconnect_attempts: 0_u32,
-        }
-    }
-
+impl<S> OpenObject<S>
+where
+    S: crate::storage::stub::Storage + 'static,
+{
     /// Sends the request, returning a new object descriptor.
     ///
     /// Example:
@@ -83,10 +63,26 @@ impl OpenObject {
     /// # Ok(()) }
     /// ```
     pub async fn send(self) -> Result<ObjectDescriptor> {
-        let connector = Connector::new(self.spec, self.options, self.client);
-        let transport = ObjectDescriptorTransport::new(connector).await?;
+        self.stub.open_object(self.request, self.options).await
+    }
+}
 
-        Ok(ObjectDescriptor::new(transport))
+impl<S> OpenObject<S> {
+    pub(crate) fn new(
+        bucket: String,
+        object: String,
+        stub: Arc<S>,
+        options: RequestOptions,
+    ) -> Self {
+        let request = OpenObjectRequest::default()
+            .set_bucket(bucket)
+            .set_object(object);
+        Self {
+            request,
+            options,
+            stub,
+            reconnect_attempts: 0_u32,
+        }
     }
 
     /// If present, selects a specific revision of this object (as
@@ -105,7 +101,7 @@ impl OpenObject {
     /// # Ok(()) }
     /// ```
     pub fn set_generation<T: Into<i64>>(mut self, v: T) -> Self {
-        self.spec.generation = v.into();
+        self.request = self.request.set_generation(v.into());
         self
     }
 
@@ -128,7 +124,7 @@ impl OpenObject {
     where
         T: Into<i64>,
     {
-        self.spec.if_generation_match = Some(v.into());
+        self.request = self.request.set_if_generation_match(v.into());
         self
     }
 
@@ -152,7 +148,7 @@ impl OpenObject {
     where
         T: Into<i64>,
     {
-        self.spec.if_generation_not_match = Some(v.into());
+        self.request = self.request.set_if_generation_not_match(v.into());
         self
     }
 
@@ -175,7 +171,7 @@ impl OpenObject {
     where
         T: Into<i64>,
     {
-        self.spec.if_metageneration_match = Some(v.into());
+        self.request = self.request.set_if_metageneration_match(v.into());
         self
     }
 
@@ -198,7 +194,7 @@ impl OpenObject {
     where
         T: Into<i64>,
     {
-        self.spec.if_metageneration_not_match = Some(v.into());
+        self.request = self.request.set_if_metageneration_not_match(v.into());
         self
     }
 
@@ -219,10 +215,9 @@ impl OpenObject {
     /// # Ok(()) }
     /// ```
     pub fn set_key(mut self, v: KeyAes256) -> Self {
-        let proto = crate::model::CommonObjectRequestParams::from(v)
-            .to_proto()
-            .expect("conversion from AesKey256 never fails");
-        self.spec.common_object_request_params = Some(proto);
+        self.request = self
+            .request
+            .set_common_object_request_params(crate::model::CommonObjectRequestParams::from(v));
         self
     }
 
@@ -338,8 +333,7 @@ impl OpenObject {
 mod tests {
     use super::*;
     use crate::client::Storage;
-    use crate::google::storage::v2::CommonObjectRequestParams;
-    use crate::model::Object;
+    use crate::model::{CommonObjectRequestParams, Object};
     use crate::model_ext::tests::create_key_helper;
     use anyhow::Result;
     use auth::credentials::anonymous::Builder as Anonymous;
@@ -416,48 +410,48 @@ mod tests {
 
     #[tokio::test]
     async fn attributes() -> Result<()> {
-        let client = test_grpc_client().await?;
         let options = RequestOptions::new();
-        let builder = OpenObject::new("bucket".to_string(), "object".to_string(), client, options)
+        let builder = OpenObject::new(
+            "bucket".to_string(),
+            "object".to_string(),
+            Arc::new(StorageStub),
+            options,
+        )
+        .set_generation(123)
+        .set_if_generation_match(234)
+        .set_if_generation_not_match(345)
+        .set_if_metageneration_match(456)
+        .set_if_metageneration_not_match(567);
+        let want = OpenObjectRequest::default()
+            .set_bucket("bucket")
+            .set_object("object")
             .set_generation(123)
             .set_if_generation_match(234)
             .set_if_generation_not_match(345)
             .set_if_metageneration_match(456)
             .set_if_metageneration_not_match(567);
-        let want = BidiReadObjectSpec {
-            bucket: "bucket".into(),
-            object: "object".into(),
-            generation: 123,
-            if_generation_match: Some(234),
-            if_generation_not_match: Some(345),
-            if_metageneration_match: Some(456),
-            if_metageneration_not_match: Some(567),
-            ..BidiReadObjectSpec::default()
-        };
-        assert_eq!(builder.spec, want);
+        assert_eq!(builder.request, want);
         Ok(())
     }
 
     #[tokio::test]
     async fn csek() -> Result<()> {
-        let client = test_grpc_client().await?;
         let options = RequestOptions::new();
-        let builder = OpenObject::new("bucket".to_string(), "object".to_string(), client, options);
+        let builder = OpenObject::new(
+            "bucket".to_string(),
+            "object".to_string(),
+            Arc::new(StorageStub),
+            options,
+        );
 
-        let (key, _, key_sha256, _) = create_key_helper();
-        let builder = builder.set_key(KeyAes256::new(&key)?);
-        let params = CommonObjectRequestParams {
-            encryption_algorithm: "AES256".into(),
-            encryption_key_bytes: bytes::Bytes::from_owner(key),
-            encryption_key_sha256_bytes: bytes::Bytes::from_owner(key_sha256),
-        };
-        let want = BidiReadObjectSpec {
-            bucket: "bucket".into(),
-            object: "object".into(),
-            common_object_request_params: Some(params),
-            ..BidiReadObjectSpec::default()
-        };
-        assert_eq!(builder.spec, want);
+        let (raw_key, _, _, _) = create_key_helper();
+        let key = KeyAes256::new(&raw_key)?;
+        let builder = builder.set_key(key.clone());
+        let want = OpenObjectRequest::default()
+            .set_bucket("bucket")
+            .set_object("object")
+            .set_common_object_request_params(CommonObjectRequestParams::from(key));
+        assert_eq!(builder.request, want);
         Ok(())
     }
 
@@ -468,12 +462,11 @@ mod tests {
         use gax::retry_policy::Aip194Strict;
         use gax::retry_throttler::CircuitBreaker;
 
-        let client = test_grpc_client().await?;
         let options = RequestOptions::new();
         let builder = OpenObject::new(
             "bucket".to_string(),
             "object".to_string(),
-            client,
+            Arc::new(StorageStub),
             options.clone(),
         )
         .with_backoff_policy(
@@ -534,17 +527,16 @@ mod tests {
         let mut config = gaxi::options::ClientConfig::default();
         config.cred = Some(auth::credentials::anonymous::Builder::new().build());
         config.endpoint = Some(endpoint.clone());
-        let client = gaxi::grpc::Client::new(config, "https://storage.googleapis.com").await?;
+        let client = Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .build()
+            .await?;
 
-        let options = RequestOptions::new();
-        let descriptor = OpenObject::new(
-            "projects/_/buckets/test-bucket".to_string(),
-            "test-object".to_string(),
-            client,
-            options.clone(),
-        )
-        .send()
-        .await?;
+        let descriptor = client
+            .open_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
         let want = Object::new()
             .set_bucket("projects/_/buckets/test-bucket")
             .set_name("test-object")
@@ -552,6 +544,10 @@ mod tests {
         assert_eq!(descriptor.object(), &want, "{descriptor:?}");
         Ok(())
     }
+
+    #[derive(Debug)]
+    struct StorageStub;
+    impl crate::stub::Storage for StorageStub {}
 
     async fn test_grpc_client() -> Result<gaxi::grpc::Client> {
         let mut config = gaxi::options::ClientConfig::default();

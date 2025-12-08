@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::random_size::{RandomSize, parse_random_size_arg};
 use super::sample::Protocol;
 use anyhow::bail;
 use clap::Parser;
@@ -56,12 +57,8 @@ pub struct Args {
     pub min_range_count: u64,
 
     /// The minimum size of each ranged read.
-    #[arg(long, default_value_t = 8192, value_parser = parse_size_arg)]
-    pub min_range_size: u64,
-
-    /// The maximum size of each ranged read..
-    #[arg(long, default_value_t = 8192, value_parser = parse_size_arg)]
-    pub max_range_size: u64,
+    #[arg(long, default_value_t = RandomSize::Values(vec![8192]), value_parser = parse_random_size_arg)]
+    pub range_size: RandomSize,
 
     /// The minimum number of concurrent reads in each iteration.˚˚
     #[arg(long, default_value_t = 16)]
@@ -81,19 +78,20 @@ impl Args {
         if self.min_range_count == 0 {
             bail!("invalid min-range-count, must be greater than zero")
         }
-        if self.max_range_size < self.min_range_size {
-            bail!(
-                "invalid range for concurrent reads: [{}, {}]",
-                self.min_range_size,
-                self.max_range_size,
-            );
+        if let RandomSize::Values(v) = &self.range_size {
+            if v.is_empty() {
+                bail!("empty list of values in range-size")
+            }
         }
-        if self.max_concurrent_reads < self.min_concurrent_reads {
+        if self.range_size.min() == 0 {
+            bail!("invalid range-size, minimum must be greater than zero")
+        }
+        if self.min_concurrent_reads > self.max_concurrent_reads {
             bail!(
-                "invalid range for concurrent reads: [{}, {}]",
+                "invalid concurrent reads range, min-concurrent-range ({}) > max-concurrent-range ({})",
                 self.min_concurrent_reads,
                 self.max_concurrent_reads
-            );
+            )
         }
         if self.protocols.is_empty() {
             bail!("the protocol set must be non-empty: {:?}", self.protocols);
@@ -102,33 +100,10 @@ impl Args {
     }
 }
 
-fn parse_size_arg(arg: &str) -> anyhow::Result<u64> {
-    let value = parse_size::parse_size(arg)?;
-    Ok(value)
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
     use test_case::test_case;
-
-    #[test_case("2MiB", 2 * 1024 * 1024)]
-    #[test_case("2MB", 2 * 1000 * 1000)]
-    #[test_case("42", 42)]
-    fn parse_size_success(input: &str, want: u64) -> anyhow::Result<()> {
-        let got = parse_size_arg(input)?;
-        assert_eq!(got, want);
-        Ok(())
-    }
-
-    #[test_case("abc")]
-    #[test_case("-123")]
-    #[test_case("abc123")]
-    fn parse_size_error(input: &str) -> anyhow::Result<()> {
-        let got = parse_size_arg(input);
-        assert!(got.is_err(), "{got:?}");
-        Ok(())
-    }
 
     #[test]
     fn validate_success() -> anyhow::Result<()> {
@@ -140,8 +115,7 @@ mod tests {
     }
 
     #[test_case(&["program", "--bucket-name=bucket"])]
-    #[test_case(&["program", "--bucket-name=bucket", "json", "--min-range-count=0"])]
-    #[test_case(&["program", "--bucket-name=bucket", "json", "--min-range-size=200", "--max-range-size=100"])]
+    #[test_case(&["program", "--bucket-name=bucket", "json", "--range-size=0"])]
     #[test_case(&["program", "--bucket-name=bucket", "json", "--min-concurrent-reads=200", "--max-concurrent-reads=100"])]
     fn validate(input: &[&str]) -> anyhow::Result<()> {
         let args = Args::try_parse_from(input)?;

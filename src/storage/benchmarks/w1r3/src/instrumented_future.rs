@@ -44,10 +44,9 @@ where
         cx: &mut std::task::Context<'_>,
     ) -> std::task::Poll<Self::Output> {
         use std::task::Poll;
-        use std::time::Instant;
 
         let this = self.project();
-        let d = Instant::now() - *this.start;
+        let d = this.start.elapsed();
         this.details.push(format!("poll / {d:?}"));
         match this.inner.poll(cx) {
             Poll::Pending => Poll::Pending,

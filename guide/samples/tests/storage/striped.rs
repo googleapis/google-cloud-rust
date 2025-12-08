@@ -157,7 +157,7 @@ async fn download(
         .collect::<anyhow::Result<Vec<_>>>()?;
     // ANCHOR_END: run-stripes
 
-    let elapsed = std::time::Instant::now() - start;
+    let elapsed = start.elapsed();
     let mib = metadata.size as f64 / (1024.0 * 1024.0);
     let bw = mib / elapsed.as_secs_f64();
     println!(
