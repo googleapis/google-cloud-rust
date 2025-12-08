@@ -346,7 +346,7 @@ tower                 = { default-features = false, version = "0.5", features = 
 tracing               = { default-features = false, version = "0.1.43", features = ["attributes"] }
 tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.32" }
-tracing-subscriber    = { default-features = false, version = "0.3.18" }
+tracing-subscriber    = { default-features = false, version = "0.3.22" }
 url                   = { default-features = false, version = "2" }
 uuid                  = { default-features = false, version = "1", features = ["v4"] }
 
