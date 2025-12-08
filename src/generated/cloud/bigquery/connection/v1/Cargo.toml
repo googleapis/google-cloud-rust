@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-bigquery-connection-v1"
-version                = "1.1.0"
+version                = "1.2.0"
 description            = "Google Cloud Client Libraries for Rust - BigQuery Connection API"
 edition.workspace      = true
 authors.workspace      = true

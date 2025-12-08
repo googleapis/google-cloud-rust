@@ -17,6 +17,6 @@ specification-source = 'google/devtools/cloudprofiler/v2'
 service-config = 'google/devtools/cloudprofiler/v2/cloudprofiler_v2.yaml'
 
 [codec]
-version        = '1.1.0'
+version        = '1.2.0'
 copyright-year = '2025'
 package-name-override = 'google-cloud-profiler-v2'

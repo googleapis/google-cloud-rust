@@ -17,6 +17,6 @@ specification-source = 'google/cloud/oslogin/v1'
 service-config = 'google/cloud/oslogin/v1/oslogin_v1.yaml'
 
 [codec]
-version        = '1.1.0'
+version        = '1.2.0'
 copyright-year = '2025'
 'package:oslogin_common' = 'package=google-cloud-oslogin-common,source=google.cloud.oslogin.common'
