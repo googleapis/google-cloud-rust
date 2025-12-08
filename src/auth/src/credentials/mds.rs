@@ -259,16 +259,15 @@ impl Builder {
         }
     }
 
-    fn build_token_provider(self) -> TokenProviderWithRetry<MDSAccessTokenProvider> {
+    fn resolve_endpoint(&self) -> (String, bool) {
         let final_endpoint: String;
         let endpoint_overridden: bool;
-
         // Determine the endpoint and whether it was overridden
         if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
             // Check GCE_METADATA_HOST environment variable first
             final_endpoint = format!("http://{host_from_env}");
             endpoint_overridden = true;
-        } else if let Some(builder_endpoint) = self.endpoint {
+        } else if let Some(builder_endpoint) = self.endpoint.clone() {
             // Else, check if an endpoint was provided to the mds::Builder
             final_endpoint = builder_endpoint;
             endpoint_overridden = true;
@@ -277,6 +276,11 @@ impl Builder {
             final_endpoint = METADATA_ROOT.to_string();
             endpoint_overridden = false;
         };
+        (final_endpoint, endpoint_overridden)
+    }
+
+    fn build_token_provider(self) -> TokenProviderWithRetry<MDSAccessTokenProvider> {
+        let (final_endpoint, endpoint_overridden) = self.resolve_endpoint();
 
         let tp = MDSAccessTokenProvider::builder()
             .endpoint(final_endpoint)
@@ -315,6 +319,30 @@ impl Builder {
         };
         Ok(AccessTokenCredentials {
             inner: Arc::new(mdsc),
+        })
+    }
+
+    #[cfg(google_cloud_unstable_signed_url)]
+    pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
+        self.build_signer_with_iam_endpoint_override(None)
+    }
+
+    #[cfg(google_cloud_unstable_signed_url)]
+    // only used for testing
+    fn build_signer_with_iam_endpoint_override(
+        self,
+        iam_endpoint: Option<String>,
+    ) -> BuildResult<crate::signer::Signer> {
+        let (endpoint, _) = self.resolve_endpoint();
+        let credentials = self.build()?;
+        let signing_provider = crate::signer::mds::MDSSigner::new(endpoint, credentials);
+        let signing_provider = iam_endpoint
+            .iter()
+            .fold(signing_provider, |signing_provider, endpoint| {
+                signing_provider.with_iam_endpoint_override(endpoint)
+            });
+        Ok(crate::signer::Signer {
+            inner: Arc::new(signing_provider),
         })
     }
 }
@@ -441,6 +469,7 @@ mod tests {
     use crate::errors;
     use crate::errors::CredentialsError;
     use crate::token::tests::MockTokenProvider;
+    use base64::{Engine, prelude::BASE64_STANDARD};
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
     use httptest::cycle;
@@ -449,6 +478,7 @@ mod tests {
     use httptest::{Expectation, Server};
     use reqwest::StatusCode;
     use scoped_env::ScopedEnv;
+    use serde_json::json;
     use serial_test::{parallel, serial};
     use std::error::Error;
     use test_case::test_case;
@@ -1016,6 +1046,50 @@ mod tests {
     async fn get_default_universe_domain_success() -> TestResult {
         let universe_domain_response = Builder::default().build()?.universe_domain().await.unwrap();
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_signed_url)]
+    async fn get_mds_signer() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/token")),])
+                .respond_with(json_encoded(MDSTokenResponse {
+                    access_token: "test-access-token".to_string(),
+                    expires_in: None,
+                    token_type: "Bearer".to_string(),
+                })),
+        );
+        server.expect(
+            Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/email")),])
+                .respond_with(status_code(200).body("test-client-email")),
+        );
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-client-email:signBlob"
+                ),
+                request::headers(contains(("authorization", "Bearer test-access-token"))),
+            ])
+            .respond_with(json_encoded(json!({
+                "signedBlob": BASE64_STANDARD.encode("signed_blob"),
+            }))),
+        );
+
+        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+
+        let signer = Builder::default()
+            .with_endpoint(&endpoint)
+            .build_signer_with_iam_endpoint_override(Some(endpoint))?;
+
+        let client_email = signer.client_email().await?;
+        assert_eq!(client_email, "test-client-email");
+
+        let signature = signer.sign(b"test").await?;
+        assert_eq!(signature.as_ref(), b"signed_blob");
+
         Ok(())
     }
 }

@@ -45,11 +45,11 @@ struct SignBlobResponse {
 }
 
 impl IamSigner {
-    pub(crate) fn new(client_email: String, inner: Credentials) -> Self {
+    pub(crate) fn new(client_email: String, inner: Credentials, endpoint: Option<String>) -> Self {
         Self {
             client_email,
             inner,
-            endpoint: "https://iamcredentials.googleapis.com".to_string(),
+            endpoint: endpoint.unwrap_or("https://iamcredentials.googleapis.com".to_string()),
             client: Client::new(),
         }
     }
@@ -226,8 +226,7 @@ mod tests {
         });
         let creds = Credentials::from(mock);
 
-        let mut signer = IamSigner::new("test@example.com".to_string(), creds);
-        signer.endpoint = endpoint;
+        let signer = IamSigner::new("test@example.com".to_string(), creds, Some(endpoint));
         let signature = signer.sign(b"test").await.unwrap();
 
         assert_eq!(signature.as_ref(), b"signed_blob");
@@ -240,7 +239,7 @@ mod tests {
         let mock = MockCredentials::new();
         let creds = Credentials::from(mock);
 
-        let signer = IamSigner::new("test@example.com".to_string(), creds);
+        let signer = IamSigner::new("test@example.com".to_string(), creds, None);
         let client_email = signer.client_email().await.unwrap();
         assert_eq!(client_email, "test@example.com");
 
@@ -268,8 +267,7 @@ mod tests {
         });
         let creds = Credentials::from(mock);
 
-        let mut signer = IamSigner::new("test@example.com".to_string(), creds);
-        signer.endpoint = endpoint;
+        let signer = IamSigner::new("test@example.com".to_string(), creds, Some(endpoint));
         let err = signer.sign(b"test").await.unwrap_err();
 
         assert!(err.is_transport());
@@ -311,8 +309,7 @@ mod tests {
         });
         let creds = Credentials::from(mock);
 
-        let mut signer = IamSigner::new("test@example.com".to_string(), creds);
-        signer.endpoint = endpoint;
+        let signer = IamSigner::new("test@example.com".to_string(), creds, Some(endpoint));
         let signature = signer.sign(b"test").await.unwrap();
 
         assert_eq!(signature.as_ref(), b"signed_blob");
