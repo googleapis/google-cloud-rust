@@ -51,8 +51,9 @@ resource "google_secret_manager_secret" "test-sa-creds-json-secret" {
 
 # Store the test service account key in secret manager.
 resource "google_secret_manager_secret_version" "test-sa-creds-json-secret-version" {
-  secret         = google_secret_manager_secret.test-sa-creds-json-secret.id
-  secret_data_wo = base64decode(google_service_account_key.test-sa-creds-principal-key.private_key)
+  secret                 = google_secret_manager_secret.test-sa-creds-json-secret.id
+  secret_data_wo         = base64decode(google_service_account_key.test-sa-creds-principal-key.private_key)
+  secret_data_wo_version = time_rotating.key_rotation.unix
 }
 
 # The "secret" that will be accessed by the principal testing service account
