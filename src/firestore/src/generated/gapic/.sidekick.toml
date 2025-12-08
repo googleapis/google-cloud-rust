@@ -17,6 +17,12 @@ language             = 'rust'
 specification-source = 'google/firestore/v1'
 
 [source]
+skipped-ids = """\
+.google.firestore.v1.Firestore.ExecutePipeline,\
+.google.firestore.v1.ExecutePipelineRequest,\
+.google.firestore.v1.ExecutePipelineResponse,\
+.google.firestore.v1.ExplainStats\
+"""
 title-override = 'Cloud Firestore API'
 
 [codec]
