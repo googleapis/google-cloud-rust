@@ -153,6 +153,24 @@ pub mod builds {
             self
         }
 
+        /// Sets the value of [machine_type][crate::model::SubmitBuildRequest::machine_type].
+        pub fn set_machine_type<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.machine_type = v.into();
+            self
+        }
+
+        /// Sets the value of [release_track][crate::model::SubmitBuildRequest::release_track].
+        pub fn set_release_track<T: Into<api::model::LaunchStage>>(mut self, v: T) -> Self {
+            self.0.request.release_track = v.into();
+            self
+        }
+
+        /// Sets the value of [client][crate::model::SubmitBuildRequest::client].
+        pub fn set_client<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.client = v.into();
+            self
+        }
+
         /// Sets the value of [source][crate::model::SubmitBuildRequest::source].
         ///
         /// Note that all the setters affecting `source` are

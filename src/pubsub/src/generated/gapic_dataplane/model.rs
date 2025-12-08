@@ -129,8 +129,8 @@ impl wkt::message::Message for PubsubMessage {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PublishRequest {
-    /// Required. The messages in the request will be published on this topic.
-    /// Format is `projects/{project}/topics/{topic}`.
+    /// Required. Identifier. The messages in the request will be published on this
+    /// topic. Format is `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
 
     /// Required. The messages to publish.

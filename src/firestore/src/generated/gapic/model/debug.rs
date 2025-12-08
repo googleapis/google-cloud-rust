@@ -154,6 +154,43 @@ impl std::fmt::Debug for super::MapValue {
     }
 }
 
+impl std::fmt::Debug for super::Function {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Function");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("args", &self.args);
+        debug_struct.field("options", &self.options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Pipeline {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Pipeline");
+        debug_struct.field("stages", &self.stages);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::pipeline::Stage {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Stage");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("args", &self.args);
+        debug_struct.field("options", &self.options);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GetDocumentRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetDocumentRequest");
@@ -561,6 +598,18 @@ impl std::fmt::Debug for super::BatchWriteResponse {
         let mut debug_struct = f.debug_struct("BatchWriteResponse");
         debug_struct.field("write_results", &self.write_results);
         debug_struct.field("status", &self.status);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StructuredPipeline {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StructuredPipeline");
+        debug_struct.field("pipeline", &self.pipeline);
+        debug_struct.field("options", &self.options);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

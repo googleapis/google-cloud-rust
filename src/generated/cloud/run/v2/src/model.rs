@@ -67,6 +67,17 @@ pub struct SubmitBuildRequest {
     /// Optional. Additional tags to annotate the build.
     pub tags: std::vec::Vec<std::string::String>,
 
+    /// Optional. The machine type from default pool to use for the build. If left
+    /// blank, cloudbuild will use a sensible default. Currently only E2_HIGHCPU_8
+    /// is supported. If worker_pool is set, this field will be ignored.
+    pub machine_type: std::string::String,
+
+    /// Optional. The release track of the client that initiated the build request.
+    pub release_track: api::model::LaunchStage,
+
+    /// Optional. The client that initiated the build request.
+    pub client: std::string::String,
+
     /// Location of source.
     pub source: std::option::Option<crate::model::submit_build_request::Source>,
 
@@ -143,6 +154,48 @@ impl SubmitBuildRequest {
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [machine_type][crate::model::SubmitBuildRequest::machine_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// let x = SubmitBuildRequest::new().set_machine_type("example");
+    /// ```
+    pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.machine_type = v.into();
+        self
+    }
+
+    /// Sets the value of [release_track][crate::model::SubmitBuildRequest::release_track].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// use api::model::LaunchStage;
+    /// let x0 = SubmitBuildRequest::new().set_release_track(LaunchStage::Unimplemented);
+    /// let x1 = SubmitBuildRequest::new().set_release_track(LaunchStage::Prelaunch);
+    /// let x2 = SubmitBuildRequest::new().set_release_track(LaunchStage::EarlyAccess);
+    /// ```
+    pub fn set_release_track<T: std::convert::Into<api::model::LaunchStage>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.release_track = v.into();
+        self
+    }
+
+    /// Sets the value of [client][crate::model::SubmitBuildRequest::client].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// let x = SubmitBuildRequest::new().set_client("example");
+    /// ```
+    pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client = v.into();
         self
     }
 
@@ -1748,6 +1801,8 @@ pub mod condition {
         Cancelling,
         /// The execution was deleted.
         Deleted,
+        /// A delayed execution is waiting for a start time.
+        DelayedStartPending,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ExecutionReason::value] or
@@ -1776,6 +1831,7 @@ pub mod condition {
                 Self::Cancelled => std::option::Option::Some(3),
                 Self::Cancelling => std::option::Option::Some(4),
                 Self::Deleted => std::option::Option::Some(5),
+                Self::DelayedStartPending => std::option::Option::Some(6),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -1794,6 +1850,7 @@ pub mod condition {
                 Self::Cancelled => std::option::Option::Some("CANCELLED"),
                 Self::Cancelling => std::option::Option::Some("CANCELLING"),
                 Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::DelayedStartPending => std::option::Option::Some("DELAYED_START_PENDING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1821,6 +1878,7 @@ pub mod condition {
                 3 => Self::Cancelled,
                 4 => Self::Cancelling,
                 5 => Self::Deleted,
+                6 => Self::DelayedStartPending,
                 _ => Self::UnknownValue(execution_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -1838,6 +1896,7 @@ pub mod condition {
                 "CANCELLED" => Self::Cancelled,
                 "CANCELLING" => Self::Cancelling,
                 "DELETED" => Self::Deleted,
+                "DELAYED_START_PENDING" => Self::DelayedStartPending,
                 _ => Self::UnknownValue(execution_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -1857,6 +1916,7 @@ pub mod condition {
                 Self::Cancelled => serializer.serialize_i32(3),
                 Self::Cancelling => serializer.serialize_i32(4),
                 Self::Deleted => serializer.serialize_i32(5),
+                Self::DelayedStartPending => serializer.serialize_i32(6),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -4063,7 +4123,7 @@ pub struct Job {
     /// Output only. Reserved for future use.
     pub satisfies_pzs: bool,
 
-    /// Output only. A system-generated fingerprint for this version of the
+    /// Optional. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
     pub etag: std::string::String,
 
@@ -5028,6 +5088,9 @@ pub struct Container {
     /// Dockerhub is assumed.
     pub image: std::string::String,
 
+    /// Optional. Location of the source.
+    pub source_code: std::option::Option<crate::model::SourceCode>,
+
     /// Entrypoint array. Not executed within a shell.
     /// The docker image's ENTRYPOINT is used if this is not provided.
     pub command: std::vec::Vec<std::string::String>,
@@ -5107,6 +5170,39 @@ impl Container {
     /// ```
     pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image = v.into();
+        self
+    }
+
+    /// Sets the value of [source_code][crate::model::Container::source_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::SourceCode;
+    /// let x = Container::new().set_source_code(SourceCode::default()/* use setters */);
+    /// ```
+    pub fn set_source_code<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCode>,
+    {
+        self.source_code = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_code][crate::model::Container::source_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::SourceCode;
+    /// let x = Container::new().set_or_clear_source_code(Some(SourceCode::default()/* use setters */));
+    /// let x = Container::new().set_or_clear_source_code(None::<SourceCode>);
+    /// ```
+    pub fn set_or_clear_source_code<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCode>,
+    {
+        self.source_code = v.map(|x| x.into());
         self
     }
 
@@ -5394,7 +5490,7 @@ impl wkt::message::Message for Container {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceRequirements {
-    /// Only `memory` and `cpu` keys in the map are supported.
+    /// Only `memory`, `cpu` and `nvidia.com/gpu` keys in the map are supported.
     pub limits: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Determines whether CPU is only allocated during requests (true by default).
@@ -5779,6 +5875,10 @@ pub struct VolumeMount {
     /// volumes, visit <https://cloud.google.com/sql/docs/mysql/connect-run>
     pub mount_path: std::string::String,
 
+    /// Optional. Path within the volume from which the container's volume should
+    /// be mounted. Defaults to "" (volume's root).
+    pub sub_path: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5808,6 +5908,18 @@ impl VolumeMount {
     /// ```
     pub fn set_mount_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mount_path = v.into();
+        self
+    }
+
+    /// Sets the value of [sub_path][crate::model::VolumeMount::sub_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::VolumeMount;
+    /// let x = VolumeMount::new().set_sub_path("example");
+    /// ```
+    pub fn set_sub_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.sub_path = v.into();
         self
     }
 }
@@ -6107,7 +6219,7 @@ pub struct SecretVolumeSource {
     pub secret: std::string::String,
 
     /// If unspecified, the volume will expose a file whose name is the
-    /// secret, relative to VolumeMount.mount_path.
+    /// secret, relative to VolumeMount.mount_path + VolumeMount.sub_path.
     /// If specified, the key will be used as the version to fetch from Cloud
     /// Secret Manager and the path will be the name of the file exposed in the
     /// volume. When items are defined, they must specify a path and a version.
@@ -7152,6 +7264,168 @@ impl BuildInfo {
 impl wkt::message::Message for BuildInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.run.v2.BuildInfo"
+    }
+}
+
+/// Source type for the container.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SourceCode {
+    /// The source type.
+    pub source_type: std::option::Option<crate::model::source_code::SourceType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SourceCode {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [source_type][crate::model::SourceCode::source_type].
+    ///
+    /// Note that all the setters affecting `source_type` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SourceCode;
+    /// use google_cloud_run_v2::model::source_code::CloudStorageSource;
+    /// let x = SourceCode::new().set_source_type(Some(
+    ///     google_cloud_run_v2::model::source_code::SourceType::CloudStorageSource(CloudStorageSource::default().into())));
+    /// ```
+    pub fn set_source_type<
+        T: std::convert::Into<std::option::Option<crate::model::source_code::SourceType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_type = v.into();
+        self
+    }
+
+    /// The value of [source_type][crate::model::SourceCode::source_type]
+    /// if it holds a `CloudStorageSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_storage_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::source_code::CloudStorageSource>> {
+        #[allow(unreachable_patterns)]
+        self.source_type.as_ref().and_then(|v| match v {
+            crate::model::source_code::SourceType::CloudStorageSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_type][crate::model::SourceCode::source_type]
+    /// to hold a `CloudStorageSource`.
+    ///
+    /// Note that all the setters affecting `source_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SourceCode;
+    /// use google_cloud_run_v2::model::source_code::CloudStorageSource;
+    /// let x = SourceCode::new().set_cloud_storage_source(CloudStorageSource::default()/* use setters */);
+    /// assert!(x.cloud_storage_source().is_some());
+    /// ```
+    pub fn set_cloud_storage_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::source_code::CloudStorageSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_type = std::option::Option::Some(
+            crate::model::source_code::SourceType::CloudStorageSource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for SourceCode {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.SourceCode"
+    }
+}
+
+/// Defines additional types related to [SourceCode].
+pub mod source_code {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Cloud Storage source.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CloudStorageSource {
+        /// Required. The Cloud Storage bucket name.
+        pub bucket: std::string::String,
+
+        /// Required. The Cloud Storage object name.
+        pub object: std::string::String,
+
+        /// Optional. The Cloud Storage object generation.
+        pub generation: i64,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CloudStorageSource {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [bucket][crate::model::source_code::CloudStorageSource::bucket].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::source_code::CloudStorageSource;
+        /// let x = CloudStorageSource::new().set_bucket("example");
+        /// ```
+        pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.bucket = v.into();
+            self
+        }
+
+        /// Sets the value of [object][crate::model::source_code::CloudStorageSource::object].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::source_code::CloudStorageSource;
+        /// let x = CloudStorageSource::new().set_object("example");
+        /// ```
+        pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.object = v.into();
+            self
+        }
+
+        /// Sets the value of [generation][crate::model::source_code::CloudStorageSource::generation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::source_code::CloudStorageSource;
+        /// let x = CloudStorageSource::new().set_generation(42);
+        /// ```
+        pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.generation = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CloudStorageSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.run.v2.SourceCode.CloudStorageSource"
+        }
+    }
+
+    /// The source type.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SourceType {
+        /// The source is a Cloud Storage bucket.
+        CloudStorageSource(std::boxed::Box<crate::model::source_code::CloudStorageSource>),
     }
 }
 
@@ -9162,6 +9436,10 @@ pub struct ListServicesResponse {
     /// ListServices request to continue.
     pub next_page_token: std::string::String,
 
+    /// Output only. For global requests, returns the list of regions that could
+    /// not be reached within the deadline.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9201,6 +9479,23 @@ impl ListServicesResponse {
     /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListServicesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListServicesResponse;
+    /// let x = ListServicesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -9337,9 +9632,9 @@ impl wkt::message::Message for DeleteServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
-    /// The fully qualified name of this Service. In CreateServiceRequest, this
-    /// field is ignored, and instead composed from CreateServiceRequest.parent and
-    /// CreateServiceRequest.service_id.
+    /// Identifier. The fully qualified name of this Service. In
+    /// CreateServiceRequest, this field is ignored, and instead composed from
+    /// CreateServiceRequest.parent and CreateServiceRequest.service_id.
     ///
     /// Format:
     /// projects/{project}/locations/{location}/services/{service_id}
@@ -9431,8 +9726,7 @@ pub struct Service {
     pub scaling: std::option::Option<crate::model::ServiceScaling>,
 
     /// Optional. Disables IAM permission check for run.routes.invoke for callers
-    /// of this service. This feature is available by invitation only. For more
-    /// information, visit
+    /// of this service. For more information, visit
     /// <https://cloud.google.com/run/docs/securing/managing-access#invoker_check>.
     pub invoker_iam_disabled: bool,
 
@@ -9441,6 +9735,12 @@ pub struct Service {
 
     /// Output only. All URLs serving traffic for this Service.
     pub urls: std::vec::Vec<std::string::String>,
+
+    /// Optional. IAP settings on the Service.
+    pub iap_enabled: bool,
+
+    /// Optional. Settings for multi-region deployment.
+    pub multi_region_settings: std::option::Option<crate::model::service::MultiRegionSettings>,
 
     /// One or more custom audiences that you want this service to support. Specify
     /// each custom audience as the full URL in a string. The custom audiences are
@@ -9489,6 +9789,10 @@ pub struct Service {
     /// Output only. Reserved for future use.
     pub satisfies_pzs: bool,
 
+    /// Output only. True if Cloud Run Threat Detection monitoring is enabled for
+    /// the parent project of this Service.
+    pub threat_detection_enabled: bool,
+
     /// Optional. Configuration for building a Cloud Run function.
     pub build_config: std::option::Option<crate::model::BuildConfig>,
 
@@ -9516,7 +9820,7 @@ pub struct Service {
     /// can be found in `terminal_condition` and `conditions`.
     pub reconciling: bool,
 
-    /// Output only. A system-generated fingerprint for this version of the
+    /// Optional. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
     pub etag: std::string::String,
 
@@ -9996,6 +10300,51 @@ impl Service {
         self
     }
 
+    /// Sets the value of [iap_enabled][crate::model::Service::iap_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_iap_enabled(true);
+    /// ```
+    pub fn set_iap_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.iap_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [multi_region_settings][crate::model::Service::multi_region_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::service::MultiRegionSettings;
+    /// let x = Service::new().set_multi_region_settings(MultiRegionSettings::default()/* use setters */);
+    /// ```
+    pub fn set_multi_region_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::service::MultiRegionSettings>,
+    {
+        self.multi_region_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [multi_region_settings][crate::model::Service::multi_region_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::service::MultiRegionSettings;
+    /// let x = Service::new().set_or_clear_multi_region_settings(Some(MultiRegionSettings::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_multi_region_settings(None::<MultiRegionSettings>);
+    /// ```
+    pub fn set_or_clear_multi_region_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::service::MultiRegionSettings>,
+    {
+        self.multi_region_settings = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [custom_audiences][crate::model::Service::custom_audiences].
     ///
     /// # Example
@@ -10156,6 +10505,18 @@ impl Service {
         self
     }
 
+    /// Sets the value of [threat_detection_enabled][crate::model::Service::threat_detection_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_threat_detection_enabled(true);
+    /// ```
+    pub fn set_threat_detection_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.threat_detection_enabled = v.into();
+        self
+    }
+
     /// Sets the value of [build_config][crate::model::Service::build_config].
     ///
     /// # Example
@@ -10217,6 +10578,69 @@ impl Service {
 impl wkt::message::Message for Service {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.run.v2.Service"
+    }
+}
+
+/// Defines additional types related to [Service].
+pub mod service {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Settings for multi-region deployment.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct MultiRegionSettings {
+        /// Required. List of regions to deploy to, including primary region.
+        pub regions: std::vec::Vec<std::string::String>,
+
+        /// Optional. System-generated unique id for the multi-region Service.
+        pub multi_region_id: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl MultiRegionSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [regions][crate::model::service::MultiRegionSettings::regions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::service::MultiRegionSettings;
+        /// let x = MultiRegionSettings::new().set_regions(["a", "b", "c"]);
+        /// ```
+        pub fn set_regions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.regions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [multi_region_id][crate::model::service::MultiRegionSettings::multi_region_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::service::MultiRegionSettings;
+        /// let x = MultiRegionSettings::new().set_multi_region_id("example");
+        /// ```
+        pub fn set_multi_region_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.multi_region_id = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for MultiRegionSettings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.run.v2.Service.MultiRegionSettings"
+        }
     }
 }
 
@@ -12479,6 +12903,11 @@ pub struct ServiceScaling {
     /// Optional. The scaling mode for the service.
     pub scaling_mode: crate::model::service_scaling::ScalingMode,
 
+    /// Optional. total max instances for the service. This number of instances is
+    /// divided among all revisions with specified traffic based on the percent
+    /// of traffic they are receiving.
+    pub max_instance_count: i32,
+
     /// Optional. total instance count for the service in manual scaling mode. This
     /// number of instances is divided among all revisions with specified traffic
     /// based on the percent of traffic they are receiving.
@@ -12518,6 +12947,18 @@ impl ServiceScaling {
         v: T,
     ) -> Self {
         self.scaling_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [max_instance_count][crate::model::ServiceScaling::max_instance_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ServiceScaling;
+    /// let x = ServiceScaling::new().set_max_instance_count(42);
+    /// ```
+    pub fn set_max_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_instance_count = v.into();
         self
     }
 
@@ -13584,7 +14025,7 @@ pub struct WorkerPool {
     /// Optional. Specifies worker-pool-level scaling settings
     pub scaling: std::option::Option<crate::model::WorkerPoolScaling>,
 
-    /// Output only. The generation of this WorkerPool currently serving traffic.
+    /// Output only. The generation of this WorkerPool currently serving workloads.
     /// See comments in `reconciling` for additional information on reconciliation
     /// process in Cloud Run. Please note that unlike v1, this is an int64 value.
     /// As with most Google APIs, its JSON representation will be a `string`
@@ -13603,7 +14044,7 @@ pub struct WorkerPool {
     /// information on reconciliation process in Cloud Run.
     pub conditions: std::vec::Vec<crate::model::Condition>,
 
-    /// Output only. Name of the latest revision that is serving traffic. See
+    /// Output only. Name of the latest revision that is serving workloads. See
     /// comments in `reconciling` for additional information on reconciliation
     /// process in Cloud Run.
     pub latest_ready_revision: std::string::String,
@@ -13618,11 +14059,11 @@ pub struct WorkerPool {
     /// process in Cloud Run.
     pub instance_split_statuses: std::vec::Vec<crate::model::InstanceSplitStatus>,
 
-    /// One or more custom audiences that you want this worker pool to support.
-    /// Specify each custom audience as the full URL in a string. The custom
-    /// audiences are encoded in the token and used to authenticate requests. For
-    /// more information, see
-    /// <https://cloud.google.com/run/docs/configuring/custom-audiences>.
+    /// Output only. Indicates whether Cloud Run Threat Detection monitoring is
+    /// enabled for the parent project of this worker pool.
+    pub threat_detection_enabled: bool,
+
+    /// Not supported, and ignored by Cloud Run.
     pub custom_audiences: std::vec::Vec<std::string::String>,
 
     /// Output only. Reserved for future use.
@@ -13635,24 +14076,24 @@ pub struct WorkerPool {
     /// will asynchronously perform all necessary steps to bring the WorkerPool to
     /// the desired serving state. This process is called reconciliation. While
     /// reconciliation is in process, `observed_generation`,
-    /// `latest_ready_revison`, `traffic_statuses`, and `uri` will have transient
-    /// values that might mismatch the intended state: Once reconciliation is over
-    /// (and this field is false), there are two possible outcomes: reconciliation
-    /// succeeded and the serving state matches the WorkerPool, or there was an
-    /// error, and reconciliation failed. This state can be found in
-    /// `terminal_condition.state`.
+    /// `latest_ready_revison`, `instance_split_statuses`, and `uri` will have
+    /// transient values that might mismatch the intended state: Once
+    /// reconciliation is over (and this field is false), there are two possible
+    /// outcomes: reconciliation succeeded and the serving state matches the
+    /// WorkerPool, or there was an error, and reconciliation failed. This state
+    /// can be found in `terminal_condition.state`.
     ///
-    /// If reconciliation succeeded, the following fields will match: `traffic` and
-    /// `traffic_statuses`, `observed_generation` and `generation`,
-    /// `latest_ready_revision` and `latest_created_revision`.
+    /// If reconciliation succeeded, the following fields will match:
+    /// `instance_splits` and `instance_split_statuses`, `observed_generation` and
+    /// `generation`, `latest_ready_revision` and `latest_created_revision`.
     ///
-    /// If reconciliation failed, `traffic_statuses`, `observed_generation`, and
-    /// `latest_ready_revision` will have the state of the last serving revision,
-    /// or empty for newly created WorkerPools. Additional information on the
-    /// failure can be found in `terminal_condition` and `conditions`.
+    /// If reconciliation failed, `instance_split_statuses`, `observed_generation`,
+    /// and `latest_ready_revision` will have the state of the last serving
+    /// revision, or empty for newly created WorkerPools. Additional information on
+    /// the failure can be found in `terminal_condition` and `conditions`.
     pub reconciling: bool,
 
-    /// Output only. A system-generated fingerprint for this version of the
+    /// Optional. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
     pub etag: std::string::String,
 
@@ -14192,6 +14633,18 @@ impl WorkerPool {
         self
     }
 
+    /// Sets the value of [threat_detection_enabled][crate::model::WorkerPool::threat_detection_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_threat_detection_enabled(true);
+    /// ```
+    pub fn set_threat_detection_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.threat_detection_enabled = v.into();
+        self
+    }
+
     /// Sets the value of [custom_audiences][crate::model::WorkerPool::custom_audiences].
     ///
     /// # Example
@@ -14322,6 +14775,9 @@ pub struct WorkerPoolRevisionTemplate {
 
     /// Optional. The node selector for the revision template.
     pub node_selector: std::option::Option<crate::model::NodeSelector>,
+
+    /// Optional. True if GPU zonal redundancy is disabled on this worker pool.
+    pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -14604,6 +15060,40 @@ impl WorkerPoolRevisionTemplate {
         T: std::convert::Into<crate::model::NodeSelector>,
     {
         self.node_selector = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::WorkerPoolRevisionTemplate::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPoolRevisionTemplate::new().set_gpu_zonal_redundancy_disabled(true);
+    /// ```
+    pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.gpu_zonal_redundancy_disabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::WorkerPoolRevisionTemplate::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_gpu_zonal_redundancy_disabled(Some(false));
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_gpu_zonal_redundancy_disabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.gpu_zonal_redundancy_disabled = v.map(|x| x.into());
         self
     }
 }

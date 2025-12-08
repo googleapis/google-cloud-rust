@@ -962,6 +962,9 @@ impl Value {
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
     /// ```
     pub fn set_null_value<T: std::convert::Into<wkt::NullValue>>(mut self, v: T) -> Self {
         self.value_type =
@@ -1001,6 +1004,9 @@ impl Value {
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
     /// ```
     pub fn set_boolean_value<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.value_type =
@@ -1040,6 +1046,9 @@ impl Value {
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
     /// ```
     pub fn set_integer_value<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.value_type =
@@ -1079,6 +1088,9 @@ impl Value {
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
     /// ```
     pub fn set_double_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.value_type =
@@ -1119,6 +1131,9 @@ impl Value {
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
     /// ```
     pub fn set_timestamp_value<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
         mut self,
@@ -1161,6 +1176,9 @@ impl Value {
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
     /// ```
     pub fn set_string_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value_type =
@@ -1200,6 +1218,9 @@ impl Value {
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
     /// ```
     pub fn set_bytes_value<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.value_type =
@@ -1239,6 +1260,9 @@ impl Value {
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
     /// ```
     pub fn set_reference_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value_type =
@@ -1279,6 +1303,9 @@ impl Value {
     /// assert!(x.reference_value().is_none());
     /// assert!(x.array_value().is_none());
     /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
     /// ```
     pub fn set_geo_point_value<T: std::convert::Into<std::boxed::Box<gtype::model::LatLng>>>(
         mut self,
@@ -1322,6 +1349,9 @@ impl Value {
     /// assert!(x.reference_value().is_none());
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
     /// ```
     pub fn set_array_value<T: std::convert::Into<std::boxed::Box<crate::model::ArrayValue>>>(
         mut self,
@@ -1365,6 +1395,9 @@ impl Value {
     /// assert!(x.reference_value().is_none());
     /// assert!(x.geo_point_value().is_none());
     /// assert!(x.array_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
     /// ```
     pub fn set_map_value<T: std::convert::Into<std::boxed::Box<crate::model::MapValue>>>(
         mut self,
@@ -1372,6 +1405,144 @@ impl Value {
     ) -> Self {
         self.value_type =
             std::option::Option::Some(crate::model::value::ValueType::MapValue(v.into()));
+        self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `FieldReferenceValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn field_reference_value(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::FieldReferenceValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [value_type][crate::model::Value::value_type]
+    /// to hold a `FieldReferenceValue`.
+    ///
+    /// Note that all the setters affecting `value_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// let x = Value::new().set_field_reference_value("example");
+    /// assert!(x.field_reference_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
+    /// ```
+    pub fn set_field_reference_value<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.value_type = std::option::Option::Some(
+            crate::model::value::ValueType::FieldReferenceValue(v.into()),
+        );
+        self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `FunctionValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn function_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::Function>> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::FunctionValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [value_type][crate::model::Value::value_type]
+    /// to hold a `FunctionValue`.
+    ///
+    /// Note that all the setters affecting `value_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// use google_cloud_firestore::model::Function;
+    /// let x = Value::new().set_function_value(Function::default()/* use setters */);
+    /// assert!(x.function_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.pipeline_value().is_none());
+    /// ```
+    pub fn set_function_value<T: std::convert::Into<std::boxed::Box<crate::model::Function>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::FunctionValue(v.into()));
+        self
+    }
+
+    /// The value of [value_type][crate::model::Value::value_type]
+    /// if it holds a `PipelineValue`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn pipeline_value(&self) -> std::option::Option<&std::boxed::Box<crate::model::Pipeline>> {
+        #[allow(unreachable_patterns)]
+        self.value_type.as_ref().and_then(|v| match v {
+            crate::model::value::ValueType::PipelineValue(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [value_type][crate::model::Value::value_type]
+    /// to hold a `PipelineValue`.
+    ///
+    /// Note that all the setters affecting `value_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Value;
+    /// use google_cloud_firestore::model::Pipeline;
+    /// let x = Value::new().set_pipeline_value(Pipeline::default()/* use setters */);
+    /// assert!(x.pipeline_value().is_some());
+    /// assert!(x.null_value().is_none());
+    /// assert!(x.boolean_value().is_none());
+    /// assert!(x.integer_value().is_none());
+    /// assert!(x.double_value().is_none());
+    /// assert!(x.timestamp_value().is_none());
+    /// assert!(x.string_value().is_none());
+    /// assert!(x.bytes_value().is_none());
+    /// assert!(x.reference_value().is_none());
+    /// assert!(x.geo_point_value().is_none());
+    /// assert!(x.array_value().is_none());
+    /// assert!(x.map_value().is_none());
+    /// assert!(x.field_reference_value().is_none());
+    /// assert!(x.function_value().is_none());
+    /// ```
+    pub fn set_pipeline_value<T: std::convert::Into<std::boxed::Box<crate::model::Pipeline>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.value_type =
+            std::option::Option::Some(crate::model::value::ValueType::PipelineValue(v.into()));
         self
     }
 }
@@ -1427,6 +1598,30 @@ pub mod value {
         ArrayValue(std::boxed::Box<crate::model::ArrayValue>),
         /// A map value.
         MapValue(std::boxed::Box<crate::model::MapValue>),
+        /// Value which references a field.
+        ///
+        /// This is considered relative (vs absolute) since it only refers to a field
+        /// and not a field within a particular document.
+        ///
+        /// **Requires:**
+        ///
+        /// * Must follow [field reference][FieldReference.field_path] limitations.
+        ///
+        /// * Not allowed to be used when writing documents.
+        ///
+        FieldReferenceValue(std::string::String),
+        /// A value that represents an unevaluated expression.
+        ///
+        /// **Requires:**
+        ///
+        /// * Not allowed to be used when writing documents.
+        FunctionValue(std::boxed::Box<crate::model::Function>),
+        /// A value that represents an unevaluated pipeline.
+        ///
+        /// **Requires:**
+        ///
+        /// * Not allowed to be used when writing documents.
+        PipelineValue(std::boxed::Box<crate::model::Pipeline>),
     }
 
     impl ValueType {
@@ -1481,6 +1676,24 @@ pub mod value {
             value: impl std::convert::Into<std::boxed::Box<crate::model::MapValue>>,
         ) -> Self {
             Self::MapValue(value.into())
+        }
+        /// Initializes the enum to the [FieldReferenceValue](Self::FieldReferenceValue) branch.
+        pub fn from_field_reference_value(
+            value: impl std::convert::Into<std::string::String>,
+        ) -> Self {
+            Self::FieldReferenceValue(value.into())
+        }
+        /// Initializes the enum to the [FunctionValue](Self::FunctionValue) branch.
+        pub fn from_function_value(
+            value: impl std::convert::Into<std::boxed::Box<crate::model::Function>>,
+        ) -> Self {
+            Self::FunctionValue(value.into())
+        }
+        /// Initializes the enum to the [PipelineValue](Self::PipelineValue) branch.
+        pub fn from_pipeline_value(
+            value: impl std::convert::Into<std::boxed::Box<crate::model::Pipeline>>,
+        ) -> Self {
+            Self::PipelineValue(value.into())
         }
     }
 }
@@ -1575,6 +1788,258 @@ impl MapValue {
 impl wkt::message::Message for MapValue {
     fn typename() -> &'static str {
         "type.googleapis.com/google.firestore.v1.MapValue"
+    }
+}
+
+/// Represents an unevaluated scalar expression.
+///
+/// For example, the expression `like(user_name, "%alice%")` is represented as:
+///
+/// ```norust
+/// name: "like"
+/// args { field_reference: "user_name" }
+/// args { string_value: "%alice%" }
+/// ```
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Function {
+    /// Required. The name of the function to evaluate.
+    ///
+    /// **Requires:**
+    ///
+    /// * must be in snake case (lower case with underscore separator).
+    pub name: std::string::String,
+
+    /// Optional. Ordered list of arguments the given function expects.
+    pub args: std::vec::Vec<crate::model::Value>,
+
+    /// Optional. Optional named arguments that certain functions may support.
+    pub options: std::collections::HashMap<std::string::String, crate::model::Value>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Function {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Function::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Function;
+    /// let x = Function::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [args][crate::model::Function::args].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Function;
+    /// use google_cloud_firestore::model::Value;
+    /// let x = Function::new()
+    ///     .set_args([
+    ///         Value::default()/* use setters */,
+    ///         Value::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_args<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Value>,
+    {
+        use std::iter::Iterator;
+        self.args = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [options][crate::model::Function::options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Function;
+    /// use google_cloud_firestore::model::Value;
+    /// let x = Function::new().set_options([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_options<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::Value>,
+    {
+        use std::iter::Iterator;
+        self.options = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Function {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.v1.Function"
+    }
+}
+
+/// A Firestore query represented as an ordered list of operations / stages.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Pipeline {
+    /// Required. Ordered list of stages to evaluate.
+    pub stages: std::vec::Vec<crate::model::pipeline::Stage>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Pipeline {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [stages][crate::model::Pipeline::stages].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::Pipeline;
+    /// use google_cloud_firestore::model::pipeline::Stage;
+    /// let x = Pipeline::new()
+    ///     .set_stages([
+    ///         Stage::default()/* use setters */,
+    ///         Stage::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_stages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::pipeline::Stage>,
+    {
+        use std::iter::Iterator;
+        self.stages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Pipeline {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.v1.Pipeline"
+    }
+}
+
+/// Defines additional types related to [Pipeline].
+pub mod pipeline {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A single operation within a pipeline.
+    ///
+    /// A stage is made up of a unique name, and a list of arguments. The exact
+    /// number of arguments & types is dependent on the stage type.
+    ///
+    /// To give an example, the stage `filter(state = "MD")` would be encoded as:
+    ///
+    /// ```norust
+    /// name: "filter"
+    /// args {
+    ///   function_value {
+    ///     name: "eq"
+    ///     args { field_reference_value: "state" }
+    ///     args { string_value: "MD" }
+    ///   }
+    /// }
+    /// ```
+    ///
+    /// See public documentation for the full list.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Stage {
+        /// Required. The name of the stage to evaluate.
+        ///
+        /// **Requires:**
+        ///
+        /// * must be in snake case (lower case with underscore separator).
+        pub name: std::string::String,
+
+        /// Optional. Ordered list of arguments the given stage expects.
+        pub args: std::vec::Vec<crate::model::Value>,
+
+        /// Optional. Optional named arguments that certain functions may support.
+        pub options: std::collections::HashMap<std::string::String, crate::model::Value>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl Stage {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::pipeline::Stage::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::pipeline::Stage;
+        /// let x = Stage::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [args][crate::model::pipeline::Stage::args].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::pipeline::Stage;
+        /// use google_cloud_firestore::model::Value;
+        /// let x = Stage::new()
+        ///     .set_args([
+        ///         Value::default()/* use setters */,
+        ///         Value::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_args<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Value>,
+        {
+            use std::iter::Iterator;
+            self.args = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [options][crate::model::pipeline::Stage::options].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_firestore::model::pipeline::Stage;
+        /// use google_cloud_firestore::model::Value;
+        /// let x = Stage::new().set_options([
+        ///     ("key0", Value::default()/* use setters */),
+        ///     ("key1", Value::default()/* use (different) setters */),
+        /// ]);
+        /// ```
+        pub fn set_options<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::Value>,
+        {
+            use std::iter::Iterator;
+            self.options = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for Stage {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.firestore.v1.Pipeline.Stage"
+        }
     }
 }
 
@@ -6922,6 +7387,90 @@ impl BatchWriteResponse {
 impl wkt::message::Message for BatchWriteResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.firestore.v1.BatchWriteResponse"
+    }
+}
+
+/// A Firestore query represented as an ordered list of operations / stages.
+///
+/// This is considered the top-level function which plans and executes a query.
+/// It is logically equivalent to `query(stages, options)`, but prevents the
+/// client from having to build a function wrapper.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StructuredPipeline {
+    /// Required. The pipeline query to execute.
+    pub pipeline: std::option::Option<crate::model::Pipeline>,
+
+    /// Optional. Optional query-level arguments.
+    pub options: std::collections::HashMap<std::string::String, crate::model::Value>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StructuredPipeline {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [pipeline][crate::model::StructuredPipeline::pipeline].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredPipeline;
+    /// use google_cloud_firestore::model::Pipeline;
+    /// let x = StructuredPipeline::new().set_pipeline(Pipeline::default()/* use setters */);
+    /// ```
+    pub fn set_pipeline<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Pipeline>,
+    {
+        self.pipeline = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pipeline][crate::model::StructuredPipeline::pipeline].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredPipeline;
+    /// use google_cloud_firestore::model::Pipeline;
+    /// let x = StructuredPipeline::new().set_or_clear_pipeline(Some(Pipeline::default()/* use setters */));
+    /// let x = StructuredPipeline::new().set_or_clear_pipeline(None::<Pipeline>);
+    /// ```
+    pub fn set_or_clear_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Pipeline>,
+    {
+        self.pipeline = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [options][crate::model::StructuredPipeline::options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_firestore::model::StructuredPipeline;
+    /// use google_cloud_firestore::model::Value;
+    /// let x = StructuredPipeline::new().set_options([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_options<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::Value>,
+    {
+        use std::iter::Iterator;
+        self.options = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for StructuredPipeline {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.firestore.v1.StructuredPipeline"
     }
 }
 

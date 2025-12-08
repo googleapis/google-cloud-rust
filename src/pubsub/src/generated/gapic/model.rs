@@ -2761,7 +2761,7 @@ pub mod message_transform {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Topic {
-    /// Required. The name of the topic. It must have the format
+    /// Required. Identifier. The name of the topic. It must have the format
     /// `"projects/{project}/topics/{topic}"`. `{topic}` must start with a letter,
     /// and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`),
     /// underscores (`_`), periods (`.`), tildes (`~`), plus (`+`) or percent
@@ -3229,7 +3229,7 @@ pub mod topic {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTopicRequest {
-    /// Required. The name of the topic to get.
+    /// Required. Identifier. The name of the topic to get.
     /// Format is `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
 
@@ -3359,7 +3359,7 @@ impl wkt::message::Message for UpdateTopicRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTopicsRequest {
-    /// Required. The name of the project in which to list topics.
+    /// Required. Identifier. The name of the project in which to list topics.
     /// Format is `projects/{project-id}`.
     pub project: std::string::String,
 
@@ -3747,7 +3747,7 @@ impl wkt::message::Message for ListTopicSnapshotsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTopicRequest {
-    /// Required. Name of the topic to delete.
+    /// Required. Identifier. Name of the topic to delete.
     /// Format is `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
 
@@ -3839,7 +3839,7 @@ impl wkt::message::Message for DetachSubscriptionResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Subscription {
-    /// Required. The name of the subscription. It must have the format
+    /// Required. Identifier. The name of the subscription. It must have the format
     /// `"projects/{project}/subscriptions/{subscription}"`. `{subscription}` must
     /// start with a letter, and contain only letters (`[A-Za-z]`), numbers
     /// (`[0-9]`), dashes (`-`), underscores (`_`), periods (`.`), tildes (`~`),
@@ -6221,7 +6221,7 @@ pub mod cloud_storage_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSubscriptionRequest {
-    /// Required. The name of the subscription to get.
+    /// Required. Identifier. The name of the subscription to get.
     /// Format is `projects/{project}/subscriptions/{sub}`.
     pub subscription: std::string::String,
 
@@ -6348,8 +6348,8 @@ impl wkt::message::Message for UpdateSubscriptionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubscriptionsRequest {
-    /// Required. The name of the project in which to list subscriptions.
-    /// Format is `projects/{project-id}`.
+    /// Required. Identifier. The name of the project in which to list
+    /// subscriptions. Format is `projects/{project-id}`.
     pub project: std::string::String,
 
     /// Optional. Maximum number of subscriptions to return.
@@ -6490,7 +6490,7 @@ impl gax::paginator::internal::PageableResponse for ListSubscriptionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSubscriptionRequest {
-    /// Required. The subscription to delete.
+    /// Required. Identifier. The subscription to delete.
     /// Format is `projects/{project}/subscriptions/{sub}`.
     pub subscription: std::string::String,
 
@@ -6601,10 +6601,10 @@ impl wkt::message::Message for ModifyPushConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSnapshotRequest {
-    /// Required. User-provided name for this snapshot. If the name is not provided
-    /// in the request, the server will assign a random name for this snapshot on
-    /// the same project as the subscription. Note that for REST API requests, you
-    /// must specify a name.  See the [resource name
+    /// Required. Identifier. User-provided name for this snapshot. If the name is
+    /// not provided in the request, the server will assign a random name for this
+    /// snapshot on the same project as the subscription. Note that for REST API
+    /// requests, you must specify a name.  See the [resource name
     /// rules](https://cloud.google.com/pubsub/docs/pubsub-basics#resource_names).
     /// Format is `projects/{project}/snapshots/{snap}`.
     pub name: std::string::String,
@@ -6931,7 +6931,7 @@ impl wkt::message::Message for Snapshot {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSnapshotRequest {
-    /// Required. The name of the snapshot to get.
+    /// Required. Identifier. The name of the snapshot to get.
     /// Format is `projects/{project}/snapshots/{snap}`.
     pub snapshot: std::string::String,
 
@@ -6966,7 +6966,7 @@ impl wkt::message::Message for GetSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSnapshotsRequest {
-    /// Required. The name of the project in which to list snapshots.
+    /// Required. Identifier. The name of the project in which to list snapshots.
     /// Format is `projects/{project-id}`.
     pub project: std::string::String,
 
@@ -7108,7 +7108,7 @@ impl gax::paginator::internal::PageableResponse for ListSnapshotsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSnapshotRequest {
-    /// Required. The name of the snapshot to delete.
+    /// Required. Identifier. The name of the snapshot to delete.
     /// Format is `projects/{project}/snapshots/{snap}`.
     pub snapshot: std::string::String,
 

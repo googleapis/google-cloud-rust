@@ -2783,7 +2783,7 @@ pub struct Cluster {
     /// system actions like failover or maintenance.
     pub reconciling: bool,
 
-    /// Input only. Initial user to setup during cluster creation. Required.
+    /// Input only. Initial user to setup during cluster creation.
     /// If used in `RestoreCluster` this is ignored.
     pub initial_user: std::option::Option<crate::model::UserPassword>,
 

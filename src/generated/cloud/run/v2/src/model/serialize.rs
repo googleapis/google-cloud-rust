@@ -51,6 +51,15 @@ impl serde::ser::Serialize for super::SubmitBuildRequest {
         if !self.tags.is_empty() {
             state.serialize_entry("tags", &self.tags)?;
         }
+        if !self.machine_type.is_empty() {
+            state.serialize_entry("machineType", &self.machine_type)?;
+        }
+        if !wkt::internal::is_default(&self.release_track) {
+            state.serialize_entry("releaseTrack", &self.release_track)?;
+        }
+        if !self.client.is_empty() {
+            state.serialize_entry("client", &self.client)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1127,6 +1136,9 @@ impl serde::ser::Serialize for super::Container {
         if !self.image.is_empty() {
             state.serialize_entry("image", &self.image)?;
         }
+        if self.source_code.is_some() {
+            state.serialize_entry("sourceCode", &self.source_code)?;
+        }
         if !self.command.is_empty() {
             state.serialize_entry("command", &self.command)?;
         }
@@ -1324,6 +1336,9 @@ impl serde::ser::Serialize for super::VolumeMount {
         }
         if !self.mount_path.is_empty() {
             state.serialize_entry("mountPath", &self.mount_path)?;
+        }
+        if !self.sub_path.is_empty() {
+            state.serialize_entry("subPath", &self.sub_path)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1766,6 +1781,65 @@ impl serde::ser::Serialize for super::BuildInfo {
         }
         if !self.source_location.is_empty() {
             state.serialize_entry("sourceLocation", &self.source_location)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SourceCode {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.cloud_storage_source() {
+            state.serialize_entry("cloudStorageSource", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::source_code::CloudStorageSource {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.bucket.is_empty() {
+            state.serialize_entry("bucket", &self.bucket)?;
+        }
+        if !self.object.is_empty() {
+            state.serialize_entry("object", &self.object)?;
+        }
+        if !wkt::internal::is_default(&self.generation) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("generation", &__With(&self.generation))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2266,6 +2340,9 @@ impl serde::ser::Serialize for super::ListServicesResponse {
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
         }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -2413,6 +2490,12 @@ impl serde::ser::Serialize for super::Service {
         if !self.urls.is_empty() {
             state.serialize_entry("urls", &self.urls)?;
         }
+        if !wkt::internal::is_default(&self.iap_enabled) {
+            state.serialize_entry("iapEnabled", &self.iap_enabled)?;
+        }
+        if self.multi_region_settings.is_some() {
+            state.serialize_entry("multiRegionSettings", &self.multi_region_settings)?;
+        }
         if !self.custom_audiences.is_empty() {
             state.serialize_entry("customAudiences", &self.custom_audiences)?;
         }
@@ -2449,6 +2532,9 @@ impl serde::ser::Serialize for super::Service {
         if !wkt::internal::is_default(&self.satisfies_pzs) {
             state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
         }
+        if !wkt::internal::is_default(&self.threat_detection_enabled) {
+            state.serialize_entry("threatDetectionEnabled", &self.threat_detection_enabled)?;
+        }
         if self.build_config.is_some() {
             state.serialize_entry("buildConfig", &self.build_config)?;
         }
@@ -2457,6 +2543,31 @@ impl serde::ser::Serialize for super::Service {
         }
         if !self.etag.is_empty() {
             state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::service::MultiRegionSettings {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.regions.is_empty() {
+            state.serialize_entry("regions", &self.regions)?;
+        }
+        if !self.multi_region_id.is_empty() {
+            state.serialize_entry("multiRegionId", &self.multi_region_id)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3118,6 +3229,18 @@ impl serde::ser::Serialize for super::ServiceScaling {
         if !wkt::internal::is_default(&self.scaling_mode) {
             state.serialize_entry("scalingMode", &self.scaling_mode)?;
         }
+        if !wkt::internal::is_default(&self.max_instance_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("maxInstanceCount", &__With(&self.max_instance_count))?;
+        }
         if self.manual_instance_count.is_some() {
             struct __With<'a>(&'a std::option::Option<i32>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -3525,6 +3648,9 @@ impl serde::ser::Serialize for super::WorkerPool {
         if !self.instance_split_statuses.is_empty() {
             state.serialize_entry("instanceSplitStatuses", &self.instance_split_statuses)?;
         }
+        if !wkt::internal::is_default(&self.threat_detection_enabled) {
+            state.serialize_entry("threatDetectionEnabled", &self.threat_detection_enabled)?;
+        }
         if !self.custom_audiences.is_empty() {
             state.serialize_entry("customAudiences", &self.custom_audiences)?;
         }
@@ -3597,6 +3723,12 @@ impl serde::ser::Serialize for super::WorkerPoolRevisionTemplate {
         }
         if self.node_selector.is_some() {
             state.serialize_entry("nodeSelector", &self.node_selector)?;
+        }
+        if self.gpu_zonal_redundancy_disabled.is_some() {
+            state.serialize_entry(
+                "gpuZonalRedundancyDisabled",
+                &self.gpu_zonal_redundancy_disabled,
+            )?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
