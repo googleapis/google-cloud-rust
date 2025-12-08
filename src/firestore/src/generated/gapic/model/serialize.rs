@@ -483,28 +483,6 @@ impl serde::ser::Serialize for super::pipeline::Stage {
 }
 
 #[doc(hidden)]
-impl serde::ser::Serialize for super::ExplainStats {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if self.data.is_some() {
-            state.serialize_entry("data", &self.data)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
 impl serde::ser::Serialize for super::GetDocumentRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -1052,89 +1030,6 @@ impl serde::ser::Serialize for super::RunQueryResponse {
         }
         if self.explain_metrics.is_some() {
             state.serialize_entry("explainMetrics", &self.explain_metrics)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for super::ExecutePipelineRequest {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.database.is_empty() {
-            state.serialize_entry("database", &self.database)?;
-        }
-        if let Some(value) = self.structured_pipeline() {
-            state.serialize_entry("structuredPipeline", value)?;
-        }
-        if let Some(value) = self.transaction() {
-            struct __With<'a>(&'a ::bytes::Bytes);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("transaction", &__With(value))?;
-        }
-        if let Some(value) = self.new_transaction() {
-            state.serialize_entry("newTransaction", value)?;
-        }
-        if let Some(value) = self.read_time() {
-            state.serialize_entry("readTime", value)?;
-        }
-        if !self._unknown_fields.is_empty() {
-            for (key, value) in self._unknown_fields.iter() {
-                state.serialize_entry(key, &value)?;
-            }
-        }
-        state.end()
-    }
-}
-
-#[doc(hidden)]
-impl serde::ser::Serialize for super::ExecutePipelineResponse {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        use serde::ser::SerializeMap;
-        #[allow(unused_imports)]
-        use std::option::Option::Some;
-        let mut state = serializer.serialize_map(std::option::Option::None)?;
-        if !self.transaction.is_empty() {
-            struct __With<'a>(&'a ::bytes::Bytes);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("transaction", &__With(&self.transaction))?;
-        }
-        if !self.results.is_empty() {
-            state.serialize_entry("results", &self.results)?;
-        }
-        if self.execution_time.is_some() {
-            state.serialize_entry("executionTime", &self.execution_time)?;
-        }
-        if self.explain_stats.is_some() {
-            state.serialize_entry("explainStats", &self.explain_stats)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

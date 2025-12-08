@@ -459,24 +459,6 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Pipeline> for Pipeli
     }
 }
 
-impl gaxi::prost::ToProto<ExplainStats> for crate::generated::gapic::model::ExplainStats {
-    type Output = ExplainStats;
-    fn to_proto(self) -> std::result::Result<ExplainStats, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            data: self.data.map(|v| v.to_proto()).transpose()?,
-        })
-    }
-}
-
-impl gaxi::prost::FromProto<crate::generated::gapic::model::ExplainStats> for ExplainStats {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ExplainStats, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic::model::ExplainStats::new()
-                .set_or_clear_data(self.data.map(|v| v.cnv()).transpose()?)
-        )
-    }
-}
-
 impl gaxi::prost::ToProto<get_document_request::ConsistencySelector> for crate::generated::gapic::model::get_document_request::ConsistencySelector {
     type Output = get_document_request::ConsistencySelector;
     fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
@@ -971,96 +953,6 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RunQueryResponse> fo
                 .set_skipped_results(self.skipped_results)
                 .set_or_clear_explain_metrics(self.explain_metrics.map(|v| v.cnv()).transpose()?)
                 .set_continuation_selector(self.continuation_selector.map(|v| v.cnv()).transpose()?)
-        )
-    }
-}
-
-impl gaxi::prost::ToProto<execute_pipeline_request::PipelineType> for crate::generated::gapic::model::execute_pipeline_request::PipelineType {
-    type Output = execute_pipeline_request::PipelineType;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        match self {
-            Self::StructuredPipeline(v) => Ok(Self::Output::StructuredPipeline((*v).to_proto()?)),
-        }
-    }
-}
-
-impl gaxi::prost::FromProto<crate::generated::gapic::model::execute_pipeline_request::PipelineType> for execute_pipeline_request::PipelineType {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::execute_pipeline_request::PipelineType, gaxi::prost::ConvertError> {
-        use crate::generated::gapic::model::execute_pipeline_request::PipelineType as T;
-        match self {
-            Self::StructuredPipeline(v) => Ok(T::from_structured_pipeline(v.cnv()?)),
-        }
-    }
-}
-
-impl gaxi::prost::ToProto<execute_pipeline_request::ConsistencySelector> for crate::generated::gapic::model::execute_pipeline_request::ConsistencySelector {
-    type Output = execute_pipeline_request::ConsistencySelector;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        match self {
-            Self::Transaction(v) => Ok(Self::Output::Transaction(v.to_proto()?)),
-            Self::NewTransaction(v) => Ok(Self::Output::NewTransaction((*v).to_proto()?)),
-            Self::ReadTime(v) => Ok(Self::Output::ReadTime((*v).to_proto()?)),
-        }
-    }
-}
-
-impl gaxi::prost::FromProto<crate::generated::gapic::model::execute_pipeline_request::ConsistencySelector> for execute_pipeline_request::ConsistencySelector {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::execute_pipeline_request::ConsistencySelector, gaxi::prost::ConvertError> {
-        use crate::generated::gapic::model::execute_pipeline_request::ConsistencySelector as T;
-        match self {
-            Self::Transaction(v) => Ok(T::from_transaction(v.cnv()?)),
-            Self::NewTransaction(v) => Ok(T::from_new_transaction(v.cnv()?)),
-            Self::ReadTime(v) => Ok(T::from_read_time(v.cnv()?)),
-        }
-    }
-}
-
-impl gaxi::prost::ToProto<ExecutePipelineRequest> for crate::generated::gapic::model::ExecutePipelineRequest {
-    type Output = ExecutePipelineRequest;
-    fn to_proto(self) -> std::result::Result<ExecutePipelineRequest, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            database: self.database.to_proto()?,
-            pipeline_type: self.pipeline_type.map(|v| v.to_proto()).transpose()?,
-            consistency_selector: self.consistency_selector.map(|v| v.to_proto()).transpose()?,
-        })
-    }
-}
-
-impl gaxi::prost::FromProto<crate::generated::gapic::model::ExecutePipelineRequest> for ExecutePipelineRequest {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ExecutePipelineRequest, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic::model::ExecutePipelineRequest::new()
-                .set_database(self.database)
-                .set_pipeline_type(self.pipeline_type.map(|v| v.cnv()).transpose()?)
-                .set_consistency_selector(self.consistency_selector.map(|v| v.cnv()).transpose()?)
-        )
-    }
-}
-
-impl gaxi::prost::ToProto<ExecutePipelineResponse> for crate::generated::gapic::model::ExecutePipelineResponse {
-    type Output = ExecutePipelineResponse;
-    fn to_proto(self) -> std::result::Result<ExecutePipelineResponse, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            transaction: self.transaction.to_proto()?,
-            results: self.results
-                .into_iter()
-                .map(|v| v.to_proto())
-                .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
-            execution_time: self.execution_time.map(|v| v.to_proto()).transpose()?,
-            explain_stats: self.explain_stats.map(|v| v.to_proto()).transpose()?,
-        })
-    }
-}
-
-impl gaxi::prost::FromProto<crate::generated::gapic::model::ExecutePipelineResponse> for ExecutePipelineResponse {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ExecutePipelineResponse, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic::model::ExecutePipelineResponse::new()
-                .set_transaction(self.transaction)
-                .set_results(self.results.into_iter().map(|v| v.cnv())
-                    .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
-                .set_or_clear_execution_time(self.execution_time.map(|v| v.cnv()).transpose()?)
-                .set_or_clear_explain_stats(self.explain_stats.map(|v| v.cnv()).transpose()?)
         )
     }
 }
