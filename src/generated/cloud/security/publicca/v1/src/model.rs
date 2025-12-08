@@ -62,18 +62,36 @@ impl ExternalAccountKey {
     }
 
     /// Sets the value of [name][crate::model::ExternalAccountKey::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_security_publicca_v1::model::ExternalAccountKey;
+    /// let x = ExternalAccountKey::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [key_id][crate::model::ExternalAccountKey::key_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_security_publicca_v1::model::ExternalAccountKey;
+    /// let x = ExternalAccountKey::new().set_key_id("example");
+    /// ```
     pub fn set_key_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.key_id = v.into();
         self
     }
 
     /// Sets the value of [b64_mac_key][crate::model::ExternalAccountKey::b64_mac_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_security_publicca_v1::model::ExternalAccountKey;
+    /// let x = ExternalAccountKey::new().set_b64_mac_key(bytes::Bytes::from_static(b"example"));
+    /// ```
     pub fn set_b64_mac_key<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
         self.b64_mac_key = v.into();
         self
@@ -114,12 +132,25 @@ impl CreateExternalAccountKeyRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateExternalAccountKeyRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_security_publicca_v1::model::CreateExternalAccountKeyRequest;
+    /// let x = CreateExternalAccountKeyRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_security_publicca_v1::model::CreateExternalAccountKeyRequest;
+    /// use google_cloud_security_publicca_v1::model::ExternalAccountKey;
+    /// let x = CreateExternalAccountKeyRequest::new().set_external_account_key(ExternalAccountKey::default()/* use setters */);
+    /// ```
     pub fn set_external_account_key<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExternalAccountKey>,
@@ -129,6 +160,14 @@ impl CreateExternalAccountKeyRequest {
     }
 
     /// Sets or clears the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_security_publicca_v1::model::CreateExternalAccountKeyRequest;
+    /// use google_cloud_security_publicca_v1::model::ExternalAccountKey;
+    /// let x = CreateExternalAccountKeyRequest::new().set_or_clear_external_account_key(Some(ExternalAccountKey::default()/* use setters */));
+    /// let x = CreateExternalAccountKeyRequest::new().set_or_clear_external_account_key(None::<ExternalAccountKey>);
+    /// ```
     pub fn set_or_clear_external_account_key<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExternalAccountKey>,

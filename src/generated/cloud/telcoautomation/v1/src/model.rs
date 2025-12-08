@@ -73,12 +73,25 @@ impl OrchestrationCluster {
     }
 
     /// Sets the value of [name][crate::model::OrchestrationCluster::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// let x = OrchestrationCluster::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [management_config][crate::model::OrchestrationCluster::management_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// use google_cloud_telcoautomation_v1::model::ManagementConfig;
+    /// let x = OrchestrationCluster::new().set_management_config(ManagementConfig::default()/* use setters */);
+    /// ```
     pub fn set_management_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManagementConfig>,
@@ -88,6 +101,14 @@ impl OrchestrationCluster {
     }
 
     /// Sets or clears the value of [management_config][crate::model::OrchestrationCluster::management_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// use google_cloud_telcoautomation_v1::model::ManagementConfig;
+    /// let x = OrchestrationCluster::new().set_or_clear_management_config(Some(ManagementConfig::default()/* use setters */));
+    /// let x = OrchestrationCluster::new().set_or_clear_management_config(None::<ManagementConfig>);
+    /// ```
     pub fn set_or_clear_management_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagementConfig>,
@@ -97,6 +118,13 @@ impl OrchestrationCluster {
     }
 
     /// Sets the value of [create_time][crate::model::OrchestrationCluster::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// use wkt::Timestamp;
+    /// let x = OrchestrationCluster::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -106,6 +134,14 @@ impl OrchestrationCluster {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OrchestrationCluster::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// use wkt::Timestamp;
+    /// let x = OrchestrationCluster::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OrchestrationCluster::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -115,6 +151,13 @@ impl OrchestrationCluster {
     }
 
     /// Sets the value of [update_time][crate::model::OrchestrationCluster::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// use wkt::Timestamp;
+    /// let x = OrchestrationCluster::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -124,6 +167,14 @@ impl OrchestrationCluster {
     }
 
     /// Sets or clears the value of [update_time][crate::model::OrchestrationCluster::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// use wkt::Timestamp;
+    /// let x = OrchestrationCluster::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OrchestrationCluster::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -133,6 +184,15 @@ impl OrchestrationCluster {
     }
 
     /// Sets the value of [labels][crate::model::OrchestrationCluster::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// let x = OrchestrationCluster::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -145,12 +205,27 @@ impl OrchestrationCluster {
     }
 
     /// Sets the value of [tna_version][crate::model::OrchestrationCluster::tna_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// let x = OrchestrationCluster::new().set_tna_version("example");
+    /// ```
     pub fn set_tna_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tna_version = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::OrchestrationCluster::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// use google_cloud_telcoautomation_v1::model::orchestration_cluster::State;
+    /// let x0 = OrchestrationCluster::new().set_state(State::Creating);
+    /// let x1 = OrchestrationCluster::new().set_state(State::Active);
+    /// let x2 = OrchestrationCluster::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::orchestration_cluster::State>>(
         mut self,
         v: T,
@@ -362,12 +437,24 @@ impl EdgeSlm {
     }
 
     /// Sets the value of [name][crate::model::EdgeSlm::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// let x = EdgeSlm::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [orchestration_cluster][crate::model::EdgeSlm::orchestration_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// let x = EdgeSlm::new().set_orchestration_cluster("example");
+    /// ```
     pub fn set_orchestration_cluster<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -377,6 +464,13 @@ impl EdgeSlm {
     }
 
     /// Sets the value of [create_time][crate::model::EdgeSlm::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// use wkt::Timestamp;
+    /// let x = EdgeSlm::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -386,6 +480,14 @@ impl EdgeSlm {
     }
 
     /// Sets or clears the value of [create_time][crate::model::EdgeSlm::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// use wkt::Timestamp;
+    /// let x = EdgeSlm::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EdgeSlm::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -395,6 +497,13 @@ impl EdgeSlm {
     }
 
     /// Sets the value of [update_time][crate::model::EdgeSlm::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// use wkt::Timestamp;
+    /// let x = EdgeSlm::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -404,6 +513,14 @@ impl EdgeSlm {
     }
 
     /// Sets or clears the value of [update_time][crate::model::EdgeSlm::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// use wkt::Timestamp;
+    /// let x = EdgeSlm::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = EdgeSlm::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -413,6 +530,15 @@ impl EdgeSlm {
     }
 
     /// Sets the value of [labels][crate::model::EdgeSlm::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// let x = EdgeSlm::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -425,18 +551,41 @@ impl EdgeSlm {
     }
 
     /// Sets the value of [tna_version][crate::model::EdgeSlm::tna_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// let x = EdgeSlm::new().set_tna_version("example");
+    /// ```
     pub fn set_tna_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tna_version = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::EdgeSlm::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// use google_cloud_telcoautomation_v1::model::edge_slm::State;
+    /// let x0 = EdgeSlm::new().set_state(State::Creating);
+    /// let x1 = EdgeSlm::new().set_state(State::Active);
+    /// let x2 = EdgeSlm::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::edge_slm::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [workload_cluster_type][crate::model::EdgeSlm::workload_cluster_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// use google_cloud_telcoautomation_v1::model::edge_slm::WorkloadClusterType;
+    /// let x0 = EdgeSlm::new().set_workload_cluster_type(WorkloadClusterType::Gdce);
+    /// let x1 = EdgeSlm::new().set_workload_cluster_type(WorkloadClusterType::Gke);
+    /// ```
     pub fn set_workload_cluster_type<
         T: std::convert::Into<crate::model::edge_slm::WorkloadClusterType>,
     >(
@@ -812,18 +961,36 @@ impl Blueprint {
     }
 
     /// Sets the value of [name][crate::model::Blueprint::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = Blueprint::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::Blueprint::revision_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = Blueprint::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [source_blueprint][crate::model::Blueprint::source_blueprint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = Blueprint::new().set_source_blueprint("example");
+    /// ```
     pub fn set_source_blueprint<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -833,6 +1000,13 @@ impl Blueprint {
     }
 
     /// Sets the value of [revision_create_time][crate::model::Blueprint::revision_create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// use wkt::Timestamp;
+    /// let x = Blueprint::new().set_revision_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -842,6 +1016,14 @@ impl Blueprint {
     }
 
     /// Sets or clears the value of [revision_create_time][crate::model::Blueprint::revision_create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// use wkt::Timestamp;
+    /// let x = Blueprint::new().set_or_clear_revision_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Blueprint::new().set_or_clear_revision_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -851,6 +1033,15 @@ impl Blueprint {
     }
 
     /// Sets the value of [approval_state][crate::model::Blueprint::approval_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// use google_cloud_telcoautomation_v1::model::blueprint::ApprovalState;
+    /// let x0 = Blueprint::new().set_approval_state(ApprovalState::Draft);
+    /// let x1 = Blueprint::new().set_approval_state(ApprovalState::Proposed);
+    /// let x2 = Blueprint::new().set_approval_state(ApprovalState::Approved);
+    /// ```
     pub fn set_approval_state<T: std::convert::Into<crate::model::blueprint::ApprovalState>>(
         mut self,
         v: T,
@@ -860,18 +1051,41 @@ impl Blueprint {
     }
 
     /// Sets the value of [display_name][crate::model::Blueprint::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = Blueprint::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [repository][crate::model::Blueprint::repository].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = Blueprint::new().set_repository("example");
+    /// ```
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
         self
     }
 
     /// Sets the value of [files][crate::model::Blueprint::files].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// use google_cloud_telcoautomation_v1::model::File;
+    /// let x = Blueprint::new()
+    ///     .set_files([
+    ///         File::default()/* use setters */,
+    ///         File::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -883,6 +1097,15 @@ impl Blueprint {
     }
 
     /// Sets the value of [labels][crate::model::Blueprint::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = Blueprint::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -895,6 +1118,13 @@ impl Blueprint {
     }
 
     /// Sets the value of [create_time][crate::model::Blueprint::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// use wkt::Timestamp;
+    /// let x = Blueprint::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -904,6 +1134,14 @@ impl Blueprint {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Blueprint::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// use wkt::Timestamp;
+    /// let x = Blueprint::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Blueprint::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -913,6 +1151,13 @@ impl Blueprint {
     }
 
     /// Sets the value of [update_time][crate::model::Blueprint::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// use wkt::Timestamp;
+    /// let x = Blueprint::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -922,6 +1167,14 @@ impl Blueprint {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Blueprint::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// use wkt::Timestamp;
+    /// let x = Blueprint::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Blueprint::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -931,12 +1184,27 @@ impl Blueprint {
     }
 
     /// Sets the value of [source_provider][crate::model::Blueprint::source_provider].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = Blueprint::new().set_source_provider("example");
+    /// ```
     pub fn set_source_provider<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_provider = v.into();
         self
     }
 
     /// Sets the value of [deployment_level][crate::model::Blueprint::deployment_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// use google_cloud_telcoautomation_v1::model::DeploymentLevel;
+    /// let x0 = Blueprint::new().set_deployment_level(DeploymentLevel::Hydration);
+    /// let x1 = Blueprint::new().set_deployment_level(DeploymentLevel::SingleDeployment);
+    /// let x2 = Blueprint::new().set_deployment_level(DeploymentLevel::MultiDeployment);
+    /// ```
     pub fn set_deployment_level<T: std::convert::Into<crate::model::DeploymentLevel>>(
         mut self,
         v: T,
@@ -946,6 +1214,12 @@ impl Blueprint {
     }
 
     /// Sets the value of [rollback_support][crate::model::Blueprint::rollback_support].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = Blueprint::new().set_rollback_support(true);
+    /// ```
     pub fn set_rollback_support<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.rollback_support = v.into();
         self
@@ -1148,24 +1422,51 @@ impl PublicBlueprint {
     }
 
     /// Sets the value of [name][crate::model::PublicBlueprint::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::PublicBlueprint;
+    /// let x = PublicBlueprint::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [display_name][crate::model::PublicBlueprint::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::PublicBlueprint;
+    /// let x = PublicBlueprint::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::PublicBlueprint::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::PublicBlueprint;
+    /// let x = PublicBlueprint::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [deployment_level][crate::model::PublicBlueprint::deployment_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::PublicBlueprint;
+    /// use google_cloud_telcoautomation_v1::model::DeploymentLevel;
+    /// let x0 = PublicBlueprint::new().set_deployment_level(DeploymentLevel::Hydration);
+    /// let x1 = PublicBlueprint::new().set_deployment_level(DeploymentLevel::SingleDeployment);
+    /// let x2 = PublicBlueprint::new().set_deployment_level(DeploymentLevel::MultiDeployment);
+    /// ```
     pub fn set_deployment_level<T: std::convert::Into<crate::model::DeploymentLevel>>(
         mut self,
         v: T,
@@ -1175,12 +1476,24 @@ impl PublicBlueprint {
     }
 
     /// Sets the value of [source_provider][crate::model::PublicBlueprint::source_provider].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::PublicBlueprint;
+    /// let x = PublicBlueprint::new().set_source_provider("example");
+    /// ```
     pub fn set_source_provider<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_provider = v.into();
         self
     }
 
     /// Sets the value of [rollback_support][crate::model::PublicBlueprint::rollback_support].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::PublicBlueprint;
+    /// let x = PublicBlueprint::new().set_rollback_support(true);
+    /// ```
     pub fn set_rollback_support<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.rollback_support = v.into();
         self
@@ -1265,18 +1578,36 @@ impl Deployment {
     }
 
     /// Sets the value of [name][crate::model::Deployment::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = Deployment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::Deployment::revision_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = Deployment::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [source_blueprint_revision][crate::model::Deployment::source_blueprint_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = Deployment::new().set_source_blueprint_revision("example");
+    /// ```
     pub fn set_source_blueprint_revision<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1286,6 +1617,13 @@ impl Deployment {
     }
 
     /// Sets the value of [revision_create_time][crate::model::Deployment::revision_create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// use wkt::Timestamp;
+    /// let x = Deployment::new().set_revision_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_revision_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1295,6 +1633,14 @@ impl Deployment {
     }
 
     /// Sets or clears the value of [revision_create_time][crate::model::Deployment::revision_create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// use wkt::Timestamp;
+    /// let x = Deployment::new().set_or_clear_revision_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Deployment::new().set_or_clear_revision_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_revision_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1304,6 +1650,15 @@ impl Deployment {
     }
 
     /// Sets the value of [state][crate::model::Deployment::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// use google_cloud_telcoautomation_v1::model::deployment::State;
+    /// let x0 = Deployment::new().set_state(State::Draft);
+    /// let x1 = Deployment::new().set_state(State::Applied);
+    /// let x2 = Deployment::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::deployment::State>>(
         mut self,
         v: T,
@@ -1313,18 +1668,41 @@ impl Deployment {
     }
 
     /// Sets the value of [display_name][crate::model::Deployment::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = Deployment::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
     }
 
     /// Sets the value of [repository][crate::model::Deployment::repository].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = Deployment::new().set_repository("example");
+    /// ```
     pub fn set_repository<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.repository = v.into();
         self
     }
 
     /// Sets the value of [files][crate::model::Deployment::files].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// use google_cloud_telcoautomation_v1::model::File;
+    /// let x = Deployment::new()
+    ///     .set_files([
+    ///         File::default()/* use setters */,
+    ///         File::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1336,6 +1714,15 @@ impl Deployment {
     }
 
     /// Sets the value of [labels][crate::model::Deployment::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = Deployment::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1348,6 +1735,13 @@ impl Deployment {
     }
 
     /// Sets the value of [create_time][crate::model::Deployment::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// use wkt::Timestamp;
+    /// let x = Deployment::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1357,6 +1751,14 @@ impl Deployment {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Deployment::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// use wkt::Timestamp;
+    /// let x = Deployment::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Deployment::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1366,6 +1768,13 @@ impl Deployment {
     }
 
     /// Sets the value of [update_time][crate::model::Deployment::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// use wkt::Timestamp;
+    /// let x = Deployment::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1375,6 +1784,14 @@ impl Deployment {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Deployment::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// use wkt::Timestamp;
+    /// let x = Deployment::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Deployment::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1384,12 +1801,24 @@ impl Deployment {
     }
 
     /// Sets the value of [source_provider][crate::model::Deployment::source_provider].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = Deployment::new().set_source_provider("example");
+    /// ```
     pub fn set_source_provider<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_provider = v.into();
         self
     }
 
     /// Sets the value of [workload_cluster][crate::model::Deployment::workload_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = Deployment::new().set_workload_cluster("example");
+    /// ```
     pub fn set_workload_cluster<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1399,6 +1828,15 @@ impl Deployment {
     }
 
     /// Sets the value of [deployment_level][crate::model::Deployment::deployment_level].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// use google_cloud_telcoautomation_v1::model::DeploymentLevel;
+    /// let x0 = Deployment::new().set_deployment_level(DeploymentLevel::Hydration);
+    /// let x1 = Deployment::new().set_deployment_level(DeploymentLevel::SingleDeployment);
+    /// let x2 = Deployment::new().set_deployment_level(DeploymentLevel::MultiDeployment);
+    /// ```
     pub fn set_deployment_level<T: std::convert::Into<crate::model::DeploymentLevel>>(
         mut self,
         v: T,
@@ -1408,6 +1846,12 @@ impl Deployment {
     }
 
     /// Sets the value of [rollback_support][crate::model::Deployment::rollback_support].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = Deployment::new().set_rollback_support(true);
+    /// ```
     pub fn set_rollback_support<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.rollback_support = v.into();
         self
@@ -1604,12 +2048,26 @@ impl HydratedDeployment {
     }
 
     /// Sets the value of [name][crate::model::HydratedDeployment::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::HydratedDeployment;
+    /// let x = HydratedDeployment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::HydratedDeployment::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::HydratedDeployment;
+    /// use google_cloud_telcoautomation_v1::model::hydrated_deployment::State;
+    /// let x0 = HydratedDeployment::new().set_state(State::Draft);
+    /// let x1 = HydratedDeployment::new().set_state(State::Applied);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::hydrated_deployment::State>>(
         mut self,
         v: T,
@@ -1619,6 +2077,17 @@ impl HydratedDeployment {
     }
 
     /// Sets the value of [files][crate::model::HydratedDeployment::files].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::HydratedDeployment;
+    /// use google_cloud_telcoautomation_v1::model::File;
+    /// let x = HydratedDeployment::new()
+    ///     .set_files([
+    ///         File::default()/* use setters */,
+    ///         File::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_files<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1630,6 +2099,12 @@ impl HydratedDeployment {
     }
 
     /// Sets the value of [workload_cluster][crate::model::HydratedDeployment::workload_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::HydratedDeployment;
+    /// let x = HydratedDeployment::new().set_workload_cluster("example");
+    /// ```
     pub fn set_workload_cluster<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1814,30 +2289,60 @@ impl ListOrchestrationClustersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListOrchestrationClustersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListOrchestrationClustersRequest;
+    /// let x = ListOrchestrationClustersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListOrchestrationClustersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListOrchestrationClustersRequest;
+    /// let x = ListOrchestrationClustersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListOrchestrationClustersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListOrchestrationClustersRequest;
+    /// let x = ListOrchestrationClustersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListOrchestrationClustersRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListOrchestrationClustersRequest;
+    /// let x = ListOrchestrationClustersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListOrchestrationClustersRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListOrchestrationClustersRequest;
+    /// let x = ListOrchestrationClustersRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1872,6 +2377,17 @@ impl ListOrchestrationClustersResponse {
     }
 
     /// Sets the value of [orchestration_clusters][crate::model::ListOrchestrationClustersResponse::orchestration_clusters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListOrchestrationClustersResponse;
+    /// use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// let x = ListOrchestrationClustersResponse::new()
+    ///     .set_orchestration_clusters([
+    ///         OrchestrationCluster::default()/* use setters */,
+    ///         OrchestrationCluster::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_orchestration_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1883,12 +2399,24 @@ impl ListOrchestrationClustersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListOrchestrationClustersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListOrchestrationClustersResponse;
+    /// let x = ListOrchestrationClustersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListOrchestrationClustersResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListOrchestrationClustersResponse;
+    /// let x = ListOrchestrationClustersResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1936,6 +2464,12 @@ impl GetOrchestrationClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOrchestrationClusterRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::GetOrchestrationClusterRequest;
+    /// let x = GetOrchestrationClusterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1987,12 +2521,24 @@ impl CreateOrchestrationClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateOrchestrationClusterRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateOrchestrationClusterRequest;
+    /// let x = CreateOrchestrationClusterRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [orchestration_cluster_id][crate::model::CreateOrchestrationClusterRequest::orchestration_cluster_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateOrchestrationClusterRequest;
+    /// let x = CreateOrchestrationClusterRequest::new().set_orchestration_cluster_id("example");
+    /// ```
     pub fn set_orchestration_cluster_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2002,6 +2548,13 @@ impl CreateOrchestrationClusterRequest {
     }
 
     /// Sets the value of [orchestration_cluster][crate::model::CreateOrchestrationClusterRequest::orchestration_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateOrchestrationClusterRequest;
+    /// use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// let x = CreateOrchestrationClusterRequest::new().set_orchestration_cluster(OrchestrationCluster::default()/* use setters */);
+    /// ```
     pub fn set_orchestration_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::OrchestrationCluster>,
@@ -2011,6 +2564,14 @@ impl CreateOrchestrationClusterRequest {
     }
 
     /// Sets or clears the value of [orchestration_cluster][crate::model::CreateOrchestrationClusterRequest::orchestration_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateOrchestrationClusterRequest;
+    /// use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// let x = CreateOrchestrationClusterRequest::new().set_or_clear_orchestration_cluster(Some(OrchestrationCluster::default()/* use setters */));
+    /// let x = CreateOrchestrationClusterRequest::new().set_or_clear_orchestration_cluster(None::<OrchestrationCluster>);
+    /// ```
     pub fn set_or_clear_orchestration_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::OrchestrationCluster>,
@@ -2020,6 +2581,12 @@ impl CreateOrchestrationClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateOrchestrationClusterRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateOrchestrationClusterRequest;
+    /// let x = CreateOrchestrationClusterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2063,12 +2630,24 @@ impl DeleteOrchestrationClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteOrchestrationClusterRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::DeleteOrchestrationClusterRequest;
+    /// let x = DeleteOrchestrationClusterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteOrchestrationClusterRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::DeleteOrchestrationClusterRequest;
+    /// let x = DeleteOrchestrationClusterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2110,30 +2689,60 @@ impl ListEdgeSlmsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListEdgeSlmsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListEdgeSlmsRequest;
+    /// let x = ListEdgeSlmsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListEdgeSlmsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListEdgeSlmsRequest;
+    /// let x = ListEdgeSlmsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListEdgeSlmsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListEdgeSlmsRequest;
+    /// let x = ListEdgeSlmsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListEdgeSlmsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListEdgeSlmsRequest;
+    /// let x = ListEdgeSlmsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListEdgeSlmsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListEdgeSlmsRequest;
+    /// let x = ListEdgeSlmsRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -2168,6 +2777,17 @@ impl ListEdgeSlmsResponse {
     }
 
     /// Sets the value of [edge_slms][crate::model::ListEdgeSlmsResponse::edge_slms].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListEdgeSlmsResponse;
+    /// use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// let x = ListEdgeSlmsResponse::new()
+    ///     .set_edge_slms([
+    ///         EdgeSlm::default()/* use setters */,
+    ///         EdgeSlm::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_edge_slms<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2179,12 +2799,24 @@ impl ListEdgeSlmsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListEdgeSlmsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListEdgeSlmsResponse;
+    /// let x = ListEdgeSlmsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListEdgeSlmsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListEdgeSlmsResponse;
+    /// let x = ListEdgeSlmsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2232,6 +2864,12 @@ impl GetEdgeSlmRequest {
     }
 
     /// Sets the value of [name][crate::model::GetEdgeSlmRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::GetEdgeSlmRequest;
+    /// let x = GetEdgeSlmRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2283,18 +2921,37 @@ impl CreateEdgeSlmRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateEdgeSlmRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateEdgeSlmRequest;
+    /// let x = CreateEdgeSlmRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [edge_slm_id][crate::model::CreateEdgeSlmRequest::edge_slm_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateEdgeSlmRequest;
+    /// let x = CreateEdgeSlmRequest::new().set_edge_slm_id("example");
+    /// ```
     pub fn set_edge_slm_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.edge_slm_id = v.into();
         self
     }
 
     /// Sets the value of [edge_slm][crate::model::CreateEdgeSlmRequest::edge_slm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateEdgeSlmRequest;
+    /// use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// let x = CreateEdgeSlmRequest::new().set_edge_slm(EdgeSlm::default()/* use setters */);
+    /// ```
     pub fn set_edge_slm<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::EdgeSlm>,
@@ -2304,6 +2961,14 @@ impl CreateEdgeSlmRequest {
     }
 
     /// Sets or clears the value of [edge_slm][crate::model::CreateEdgeSlmRequest::edge_slm].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateEdgeSlmRequest;
+    /// use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// let x = CreateEdgeSlmRequest::new().set_or_clear_edge_slm(Some(EdgeSlm::default()/* use setters */));
+    /// let x = CreateEdgeSlmRequest::new().set_or_clear_edge_slm(None::<EdgeSlm>);
+    /// ```
     pub fn set_or_clear_edge_slm<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::EdgeSlm>,
@@ -2313,6 +2978,12 @@ impl CreateEdgeSlmRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateEdgeSlmRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateEdgeSlmRequest;
+    /// let x = CreateEdgeSlmRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2356,12 +3027,24 @@ impl DeleteEdgeSlmRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteEdgeSlmRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::DeleteEdgeSlmRequest;
+    /// let x = DeleteEdgeSlmRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteEdgeSlmRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::DeleteEdgeSlmRequest;
+    /// let x = DeleteEdgeSlmRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2398,18 +3081,37 @@ impl CreateBlueprintRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateBlueprintRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateBlueprintRequest;
+    /// let x = CreateBlueprintRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [blueprint_id][crate::model::CreateBlueprintRequest::blueprint_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateBlueprintRequest;
+    /// let x = CreateBlueprintRequest::new().set_blueprint_id("example");
+    /// ```
     pub fn set_blueprint_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.blueprint_id = v.into();
         self
     }
 
     /// Sets the value of [blueprint][crate::model::CreateBlueprintRequest::blueprint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateBlueprintRequest;
+    /// use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = CreateBlueprintRequest::new().set_blueprint(Blueprint::default()/* use setters */);
+    /// ```
     pub fn set_blueprint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Blueprint>,
@@ -2419,6 +3121,14 @@ impl CreateBlueprintRequest {
     }
 
     /// Sets or clears the value of [blueprint][crate::model::CreateBlueprintRequest::blueprint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateBlueprintRequest;
+    /// use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = CreateBlueprintRequest::new().set_or_clear_blueprint(Some(Blueprint::default()/* use setters */));
+    /// let x = CreateBlueprintRequest::new().set_or_clear_blueprint(None::<Blueprint>);
+    /// ```
     pub fn set_or_clear_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Blueprint>,
@@ -2454,6 +3164,13 @@ impl UpdateBlueprintRequest {
     }
 
     /// Sets the value of [blueprint][crate::model::UpdateBlueprintRequest::blueprint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::UpdateBlueprintRequest;
+    /// use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = UpdateBlueprintRequest::new().set_blueprint(Blueprint::default()/* use setters */);
+    /// ```
     pub fn set_blueprint<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Blueprint>,
@@ -2463,6 +3180,14 @@ impl UpdateBlueprintRequest {
     }
 
     /// Sets or clears the value of [blueprint][crate::model::UpdateBlueprintRequest::blueprint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::UpdateBlueprintRequest;
+    /// use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = UpdateBlueprintRequest::new().set_or_clear_blueprint(Some(Blueprint::default()/* use setters */));
+    /// let x = UpdateBlueprintRequest::new().set_or_clear_blueprint(None::<Blueprint>);
+    /// ```
     pub fn set_or_clear_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Blueprint>,
@@ -2472,6 +3197,13 @@ impl UpdateBlueprintRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBlueprintRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::UpdateBlueprintRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBlueprintRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2481,6 +3213,14 @@ impl UpdateBlueprintRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBlueprintRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::UpdateBlueprintRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBlueprintRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBlueprintRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2520,12 +3260,26 @@ impl GetBlueprintRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBlueprintRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::GetBlueprintRequest;
+    /// let x = GetBlueprintRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetBlueprintRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::GetBlueprintRequest;
+    /// use google_cloud_telcoautomation_v1::model::BlueprintView;
+    /// let x0 = GetBlueprintRequest::new().set_view(BlueprintView::Basic);
+    /// let x1 = GetBlueprintRequest::new().set_view(BlueprintView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::BlueprintView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -2557,6 +3311,12 @@ impl DeleteBlueprintRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteBlueprintRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::DeleteBlueprintRequest;
+    /// let x = DeleteBlueprintRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2599,24 +3359,48 @@ impl ListBlueprintsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListBlueprintsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListBlueprintsRequest;
+    /// let x = ListBlueprintsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListBlueprintsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListBlueprintsRequest;
+    /// let x = ListBlueprintsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBlueprintsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListBlueprintsRequest;
+    /// let x = ListBlueprintsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBlueprintsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListBlueprintsRequest;
+    /// let x = ListBlueprintsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2649,6 +3433,17 @@ impl ListBlueprintsResponse {
     }
 
     /// Sets the value of [blueprints][crate::model::ListBlueprintsResponse::blueprints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListBlueprintsResponse;
+    /// use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = ListBlueprintsResponse::new()
+    ///     .set_blueprints([
+    ///         Blueprint::default()/* use setters */,
+    ///         Blueprint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_blueprints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2660,6 +3455,12 @@ impl ListBlueprintsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBlueprintsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListBlueprintsResponse;
+    /// let x = ListBlueprintsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2703,6 +3504,12 @@ impl ApproveBlueprintRequest {
     }
 
     /// Sets the value of [name][crate::model::ApproveBlueprintRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ApproveBlueprintRequest;
+    /// let x = ApproveBlueprintRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2731,6 +3538,12 @@ impl ProposeBlueprintRequest {
     }
 
     /// Sets the value of [name][crate::model::ProposeBlueprintRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ProposeBlueprintRequest;
+    /// let x = ProposeBlueprintRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2759,6 +3572,12 @@ impl RejectBlueprintRequest {
     }
 
     /// Sets the value of [name][crate::model::RejectBlueprintRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::RejectBlueprintRequest;
+    /// let x = RejectBlueprintRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2794,18 +3613,36 @@ impl ListBlueprintRevisionsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListBlueprintRevisionsRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListBlueprintRevisionsRequest;
+    /// let x = ListBlueprintRevisionsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListBlueprintRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListBlueprintRevisionsRequest;
+    /// let x = ListBlueprintRevisionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListBlueprintRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListBlueprintRevisionsRequest;
+    /// let x = ListBlueprintRevisionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2838,6 +3675,17 @@ impl ListBlueprintRevisionsResponse {
     }
 
     /// Sets the value of [blueprints][crate::model::ListBlueprintRevisionsResponse::blueprints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListBlueprintRevisionsResponse;
+    /// use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = ListBlueprintRevisionsResponse::new()
+    ///     .set_blueprints([
+    ///         Blueprint::default()/* use setters */,
+    ///         Blueprint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_blueprints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2849,6 +3697,12 @@ impl ListBlueprintRevisionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListBlueprintRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListBlueprintRevisionsResponse;
+    /// let x = ListBlueprintRevisionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2911,24 +3765,48 @@ impl SearchBlueprintRevisionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::SearchBlueprintRevisionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SearchBlueprintRevisionsRequest;
+    /// let x = SearchBlueprintRevisionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::SearchBlueprintRevisionsRequest::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SearchBlueprintRevisionsRequest;
+    /// let x = SearchBlueprintRevisionsRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchBlueprintRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SearchBlueprintRevisionsRequest;
+    /// let x = SearchBlueprintRevisionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchBlueprintRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SearchBlueprintRevisionsRequest;
+    /// let x = SearchBlueprintRevisionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2961,6 +3839,17 @@ impl SearchBlueprintRevisionsResponse {
     }
 
     /// Sets the value of [blueprints][crate::model::SearchBlueprintRevisionsResponse::blueprints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SearchBlueprintRevisionsResponse;
+    /// use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// let x = SearchBlueprintRevisionsResponse::new()
+    ///     .set_blueprints([
+    ///         Blueprint::default()/* use setters */,
+    ///         Blueprint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_blueprints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2972,6 +3861,12 @@ impl SearchBlueprintRevisionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchBlueprintRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SearchBlueprintRevisionsResponse;
+    /// let x = SearchBlueprintRevisionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3014,6 +3909,12 @@ impl DiscardBlueprintChangesRequest {
     }
 
     /// Sets the value of [name][crate::model::DiscardBlueprintChangesRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::DiscardBlueprintChangesRequest;
+    /// let x = DiscardBlueprintChangesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3070,18 +3971,36 @@ impl ListPublicBlueprintsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListPublicBlueprintsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListPublicBlueprintsRequest;
+    /// let x = ListPublicBlueprintsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListPublicBlueprintsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListPublicBlueprintsRequest;
+    /// let x = ListPublicBlueprintsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListPublicBlueprintsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListPublicBlueprintsRequest;
+    /// let x = ListPublicBlueprintsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3114,6 +4033,17 @@ impl ListPublicBlueprintsResponse {
     }
 
     /// Sets the value of [public_blueprints][crate::model::ListPublicBlueprintsResponse::public_blueprints].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListPublicBlueprintsResponse;
+    /// use google_cloud_telcoautomation_v1::model::PublicBlueprint;
+    /// let x = ListPublicBlueprintsResponse::new()
+    ///     .set_public_blueprints([
+    ///         PublicBlueprint::default()/* use setters */,
+    ///         PublicBlueprint::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_public_blueprints<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3125,6 +4055,12 @@ impl ListPublicBlueprintsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListPublicBlueprintsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListPublicBlueprintsResponse;
+    /// let x = ListPublicBlueprintsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3167,6 +4103,12 @@ impl GetPublicBlueprintRequest {
     }
 
     /// Sets the value of [name][crate::model::GetPublicBlueprintRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::GetPublicBlueprintRequest;
+    /// let x = GetPublicBlueprintRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3203,18 +4145,37 @@ impl CreateDeploymentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateDeploymentRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateDeploymentRequest;
+    /// let x = CreateDeploymentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [deployment_id][crate::model::CreateDeploymentRequest::deployment_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateDeploymentRequest;
+    /// let x = CreateDeploymentRequest::new().set_deployment_id("example");
+    /// ```
     pub fn set_deployment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.deployment_id = v.into();
         self
     }
 
     /// Sets the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateDeploymentRequest;
+    /// use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = CreateDeploymentRequest::new().set_deployment(Deployment::default()/* use setters */);
+    /// ```
     pub fn set_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -3224,6 +4185,14 @@ impl CreateDeploymentRequest {
     }
 
     /// Sets or clears the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::CreateDeploymentRequest;
+    /// use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = CreateDeploymentRequest::new().set_or_clear_deployment(Some(Deployment::default()/* use setters */));
+    /// let x = CreateDeploymentRequest::new().set_or_clear_deployment(None::<Deployment>);
+    /// ```
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -3259,6 +4228,13 @@ impl UpdateDeploymentRequest {
     }
 
     /// Sets the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::UpdateDeploymentRequest;
+    /// use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = UpdateDeploymentRequest::new().set_deployment(Deployment::default()/* use setters */);
+    /// ```
     pub fn set_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -3268,6 +4244,14 @@ impl UpdateDeploymentRequest {
     }
 
     /// Sets or clears the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::UpdateDeploymentRequest;
+    /// use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = UpdateDeploymentRequest::new().set_or_clear_deployment(Some(Deployment::default()/* use setters */));
+    /// let x = UpdateDeploymentRequest::new().set_or_clear_deployment(None::<Deployment>);
+    /// ```
     pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Deployment>,
@@ -3277,6 +4261,13 @@ impl UpdateDeploymentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::UpdateDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDeploymentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3286,6 +4277,14 @@ impl UpdateDeploymentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::UpdateDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateDeploymentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateDeploymentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3326,12 +4325,26 @@ impl GetDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::GetDeploymentRequest;
+    /// let x = GetDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [view][crate::model::GetDeploymentRequest::view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::GetDeploymentRequest;
+    /// use google_cloud_telcoautomation_v1::model::DeploymentView;
+    /// let x0 = GetDeploymentRequest::new().set_view(DeploymentView::Basic);
+    /// let x1 = GetDeploymentRequest::new().set_view(DeploymentView::Full);
+    /// ```
     pub fn set_view<T: std::convert::Into<crate::model::DeploymentView>>(mut self, v: T) -> Self {
         self.view = v.into();
         self
@@ -3360,6 +4373,12 @@ impl RemoveDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::RemoveDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::RemoveDeploymentRequest;
+    /// let x = RemoveDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3402,24 +4421,48 @@ impl ListDeploymentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListDeploymentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListDeploymentsRequest;
+    /// let x = ListDeploymentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListDeploymentsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListDeploymentsRequest;
+    /// let x = ListDeploymentsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDeploymentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListDeploymentsRequest;
+    /// let x = ListDeploymentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDeploymentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListDeploymentsRequest;
+    /// let x = ListDeploymentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3452,6 +4495,17 @@ impl ListDeploymentsResponse {
     }
 
     /// Sets the value of [deployments][crate::model::ListDeploymentsResponse::deployments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListDeploymentsResponse;
+    /// use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = ListDeploymentsResponse::new()
+    ///     .set_deployments([
+    ///         Deployment::default()/* use setters */,
+    ///         Deployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3463,6 +4517,12 @@ impl ListDeploymentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDeploymentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListDeploymentsResponse;
+    /// let x = ListDeploymentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3512,18 +4572,36 @@ impl ListDeploymentRevisionsRequest {
     }
 
     /// Sets the value of [name][crate::model::ListDeploymentRevisionsRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListDeploymentRevisionsRequest;
+    /// let x = ListDeploymentRevisionsRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListDeploymentRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListDeploymentRevisionsRequest;
+    /// let x = ListDeploymentRevisionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListDeploymentRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListDeploymentRevisionsRequest;
+    /// let x = ListDeploymentRevisionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3556,6 +4634,17 @@ impl ListDeploymentRevisionsResponse {
     }
 
     /// Sets the value of [deployments][crate::model::ListDeploymentRevisionsResponse::deployments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListDeploymentRevisionsResponse;
+    /// use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = ListDeploymentRevisionsResponse::new()
+    ///     .set_deployments([
+    ///         Deployment::default()/* use setters */,
+    ///         Deployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3567,6 +4656,12 @@ impl ListDeploymentRevisionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListDeploymentRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListDeploymentRevisionsResponse;
+    /// let x = ListDeploymentRevisionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3630,24 +4725,48 @@ impl SearchDeploymentRevisionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::SearchDeploymentRevisionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SearchDeploymentRevisionsRequest;
+    /// let x = SearchDeploymentRevisionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::SearchDeploymentRevisionsRequest::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SearchDeploymentRevisionsRequest;
+    /// let x = SearchDeploymentRevisionsRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchDeploymentRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SearchDeploymentRevisionsRequest;
+    /// let x = SearchDeploymentRevisionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchDeploymentRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SearchDeploymentRevisionsRequest;
+    /// let x = SearchDeploymentRevisionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3680,6 +4799,17 @@ impl SearchDeploymentRevisionsResponse {
     }
 
     /// Sets the value of [deployments][crate::model::SearchDeploymentRevisionsResponse::deployments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SearchDeploymentRevisionsResponse;
+    /// use google_cloud_telcoautomation_v1::model::Deployment;
+    /// let x = SearchDeploymentRevisionsResponse::new()
+    ///     .set_deployments([
+    ///         Deployment::default()/* use setters */,
+    ///         Deployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3691,6 +4821,12 @@ impl SearchDeploymentRevisionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchDeploymentRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SearchDeploymentRevisionsResponse;
+    /// let x = SearchDeploymentRevisionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3733,6 +4869,12 @@ impl DiscardDeploymentChangesRequest {
     }
 
     /// Sets the value of [name][crate::model::DiscardDeploymentChangesRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::DiscardDeploymentChangesRequest;
+    /// let x = DiscardDeploymentChangesRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3782,6 +4924,12 @@ impl ApplyDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::ApplyDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ApplyDeploymentRequest;
+    /// let x = ApplyDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3810,6 +4958,12 @@ impl ComputeDeploymentStatusRequest {
     }
 
     /// Sets the value of [name][crate::model::ComputeDeploymentStatusRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ComputeDeploymentStatusRequest;
+    /// let x = ComputeDeploymentStatusRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3844,12 +4998,27 @@ impl ComputeDeploymentStatusResponse {
     }
 
     /// Sets the value of [name][crate::model::ComputeDeploymentStatusResponse::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ComputeDeploymentStatusResponse;
+    /// let x = ComputeDeploymentStatusResponse::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [aggregated_status][crate::model::ComputeDeploymentStatusResponse::aggregated_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ComputeDeploymentStatusResponse;
+    /// use google_cloud_telcoautomation_v1::model::Status;
+    /// let x0 = ComputeDeploymentStatusResponse::new().set_aggregated_status(Status::InProgress);
+    /// let x1 = ComputeDeploymentStatusResponse::new().set_aggregated_status(Status::Active);
+    /// let x2 = ComputeDeploymentStatusResponse::new().set_aggregated_status(Status::Failed);
+    /// ```
     pub fn set_aggregated_status<T: std::convert::Into<crate::model::Status>>(
         mut self,
         v: T,
@@ -3859,6 +5028,17 @@ impl ComputeDeploymentStatusResponse {
     }
 
     /// Sets the value of [resource_statuses][crate::model::ComputeDeploymentStatusResponse::resource_statuses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ComputeDeploymentStatusResponse;
+    /// use google_cloud_telcoautomation_v1::model::ResourceStatus;
+    /// let x = ComputeDeploymentStatusResponse::new()
+    ///     .set_resource_statuses([
+    ///         ResourceStatus::default()/* use setters */,
+    ///         ResourceStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_resource_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3895,12 +5075,24 @@ impl RollbackDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::RollbackDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::RollbackDeploymentRequest;
+    /// let x = RollbackDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [revision_id][crate::model::RollbackDeploymentRequest::revision_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::RollbackDeploymentRequest;
+    /// let x = RollbackDeploymentRequest::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
@@ -3953,6 +5145,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3962,6 +5161,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3971,6 +5178,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3980,6 +5194,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3989,30 +5211,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -4041,6 +5293,12 @@ impl GetHydratedDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetHydratedDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::GetHydratedDeploymentRequest;
+    /// let x = GetHydratedDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4079,18 +5337,36 @@ impl ListHydratedDeploymentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListHydratedDeploymentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListHydratedDeploymentsRequest;
+    /// let x = ListHydratedDeploymentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListHydratedDeploymentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListHydratedDeploymentsRequest;
+    /// let x = ListHydratedDeploymentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListHydratedDeploymentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListHydratedDeploymentsRequest;
+    /// let x = ListHydratedDeploymentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -4123,6 +5399,17 @@ impl ListHydratedDeploymentsResponse {
     }
 
     /// Sets the value of [hydrated_deployments][crate::model::ListHydratedDeploymentsResponse::hydrated_deployments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListHydratedDeploymentsResponse;
+    /// use google_cloud_telcoautomation_v1::model::HydratedDeployment;
+    /// let x = ListHydratedDeploymentsResponse::new()
+    ///     .set_hydrated_deployments([
+    ///         HydratedDeployment::default()/* use setters */,
+    ///         HydratedDeployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_hydrated_deployments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4134,6 +5421,12 @@ impl ListHydratedDeploymentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListHydratedDeploymentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ListHydratedDeploymentsResponse;
+    /// let x = ListHydratedDeploymentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -4180,6 +5473,13 @@ impl UpdateHydratedDeploymentRequest {
     }
 
     /// Sets the value of [hydrated_deployment][crate::model::UpdateHydratedDeploymentRequest::hydrated_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::UpdateHydratedDeploymentRequest;
+    /// use google_cloud_telcoautomation_v1::model::HydratedDeployment;
+    /// let x = UpdateHydratedDeploymentRequest::new().set_hydrated_deployment(HydratedDeployment::default()/* use setters */);
+    /// ```
     pub fn set_hydrated_deployment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HydratedDeployment>,
@@ -4189,6 +5489,14 @@ impl UpdateHydratedDeploymentRequest {
     }
 
     /// Sets or clears the value of [hydrated_deployment][crate::model::UpdateHydratedDeploymentRequest::hydrated_deployment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::UpdateHydratedDeploymentRequest;
+    /// use google_cloud_telcoautomation_v1::model::HydratedDeployment;
+    /// let x = UpdateHydratedDeploymentRequest::new().set_or_clear_hydrated_deployment(Some(HydratedDeployment::default()/* use setters */));
+    /// let x = UpdateHydratedDeploymentRequest::new().set_or_clear_hydrated_deployment(None::<HydratedDeployment>);
+    /// ```
     pub fn set_or_clear_hydrated_deployment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HydratedDeployment>,
@@ -4198,6 +5506,13 @@ impl UpdateHydratedDeploymentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateHydratedDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::UpdateHydratedDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateHydratedDeploymentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4207,6 +5522,14 @@ impl UpdateHydratedDeploymentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateHydratedDeploymentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::UpdateHydratedDeploymentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateHydratedDeploymentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateHydratedDeploymentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4238,6 +5561,12 @@ impl ApplyHydratedDeploymentRequest {
     }
 
     /// Sets the value of [name][crate::model::ApplyHydratedDeploymentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ApplyHydratedDeploymentRequest;
+    /// let x = ApplyHydratedDeploymentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4270,6 +5599,14 @@ impl ManagementConfig {
     ///
     /// Note that all the setters affecting `oneof_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ManagementConfig;
+    /// use google_cloud_telcoautomation_v1::model::StandardManagementConfig;
+    /// let x = ManagementConfig::new().set_oneof_config(Some(
+    ///     google_cloud_telcoautomation_v1::model::management_config::OneofConfig::StandardManagementConfig(StandardManagementConfig::default().into())));
+    /// ```
     pub fn set_oneof_config<
         T: std::convert::Into<std::option::Option<crate::model::management_config::OneofConfig>>,
     >(
@@ -4300,6 +5637,15 @@ impl ManagementConfig {
     ///
     /// Note that all the setters affecting `oneof_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ManagementConfig;
+    /// use google_cloud_telcoautomation_v1::model::StandardManagementConfig;
+    /// let x = ManagementConfig::new().set_standard_management_config(StandardManagementConfig::default()/* use setters */);
+    /// assert!(x.standard_management_config().is_some());
+    /// assert!(x.full_management_config().is_none());
+    /// ```
     pub fn set_standard_management_config<
         T: std::convert::Into<std::boxed::Box<crate::model::StandardManagementConfig>>,
     >(
@@ -4332,6 +5678,15 @@ impl ManagementConfig {
     ///
     /// Note that all the setters affecting `oneof_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ManagementConfig;
+    /// use google_cloud_telcoautomation_v1::model::FullManagementConfig;
+    /// let x = ManagementConfig::new().set_full_management_config(FullManagementConfig::default()/* use setters */);
+    /// assert!(x.full_management_config().is_some());
+    /// assert!(x.standard_management_config().is_none());
+    /// ```
     pub fn set_full_management_config<
         T: std::convert::Into<std::boxed::Box<crate::model::FullManagementConfig>>,
     >(
@@ -4425,18 +5780,36 @@ impl StandardManagementConfig {
     }
 
     /// Sets the value of [network][crate::model::StandardManagementConfig::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::StandardManagementConfig;
+    /// let x = StandardManagementConfig::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [subnet][crate::model::StandardManagementConfig::subnet].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::StandardManagementConfig;
+    /// let x = StandardManagementConfig::new().set_subnet("example");
+    /// ```
     pub fn set_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnet = v.into();
         self
     }
 
     /// Sets the value of [master_ipv4_cidr_block][crate::model::StandardManagementConfig::master_ipv4_cidr_block].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::StandardManagementConfig;
+    /// let x = StandardManagementConfig::new().set_master_ipv4_cidr_block("example");
+    /// ```
     pub fn set_master_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4446,6 +5819,12 @@ impl StandardManagementConfig {
     }
 
     /// Sets the value of [cluster_cidr_block][crate::model::StandardManagementConfig::cluster_cidr_block].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::StandardManagementConfig;
+    /// let x = StandardManagementConfig::new().set_cluster_cidr_block("example");
+    /// ```
     pub fn set_cluster_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4455,6 +5834,12 @@ impl StandardManagementConfig {
     }
 
     /// Sets the value of [services_cidr_block][crate::model::StandardManagementConfig::services_cidr_block].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::StandardManagementConfig;
+    /// let x = StandardManagementConfig::new().set_services_cidr_block("example");
+    /// ```
     pub fn set_services_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4464,6 +5849,12 @@ impl StandardManagementConfig {
     }
 
     /// Sets the value of [cluster_named_range][crate::model::StandardManagementConfig::cluster_named_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::StandardManagementConfig;
+    /// let x = StandardManagementConfig::new().set_cluster_named_range("example");
+    /// ```
     pub fn set_cluster_named_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4473,6 +5864,12 @@ impl StandardManagementConfig {
     }
 
     /// Sets the value of [services_named_range][crate::model::StandardManagementConfig::services_named_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::StandardManagementConfig;
+    /// let x = StandardManagementConfig::new().set_services_named_range("example");
+    /// ```
     pub fn set_services_named_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4482,6 +5879,13 @@ impl StandardManagementConfig {
     }
 
     /// Sets the value of [master_authorized_networks_config][crate::model::StandardManagementConfig::master_authorized_networks_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::StandardManagementConfig;
+    /// use google_cloud_telcoautomation_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = StandardManagementConfig::new().set_master_authorized_networks_config(MasterAuthorizedNetworksConfig::default()/* use setters */);
+    /// ```
     pub fn set_master_authorized_networks_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
@@ -4491,6 +5895,14 @@ impl StandardManagementConfig {
     }
 
     /// Sets or clears the value of [master_authorized_networks_config][crate::model::StandardManagementConfig::master_authorized_networks_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::StandardManagementConfig;
+    /// use google_cloud_telcoautomation_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = StandardManagementConfig::new().set_or_clear_master_authorized_networks_config(Some(MasterAuthorizedNetworksConfig::default()/* use setters */));
+    /// let x = StandardManagementConfig::new().set_or_clear_master_authorized_networks_config(None::<MasterAuthorizedNetworksConfig>);
+    /// ```
     pub fn set_or_clear_master_authorized_networks_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -4564,18 +5976,36 @@ impl FullManagementConfig {
     }
 
     /// Sets the value of [network][crate::model::FullManagementConfig::network].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::FullManagementConfig;
+    /// let x = FullManagementConfig::new().set_network("example");
+    /// ```
     pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.network = v.into();
         self
     }
 
     /// Sets the value of [subnet][crate::model::FullManagementConfig::subnet].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::FullManagementConfig;
+    /// let x = FullManagementConfig::new().set_subnet("example");
+    /// ```
     pub fn set_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnet = v.into();
         self
     }
 
     /// Sets the value of [master_ipv4_cidr_block][crate::model::FullManagementConfig::master_ipv4_cidr_block].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::FullManagementConfig;
+    /// let x = FullManagementConfig::new().set_master_ipv4_cidr_block("example");
+    /// ```
     pub fn set_master_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4585,6 +6015,12 @@ impl FullManagementConfig {
     }
 
     /// Sets the value of [cluster_cidr_block][crate::model::FullManagementConfig::cluster_cidr_block].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::FullManagementConfig;
+    /// let x = FullManagementConfig::new().set_cluster_cidr_block("example");
+    /// ```
     pub fn set_cluster_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4594,6 +6030,12 @@ impl FullManagementConfig {
     }
 
     /// Sets the value of [services_cidr_block][crate::model::FullManagementConfig::services_cidr_block].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::FullManagementConfig;
+    /// let x = FullManagementConfig::new().set_services_cidr_block("example");
+    /// ```
     pub fn set_services_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4603,6 +6045,12 @@ impl FullManagementConfig {
     }
 
     /// Sets the value of [cluster_named_range][crate::model::FullManagementConfig::cluster_named_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::FullManagementConfig;
+    /// let x = FullManagementConfig::new().set_cluster_named_range("example");
+    /// ```
     pub fn set_cluster_named_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4612,6 +6060,12 @@ impl FullManagementConfig {
     }
 
     /// Sets the value of [services_named_range][crate::model::FullManagementConfig::services_named_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::FullManagementConfig;
+    /// let x = FullManagementConfig::new().set_services_named_range("example");
+    /// ```
     pub fn set_services_named_range<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4621,6 +6075,13 @@ impl FullManagementConfig {
     }
 
     /// Sets the value of [master_authorized_networks_config][crate::model::FullManagementConfig::master_authorized_networks_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::FullManagementConfig;
+    /// use google_cloud_telcoautomation_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = FullManagementConfig::new().set_master_authorized_networks_config(MasterAuthorizedNetworksConfig::default()/* use setters */);
+    /// ```
     pub fn set_master_authorized_networks_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::MasterAuthorizedNetworksConfig>,
@@ -4630,6 +6091,14 @@ impl FullManagementConfig {
     }
 
     /// Sets or clears the value of [master_authorized_networks_config][crate::model::FullManagementConfig::master_authorized_networks_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::FullManagementConfig;
+    /// use google_cloud_telcoautomation_v1::model::MasterAuthorizedNetworksConfig;
+    /// let x = FullManagementConfig::new().set_or_clear_master_authorized_networks_config(Some(MasterAuthorizedNetworksConfig::default()/* use setters */));
+    /// let x = FullManagementConfig::new().set_or_clear_master_authorized_networks_config(None::<MasterAuthorizedNetworksConfig>);
+    /// ```
     pub fn set_or_clear_master_authorized_networks_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -4665,6 +6134,17 @@ impl MasterAuthorizedNetworksConfig {
     }
 
     /// Sets the value of [cidr_blocks][crate::model::MasterAuthorizedNetworksConfig::cidr_blocks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::MasterAuthorizedNetworksConfig;
+    /// use google_cloud_telcoautomation_v1::model::master_authorized_networks_config::CidrBlock;
+    /// let x = MasterAuthorizedNetworksConfig::new()
+    ///     .set_cidr_blocks([
+    ///         CidrBlock::default()/* use setters */,
+    ///         CidrBlock::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cidr_blocks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4710,6 +6190,12 @@ pub mod master_authorized_networks_config {
         }
 
         /// Sets the value of [display_name][crate::model::master_authorized_networks_config::CidrBlock::display_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_telcoautomation_v1::model::master_authorized_networks_config::CidrBlock;
+        /// let x = CidrBlock::new().set_display_name("example");
+        /// ```
         pub fn set_display_name<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4719,6 +6205,12 @@ pub mod master_authorized_networks_config {
         }
 
         /// Sets the value of [cidr_block][crate::model::master_authorized_networks_config::CidrBlock::cidr_block].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_telcoautomation_v1::model::master_authorized_networks_config::CidrBlock;
+        /// let x = CidrBlock::new().set_cidr_block("example");
+        /// ```
         pub fn set_cidr_block<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.cidr_block = v.into();
             self
@@ -4759,24 +6251,48 @@ impl File {
     }
 
     /// Sets the value of [path][crate::model::File::path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::File;
+    /// let x = File::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [content][crate::model::File::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::File;
+    /// let x = File::new().set_content("example");
+    /// ```
     pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.content = v.into();
         self
     }
 
     /// Sets the value of [deleted][crate::model::File::deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::File;
+    /// let x = File::new().set_deleted(true);
+    /// ```
     pub fn set_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.deleted = v.into();
         self
     }
 
     /// Sets the value of [editable][crate::model::File::editable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::File;
+    /// let x = File::new().set_editable(true);
+    /// ```
     pub fn set_editable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.editable = v.into();
         self
@@ -4826,12 +6342,24 @@ impl ResourceStatus {
     }
 
     /// Sets the value of [name][crate::model::ResourceStatus::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ResourceStatus;
+    /// let x = ResourceStatus::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [resource_namespace][crate::model::ResourceStatus::resource_namespace].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ResourceStatus;
+    /// let x = ResourceStatus::new().set_resource_namespace("example");
+    /// ```
     pub fn set_resource_namespace<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -4841,24 +6369,50 @@ impl ResourceStatus {
     }
 
     /// Sets the value of [group][crate::model::ResourceStatus::group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ResourceStatus;
+    /// let x = ResourceStatus::new().set_group("example");
+    /// ```
     pub fn set_group<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.group = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::ResourceStatus::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ResourceStatus;
+    /// let x = ResourceStatus::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [kind][crate::model::ResourceStatus::kind].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ResourceStatus;
+    /// let x = ResourceStatus::new().set_kind("example");
+    /// ```
     pub fn set_kind<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kind = v.into();
         self
     }
 
     /// Sets the value of [resource_type][crate::model::ResourceStatus::resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ResourceStatus;
+    /// use google_cloud_telcoautomation_v1::model::ResourceType;
+    /// let x0 = ResourceStatus::new().set_resource_type(ResourceType::NfDeployResource);
+    /// let x1 = ResourceStatus::new().set_resource_type(ResourceType::DeploymentResource);
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<crate::model::ResourceType>>(
         mut self,
         v: T,
@@ -4868,12 +6422,28 @@ impl ResourceStatus {
     }
 
     /// Sets the value of [status][crate::model::ResourceStatus::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ResourceStatus;
+    /// use google_cloud_telcoautomation_v1::model::Status;
+    /// let x0 = ResourceStatus::new().set_status(Status::InProgress);
+    /// let x1 = ResourceStatus::new().set_status(Status::Active);
+    /// let x2 = ResourceStatus::new().set_status(Status::Failed);
+    /// ```
     pub fn set_status<T: std::convert::Into<crate::model::Status>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
 
     /// Sets the value of [nf_deploy_status][crate::model::ResourceStatus::nf_deploy_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ResourceStatus;
+    /// use google_cloud_telcoautomation_v1::model::NFDeployStatus;
+    /// let x = ResourceStatus::new().set_nf_deploy_status(NFDeployStatus::default()/* use setters */);
+    /// ```
     pub fn set_nf_deploy_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NFDeployStatus>,
@@ -4883,6 +6453,14 @@ impl ResourceStatus {
     }
 
     /// Sets or clears the value of [nf_deploy_status][crate::model::ResourceStatus::nf_deploy_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::ResourceStatus;
+    /// use google_cloud_telcoautomation_v1::model::NFDeployStatus;
+    /// let x = ResourceStatus::new().set_or_clear_nf_deploy_status(Some(NFDeployStatus::default()/* use setters */));
+    /// let x = ResourceStatus::new().set_or_clear_nf_deploy_status(None::<NFDeployStatus>);
+    /// ```
     pub fn set_or_clear_nf_deploy_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NFDeployStatus>,
@@ -4921,18 +6499,41 @@ impl NFDeployStatus {
     }
 
     /// Sets the value of [targeted_nfs][crate::model::NFDeployStatus::targeted_nfs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::NFDeployStatus;
+    /// let x = NFDeployStatus::new().set_targeted_nfs(42);
+    /// ```
     pub fn set_targeted_nfs<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.targeted_nfs = v.into();
         self
     }
 
     /// Sets the value of [ready_nfs][crate::model::NFDeployStatus::ready_nfs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::NFDeployStatus;
+    /// let x = NFDeployStatus::new().set_ready_nfs(42);
+    /// ```
     pub fn set_ready_nfs<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.ready_nfs = v.into();
         self
     }
 
     /// Sets the value of [sites][crate::model::NFDeployStatus::sites].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::NFDeployStatus;
+    /// use google_cloud_telcoautomation_v1::model::NFDeploySiteStatus;
+    /// let x = NFDeployStatus::new()
+    ///     .set_sites([
+    ///         NFDeploySiteStatus::default()/* use setters */,
+    ///         NFDeploySiteStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_sites<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4975,18 +6576,37 @@ impl NFDeploySiteStatus {
     }
 
     /// Sets the value of [site][crate::model::NFDeploySiteStatus::site].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::NFDeploySiteStatus;
+    /// let x = NFDeploySiteStatus::new().set_site("example");
+    /// ```
     pub fn set_site<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.site = v.into();
         self
     }
 
     /// Sets the value of [pending_deletion][crate::model::NFDeploySiteStatus::pending_deletion].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::NFDeploySiteStatus;
+    /// let x = NFDeploySiteStatus::new().set_pending_deletion(true);
+    /// ```
     pub fn set_pending_deletion<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.pending_deletion = v.into();
         self
     }
 
     /// Sets the value of [hydration][crate::model::NFDeploySiteStatus::hydration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::NFDeploySiteStatus;
+    /// use google_cloud_telcoautomation_v1::model::HydrationStatus;
+    /// let x = NFDeploySiteStatus::new().set_hydration(HydrationStatus::default()/* use setters */);
+    /// ```
     pub fn set_hydration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::HydrationStatus>,
@@ -4996,6 +6616,14 @@ impl NFDeploySiteStatus {
     }
 
     /// Sets or clears the value of [hydration][crate::model::NFDeploySiteStatus::hydration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::NFDeploySiteStatus;
+    /// use google_cloud_telcoautomation_v1::model::HydrationStatus;
+    /// let x = NFDeploySiteStatus::new().set_or_clear_hydration(Some(HydrationStatus::default()/* use setters */));
+    /// let x = NFDeploySiteStatus::new().set_or_clear_hydration(None::<HydrationStatus>);
+    /// ```
     pub fn set_or_clear_hydration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::HydrationStatus>,
@@ -5005,6 +6633,13 @@ impl NFDeploySiteStatus {
     }
 
     /// Sets the value of [workload][crate::model::NFDeploySiteStatus::workload].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::NFDeploySiteStatus;
+    /// use google_cloud_telcoautomation_v1::model::WorkloadStatus;
+    /// let x = NFDeploySiteStatus::new().set_workload(WorkloadStatus::default()/* use setters */);
+    /// ```
     pub fn set_workload<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadStatus>,
@@ -5014,6 +6649,14 @@ impl NFDeploySiteStatus {
     }
 
     /// Sets or clears the value of [workload][crate::model::NFDeploySiteStatus::workload].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::NFDeploySiteStatus;
+    /// use google_cloud_telcoautomation_v1::model::WorkloadStatus;
+    /// let x = NFDeploySiteStatus::new().set_or_clear_workload(Some(WorkloadStatus::default()/* use setters */));
+    /// let x = NFDeploySiteStatus::new().set_or_clear_workload(None::<WorkloadStatus>);
+    /// ```
     pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkloadStatus>,
@@ -5048,6 +6691,13 @@ impl HydrationStatus {
     }
 
     /// Sets the value of [site_version][crate::model::HydrationStatus::site_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::HydrationStatus;
+    /// use google_cloud_telcoautomation_v1::model::SiteVersion;
+    /// let x = HydrationStatus::new().set_site_version(SiteVersion::default()/* use setters */);
+    /// ```
     pub fn set_site_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SiteVersion>,
@@ -5057,6 +6707,14 @@ impl HydrationStatus {
     }
 
     /// Sets or clears the value of [site_version][crate::model::HydrationStatus::site_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::HydrationStatus;
+    /// use google_cloud_telcoautomation_v1::model::SiteVersion;
+    /// let x = HydrationStatus::new().set_or_clear_site_version(Some(SiteVersion::default()/* use setters */));
+    /// let x = HydrationStatus::new().set_or_clear_site_version(None::<SiteVersion>);
+    /// ```
     pub fn set_or_clear_site_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SiteVersion>,
@@ -5066,6 +6724,12 @@ impl HydrationStatus {
     }
 
     /// Sets the value of [status][crate::model::HydrationStatus::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::HydrationStatus;
+    /// let x = HydrationStatus::new().set_status("example");
+    /// ```
     pub fn set_status<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
@@ -5100,18 +6764,36 @@ impl SiteVersion {
     }
 
     /// Sets the value of [nf_vendor][crate::model::SiteVersion::nf_vendor].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SiteVersion;
+    /// let x = SiteVersion::new().set_nf_vendor("example");
+    /// ```
     pub fn set_nf_vendor<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.nf_vendor = v.into();
         self
     }
 
     /// Sets the value of [nf_type][crate::model::SiteVersion::nf_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SiteVersion;
+    /// let x = SiteVersion::new().set_nf_type("example");
+    /// ```
     pub fn set_nf_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.nf_type = v.into();
         self
     }
 
     /// Sets the value of [nf_version][crate::model::SiteVersion::nf_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::SiteVersion;
+    /// let x = SiteVersion::new().set_nf_version("example");
+    /// ```
     pub fn set_nf_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.nf_version = v.into();
         self
@@ -5143,6 +6825,13 @@ impl WorkloadStatus {
     }
 
     /// Sets the value of [site_version][crate::model::WorkloadStatus::site_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::WorkloadStatus;
+    /// use google_cloud_telcoautomation_v1::model::SiteVersion;
+    /// let x = WorkloadStatus::new().set_site_version(SiteVersion::default()/* use setters */);
+    /// ```
     pub fn set_site_version<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SiteVersion>,
@@ -5152,6 +6841,14 @@ impl WorkloadStatus {
     }
 
     /// Sets or clears the value of [site_version][crate::model::WorkloadStatus::site_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::WorkloadStatus;
+    /// use google_cloud_telcoautomation_v1::model::SiteVersion;
+    /// let x = WorkloadStatus::new().set_or_clear_site_version(Some(SiteVersion::default()/* use setters */));
+    /// let x = WorkloadStatus::new().set_or_clear_site_version(None::<SiteVersion>);
+    /// ```
     pub fn set_or_clear_site_version<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SiteVersion>,
@@ -5161,6 +6858,12 @@ impl WorkloadStatus {
     }
 
     /// Sets the value of [status][crate::model::WorkloadStatus::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_telcoautomation_v1::model::WorkloadStatus;
+    /// let x = WorkloadStatus::new().set_status("example");
+    /// ```
     pub fn set_status<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status = v.into();
         self

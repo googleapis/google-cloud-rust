@@ -106,60 +106,121 @@ impl HttpRequest {
     }
 
     /// Sets the value of [request_method][crate::model::HttpRequest::request_method].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_request_method("example");
+    /// ```
     pub fn set_request_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_method = v.into();
         self
     }
 
     /// Sets the value of [request_url][crate::model::HttpRequest::request_url].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_request_url("example");
+    /// ```
     pub fn set_request_url<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_url = v.into();
         self
     }
 
     /// Sets the value of [request_size][crate::model::HttpRequest::request_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_request_size(42);
+    /// ```
     pub fn set_request_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.request_size = v.into();
         self
     }
 
     /// Sets the value of [status][crate::model::HttpRequest::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_status(42);
+    /// ```
     pub fn set_status<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.status = v.into();
         self
     }
 
     /// Sets the value of [response_size][crate::model::HttpRequest::response_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_response_size(42);
+    /// ```
     pub fn set_response_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.response_size = v.into();
         self
     }
 
     /// Sets the value of [user_agent][crate::model::HttpRequest::user_agent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_user_agent("example");
+    /// ```
     pub fn set_user_agent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.user_agent = v.into();
         self
     }
 
     /// Sets the value of [remote_ip][crate::model::HttpRequest::remote_ip].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_remote_ip("example");
+    /// ```
     pub fn set_remote_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.remote_ip = v.into();
         self
     }
 
     /// Sets the value of [server_ip][crate::model::HttpRequest::server_ip].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_server_ip("example");
+    /// ```
     pub fn set_server_ip<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.server_ip = v.into();
         self
     }
 
     /// Sets the value of [referer][crate::model::HttpRequest::referer].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_referer("example");
+    /// ```
     pub fn set_referer<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.referer = v.into();
         self
     }
 
     /// Sets the value of [latency][crate::model::HttpRequest::latency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// use wkt::Duration;
+    /// let x = HttpRequest::new().set_latency(Duration::default()/* use setters */);
+    /// ```
     pub fn set_latency<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -169,6 +230,14 @@ impl HttpRequest {
     }
 
     /// Sets or clears the value of [latency][crate::model::HttpRequest::latency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// use wkt::Duration;
+    /// let x = HttpRequest::new().set_or_clear_latency(Some(Duration::default()/* use setters */));
+    /// let x = HttpRequest::new().set_or_clear_latency(None::<Duration>);
+    /// ```
     pub fn set_or_clear_latency<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -178,18 +247,36 @@ impl HttpRequest {
     }
 
     /// Sets the value of [cache_lookup][crate::model::HttpRequest::cache_lookup].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_cache_lookup(true);
+    /// ```
     pub fn set_cache_lookup<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cache_lookup = v.into();
         self
     }
 
     /// Sets the value of [cache_hit][crate::model::HttpRequest::cache_hit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_cache_hit(true);
+    /// ```
     pub fn set_cache_hit<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cache_hit = v.into();
         self
     }
 
     /// Sets the value of [cache_validated_with_origin_server][crate::model::HttpRequest::cache_validated_with_origin_server].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_cache_validated_with_origin_server(true);
+    /// ```
     pub fn set_cache_validated_with_origin_server<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -199,12 +286,24 @@ impl HttpRequest {
     }
 
     /// Sets the value of [cache_fill_bytes][crate::model::HttpRequest::cache_fill_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_cache_fill_bytes(42);
+    /// ```
     pub fn set_cache_fill_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.cache_fill_bytes = v.into();
         self
     }
 
     /// Sets the value of [protocol][crate::model::HttpRequest::protocol].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_logging_type::model::HttpRequest;
+    /// let x = HttpRequest::new().set_protocol("example");
+    /// ```
     pub fn set_protocol<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.protocol = v.into();
         self

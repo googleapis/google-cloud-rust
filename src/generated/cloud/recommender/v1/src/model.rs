@@ -90,18 +90,36 @@ impl Insight {
     }
 
     /// Sets the value of [name][crate::model::Insight::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// let x = Insight::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Insight::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// let x = Insight::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [target_resources][crate::model::Insight::target_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// let x = Insight::new().set_target_resources(["a", "b", "c"]);
+    /// ```
     pub fn set_target_resources<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -113,12 +131,25 @@ impl Insight {
     }
 
     /// Sets the value of [insight_subtype][crate::model::Insight::insight_subtype].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// let x = Insight::new().set_insight_subtype("example");
+    /// ```
     pub fn set_insight_subtype<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.insight_subtype = v.into();
         self
     }
 
     /// Sets the value of [content][crate::model::Insight::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// use wkt::Struct;
+    /// let x = Insight::new().set_content(Struct::default()/* use setters */);
+    /// ```
     pub fn set_content<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -128,6 +159,14 @@ impl Insight {
     }
 
     /// Sets or clears the value of [content][crate::model::Insight::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// use wkt::Struct;
+    /// let x = Insight::new().set_or_clear_content(Some(Struct::default()/* use setters */));
+    /// let x = Insight::new().set_or_clear_content(None::<Struct>);
+    /// ```
     pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -137,6 +176,13 @@ impl Insight {
     }
 
     /// Sets the value of [last_refresh_time][crate::model::Insight::last_refresh_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// use wkt::Timestamp;
+    /// let x = Insight::new().set_last_refresh_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_refresh_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -146,6 +192,14 @@ impl Insight {
     }
 
     /// Sets or clears the value of [last_refresh_time][crate::model::Insight::last_refresh_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// use wkt::Timestamp;
+    /// let x = Insight::new().set_or_clear_last_refresh_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Insight::new().set_or_clear_last_refresh_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_refresh_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -155,6 +209,13 @@ impl Insight {
     }
 
     /// Sets the value of [observation_period][crate::model::Insight::observation_period].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// use wkt::Duration;
+    /// let x = Insight::new().set_observation_period(Duration::default()/* use setters */);
+    /// ```
     pub fn set_observation_period<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -164,6 +225,14 @@ impl Insight {
     }
 
     /// Sets or clears the value of [observation_period][crate::model::Insight::observation_period].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// use wkt::Duration;
+    /// let x = Insight::new().set_or_clear_observation_period(Some(Duration::default()/* use setters */));
+    /// let x = Insight::new().set_or_clear_observation_period(None::<Duration>);
+    /// ```
     pub fn set_or_clear_observation_period<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -173,6 +242,13 @@ impl Insight {
     }
 
     /// Sets the value of [state_info][crate::model::Insight::state_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// use google_cloud_recommender_v1::model::InsightStateInfo;
+    /// let x = Insight::new().set_state_info(InsightStateInfo::default()/* use setters */);
+    /// ```
     pub fn set_state_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InsightStateInfo>,
@@ -182,6 +258,14 @@ impl Insight {
     }
 
     /// Sets or clears the value of [state_info][crate::model::Insight::state_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// use google_cloud_recommender_v1::model::InsightStateInfo;
+    /// let x = Insight::new().set_or_clear_state_info(Some(InsightStateInfo::default()/* use setters */));
+    /// let x = Insight::new().set_or_clear_state_info(None::<InsightStateInfo>);
+    /// ```
     pub fn set_or_clear_state_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InsightStateInfo>,
@@ -191,6 +275,15 @@ impl Insight {
     }
 
     /// Sets the value of [category][crate::model::Insight::category].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// use google_cloud_recommender_v1::model::insight::Category;
+    /// let x0 = Insight::new().set_category(Category::Cost);
+    /// let x1 = Insight::new().set_category(Category::Security);
+    /// let x2 = Insight::new().set_category(Category::Performance);
+    /// ```
     pub fn set_category<T: std::convert::Into<crate::model::insight::Category>>(
         mut self,
         v: T,
@@ -200,6 +293,15 @@ impl Insight {
     }
 
     /// Sets the value of [severity][crate::model::Insight::severity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// use google_cloud_recommender_v1::model::insight::Severity;
+    /// let x0 = Insight::new().set_severity(Severity::Low);
+    /// let x1 = Insight::new().set_severity(Severity::Medium);
+    /// let x2 = Insight::new().set_severity(Severity::High);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::insight::Severity>>(
         mut self,
         v: T,
@@ -209,12 +311,29 @@ impl Insight {
     }
 
     /// Sets the value of [etag][crate::model::Insight::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// let x = Insight::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [associated_recommendations][crate::model::Insight::associated_recommendations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Insight;
+    /// use google_cloud_recommender_v1::model::insight::RecommendationReference;
+    /// let x = Insight::new()
+    ///     .set_associated_recommendations([
+    ///         RecommendationReference::default()/* use setters */,
+    ///         RecommendationReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_associated_recommendations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -254,6 +373,12 @@ pub mod insight {
         }
 
         /// Sets the value of [recommendation][crate::model::insight::RecommendationReference::recommendation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_recommender_v1::model::insight::RecommendationReference;
+        /// let x = RecommendationReference::new().set_recommendation("example");
+        /// ```
         pub fn set_recommendation<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -595,6 +720,15 @@ impl InsightStateInfo {
     }
 
     /// Sets the value of [state][crate::model::InsightStateInfo::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightStateInfo;
+    /// use google_cloud_recommender_v1::model::insight_state_info::State;
+    /// let x0 = InsightStateInfo::new().set_state(State::Active);
+    /// let x1 = InsightStateInfo::new().set_state(State::Accepted);
+    /// let x2 = InsightStateInfo::new().set_state(State::Dismissed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::insight_state_info::State>>(
         mut self,
         v: T,
@@ -604,6 +738,15 @@ impl InsightStateInfo {
     }
 
     /// Sets the value of [state_metadata][crate::model::InsightStateInfo::state_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightStateInfo;
+    /// let x = InsightStateInfo::new().set_state_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -822,12 +965,25 @@ impl InsightTypeConfig {
     }
 
     /// Sets the value of [name][crate::model::InsightTypeConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightTypeConfig;
+    /// let x = InsightTypeConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [insight_type_generation_config][crate::model::InsightTypeConfig::insight_type_generation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightTypeConfig;
+    /// use google_cloud_recommender_v1::model::InsightTypeGenerationConfig;
+    /// let x = InsightTypeConfig::new().set_insight_type_generation_config(InsightTypeGenerationConfig::default()/* use setters */);
+    /// ```
     pub fn set_insight_type_generation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InsightTypeGenerationConfig>,
@@ -837,6 +993,14 @@ impl InsightTypeConfig {
     }
 
     /// Sets or clears the value of [insight_type_generation_config][crate::model::InsightTypeConfig::insight_type_generation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightTypeConfig;
+    /// use google_cloud_recommender_v1::model::InsightTypeGenerationConfig;
+    /// let x = InsightTypeConfig::new().set_or_clear_insight_type_generation_config(Some(InsightTypeGenerationConfig::default()/* use setters */));
+    /// let x = InsightTypeConfig::new().set_or_clear_insight_type_generation_config(None::<InsightTypeGenerationConfig>);
+    /// ```
     pub fn set_or_clear_insight_type_generation_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -849,12 +1013,25 @@ impl InsightTypeConfig {
     }
 
     /// Sets the value of [etag][crate::model::InsightTypeConfig::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightTypeConfig;
+    /// let x = InsightTypeConfig::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::InsightTypeConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightTypeConfig;
+    /// use wkt::Timestamp;
+    /// let x = InsightTypeConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -864,6 +1041,14 @@ impl InsightTypeConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::InsightTypeConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightTypeConfig;
+    /// use wkt::Timestamp;
+    /// let x = InsightTypeConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = InsightTypeConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -873,12 +1058,27 @@ impl InsightTypeConfig {
     }
 
     /// Sets the value of [revision_id][crate::model::InsightTypeConfig::revision_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightTypeConfig;
+    /// let x = InsightTypeConfig::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::InsightTypeConfig::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightTypeConfig;
+    /// let x = InsightTypeConfig::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -891,6 +1091,12 @@ impl InsightTypeConfig {
     }
 
     /// Sets the value of [display_name][crate::model::InsightTypeConfig::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightTypeConfig;
+    /// let x = InsightTypeConfig::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -922,6 +1128,13 @@ impl InsightTypeGenerationConfig {
     }
 
     /// Sets the value of [params][crate::model::InsightTypeGenerationConfig::params].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightTypeGenerationConfig;
+    /// use wkt::Struct;
+    /// let x = InsightTypeGenerationConfig::new().set_params(Struct::default()/* use setters */);
+    /// ```
     pub fn set_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -931,6 +1144,14 @@ impl InsightTypeGenerationConfig {
     }
 
     /// Sets or clears the value of [params][crate::model::InsightTypeGenerationConfig::params].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::InsightTypeGenerationConfig;
+    /// use wkt::Struct;
+    /// let x = InsightTypeGenerationConfig::new().set_or_clear_params(Some(Struct::default()/* use setters */));
+    /// let x = InsightTypeGenerationConfig::new().set_or_clear_params(None::<Struct>);
+    /// ```
     pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1013,18 +1234,36 @@ impl Recommendation {
     }
 
     /// Sets the value of [name][crate::model::Recommendation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// let x = Recommendation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Recommendation::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// let x = Recommendation::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [recommender_subtype][crate::model::Recommendation::recommender_subtype].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// let x = Recommendation::new().set_recommender_subtype("example");
+    /// ```
     pub fn set_recommender_subtype<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1034,6 +1273,13 @@ impl Recommendation {
     }
 
     /// Sets the value of [last_refresh_time][crate::model::Recommendation::last_refresh_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// use wkt::Timestamp;
+    /// let x = Recommendation::new().set_last_refresh_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_refresh_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1043,6 +1289,14 @@ impl Recommendation {
     }
 
     /// Sets or clears the value of [last_refresh_time][crate::model::Recommendation::last_refresh_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// use wkt::Timestamp;
+    /// let x = Recommendation::new().set_or_clear_last_refresh_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Recommendation::new().set_or_clear_last_refresh_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_refresh_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1052,6 +1306,13 @@ impl Recommendation {
     }
 
     /// Sets the value of [primary_impact][crate::model::Recommendation::primary_impact].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// use google_cloud_recommender_v1::model::Impact;
+    /// let x = Recommendation::new().set_primary_impact(Impact::default()/* use setters */);
+    /// ```
     pub fn set_primary_impact<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Impact>,
@@ -1061,6 +1322,14 @@ impl Recommendation {
     }
 
     /// Sets or clears the value of [primary_impact][crate::model::Recommendation::primary_impact].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// use google_cloud_recommender_v1::model::Impact;
+    /// let x = Recommendation::new().set_or_clear_primary_impact(Some(Impact::default()/* use setters */));
+    /// let x = Recommendation::new().set_or_clear_primary_impact(None::<Impact>);
+    /// ```
     pub fn set_or_clear_primary_impact<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Impact>,
@@ -1070,6 +1339,17 @@ impl Recommendation {
     }
 
     /// Sets the value of [additional_impact][crate::model::Recommendation::additional_impact].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// use google_cloud_recommender_v1::model::Impact;
+    /// let x = Recommendation::new()
+    ///     .set_additional_impact([
+    ///         Impact::default()/* use setters */,
+    ///         Impact::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_additional_impact<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1081,6 +1361,15 @@ impl Recommendation {
     }
 
     /// Sets the value of [priority][crate::model::Recommendation::priority].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// use google_cloud_recommender_v1::model::recommendation::Priority;
+    /// let x0 = Recommendation::new().set_priority(Priority::P4);
+    /// let x1 = Recommendation::new().set_priority(Priority::P3);
+    /// let x2 = Recommendation::new().set_priority(Priority::P2);
+    /// ```
     pub fn set_priority<T: std::convert::Into<crate::model::recommendation::Priority>>(
         mut self,
         v: T,
@@ -1090,6 +1379,13 @@ impl Recommendation {
     }
 
     /// Sets the value of [content][crate::model::Recommendation::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// use google_cloud_recommender_v1::model::RecommendationContent;
+    /// let x = Recommendation::new().set_content(RecommendationContent::default()/* use setters */);
+    /// ```
     pub fn set_content<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecommendationContent>,
@@ -1099,6 +1395,14 @@ impl Recommendation {
     }
 
     /// Sets or clears the value of [content][crate::model::Recommendation::content].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// use google_cloud_recommender_v1::model::RecommendationContent;
+    /// let x = Recommendation::new().set_or_clear_content(Some(RecommendationContent::default()/* use setters */));
+    /// let x = Recommendation::new().set_or_clear_content(None::<RecommendationContent>);
+    /// ```
     pub fn set_or_clear_content<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecommendationContent>,
@@ -1108,6 +1412,13 @@ impl Recommendation {
     }
 
     /// Sets the value of [state_info][crate::model::Recommendation::state_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// use google_cloud_recommender_v1::model::RecommendationStateInfo;
+    /// let x = Recommendation::new().set_state_info(RecommendationStateInfo::default()/* use setters */);
+    /// ```
     pub fn set_state_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecommendationStateInfo>,
@@ -1117,6 +1428,14 @@ impl Recommendation {
     }
 
     /// Sets or clears the value of [state_info][crate::model::Recommendation::state_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// use google_cloud_recommender_v1::model::RecommendationStateInfo;
+    /// let x = Recommendation::new().set_or_clear_state_info(Some(RecommendationStateInfo::default()/* use setters */));
+    /// let x = Recommendation::new().set_or_clear_state_info(None::<RecommendationStateInfo>);
+    /// ```
     pub fn set_or_clear_state_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecommendationStateInfo>,
@@ -1126,12 +1445,29 @@ impl Recommendation {
     }
 
     /// Sets the value of [etag][crate::model::Recommendation::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// let x = Recommendation::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [associated_insights][crate::model::Recommendation::associated_insights].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// use google_cloud_recommender_v1::model::recommendation::InsightReference;
+    /// let x = Recommendation::new()
+    ///     .set_associated_insights([
+    ///         InsightReference::default()/* use setters */,
+    ///         InsightReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_associated_insights<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1143,6 +1479,12 @@ impl Recommendation {
     }
 
     /// Sets the value of [xor_group_id][crate::model::Recommendation::xor_group_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Recommendation;
+    /// let x = Recommendation::new().set_xor_group_id("example");
+    /// ```
     pub fn set_xor_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.xor_group_id = v.into();
         self
@@ -1177,6 +1519,12 @@ pub mod recommendation {
         }
 
         /// Sets the value of [insight][crate::model::recommendation::InsightReference::insight].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_recommender_v1::model::recommendation::InsightReference;
+        /// let x = InsightReference::new().set_insight("example");
+        /// ```
         pub fn set_insight<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.insight = v.into();
             self
@@ -1357,6 +1705,17 @@ impl RecommendationContent {
     }
 
     /// Sets the value of [operation_groups][crate::model::RecommendationContent::operation_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommendationContent;
+    /// use google_cloud_recommender_v1::model::OperationGroup;
+    /// let x = RecommendationContent::new()
+    ///     .set_operation_groups([
+    ///         OperationGroup::default()/* use setters */,
+    ///         OperationGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_operation_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1368,6 +1727,13 @@ impl RecommendationContent {
     }
 
     /// Sets the value of [overview][crate::model::RecommendationContent::overview].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommendationContent;
+    /// use wkt::Struct;
+    /// let x = RecommendationContent::new().set_overview(Struct::default()/* use setters */);
+    /// ```
     pub fn set_overview<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1377,6 +1743,14 @@ impl RecommendationContent {
     }
 
     /// Sets or clears the value of [overview][crate::model::RecommendationContent::overview].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommendationContent;
+    /// use wkt::Struct;
+    /// let x = RecommendationContent::new().set_or_clear_overview(Some(Struct::default()/* use setters */));
+    /// let x = RecommendationContent::new().set_or_clear_overview(None::<Struct>);
+    /// ```
     pub fn set_or_clear_overview<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1409,6 +1783,17 @@ impl OperationGroup {
     }
 
     /// Sets the value of [operations][crate::model::OperationGroup::operations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::OperationGroup;
+    /// use google_cloud_recommender_v1::model::Operation;
+    /// let x = OperationGroup::new()
+    ///     .set_operations([
+    ///         Operation::default()/* use setters */,
+    ///         Operation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_operations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1525,42 +1910,88 @@ impl Operation {
     }
 
     /// Sets the value of [action][crate::model::Operation::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Operation;
+    /// let x = Operation::new().set_action("example");
+    /// ```
     pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.action = v.into();
         self
     }
 
     /// Sets the value of [resource_type][crate::model::Operation::resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Operation;
+    /// let x = Operation::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [resource][crate::model::Operation::resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Operation;
+    /// let x = Operation::new().set_resource("example");
+    /// ```
     pub fn set_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::Operation::path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Operation;
+    /// let x = Operation::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [source_resource][crate::model::Operation::source_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Operation;
+    /// let x = Operation::new().set_source_resource("example");
+    /// ```
     pub fn set_source_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_resource = v.into();
         self
     }
 
     /// Sets the value of [source_path][crate::model::Operation::source_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Operation;
+    /// let x = Operation::new().set_source_path("example");
+    /// ```
     pub fn set_source_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_path = v.into();
         self
     }
 
     /// Sets the value of [path_filters][crate::model::Operation::path_filters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Operation;
+    /// use wkt::Value;
+    /// let x = Operation::new().set_path_filters([
+    ///     ("key0", Value::default()/* use setters */),
+    ///     ("key1", Value::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_path_filters<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1573,6 +2004,16 @@ impl Operation {
     }
 
     /// Sets the value of [path_value_matchers][crate::model::Operation::path_value_matchers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Operation;
+    /// use google_cloud_recommender_v1::model::ValueMatcher;
+    /// let x = Operation::new().set_path_value_matchers([
+    ///     ("key0", ValueMatcher::default()/* use setters */),
+    ///     ("key1", ValueMatcher::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_path_value_matchers<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -1588,6 +2029,14 @@ impl Operation {
     ///
     /// Note that all the setters affecting `path_value` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Operation;
+    /// use wkt::Value;
+    /// let x = Operation::new().set_path_value(Some(
+    ///     google_cloud_recommender_v1::model::operation::PathValue::Value(Value::default().into())));
+    /// ```
     pub fn set_path_value<
         T: std::convert::Into<std::option::Option<crate::model::operation::PathValue>>,
     >(
@@ -1614,6 +2063,15 @@ impl Operation {
     ///
     /// Note that all the setters affecting `path_value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Operation;
+    /// use wkt::Value;
+    /// let x = Operation::new().set_value(Value::default()/* use setters */);
+    /// assert!(x.value().is_some());
+    /// assert!(x.value_matcher().is_none());
+    /// ```
     pub fn set_value<T: std::convert::Into<std::boxed::Box<wkt::Value>>>(mut self, v: T) -> Self {
         self.path_value =
             std::option::Option::Some(crate::model::operation::PathValue::Value(v.into()));
@@ -1638,6 +2096,15 @@ impl Operation {
     ///
     /// Note that all the setters affecting `path_value` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Operation;
+    /// use google_cloud_recommender_v1::model::ValueMatcher;
+    /// let x = Operation::new().set_value_matcher(ValueMatcher::default()/* use setters */);
+    /// assert!(x.value_matcher().is_some());
+    /// assert!(x.value().is_none());
+    /// ```
     pub fn set_value_matcher<T: std::convert::Into<std::boxed::Box<crate::model::ValueMatcher>>>(
         mut self,
         v: T,
@@ -1692,6 +2159,13 @@ impl ValueMatcher {
     ///
     /// Note that all the setters affecting `match_variant` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ValueMatcher;
+    /// use google_cloud_recommender_v1::model::value_matcher::MatchVariant;
+    /// let x = ValueMatcher::new().set_match_variant(Some(MatchVariant::MatchesPattern("example".to_string())));
+    /// ```
     pub fn set_match_variant<
         T: std::convert::Into<std::option::Option<crate::model::value_matcher::MatchVariant>>,
     >(
@@ -1720,6 +2194,13 @@ impl ValueMatcher {
     ///
     /// Note that all the setters affecting `match_variant` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ValueMatcher;
+    /// let x = ValueMatcher::new().set_matches_pattern("example");
+    /// assert!(x.matches_pattern().is_some());
+    /// ```
     pub fn set_matches_pattern<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.match_variant = std::option::Option::Some(
             crate::model::value_matcher::MatchVariant::MatchesPattern(v.into()),
@@ -1776,6 +2257,13 @@ impl CostProjection {
     }
 
     /// Sets the value of [cost][crate::model::CostProjection::cost].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::CostProjection;
+    /// use gtype::model::Money;
+    /// let x = CostProjection::new().set_cost(Money::default()/* use setters */);
+    /// ```
     pub fn set_cost<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -1785,6 +2273,14 @@ impl CostProjection {
     }
 
     /// Sets or clears the value of [cost][crate::model::CostProjection::cost].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::CostProjection;
+    /// use gtype::model::Money;
+    /// let x = CostProjection::new().set_or_clear_cost(Some(Money::default()/* use setters */));
+    /// let x = CostProjection::new().set_or_clear_cost(None::<Money>);
+    /// ```
     pub fn set_or_clear_cost<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -1794,6 +2290,13 @@ impl CostProjection {
     }
 
     /// Sets the value of [duration][crate::model::CostProjection::duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::CostProjection;
+    /// use wkt::Duration;
+    /// let x = CostProjection::new().set_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1803,6 +2306,14 @@ impl CostProjection {
     }
 
     /// Sets or clears the value of [duration][crate::model::CostProjection::duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::CostProjection;
+    /// use wkt::Duration;
+    /// let x = CostProjection::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+    /// let x = CostProjection::new().set_or_clear_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1812,6 +2323,13 @@ impl CostProjection {
     }
 
     /// Sets the value of [cost_in_local_currency][crate::model::CostProjection::cost_in_local_currency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::CostProjection;
+    /// use gtype::model::Money;
+    /// let x = CostProjection::new().set_cost_in_local_currency(Money::default()/* use setters */);
+    /// ```
     pub fn set_cost_in_local_currency<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -1821,6 +2339,14 @@ impl CostProjection {
     }
 
     /// Sets or clears the value of [cost_in_local_currency][crate::model::CostProjection::cost_in_local_currency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::CostProjection;
+    /// use gtype::model::Money;
+    /// let x = CostProjection::new().set_or_clear_cost_in_local_currency(Some(Money::default()/* use setters */));
+    /// let x = CostProjection::new().set_or_clear_cost_in_local_currency(None::<Money>);
+    /// ```
     pub fn set_or_clear_cost_in_local_currency<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<gtype::model::Money>,
@@ -1852,6 +2378,13 @@ impl SecurityProjection {
     }
 
     /// Sets the value of [details][crate::model::SecurityProjection::details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::SecurityProjection;
+    /// use wkt::Struct;
+    /// let x = SecurityProjection::new().set_details(Struct::default()/* use setters */);
+    /// ```
     pub fn set_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1861,6 +2394,14 @@ impl SecurityProjection {
     }
 
     /// Sets or clears the value of [details][crate::model::SecurityProjection::details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::SecurityProjection;
+    /// use wkt::Struct;
+    /// let x = SecurityProjection::new().set_or_clear_details(Some(Struct::default()/* use setters */));
+    /// let x = SecurityProjection::new().set_or_clear_details(None::<Struct>);
+    /// ```
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1897,12 +2438,25 @@ impl SustainabilityProjection {
     }
 
     /// Sets the value of [kg_c_o2e][crate::model::SustainabilityProjection::kg_c_o2e].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::SustainabilityProjection;
+    /// let x = SustainabilityProjection::new().set_kg_c_o2e(42.0);
+    /// ```
     pub fn set_kg_c_o2e<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
         self.kg_c_o2e = v.into();
         self
     }
 
     /// Sets the value of [duration][crate::model::SustainabilityProjection::duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::SustainabilityProjection;
+    /// use wkt::Duration;
+    /// let x = SustainabilityProjection::new().set_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1912,6 +2466,14 @@ impl SustainabilityProjection {
     }
 
     /// Sets or clears the value of [duration][crate::model::SustainabilityProjection::duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::SustainabilityProjection;
+    /// use wkt::Duration;
+    /// let x = SustainabilityProjection::new().set_or_clear_duration(Some(Duration::default()/* use setters */));
+    /// let x = SustainabilityProjection::new().set_or_clear_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -1946,6 +2508,17 @@ impl ReliabilityProjection {
     }
 
     /// Sets the value of [risks][crate::model::ReliabilityProjection::risks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ReliabilityProjection;
+    /// use google_cloud_recommender_v1::model::reliability_projection::RiskType;
+    /// let x = ReliabilityProjection::new().set_risks([
+    ///     RiskType::ServiceDisruption,
+    ///     RiskType::DataLoss,
+    ///     RiskType::AccessDeny,
+    /// ]);
+    /// ```
     pub fn set_risks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1957,6 +2530,13 @@ impl ReliabilityProjection {
     }
 
     /// Sets the value of [details][crate::model::ReliabilityProjection::details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ReliabilityProjection;
+    /// use wkt::Struct;
+    /// let x = ReliabilityProjection::new().set_details(Struct::default()/* use setters */);
+    /// ```
     pub fn set_details<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -1966,6 +2546,14 @@ impl ReliabilityProjection {
     }
 
     /// Sets or clears the value of [details][crate::model::ReliabilityProjection::details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ReliabilityProjection;
+    /// use wkt::Struct;
+    /// let x = ReliabilityProjection::new().set_or_clear_details(Some(Struct::default()/* use setters */));
+    /// let x = ReliabilityProjection::new().set_or_clear_details(None::<Struct>);
+    /// ```
     pub fn set_or_clear_details<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -2146,6 +2734,15 @@ impl Impact {
     }
 
     /// Sets the value of [category][crate::model::Impact::category].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Impact;
+    /// use google_cloud_recommender_v1::model::impact::Category;
+    /// let x0 = Impact::new().set_category(Category::Cost);
+    /// let x1 = Impact::new().set_category(Category::Security);
+    /// let x2 = Impact::new().set_category(Category::Performance);
+    /// ```
     pub fn set_category<T: std::convert::Into<crate::model::impact::Category>>(
         mut self,
         v: T,
@@ -2158,6 +2755,14 @@ impl Impact {
     ///
     /// Note that all the setters affecting `projection` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Impact;
+    /// use google_cloud_recommender_v1::model::CostProjection;
+    /// let x = Impact::new().set_projection(Some(
+    ///     google_cloud_recommender_v1::model::impact::Projection::CostProjection(CostProjection::default().into())));
+    /// ```
     pub fn set_projection<
         T: std::convert::Into<std::option::Option<crate::model::impact::Projection>>,
     >(
@@ -2186,6 +2791,17 @@ impl Impact {
     ///
     /// Note that all the setters affecting `projection` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Impact;
+    /// use google_cloud_recommender_v1::model::CostProjection;
+    /// let x = Impact::new().set_cost_projection(CostProjection::default()/* use setters */);
+    /// assert!(x.cost_projection().is_some());
+    /// assert!(x.security_projection().is_none());
+    /// assert!(x.sustainability_projection().is_none());
+    /// assert!(x.reliability_projection().is_none());
+    /// ```
     pub fn set_cost_projection<
         T: std::convert::Into<std::boxed::Box<crate::model::CostProjection>>,
     >(
@@ -2215,6 +2831,17 @@ impl Impact {
     ///
     /// Note that all the setters affecting `projection` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Impact;
+    /// use google_cloud_recommender_v1::model::SecurityProjection;
+    /// let x = Impact::new().set_security_projection(SecurityProjection::default()/* use setters */);
+    /// assert!(x.security_projection().is_some());
+    /// assert!(x.cost_projection().is_none());
+    /// assert!(x.sustainability_projection().is_none());
+    /// assert!(x.reliability_projection().is_none());
+    /// ```
     pub fn set_security_projection<
         T: std::convert::Into<std::boxed::Box<crate::model::SecurityProjection>>,
     >(
@@ -2247,6 +2874,17 @@ impl Impact {
     ///
     /// Note that all the setters affecting `projection` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Impact;
+    /// use google_cloud_recommender_v1::model::SustainabilityProjection;
+    /// let x = Impact::new().set_sustainability_projection(SustainabilityProjection::default()/* use setters */);
+    /// assert!(x.sustainability_projection().is_some());
+    /// assert!(x.cost_projection().is_none());
+    /// assert!(x.security_projection().is_none());
+    /// assert!(x.reliability_projection().is_none());
+    /// ```
     pub fn set_sustainability_projection<
         T: std::convert::Into<std::boxed::Box<crate::model::SustainabilityProjection>>,
     >(
@@ -2279,6 +2917,17 @@ impl Impact {
     ///
     /// Note that all the setters affecting `projection` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::Impact;
+    /// use google_cloud_recommender_v1::model::ReliabilityProjection;
+    /// let x = Impact::new().set_reliability_projection(ReliabilityProjection::default()/* use setters */);
+    /// assert!(x.reliability_projection().is_some());
+    /// assert!(x.cost_projection().is_none());
+    /// assert!(x.security_projection().is_none());
+    /// assert!(x.sustainability_projection().is_none());
+    /// ```
     pub fn set_reliability_projection<
         T: std::convert::Into<std::boxed::Box<crate::model::ReliabilityProjection>>,
     >(
@@ -2497,6 +3146,15 @@ impl RecommendationStateInfo {
     }
 
     /// Sets the value of [state][crate::model::RecommendationStateInfo::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommendationStateInfo;
+    /// use google_cloud_recommender_v1::model::recommendation_state_info::State;
+    /// let x0 = RecommendationStateInfo::new().set_state(State::Active);
+    /// let x1 = RecommendationStateInfo::new().set_state(State::Claimed);
+    /// let x2 = RecommendationStateInfo::new().set_state(State::Succeeded);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::recommendation_state_info::State>>(
         mut self,
         v: T,
@@ -2506,6 +3164,15 @@ impl RecommendationStateInfo {
     }
 
     /// Sets the value of [state_metadata][crate::model::RecommendationStateInfo::state_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommendationStateInfo;
+    /// let x = RecommendationStateInfo::new().set_state_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2747,12 +3414,25 @@ impl RecommenderConfig {
     }
 
     /// Sets the value of [name][crate::model::RecommenderConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommenderConfig;
+    /// let x = RecommenderConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [recommender_generation_config][crate::model::RecommenderConfig::recommender_generation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommenderConfig;
+    /// use google_cloud_recommender_v1::model::RecommenderGenerationConfig;
+    /// let x = RecommenderConfig::new().set_recommender_generation_config(RecommenderGenerationConfig::default()/* use setters */);
+    /// ```
     pub fn set_recommender_generation_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecommenderGenerationConfig>,
@@ -2762,6 +3442,14 @@ impl RecommenderConfig {
     }
 
     /// Sets or clears the value of [recommender_generation_config][crate::model::RecommenderConfig::recommender_generation_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommenderConfig;
+    /// use google_cloud_recommender_v1::model::RecommenderGenerationConfig;
+    /// let x = RecommenderConfig::new().set_or_clear_recommender_generation_config(Some(RecommenderGenerationConfig::default()/* use setters */));
+    /// let x = RecommenderConfig::new().set_or_clear_recommender_generation_config(None::<RecommenderGenerationConfig>);
+    /// ```
     pub fn set_or_clear_recommender_generation_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -2774,12 +3462,25 @@ impl RecommenderConfig {
     }
 
     /// Sets the value of [etag][crate::model::RecommenderConfig::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommenderConfig;
+    /// let x = RecommenderConfig::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::RecommenderConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommenderConfig;
+    /// use wkt::Timestamp;
+    /// let x = RecommenderConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2789,6 +3490,14 @@ impl RecommenderConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::RecommenderConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommenderConfig;
+    /// use wkt::Timestamp;
+    /// let x = RecommenderConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RecommenderConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2798,12 +3507,27 @@ impl RecommenderConfig {
     }
 
     /// Sets the value of [revision_id][crate::model::RecommenderConfig::revision_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommenderConfig;
+    /// let x = RecommenderConfig::new().set_revision_id("example");
+    /// ```
     pub fn set_revision_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision_id = v.into();
         self
     }
 
     /// Sets the value of [annotations][crate::model::RecommenderConfig::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommenderConfig;
+    /// let x = RecommenderConfig::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2816,6 +3540,12 @@ impl RecommenderConfig {
     }
 
     /// Sets the value of [display_name][crate::model::RecommenderConfig::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommenderConfig;
+    /// let x = RecommenderConfig::new().set_display_name("example");
+    /// ```
     pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.display_name = v.into();
         self
@@ -2847,6 +3577,13 @@ impl RecommenderGenerationConfig {
     }
 
     /// Sets the value of [params][crate::model::RecommenderGenerationConfig::params].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommenderGenerationConfig;
+    /// use wkt::Struct;
+    /// let x = RecommenderGenerationConfig::new().set_params(Struct::default()/* use setters */);
+    /// ```
     pub fn set_params<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -2856,6 +3593,14 @@ impl RecommenderGenerationConfig {
     }
 
     /// Sets or clears the value of [params][crate::model::RecommenderGenerationConfig::params].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::RecommenderGenerationConfig;
+    /// use wkt::Struct;
+    /// let x = RecommenderGenerationConfig::new().set_or_clear_params(Some(Struct::default()/* use setters */));
+    /// let x = RecommenderGenerationConfig::new().set_or_clear_params(None::<Struct>);
+    /// ```
     pub fn set_or_clear_params<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Struct>,
@@ -2947,24 +3692,48 @@ impl ListInsightsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListInsightsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ListInsightsRequest;
+    /// let x = ListInsightsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListInsightsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ListInsightsRequest;
+    /// let x = ListInsightsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListInsightsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ListInsightsRequest;
+    /// let x = ListInsightsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListInsightsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ListInsightsRequest;
+    /// let x = ListInsightsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -2997,6 +3766,17 @@ impl ListInsightsResponse {
     }
 
     /// Sets the value of [insights][crate::model::ListInsightsResponse::insights].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ListInsightsResponse;
+    /// use google_cloud_recommender_v1::model::Insight;
+    /// let x = ListInsightsResponse::new()
+    ///     .set_insights([
+    ///         Insight::default()/* use setters */,
+    ///         Insight::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_insights<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3008,6 +3788,12 @@ impl ListInsightsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListInsightsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ListInsightsResponse;
+    /// let x = ListInsightsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3050,6 +3836,12 @@ impl GetInsightRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInsightRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::GetInsightRequest;
+    /// let x = GetInsightRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3085,12 +3877,27 @@ impl MarkInsightAcceptedRequest {
     }
 
     /// Sets the value of [name][crate::model::MarkInsightAcceptedRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkInsightAcceptedRequest;
+    /// let x = MarkInsightAcceptedRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state_metadata][crate::model::MarkInsightAcceptedRequest::state_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkInsightAcceptedRequest;
+    /// let x = MarkInsightAcceptedRequest::new().set_state_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3103,6 +3910,12 @@ impl MarkInsightAcceptedRequest {
     }
 
     /// Sets the value of [etag][crate::model::MarkInsightAcceptedRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkInsightAcceptedRequest;
+    /// let x = MarkInsightAcceptedRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -3191,24 +4004,48 @@ impl ListRecommendationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRecommendationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ListRecommendationsRequest;
+    /// let x = ListRecommendationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRecommendationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ListRecommendationsRequest;
+    /// let x = ListRecommendationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRecommendationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ListRecommendationsRequest;
+    /// let x = ListRecommendationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListRecommendationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ListRecommendationsRequest;
+    /// let x = ListRecommendationsRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
@@ -3241,6 +4078,17 @@ impl ListRecommendationsResponse {
     }
 
     /// Sets the value of [recommendations][crate::model::ListRecommendationsResponse::recommendations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ListRecommendationsResponse;
+    /// use google_cloud_recommender_v1::model::Recommendation;
+    /// let x = ListRecommendationsResponse::new()
+    ///     .set_recommendations([
+    ///         Recommendation::default()/* use setters */,
+    ///         Recommendation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_recommendations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3252,6 +4100,12 @@ impl ListRecommendationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRecommendationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::ListRecommendationsResponse;
+    /// let x = ListRecommendationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3294,6 +4148,12 @@ impl GetRecommendationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRecommendationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::GetRecommendationRequest;
+    /// let x = GetRecommendationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3325,12 +4185,24 @@ impl MarkRecommendationDismissedRequest {
     }
 
     /// Sets the value of [name][crate::model::MarkRecommendationDismissedRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkRecommendationDismissedRequest;
+    /// let x = MarkRecommendationDismissedRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::MarkRecommendationDismissedRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkRecommendationDismissedRequest;
+    /// let x = MarkRecommendationDismissedRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -3368,12 +4240,27 @@ impl MarkRecommendationClaimedRequest {
     }
 
     /// Sets the value of [name][crate::model::MarkRecommendationClaimedRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkRecommendationClaimedRequest;
+    /// let x = MarkRecommendationClaimedRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state_metadata][crate::model::MarkRecommendationClaimedRequest::state_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkRecommendationClaimedRequest;
+    /// let x = MarkRecommendationClaimedRequest::new().set_state_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3386,6 +4273,12 @@ impl MarkRecommendationClaimedRequest {
     }
 
     /// Sets the value of [etag][crate::model::MarkRecommendationClaimedRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkRecommendationClaimedRequest;
+    /// let x = MarkRecommendationClaimedRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -3423,12 +4316,27 @@ impl MarkRecommendationSucceededRequest {
     }
 
     /// Sets the value of [name][crate::model::MarkRecommendationSucceededRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkRecommendationSucceededRequest;
+    /// let x = MarkRecommendationSucceededRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state_metadata][crate::model::MarkRecommendationSucceededRequest::state_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkRecommendationSucceededRequest;
+    /// let x = MarkRecommendationSucceededRequest::new().set_state_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3441,6 +4349,12 @@ impl MarkRecommendationSucceededRequest {
     }
 
     /// Sets the value of [etag][crate::model::MarkRecommendationSucceededRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkRecommendationSucceededRequest;
+    /// let x = MarkRecommendationSucceededRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -3478,12 +4392,27 @@ impl MarkRecommendationFailedRequest {
     }
 
     /// Sets the value of [name][crate::model::MarkRecommendationFailedRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkRecommendationFailedRequest;
+    /// let x = MarkRecommendationFailedRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [state_metadata][crate::model::MarkRecommendationFailedRequest::state_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkRecommendationFailedRequest;
+    /// let x = MarkRecommendationFailedRequest::new().set_state_metadata([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3496,6 +4425,12 @@ impl MarkRecommendationFailedRequest {
     }
 
     /// Sets the value of [etag][crate::model::MarkRecommendationFailedRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::MarkRecommendationFailedRequest;
+    /// let x = MarkRecommendationFailedRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -3535,6 +4470,12 @@ impl GetRecommenderConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRecommenderConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::GetRecommenderConfigRequest;
+    /// let x = GetRecommenderConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3570,6 +4511,13 @@ impl UpdateRecommenderConfigRequest {
     }
 
     /// Sets the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::UpdateRecommenderConfigRequest;
+    /// use google_cloud_recommender_v1::model::RecommenderConfig;
+    /// let x = UpdateRecommenderConfigRequest::new().set_recommender_config(RecommenderConfig::default()/* use setters */);
+    /// ```
     pub fn set_recommender_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RecommenderConfig>,
@@ -3579,6 +4527,14 @@ impl UpdateRecommenderConfigRequest {
     }
 
     /// Sets or clears the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::UpdateRecommenderConfigRequest;
+    /// use google_cloud_recommender_v1::model::RecommenderConfig;
+    /// let x = UpdateRecommenderConfigRequest::new().set_or_clear_recommender_config(Some(RecommenderConfig::default()/* use setters */));
+    /// let x = UpdateRecommenderConfigRequest::new().set_or_clear_recommender_config(None::<RecommenderConfig>);
+    /// ```
     pub fn set_or_clear_recommender_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RecommenderConfig>,
@@ -3588,6 +4544,13 @@ impl UpdateRecommenderConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::UpdateRecommenderConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRecommenderConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3597,6 +4560,14 @@ impl UpdateRecommenderConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::UpdateRecommenderConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateRecommenderConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateRecommenderConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3606,6 +4577,12 @@ impl UpdateRecommenderConfigRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateRecommenderConfigRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::UpdateRecommenderConfigRequest;
+    /// let x = UpdateRecommenderConfigRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -3645,6 +4622,12 @@ impl GetInsightTypeConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetInsightTypeConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::GetInsightTypeConfigRequest;
+    /// let x = GetInsightTypeConfigRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3680,6 +4663,13 @@ impl UpdateInsightTypeConfigRequest {
     }
 
     /// Sets the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::UpdateInsightTypeConfigRequest;
+    /// use google_cloud_recommender_v1::model::InsightTypeConfig;
+    /// let x = UpdateInsightTypeConfigRequest::new().set_insight_type_config(InsightTypeConfig::default()/* use setters */);
+    /// ```
     pub fn set_insight_type_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::InsightTypeConfig>,
@@ -3689,6 +4679,14 @@ impl UpdateInsightTypeConfigRequest {
     }
 
     /// Sets or clears the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::UpdateInsightTypeConfigRequest;
+    /// use google_cloud_recommender_v1::model::InsightTypeConfig;
+    /// let x = UpdateInsightTypeConfigRequest::new().set_or_clear_insight_type_config(Some(InsightTypeConfig::default()/* use setters */));
+    /// let x = UpdateInsightTypeConfigRequest::new().set_or_clear_insight_type_config(None::<InsightTypeConfig>);
+    /// ```
     pub fn set_or_clear_insight_type_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::InsightTypeConfig>,
@@ -3698,6 +4696,13 @@ impl UpdateInsightTypeConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::UpdateInsightTypeConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInsightTypeConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3707,6 +4712,14 @@ impl UpdateInsightTypeConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::UpdateInsightTypeConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateInsightTypeConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateInsightTypeConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3716,6 +4729,12 @@ impl UpdateInsightTypeConfigRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateInsightTypeConfigRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_recommender_v1::model::UpdateInsightTypeConfigRequest;
+    /// let x = UpdateInsightTypeConfigRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self

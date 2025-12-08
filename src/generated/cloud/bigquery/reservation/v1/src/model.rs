@@ -209,24 +209,49 @@ impl Reservation {
     }
 
     /// Sets the value of [name][crate::model::Reservation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [slot_capacity][crate::model::Reservation::slot_capacity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_slot_capacity(42);
+    /// ```
     pub fn set_slot_capacity<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.slot_capacity = v.into();
         self
     }
 
     /// Sets the value of [ignore_idle_slots][crate::model::Reservation::ignore_idle_slots].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_ignore_idle_slots(true);
+    /// ```
     pub fn set_ignore_idle_slots<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ignore_idle_slots = v.into();
         self
     }
 
     /// Sets the value of [autoscale][crate::model::Reservation::autoscale].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use google_cloud_bigquery_reservation_v1::model::reservation::Autoscale;
+    /// let x = Reservation::new().set_autoscale(Autoscale::default()/* use setters */);
+    /// ```
     pub fn set_autoscale<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::reservation::Autoscale>,
@@ -236,6 +261,14 @@ impl Reservation {
     }
 
     /// Sets or clears the value of [autoscale][crate::model::Reservation::autoscale].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use google_cloud_bigquery_reservation_v1::model::reservation::Autoscale;
+    /// let x = Reservation::new().set_or_clear_autoscale(Some(Autoscale::default()/* use setters */));
+    /// let x = Reservation::new().set_or_clear_autoscale(None::<Autoscale>);
+    /// ```
     pub fn set_or_clear_autoscale<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::reservation::Autoscale>,
@@ -245,12 +278,25 @@ impl Reservation {
     }
 
     /// Sets the value of [concurrency][crate::model::Reservation::concurrency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_concurrency(42);
+    /// ```
     pub fn set_concurrency<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.concurrency = v.into();
         self
     }
 
     /// Sets the value of [creation_time][crate::model::Reservation::creation_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use wkt::Timestamp;
+    /// let x = Reservation::new().set_creation_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_creation_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -260,6 +306,14 @@ impl Reservation {
     }
 
     /// Sets or clears the value of [creation_time][crate::model::Reservation::creation_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use wkt::Timestamp;
+    /// let x = Reservation::new().set_or_clear_creation_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Reservation::new().set_or_clear_creation_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -269,6 +323,13 @@ impl Reservation {
     }
 
     /// Sets the value of [update_time][crate::model::Reservation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use wkt::Timestamp;
+    /// let x = Reservation::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -278,6 +339,14 @@ impl Reservation {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Reservation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use wkt::Timestamp;
+    /// let x = Reservation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Reservation::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -287,6 +356,12 @@ impl Reservation {
     }
 
     /// Sets the value of [multi_region_auxiliary][crate::model::Reservation::multi_region_auxiliary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_multi_region_auxiliary(true);
+    /// ```
     #[deprecated]
     pub fn set_multi_region_auxiliary<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.multi_region_auxiliary = v.into();
@@ -294,12 +369,27 @@ impl Reservation {
     }
 
     /// Sets the value of [edition][crate::model::Reservation::edition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use google_cloud_bigquery_reservation_v1::model::Edition;
+    /// let x0 = Reservation::new().set_edition(Edition::Standard);
+    /// let x1 = Reservation::new().set_edition(Edition::Enterprise);
+    /// let x2 = Reservation::new().set_edition(Edition::EnterprisePlus);
+    /// ```
     pub fn set_edition<T: std::convert::Into<crate::model::Edition>>(mut self, v: T) -> Self {
         self.edition = v.into();
         self
     }
 
     /// Sets the value of [primary_location][crate::model::Reservation::primary_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_primary_location("example");
+    /// ```
     pub fn set_primary_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -309,6 +399,12 @@ impl Reservation {
     }
 
     /// Sets the value of [secondary_location][crate::model::Reservation::secondary_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_secondary_location("example");
+    /// ```
     pub fn set_secondary_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -318,6 +414,12 @@ impl Reservation {
     }
 
     /// Sets the value of [original_primary_location][crate::model::Reservation::original_primary_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_original_primary_location("example");
+    /// ```
     pub fn set_original_primary_location<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -327,6 +429,12 @@ impl Reservation {
     }
 
     /// Sets the value of [max_slots][crate::model::Reservation::max_slots].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_max_slots(42);
+    /// ```
     pub fn set_max_slots<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -336,6 +444,13 @@ impl Reservation {
     }
 
     /// Sets or clears the value of [max_slots][crate::model::Reservation::max_slots].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_or_clear_max_slots(Some(42));
+    /// let x = Reservation::new().set_or_clear_max_slots(None::<i32>);
+    /// ```
     pub fn set_or_clear_max_slots<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -345,6 +460,15 @@ impl Reservation {
     }
 
     /// Sets the value of [scaling_mode][crate::model::Reservation::scaling_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use google_cloud_bigquery_reservation_v1::model::reservation::ScalingMode;
+    /// let x0 = Reservation::new().set_scaling_mode(ScalingMode::AutoscaleOnly);
+    /// let x1 = Reservation::new().set_scaling_mode(ScalingMode::IdleSlotsOnly);
+    /// let x2 = Reservation::new().set_scaling_mode(ScalingMode::AllSlots);
+    /// ```
     pub fn set_scaling_mode<T: std::convert::Into<crate::model::reservation::ScalingMode>>(
         mut self,
         v: T,
@@ -354,6 +478,15 @@ impl Reservation {
     }
 
     /// Sets the value of [labels][crate::model::Reservation::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -366,6 +499,12 @@ impl Reservation {
     }
 
     /// Sets the value of [reservation_group][crate::model::Reservation::reservation_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = Reservation::new().set_reservation_group("example");
+    /// ```
     pub fn set_reservation_group<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -375,6 +514,13 @@ impl Reservation {
     }
 
     /// Sets the value of [replication_status][crate::model::Reservation::replication_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use google_cloud_bigquery_reservation_v1::model::reservation::ReplicationStatus;
+    /// let x = Reservation::new().set_replication_status(ReplicationStatus::default()/* use setters */);
+    /// ```
     pub fn set_replication_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::reservation::ReplicationStatus>,
@@ -384,6 +530,14 @@ impl Reservation {
     }
 
     /// Sets or clears the value of [replication_status][crate::model::Reservation::replication_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use google_cloud_bigquery_reservation_v1::model::reservation::ReplicationStatus;
+    /// let x = Reservation::new().set_or_clear_replication_status(Some(ReplicationStatus::default()/* use setters */));
+    /// let x = Reservation::new().set_or_clear_replication_status(None::<ReplicationStatus>);
+    /// ```
     pub fn set_or_clear_replication_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::reservation::ReplicationStatus>,
@@ -393,6 +547,13 @@ impl Reservation {
     }
 
     /// Sets the value of [scheduling_policy][crate::model::Reservation::scheduling_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use google_cloud_bigquery_reservation_v1::model::SchedulingPolicy;
+    /// let x = Reservation::new().set_scheduling_policy(SchedulingPolicy::default()/* use setters */);
+    /// ```
     pub fn set_scheduling_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SchedulingPolicy>,
@@ -402,6 +563,14 @@ impl Reservation {
     }
 
     /// Sets or clears the value of [scheduling_policy][crate::model::Reservation::scheduling_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use google_cloud_bigquery_reservation_v1::model::SchedulingPolicy;
+    /// let x = Reservation::new().set_or_clear_scheduling_policy(Some(SchedulingPolicy::default()/* use setters */));
+    /// let x = Reservation::new().set_or_clear_scheduling_policy(None::<SchedulingPolicy>);
+    /// ```
     pub fn set_or_clear_scheduling_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SchedulingPolicy>,
@@ -445,12 +614,24 @@ pub mod reservation {
         }
 
         /// Sets the value of [current_slots][crate::model::reservation::Autoscale::current_slots].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_reservation_v1::model::reservation::Autoscale;
+        /// let x = Autoscale::new().set_current_slots(42);
+        /// ```
         pub fn set_current_slots<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.current_slots = v.into();
             self
         }
 
         /// Sets the value of [max_slots][crate::model::reservation::Autoscale::max_slots].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_reservation_v1::model::reservation::Autoscale;
+        /// let x = Autoscale::new().set_max_slots(42);
+        /// ```
         pub fn set_max_slots<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
             self.max_slots = v.into();
             self
@@ -497,6 +678,13 @@ pub mod reservation {
         }
 
         /// Sets the value of [error][crate::model::reservation::ReplicationStatus::error].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_reservation_v1::model::reservation::ReplicationStatus;
+        /// use rpc::model::Status;
+        /// let x = ReplicationStatus::new().set_error(Status::default()/* use setters */);
+        /// ```
         pub fn set_error<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -506,6 +694,14 @@ pub mod reservation {
         }
 
         /// Sets or clears the value of [error][crate::model::reservation::ReplicationStatus::error].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_reservation_v1::model::reservation::ReplicationStatus;
+        /// use rpc::model::Status;
+        /// let x = ReplicationStatus::new().set_or_clear_error(Some(Status::default()/* use setters */));
+        /// let x = ReplicationStatus::new().set_or_clear_error(None::<Status>);
+        /// ```
         pub fn set_or_clear_error<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<rpc::model::Status>,
@@ -515,6 +711,13 @@ pub mod reservation {
         }
 
         /// Sets the value of [last_error_time][crate::model::reservation::ReplicationStatus::last_error_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_reservation_v1::model::reservation::ReplicationStatus;
+        /// use wkt::Timestamp;
+        /// let x = ReplicationStatus::new().set_last_error_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_last_error_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -524,6 +727,14 @@ pub mod reservation {
         }
 
         /// Sets or clears the value of [last_error_time][crate::model::reservation::ReplicationStatus::last_error_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_reservation_v1::model::reservation::ReplicationStatus;
+        /// use wkt::Timestamp;
+        /// let x = ReplicationStatus::new().set_or_clear_last_error_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ReplicationStatus::new().set_or_clear_last_error_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_last_error_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -533,6 +744,13 @@ pub mod reservation {
         }
 
         /// Sets the value of [last_replication_time][crate::model::reservation::ReplicationStatus::last_replication_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_reservation_v1::model::reservation::ReplicationStatus;
+        /// use wkt::Timestamp;
+        /// let x = ReplicationStatus::new().set_last_replication_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_last_replication_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -542,6 +760,14 @@ pub mod reservation {
         }
 
         /// Sets or clears the value of [last_replication_time][crate::model::reservation::ReplicationStatus::last_replication_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_reservation_v1::model::reservation::ReplicationStatus;
+        /// use wkt::Timestamp;
+        /// let x = ReplicationStatus::new().set_or_clear_last_replication_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ReplicationStatus::new().set_or_clear_last_replication_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_last_replication_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -551,6 +777,13 @@ pub mod reservation {
         }
 
         /// Sets the value of [soft_failover_start_time][crate::model::reservation::ReplicationStatus::soft_failover_start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_reservation_v1::model::reservation::ReplicationStatus;
+        /// use wkt::Timestamp;
+        /// let x = ReplicationStatus::new().set_soft_failover_start_time(Timestamp::default()/* use setters */);
+        /// ```
         pub fn set_soft_failover_start_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -560,6 +793,14 @@ pub mod reservation {
         }
 
         /// Sets or clears the value of [soft_failover_start_time][crate::model::reservation::ReplicationStatus::soft_failover_start_time].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_bigquery_reservation_v1::model::reservation::ReplicationStatus;
+        /// use wkt::Timestamp;
+        /// let x = ReplicationStatus::new().set_or_clear_soft_failover_start_time(Some(Timestamp::default()/* use setters */));
+        /// let x = ReplicationStatus::new().set_or_clear_soft_failover_start_time(None::<Timestamp>);
+        /// ```
         pub fn set_or_clear_soft_failover_start_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -788,6 +1029,12 @@ impl SchedulingPolicy {
     }
 
     /// Sets the value of [concurrency][crate::model::SchedulingPolicy::concurrency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SchedulingPolicy;
+    /// let x = SchedulingPolicy::new().set_concurrency(42);
+    /// ```
     pub fn set_concurrency<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -797,6 +1044,13 @@ impl SchedulingPolicy {
     }
 
     /// Sets or clears the value of [concurrency][crate::model::SchedulingPolicy::concurrency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SchedulingPolicy;
+    /// let x = SchedulingPolicy::new().set_or_clear_concurrency(Some(42));
+    /// let x = SchedulingPolicy::new().set_or_clear_concurrency(None::<i32>);
+    /// ```
     pub fn set_or_clear_concurrency<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -806,6 +1060,12 @@ impl SchedulingPolicy {
     }
 
     /// Sets the value of [max_slots][crate::model::SchedulingPolicy::max_slots].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SchedulingPolicy;
+    /// let x = SchedulingPolicy::new().set_max_slots(42);
+    /// ```
     pub fn set_max_slots<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -815,6 +1075,13 @@ impl SchedulingPolicy {
     }
 
     /// Sets or clears the value of [max_slots][crate::model::SchedulingPolicy::max_slots].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SchedulingPolicy;
+    /// let x = SchedulingPolicy::new().set_or_clear_max_slots(Some(42));
+    /// let x = SchedulingPolicy::new().set_or_clear_max_slots(None::<i32>);
+    /// ```
     pub fn set_or_clear_max_slots<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -850,6 +1117,12 @@ impl ReservationGroup {
     }
 
     /// Sets the value of [name][crate::model::ReservationGroup::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// let x = ReservationGroup::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -941,18 +1214,39 @@ impl CapacityCommitment {
     }
 
     /// Sets the value of [name][crate::model::CapacityCommitment::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = CapacityCommitment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [slot_count][crate::model::CapacityCommitment::slot_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = CapacityCommitment::new().set_slot_count(42);
+    /// ```
     pub fn set_slot_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.slot_count = v.into();
         self
     }
 
     /// Sets the value of [plan][crate::model::CapacityCommitment::plan].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// use google_cloud_bigquery_reservation_v1::model::capacity_commitment::CommitmentPlan;
+    /// let x0 = CapacityCommitment::new().set_plan(CommitmentPlan::Flex);
+    /// let x1 = CapacityCommitment::new().set_plan(CommitmentPlan::Monthly);
+    /// let x2 = CapacityCommitment::new().set_plan(CommitmentPlan::Annual);
+    /// ```
     pub fn set_plan<T: std::convert::Into<crate::model::capacity_commitment::CommitmentPlan>>(
         mut self,
         v: T,
@@ -962,6 +1256,15 @@ impl CapacityCommitment {
     }
 
     /// Sets the value of [state][crate::model::CapacityCommitment::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// use google_cloud_bigquery_reservation_v1::model::capacity_commitment::State;
+    /// let x0 = CapacityCommitment::new().set_state(State::Pending);
+    /// let x1 = CapacityCommitment::new().set_state(State::Active);
+    /// let x2 = CapacityCommitment::new().set_state(State::Failed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::capacity_commitment::State>>(
         mut self,
         v: T,
@@ -971,6 +1274,13 @@ impl CapacityCommitment {
     }
 
     /// Sets the value of [commitment_start_time][crate::model::CapacityCommitment::commitment_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// use wkt::Timestamp;
+    /// let x = CapacityCommitment::new().set_commitment_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_commitment_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -980,6 +1290,14 @@ impl CapacityCommitment {
     }
 
     /// Sets or clears the value of [commitment_start_time][crate::model::CapacityCommitment::commitment_start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// use wkt::Timestamp;
+    /// let x = CapacityCommitment::new().set_or_clear_commitment_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CapacityCommitment::new().set_or_clear_commitment_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_commitment_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -989,6 +1307,13 @@ impl CapacityCommitment {
     }
 
     /// Sets the value of [commitment_end_time][crate::model::CapacityCommitment::commitment_end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// use wkt::Timestamp;
+    /// let x = CapacityCommitment::new().set_commitment_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_commitment_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -998,6 +1323,14 @@ impl CapacityCommitment {
     }
 
     /// Sets or clears the value of [commitment_end_time][crate::model::CapacityCommitment::commitment_end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// use wkt::Timestamp;
+    /// let x = CapacityCommitment::new().set_or_clear_commitment_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CapacityCommitment::new().set_or_clear_commitment_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_commitment_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1007,6 +1340,13 @@ impl CapacityCommitment {
     }
 
     /// Sets the value of [failure_status][crate::model::CapacityCommitment::failure_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// use rpc::model::Status;
+    /// let x = CapacityCommitment::new().set_failure_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_failure_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1016,6 +1356,14 @@ impl CapacityCommitment {
     }
 
     /// Sets or clears the value of [failure_status][crate::model::CapacityCommitment::failure_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// use rpc::model::Status;
+    /// let x = CapacityCommitment::new().set_or_clear_failure_status(Some(Status::default()/* use setters */));
+    /// let x = CapacityCommitment::new().set_or_clear_failure_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_failure_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -1025,6 +1373,15 @@ impl CapacityCommitment {
     }
 
     /// Sets the value of [renewal_plan][crate::model::CapacityCommitment::renewal_plan].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// use google_cloud_bigquery_reservation_v1::model::capacity_commitment::CommitmentPlan;
+    /// let x0 = CapacityCommitment::new().set_renewal_plan(CommitmentPlan::Flex);
+    /// let x1 = CapacityCommitment::new().set_renewal_plan(CommitmentPlan::Monthly);
+    /// let x2 = CapacityCommitment::new().set_renewal_plan(CommitmentPlan::Annual);
+    /// ```
     pub fn set_renewal_plan<
         T: std::convert::Into<crate::model::capacity_commitment::CommitmentPlan>,
     >(
@@ -1036,6 +1393,12 @@ impl CapacityCommitment {
     }
 
     /// Sets the value of [multi_region_auxiliary][crate::model::CapacityCommitment::multi_region_auxiliary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = CapacityCommitment::new().set_multi_region_auxiliary(true);
+    /// ```
     #[deprecated]
     pub fn set_multi_region_auxiliary<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.multi_region_auxiliary = v.into();
@@ -1043,12 +1406,27 @@ impl CapacityCommitment {
     }
 
     /// Sets the value of [edition][crate::model::CapacityCommitment::edition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// use google_cloud_bigquery_reservation_v1::model::Edition;
+    /// let x0 = CapacityCommitment::new().set_edition(Edition::Standard);
+    /// let x1 = CapacityCommitment::new().set_edition(Edition::Enterprise);
+    /// let x2 = CapacityCommitment::new().set_edition(Edition::EnterprisePlus);
+    /// ```
     pub fn set_edition<T: std::convert::Into<crate::model::Edition>>(mut self, v: T) -> Self {
         self.edition = v.into();
         self
     }
 
     /// Sets the value of [is_flat_rate][crate::model::CapacityCommitment::is_flat_rate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = CapacityCommitment::new().set_is_flat_rate(true);
+    /// ```
     pub fn set_is_flat_rate<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.is_flat_rate = v.into();
         self
@@ -1443,18 +1821,37 @@ impl CreateReservationRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateReservationRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateReservationRequest;
+    /// let x = CreateReservationRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [reservation_id][crate::model::CreateReservationRequest::reservation_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateReservationRequest;
+    /// let x = CreateReservationRequest::new().set_reservation_id("example");
+    /// ```
     pub fn set_reservation_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.reservation_id = v.into();
         self
     }
 
     /// Sets the value of [reservation][crate::model::CreateReservationRequest::reservation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateReservationRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = CreateReservationRequest::new().set_reservation(Reservation::default()/* use setters */);
+    /// ```
     pub fn set_reservation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Reservation>,
@@ -1464,6 +1861,14 @@ impl CreateReservationRequest {
     }
 
     /// Sets or clears the value of [reservation][crate::model::CreateReservationRequest::reservation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateReservationRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = CreateReservationRequest::new().set_or_clear_reservation(Some(Reservation::default()/* use setters */));
+    /// let x = CreateReservationRequest::new().set_or_clear_reservation(None::<Reservation>);
+    /// ```
     pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Reservation>,
@@ -1505,18 +1910,36 @@ impl ListReservationsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListReservationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListReservationsRequest;
+    /// let x = ListReservationsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListReservationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListReservationsRequest;
+    /// let x = ListReservationsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListReservationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListReservationsRequest;
+    /// let x = ListReservationsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1552,6 +1975,17 @@ impl ListReservationsResponse {
     }
 
     /// Sets the value of [reservations][crate::model::ListReservationsResponse::reservations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListReservationsResponse;
+    /// use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = ListReservationsResponse::new()
+    ///     .set_reservations([
+    ///         Reservation::default()/* use setters */,
+    ///         Reservation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_reservations<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1563,6 +1997,12 @@ impl ListReservationsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListReservationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListReservationsResponse;
+    /// let x = ListReservationsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1609,6 +2049,12 @@ impl GetReservationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetReservationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::GetReservationRequest;
+    /// let x = GetReservationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1641,6 +2087,12 @@ impl DeleteReservationRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteReservationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::DeleteReservationRequest;
+    /// let x = DeleteReservationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1675,6 +2127,13 @@ impl UpdateReservationRequest {
     }
 
     /// Sets the value of [reservation][crate::model::UpdateReservationRequest::reservation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateReservationRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = UpdateReservationRequest::new().set_reservation(Reservation::default()/* use setters */);
+    /// ```
     pub fn set_reservation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Reservation>,
@@ -1684,6 +2143,14 @@ impl UpdateReservationRequest {
     }
 
     /// Sets or clears the value of [reservation][crate::model::UpdateReservationRequest::reservation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateReservationRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// let x = UpdateReservationRequest::new().set_or_clear_reservation(Some(Reservation::default()/* use setters */));
+    /// let x = UpdateReservationRequest::new().set_or_clear_reservation(None::<Reservation>);
+    /// ```
     pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Reservation>,
@@ -1693,6 +2160,13 @@ impl UpdateReservationRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateReservationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateReservationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1702,6 +2176,14 @@ impl UpdateReservationRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateReservationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateReservationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateReservationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1739,12 +2221,26 @@ impl FailoverReservationRequest {
     }
 
     /// Sets the value of [name][crate::model::FailoverReservationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::FailoverReservationRequest;
+    /// let x = FailoverReservationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [failover_mode][crate::model::FailoverReservationRequest::failover_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::FailoverReservationRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::FailoverMode;
+    /// let x0 = FailoverReservationRequest::new().set_failover_mode(FailoverMode::Soft);
+    /// let x1 = FailoverReservationRequest::new().set_failover_mode(FailoverMode::Hard);
+    /// ```
     pub fn set_failover_mode<T: std::convert::Into<crate::model::FailoverMode>>(
         mut self,
         v: T,
@@ -1788,12 +2284,24 @@ impl CreateReservationGroupRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateReservationGroupRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateReservationGroupRequest;
+    /// let x = CreateReservationGroupRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [reservation_group_id][crate::model::CreateReservationGroupRequest::reservation_group_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateReservationGroupRequest;
+    /// let x = CreateReservationGroupRequest::new().set_reservation_group_id("example");
+    /// ```
     pub fn set_reservation_group_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1803,6 +2311,13 @@ impl CreateReservationGroupRequest {
     }
 
     /// Sets the value of [reservation_group][crate::model::CreateReservationGroupRequest::reservation_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateReservationGroupRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// let x = CreateReservationGroupRequest::new().set_reservation_group(ReservationGroup::default()/* use setters */);
+    /// ```
     pub fn set_reservation_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ReservationGroup>,
@@ -1812,6 +2327,14 @@ impl CreateReservationGroupRequest {
     }
 
     /// Sets or clears the value of [reservation_group][crate::model::CreateReservationGroupRequest::reservation_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateReservationGroupRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// let x = CreateReservationGroupRequest::new().set_or_clear_reservation_group(Some(ReservationGroup::default()/* use setters */));
+    /// let x = CreateReservationGroupRequest::new().set_or_clear_reservation_group(None::<ReservationGroup>);
+    /// ```
     pub fn set_or_clear_reservation_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ReservationGroup>,
@@ -1847,6 +2370,12 @@ impl GetReservationGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetReservationGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::GetReservationGroupRequest;
+    /// let x = GetReservationGroupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1885,18 +2414,36 @@ impl ListReservationGroupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListReservationGroupsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListReservationGroupsRequest;
+    /// let x = ListReservationGroupsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListReservationGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListReservationGroupsRequest;
+    /// let x = ListReservationGroupsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListReservationGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListReservationGroupsRequest;
+    /// let x = ListReservationGroupsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1932,6 +2479,17 @@ impl ListReservationGroupsResponse {
     }
 
     /// Sets the value of [reservation_groups][crate::model::ListReservationGroupsResponse::reservation_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListReservationGroupsResponse;
+    /// use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// let x = ListReservationGroupsResponse::new()
+    ///     .set_reservation_groups([
+    ///         ReservationGroup::default()/* use setters */,
+    ///         ReservationGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_reservation_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1943,6 +2501,12 @@ impl ListReservationGroupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListReservationGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListReservationGroupsResponse;
+    /// let x = ListReservationGroupsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1989,6 +2553,12 @@ impl DeleteReservationGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteReservationGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::DeleteReservationGroupRequest;
+    /// let x = DeleteReservationGroupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2035,12 +2605,25 @@ impl CreateCapacityCommitmentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateCapacityCommitmentRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateCapacityCommitmentRequest;
+    /// let x = CreateCapacityCommitmentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateCapacityCommitmentRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = CreateCapacityCommitmentRequest::new().set_capacity_commitment(CapacityCommitment::default()/* use setters */);
+    /// ```
     pub fn set_capacity_commitment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CapacityCommitment>,
@@ -2050,6 +2633,14 @@ impl CreateCapacityCommitmentRequest {
     }
 
     /// Sets or clears the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateCapacityCommitmentRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = CreateCapacityCommitmentRequest::new().set_or_clear_capacity_commitment(Some(CapacityCommitment::default()/* use setters */));
+    /// let x = CreateCapacityCommitmentRequest::new().set_or_clear_capacity_commitment(None::<CapacityCommitment>);
+    /// ```
     pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CapacityCommitment>,
@@ -2059,6 +2650,12 @@ impl CreateCapacityCommitmentRequest {
     }
 
     /// Sets the value of [enforce_single_admin_project_per_org][crate::model::CreateCapacityCommitmentRequest::enforce_single_admin_project_per_org].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateCapacityCommitmentRequest;
+    /// let x = CreateCapacityCommitmentRequest::new().set_enforce_single_admin_project_per_org(true);
+    /// ```
     pub fn set_enforce_single_admin_project_per_org<T: std::convert::Into<bool>>(
         mut self,
         v: T,
@@ -2068,6 +2665,12 @@ impl CreateCapacityCommitmentRequest {
     }
 
     /// Sets the value of [capacity_commitment_id][crate::model::CreateCapacityCommitmentRequest::capacity_commitment_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateCapacityCommitmentRequest;
+    /// let x = CreateCapacityCommitmentRequest::new().set_capacity_commitment_id("example");
+    /// ```
     pub fn set_capacity_commitment_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2109,18 +2712,36 @@ impl ListCapacityCommitmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListCapacityCommitmentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListCapacityCommitmentsRequest;
+    /// let x = ListCapacityCommitmentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListCapacityCommitmentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListCapacityCommitmentsRequest;
+    /// let x = ListCapacityCommitmentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListCapacityCommitmentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListCapacityCommitmentsRequest;
+    /// let x = ListCapacityCommitmentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2156,6 +2777,17 @@ impl ListCapacityCommitmentsResponse {
     }
 
     /// Sets the value of [capacity_commitments][crate::model::ListCapacityCommitmentsResponse::capacity_commitments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListCapacityCommitmentsResponse;
+    /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = ListCapacityCommitmentsResponse::new()
+    ///     .set_capacity_commitments([
+    ///         CapacityCommitment::default()/* use setters */,
+    ///         CapacityCommitment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_capacity_commitments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2167,6 +2799,12 @@ impl ListCapacityCommitmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListCapacityCommitmentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListCapacityCommitmentsResponse;
+    /// let x = ListCapacityCommitmentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2213,6 +2851,12 @@ impl GetCapacityCommitmentRequest {
     }
 
     /// Sets the value of [name][crate::model::GetCapacityCommitmentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::GetCapacityCommitmentRequest;
+    /// let x = GetCapacityCommitmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2250,12 +2894,24 @@ impl DeleteCapacityCommitmentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteCapacityCommitmentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::DeleteCapacityCommitmentRequest;
+    /// let x = DeleteCapacityCommitmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [force][crate::model::DeleteCapacityCommitmentRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::DeleteCapacityCommitmentRequest;
+    /// let x = DeleteCapacityCommitmentRequest::new().set_force(true);
+    /// ```
     pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force = v.into();
         self
@@ -2290,6 +2946,13 @@ impl UpdateCapacityCommitmentRequest {
     }
 
     /// Sets the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateCapacityCommitmentRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = UpdateCapacityCommitmentRequest::new().set_capacity_commitment(CapacityCommitment::default()/* use setters */);
+    /// ```
     pub fn set_capacity_commitment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CapacityCommitment>,
@@ -2299,6 +2962,14 @@ impl UpdateCapacityCommitmentRequest {
     }
 
     /// Sets or clears the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateCapacityCommitmentRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = UpdateCapacityCommitmentRequest::new().set_or_clear_capacity_commitment(Some(CapacityCommitment::default()/* use setters */));
+    /// let x = UpdateCapacityCommitmentRequest::new().set_or_clear_capacity_commitment(None::<CapacityCommitment>);
+    /// ```
     pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CapacityCommitment>,
@@ -2308,6 +2979,13 @@ impl UpdateCapacityCommitmentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateCapacityCommitmentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCapacityCommitmentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2317,6 +2995,14 @@ impl UpdateCapacityCommitmentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateCapacityCommitmentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateCapacityCommitmentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateCapacityCommitmentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2355,12 +3041,24 @@ impl SplitCapacityCommitmentRequest {
     }
 
     /// Sets the value of [name][crate::model::SplitCapacityCommitmentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SplitCapacityCommitmentRequest;
+    /// let x = SplitCapacityCommitmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [slot_count][crate::model::SplitCapacityCommitmentRequest::slot_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SplitCapacityCommitmentRequest;
+    /// let x = SplitCapacityCommitmentRequest::new().set_slot_count(42);
+    /// ```
     pub fn set_slot_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.slot_count = v.into();
         self
@@ -2395,6 +3093,13 @@ impl SplitCapacityCommitmentResponse {
     }
 
     /// Sets the value of [first][crate::model::SplitCapacityCommitmentResponse::first].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SplitCapacityCommitmentResponse;
+    /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = SplitCapacityCommitmentResponse::new().set_first(CapacityCommitment::default()/* use setters */);
+    /// ```
     pub fn set_first<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CapacityCommitment>,
@@ -2404,6 +3109,14 @@ impl SplitCapacityCommitmentResponse {
     }
 
     /// Sets or clears the value of [first][crate::model::SplitCapacityCommitmentResponse::first].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SplitCapacityCommitmentResponse;
+    /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = SplitCapacityCommitmentResponse::new().set_or_clear_first(Some(CapacityCommitment::default()/* use setters */));
+    /// let x = SplitCapacityCommitmentResponse::new().set_or_clear_first(None::<CapacityCommitment>);
+    /// ```
     pub fn set_or_clear_first<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CapacityCommitment>,
@@ -2413,6 +3126,13 @@ impl SplitCapacityCommitmentResponse {
     }
 
     /// Sets the value of [second][crate::model::SplitCapacityCommitmentResponse::second].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SplitCapacityCommitmentResponse;
+    /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = SplitCapacityCommitmentResponse::new().set_second(CapacityCommitment::default()/* use setters */);
+    /// ```
     pub fn set_second<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CapacityCommitment>,
@@ -2422,6 +3142,14 @@ impl SplitCapacityCommitmentResponse {
     }
 
     /// Sets or clears the value of [second][crate::model::SplitCapacityCommitmentResponse::second].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SplitCapacityCommitmentResponse;
+    /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// let x = SplitCapacityCommitmentResponse::new().set_or_clear_second(Some(CapacityCommitment::default()/* use setters */));
+    /// let x = SplitCapacityCommitmentResponse::new().set_or_clear_second(None::<CapacityCommitment>);
+    /// ```
     pub fn set_or_clear_second<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CapacityCommitment>,
@@ -2470,12 +3198,24 @@ impl MergeCapacityCommitmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::MergeCapacityCommitmentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::MergeCapacityCommitmentsRequest;
+    /// let x = MergeCapacityCommitmentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [capacity_commitment_ids][crate::model::MergeCapacityCommitmentsRequest::capacity_commitment_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::MergeCapacityCommitmentsRequest;
+    /// let x = MergeCapacityCommitmentsRequest::new().set_capacity_commitment_ids(["a", "b", "c"]);
+    /// ```
     pub fn set_capacity_commitment_ids<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2487,6 +3227,12 @@ impl MergeCapacityCommitmentsRequest {
     }
 
     /// Sets the value of [capacity_commitment_id][crate::model::MergeCapacityCommitmentsRequest::capacity_commitment_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::MergeCapacityCommitmentsRequest;
+    /// let x = MergeCapacityCommitmentsRequest::new().set_capacity_commitment_id("example");
+    /// ```
     pub fn set_capacity_commitment_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2550,18 +3296,39 @@ impl Assignment {
     }
 
     /// Sets the value of [name][crate::model::Assignment::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// let x = Assignment::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [assignee][crate::model::Assignment::assignee].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// let x = Assignment::new().set_assignee("example");
+    /// ```
     pub fn set_assignee<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.assignee = v.into();
         self
     }
 
     /// Sets the value of [job_type][crate::model::Assignment::job_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// use google_cloud_bigquery_reservation_v1::model::assignment::JobType;
+    /// let x0 = Assignment::new().set_job_type(JobType::Pipeline);
+    /// let x1 = Assignment::new().set_job_type(JobType::Query);
+    /// let x2 = Assignment::new().set_job_type(JobType::MlExternal);
+    /// ```
     pub fn set_job_type<T: std::convert::Into<crate::model::assignment::JobType>>(
         mut self,
         v: T,
@@ -2571,6 +3338,14 @@ impl Assignment {
     }
 
     /// Sets the value of [state][crate::model::Assignment::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// use google_cloud_bigquery_reservation_v1::model::assignment::State;
+    /// let x0 = Assignment::new().set_state(State::Pending);
+    /// let x1 = Assignment::new().set_state(State::Active);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::assignment::State>>(
         mut self,
         v: T,
@@ -2580,12 +3355,25 @@ impl Assignment {
     }
 
     /// Sets the value of [enable_gemini_in_bigquery][crate::model::Assignment::enable_gemini_in_bigquery].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// let x = Assignment::new().set_enable_gemini_in_bigquery(true);
+    /// ```
     pub fn set_enable_gemini_in_bigquery<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_gemini_in_bigquery = v.into();
         self
     }
 
     /// Sets the value of [scheduling_policy][crate::model::Assignment::scheduling_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// use google_cloud_bigquery_reservation_v1::model::SchedulingPolicy;
+    /// let x = Assignment::new().set_scheduling_policy(SchedulingPolicy::default()/* use setters */);
+    /// ```
     pub fn set_scheduling_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SchedulingPolicy>,
@@ -2595,6 +3383,14 @@ impl Assignment {
     }
 
     /// Sets or clears the value of [scheduling_policy][crate::model::Assignment::scheduling_policy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// use google_cloud_bigquery_reservation_v1::model::SchedulingPolicy;
+    /// let x = Assignment::new().set_or_clear_scheduling_policy(Some(SchedulingPolicy::default()/* use setters */));
+    /// let x = Assignment::new().set_or_clear_scheduling_policy(None::<SchedulingPolicy>);
+    /// ```
     pub fn set_or_clear_scheduling_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SchedulingPolicy>,
@@ -2973,12 +3769,25 @@ impl CreateAssignmentRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAssignmentRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateAssignmentRequest;
+    /// let x = CreateAssignmentRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateAssignmentRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// let x = CreateAssignmentRequest::new().set_assignment(Assignment::default()/* use setters */);
+    /// ```
     pub fn set_assignment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Assignment>,
@@ -2988,6 +3797,14 @@ impl CreateAssignmentRequest {
     }
 
     /// Sets or clears the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateAssignmentRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// let x = CreateAssignmentRequest::new().set_or_clear_assignment(Some(Assignment::default()/* use setters */));
+    /// let x = CreateAssignmentRequest::new().set_or_clear_assignment(None::<Assignment>);
+    /// ```
     pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Assignment>,
@@ -2997,6 +3814,12 @@ impl CreateAssignmentRequest {
     }
 
     /// Sets the value of [assignment_id][crate::model::CreateAssignmentRequest::assignment_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::CreateAssignmentRequest;
+    /// let x = CreateAssignmentRequest::new().set_assignment_id("example");
+    /// ```
     pub fn set_assignment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.assignment_id = v.into();
         self
@@ -3040,18 +3863,36 @@ impl ListAssignmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAssignmentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListAssignmentsRequest;
+    /// let x = ListAssignmentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAssignmentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListAssignmentsRequest;
+    /// let x = ListAssignmentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAssignmentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListAssignmentsRequest;
+    /// let x = ListAssignmentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3087,6 +3928,17 @@ impl ListAssignmentsResponse {
     }
 
     /// Sets the value of [assignments][crate::model::ListAssignmentsResponse::assignments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListAssignmentsResponse;
+    /// use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// let x = ListAssignmentsResponse::new()
+    ///     .set_assignments([
+    ///         Assignment::default()/* use setters */,
+    ///         Assignment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_assignments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3098,6 +3950,12 @@ impl ListAssignmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAssignmentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::ListAssignmentsResponse;
+    /// let x = ListAssignmentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3146,6 +4004,12 @@ impl DeleteAssignmentRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAssignmentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::DeleteAssignmentRequest;
+    /// let x = DeleteAssignmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3196,24 +4060,48 @@ impl SearchAssignmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::SearchAssignmentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SearchAssignmentsRequest;
+    /// let x = SearchAssignmentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::SearchAssignmentsRequest::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SearchAssignmentsRequest;
+    /// let x = SearchAssignmentsRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchAssignmentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SearchAssignmentsRequest;
+    /// let x = SearchAssignmentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchAssignmentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SearchAssignmentsRequest;
+    /// let x = SearchAssignmentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3264,24 +4152,48 @@ impl SearchAllAssignmentsRequest {
     }
 
     /// Sets the value of [parent][crate::model::SearchAllAssignmentsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SearchAllAssignmentsRequest;
+    /// let x = SearchAllAssignmentsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [query][crate::model::SearchAllAssignmentsRequest::query].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SearchAllAssignmentsRequest;
+    /// let x = SearchAllAssignmentsRequest::new().set_query("example");
+    /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::SearchAllAssignmentsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SearchAllAssignmentsRequest;
+    /// let x = SearchAllAssignmentsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::SearchAllAssignmentsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SearchAllAssignmentsRequest;
+    /// let x = SearchAllAssignmentsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -3317,6 +4229,17 @@ impl SearchAssignmentsResponse {
     }
 
     /// Sets the value of [assignments][crate::model::SearchAssignmentsResponse::assignments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SearchAssignmentsResponse;
+    /// use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// let x = SearchAssignmentsResponse::new()
+    ///     .set_assignments([
+    ///         Assignment::default()/* use setters */,
+    ///         Assignment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_assignments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3328,6 +4251,12 @@ impl SearchAssignmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchAssignmentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SearchAssignmentsResponse;
+    /// let x = SearchAssignmentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3377,6 +4306,17 @@ impl SearchAllAssignmentsResponse {
     }
 
     /// Sets the value of [assignments][crate::model::SearchAllAssignmentsResponse::assignments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SearchAllAssignmentsResponse;
+    /// use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// let x = SearchAllAssignmentsResponse::new()
+    ///     .set_assignments([
+    ///         Assignment::default()/* use setters */,
+    ///         Assignment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_assignments<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3388,6 +4328,12 @@ impl SearchAllAssignmentsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::SearchAllAssignmentsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::SearchAllAssignmentsResponse;
+    /// let x = SearchAllAssignmentsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3453,18 +4399,36 @@ impl MoveAssignmentRequest {
     }
 
     /// Sets the value of [name][crate::model::MoveAssignmentRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::MoveAssignmentRequest;
+    /// let x = MoveAssignmentRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [destination_id][crate::model::MoveAssignmentRequest::destination_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::MoveAssignmentRequest;
+    /// let x = MoveAssignmentRequest::new().set_destination_id("example");
+    /// ```
     pub fn set_destination_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.destination_id = v.into();
         self
     }
 
     /// Sets the value of [assignment_id][crate::model::MoveAssignmentRequest::assignment_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::MoveAssignmentRequest;
+    /// let x = MoveAssignmentRequest::new().set_assignment_id("example");
+    /// ```
     pub fn set_assignment_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.assignment_id = v.into();
         self
@@ -3499,6 +4463,13 @@ impl UpdateAssignmentRequest {
     }
 
     /// Sets the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateAssignmentRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// let x = UpdateAssignmentRequest::new().set_assignment(Assignment::default()/* use setters */);
+    /// ```
     pub fn set_assignment<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Assignment>,
@@ -3508,6 +4479,14 @@ impl UpdateAssignmentRequest {
     }
 
     /// Sets or clears the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateAssignmentRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// let x = UpdateAssignmentRequest::new().set_or_clear_assignment(Some(Assignment::default()/* use setters */));
+    /// let x = UpdateAssignmentRequest::new().set_or_clear_assignment(None::<Assignment>);
+    /// ```
     pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Assignment>,
@@ -3517,6 +4496,13 @@ impl UpdateAssignmentRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateAssignmentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAssignmentRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3526,6 +4512,14 @@ impl UpdateAssignmentRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateAssignmentRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAssignmentRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAssignmentRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3564,18 +4558,36 @@ impl TableReference {
     }
 
     /// Sets the value of [project_id][crate::model::TableReference::project_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::TableReference;
+    /// let x = TableReference::new().set_project_id("example");
+    /// ```
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
         self
     }
 
     /// Sets the value of [dataset_id][crate::model::TableReference::dataset_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::TableReference;
+    /// let x = TableReference::new().set_dataset_id("example");
+    /// ```
     pub fn set_dataset_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.dataset_id = v.into();
         self
     }
 
     /// Sets the value of [table_id][crate::model::TableReference::table_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::TableReference;
+    /// let x = TableReference::new().set_table_id("example");
+    /// ```
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
         self
@@ -3615,12 +4627,25 @@ impl BiReservation {
     }
 
     /// Sets the value of [name][crate::model::BiReservation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::BiReservation;
+    /// let x = BiReservation::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [update_time][crate::model::BiReservation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::BiReservation;
+    /// use wkt::Timestamp;
+    /// let x = BiReservation::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3630,6 +4655,14 @@ impl BiReservation {
     }
 
     /// Sets or clears the value of [update_time][crate::model::BiReservation::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::BiReservation;
+    /// use wkt::Timestamp;
+    /// let x = BiReservation::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BiReservation::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3639,12 +4672,29 @@ impl BiReservation {
     }
 
     /// Sets the value of [size][crate::model::BiReservation::size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::BiReservation;
+    /// let x = BiReservation::new().set_size(42);
+    /// ```
     pub fn set_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.size = v.into();
         self
     }
 
     /// Sets the value of [preferred_tables][crate::model::BiReservation::preferred_tables].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::BiReservation;
+    /// use google_cloud_bigquery_reservation_v1::model::TableReference;
+    /// let x = BiReservation::new()
+    ///     .set_preferred_tables([
+    ///         TableReference::default()/* use setters */,
+    ///         TableReference::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_preferred_tables<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3679,6 +4729,12 @@ impl GetBiReservationRequest {
     }
 
     /// Sets the value of [name][crate::model::GetBiReservationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::GetBiReservationRequest;
+    /// let x = GetBiReservationRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -3710,6 +4766,13 @@ impl UpdateBiReservationRequest {
     }
 
     /// Sets the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateBiReservationRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::BiReservation;
+    /// let x = UpdateBiReservationRequest::new().set_bi_reservation(BiReservation::default()/* use setters */);
+    /// ```
     pub fn set_bi_reservation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BiReservation>,
@@ -3719,6 +4782,14 @@ impl UpdateBiReservationRequest {
     }
 
     /// Sets or clears the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateBiReservationRequest;
+    /// use google_cloud_bigquery_reservation_v1::model::BiReservation;
+    /// let x = UpdateBiReservationRequest::new().set_or_clear_bi_reservation(Some(BiReservation::default()/* use setters */));
+    /// let x = UpdateBiReservationRequest::new().set_or_clear_bi_reservation(None::<BiReservation>);
+    /// ```
     pub fn set_or_clear_bi_reservation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BiReservation>,
@@ -3728,6 +4799,13 @@ impl UpdateBiReservationRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateBiReservationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBiReservationRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -3737,6 +4815,14 @@ impl UpdateBiReservationRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_bigquery_reservation_v1::model::UpdateBiReservationRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateBiReservationRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateBiReservationRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,

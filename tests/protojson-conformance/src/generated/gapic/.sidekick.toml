@@ -21,6 +21,7 @@ roots        = 'conformance'
 include-list = 'conformance.proto'
 
 [codec]
-copyright-year    = '2025'
-template-override = 'templates/grpc-client'
-module-path       = 'crate::generated::gapic::model'
+copyright-year          = '2025'
+template-override       = 'templates/grpc-client'
+module-path             = 'crate::generated::gapic::model'
+generate-setter-samples = 'false'

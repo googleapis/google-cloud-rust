@@ -173,7 +173,7 @@ impl Workflow {
     /// Sets the value of [name][crate::model::Workflow::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_name("example");
     /// ```
@@ -185,7 +185,7 @@ impl Workflow {
     /// Sets the value of [description][crate::model::Workflow::description].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_description("example");
     /// ```
@@ -197,7 +197,7 @@ impl Workflow {
     /// Sets the value of [state][crate::model::Workflow::state].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use google_cloud_workflows_v1::model::workflow::State;
     /// let x0 = Workflow::new().set_state(State::Active);
@@ -211,7 +211,7 @@ impl Workflow {
     /// Sets the value of [revision_id][crate::model::Workflow::revision_id].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_revision_id("example");
     /// ```
@@ -223,7 +223,7 @@ impl Workflow {
     /// Sets the value of [create_time][crate::model::Workflow::create_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use wkt::Timestamp;
     /// let x = Workflow::new().set_create_time(Timestamp::default()/* use setters */);
@@ -239,7 +239,7 @@ impl Workflow {
     /// Sets or clears the value of [create_time][crate::model::Workflow::create_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use wkt::Timestamp;
     /// let x = Workflow::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
@@ -256,7 +256,7 @@ impl Workflow {
     /// Sets the value of [update_time][crate::model::Workflow::update_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use wkt::Timestamp;
     /// let x = Workflow::new().set_update_time(Timestamp::default()/* use setters */);
@@ -272,7 +272,7 @@ impl Workflow {
     /// Sets or clears the value of [update_time][crate::model::Workflow::update_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use wkt::Timestamp;
     /// let x = Workflow::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
@@ -289,7 +289,7 @@ impl Workflow {
     /// Sets the value of [revision_create_time][crate::model::Workflow::revision_create_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use wkt::Timestamp;
     /// let x = Workflow::new().set_revision_create_time(Timestamp::default()/* use setters */);
@@ -305,7 +305,7 @@ impl Workflow {
     /// Sets or clears the value of [revision_create_time][crate::model::Workflow::revision_create_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use wkt::Timestamp;
     /// let x = Workflow::new().set_or_clear_revision_create_time(Some(Timestamp::default()/* use setters */));
@@ -322,7 +322,7 @@ impl Workflow {
     /// Sets the value of [labels][crate::model::Workflow::labels].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_labels([
     ///     ("key0", "abc"),
@@ -343,7 +343,7 @@ impl Workflow {
     /// Sets the value of [service_account][crate::model::Workflow::service_account].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_service_account("example");
     /// ```
@@ -355,7 +355,7 @@ impl Workflow {
     /// Sets the value of [crypto_key_name][crate::model::Workflow::crypto_key_name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_crypto_key_name("example");
     /// ```
@@ -367,7 +367,7 @@ impl Workflow {
     /// Sets the value of [state_error][crate::model::Workflow::state_error].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use google_cloud_workflows_v1::model::workflow::StateError;
     /// let x = Workflow::new().set_state_error(StateError::default()/* use setters */);
@@ -383,7 +383,7 @@ impl Workflow {
     /// Sets or clears the value of [state_error][crate::model::Workflow::state_error].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use google_cloud_workflows_v1::model::workflow::StateError;
     /// let x = Workflow::new().set_or_clear_state_error(Some(StateError::default()/* use setters */));
@@ -400,7 +400,7 @@ impl Workflow {
     /// Sets the value of [call_log_level][crate::model::Workflow::call_log_level].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use google_cloud_workflows_v1::model::workflow::CallLogLevel;
     /// let x0 = Workflow::new().set_call_log_level(CallLogLevel::LogAllCalls);
@@ -418,7 +418,7 @@ impl Workflow {
     /// Sets the value of [user_env_vars][crate::model::Workflow::user_env_vars].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_user_env_vars([
     ///     ("key0", "abc"),
@@ -439,7 +439,7 @@ impl Workflow {
     /// Sets the value of [execution_history_level][crate::model::Workflow::execution_history_level].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// use google_cloud_workflows_v1::model::ExecutionHistoryLevel;
     /// let x0 = Workflow::new().set_execution_history_level(ExecutionHistoryLevel::ExecutionHistoryBasic);
@@ -458,7 +458,7 @@ impl Workflow {
     /// Sets the value of [all_kms_keys][crate::model::Workflow::all_kms_keys].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_all_kms_keys(["a", "b", "c"]);
     /// ```
@@ -475,7 +475,7 @@ impl Workflow {
     /// Sets the value of [all_kms_keys_versions][crate::model::Workflow::all_kms_keys_versions].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_all_kms_keys_versions(["a", "b", "c"]);
     /// ```
@@ -492,7 +492,7 @@ impl Workflow {
     /// Sets the value of [crypto_key_version][crate::model::Workflow::crypto_key_version].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_crypto_key_version("example");
     /// ```
@@ -507,7 +507,7 @@ impl Workflow {
     /// Sets the value of [tags][crate::model::Workflow::tags].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_tags([
     ///     ("key0", "abc"),
@@ -531,10 +531,10 @@ impl Workflow {
     /// exclusive.
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
-    /// use google_cloud_workflows_v1::model::workflow;
-    /// let x = Workflow::new().set_source_code(Some(workflow::SourceCode::SourceContents("example".to_string())));
+    /// use google_cloud_workflows_v1::model::workflow::SourceCode;
+    /// let x = Workflow::new().set_source_code(Some(SourceCode::SourceContents("example".to_string())));
     /// ```
     pub fn set_source_code<
         T: std::convert::Into<std::option::Option<crate::model::workflow::SourceCode>>,
@@ -564,7 +564,7 @@ impl Workflow {
     /// mutually exclusive.
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::Workflow;
     /// let x = Workflow::new().set_source_contents("example");
     /// assert!(x.source_contents().is_some());
@@ -608,7 +608,7 @@ pub mod workflow {
         /// Sets the value of [details][crate::model::workflow::StateError::details].
         ///
         /// # Example
-        /// ```
+        /// ```ignore,no_run
         /// # use google_cloud_workflows_v1::model::workflow::StateError;
         /// let x = StateError::new().set_details("example");
         /// ```
@@ -620,7 +620,7 @@ pub mod workflow {
         /// Sets the value of [r#type][crate::model::workflow::StateError::type].
         ///
         /// # Example
-        /// ```
+        /// ```ignore,no_run
         /// # use google_cloud_workflows_v1::model::workflow::StateError;
         /// use google_cloud_workflows_v1::model::workflow::state_error::Type;
         /// let x0 = StateError::new().set_type(Type::KmsError);
@@ -1113,7 +1113,7 @@ impl ListWorkflowsRequest {
     /// Sets the value of [parent][crate::model::ListWorkflowsRequest::parent].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowsRequest;
     /// let x = ListWorkflowsRequest::new().set_parent("example");
     /// ```
@@ -1125,7 +1125,7 @@ impl ListWorkflowsRequest {
     /// Sets the value of [page_size][crate::model::ListWorkflowsRequest::page_size].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowsRequest;
     /// let x = ListWorkflowsRequest::new().set_page_size(42);
     /// ```
@@ -1137,7 +1137,7 @@ impl ListWorkflowsRequest {
     /// Sets the value of [page_token][crate::model::ListWorkflowsRequest::page_token].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowsRequest;
     /// let x = ListWorkflowsRequest::new().set_page_token("example");
     /// ```
@@ -1149,7 +1149,7 @@ impl ListWorkflowsRequest {
     /// Sets the value of [filter][crate::model::ListWorkflowsRequest::filter].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowsRequest;
     /// let x = ListWorkflowsRequest::new().set_filter("example");
     /// ```
@@ -1161,7 +1161,7 @@ impl ListWorkflowsRequest {
     /// Sets the value of [order_by][crate::model::ListWorkflowsRequest::order_by].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowsRequest;
     /// let x = ListWorkflowsRequest::new().set_order_by("example");
     /// ```
@@ -1206,7 +1206,7 @@ impl ListWorkflowsResponse {
     /// Sets the value of [workflows][crate::model::ListWorkflowsResponse::workflows].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowsResponse;
     /// use google_cloud_workflows_v1::model::Workflow;
     /// let x = ListWorkflowsResponse::new()
@@ -1228,7 +1228,7 @@ impl ListWorkflowsResponse {
     /// Sets the value of [next_page_token][crate::model::ListWorkflowsResponse::next_page_token].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowsResponse;
     /// let x = ListWorkflowsResponse::new().set_next_page_token("example");
     /// ```
@@ -1240,7 +1240,7 @@ impl ListWorkflowsResponse {
     /// Sets the value of [unreachable][crate::model::ListWorkflowsResponse::unreachable].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowsResponse;
     /// let x = ListWorkflowsResponse::new().set_unreachable(["a", "b", "c"]);
     /// ```
@@ -1304,7 +1304,7 @@ impl GetWorkflowRequest {
     /// Sets the value of [name][crate::model::GetWorkflowRequest::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::GetWorkflowRequest;
     /// let x = GetWorkflowRequest::new().set_name("example");
     /// ```
@@ -1316,7 +1316,7 @@ impl GetWorkflowRequest {
     /// Sets the value of [revision_id][crate::model::GetWorkflowRequest::revision_id].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::GetWorkflowRequest;
     /// let x = GetWorkflowRequest::new().set_revision_id("example");
     /// ```
@@ -1368,7 +1368,7 @@ impl CreateWorkflowRequest {
     /// Sets the value of [parent][crate::model::CreateWorkflowRequest::parent].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::CreateWorkflowRequest;
     /// let x = CreateWorkflowRequest::new().set_parent("example");
     /// ```
@@ -1380,7 +1380,7 @@ impl CreateWorkflowRequest {
     /// Sets the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::CreateWorkflowRequest;
     /// use google_cloud_workflows_v1::model::Workflow;
     /// let x = CreateWorkflowRequest::new().set_workflow(Workflow::default()/* use setters */);
@@ -1396,7 +1396,7 @@ impl CreateWorkflowRequest {
     /// Sets or clears the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::CreateWorkflowRequest;
     /// use google_cloud_workflows_v1::model::Workflow;
     /// let x = CreateWorkflowRequest::new().set_or_clear_workflow(Some(Workflow::default()/* use setters */));
@@ -1413,7 +1413,7 @@ impl CreateWorkflowRequest {
     /// Sets the value of [workflow_id][crate::model::CreateWorkflowRequest::workflow_id].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::CreateWorkflowRequest;
     /// let x = CreateWorkflowRequest::new().set_workflow_id("example");
     /// ```
@@ -1452,7 +1452,7 @@ impl DeleteWorkflowRequest {
     /// Sets the value of [name][crate::model::DeleteWorkflowRequest::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::DeleteWorkflowRequest;
     /// let x = DeleteWorkflowRequest::new().set_name("example");
     /// ```
@@ -1494,7 +1494,7 @@ impl UpdateWorkflowRequest {
     /// Sets the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::UpdateWorkflowRequest;
     /// use google_cloud_workflows_v1::model::Workflow;
     /// let x = UpdateWorkflowRequest::new().set_workflow(Workflow::default()/* use setters */);
@@ -1510,7 +1510,7 @@ impl UpdateWorkflowRequest {
     /// Sets or clears the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::UpdateWorkflowRequest;
     /// use google_cloud_workflows_v1::model::Workflow;
     /// let x = UpdateWorkflowRequest::new().set_or_clear_workflow(Some(Workflow::default()/* use setters */));
@@ -1527,7 +1527,7 @@ impl UpdateWorkflowRequest {
     /// Sets the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::UpdateWorkflowRequest;
     /// use wkt::FieldMask;
     /// let x = UpdateWorkflowRequest::new().set_update_mask(FieldMask::default()/* use setters */);
@@ -1543,7 +1543,7 @@ impl UpdateWorkflowRequest {
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::UpdateWorkflowRequest;
     /// use wkt::FieldMask;
     /// let x = UpdateWorkflowRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
@@ -1594,7 +1594,7 @@ impl OperationMetadata {
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::OperationMetadata;
     /// use wkt::Timestamp;
     /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
@@ -1610,7 +1610,7 @@ impl OperationMetadata {
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::OperationMetadata;
     /// use wkt::Timestamp;
     /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
@@ -1627,7 +1627,7 @@ impl OperationMetadata {
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::OperationMetadata;
     /// use wkt::Timestamp;
     /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
@@ -1643,7 +1643,7 @@ impl OperationMetadata {
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::OperationMetadata;
     /// use wkt::Timestamp;
     /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
@@ -1660,7 +1660,7 @@ impl OperationMetadata {
     /// Sets the value of [target][crate::model::OperationMetadata::target].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::OperationMetadata;
     /// let x = OperationMetadata::new().set_target("example");
     /// ```
@@ -1672,7 +1672,7 @@ impl OperationMetadata {
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::OperationMetadata;
     /// let x = OperationMetadata::new().set_verb("example");
     /// ```
@@ -1684,7 +1684,7 @@ impl OperationMetadata {
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::OperationMetadata;
     /// let x = OperationMetadata::new().set_api_version("example");
     /// ```
@@ -1732,7 +1732,7 @@ impl ListWorkflowRevisionsRequest {
     /// Sets the value of [name][crate::model::ListWorkflowRevisionsRequest::name].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowRevisionsRequest;
     /// let x = ListWorkflowRevisionsRequest::new().set_name("example");
     /// ```
@@ -1744,7 +1744,7 @@ impl ListWorkflowRevisionsRequest {
     /// Sets the value of [page_size][crate::model::ListWorkflowRevisionsRequest::page_size].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowRevisionsRequest;
     /// let x = ListWorkflowRevisionsRequest::new().set_page_size(42);
     /// ```
@@ -1756,7 +1756,7 @@ impl ListWorkflowRevisionsRequest {
     /// Sets the value of [page_token][crate::model::ListWorkflowRevisionsRequest::page_token].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowRevisionsRequest;
     /// let x = ListWorkflowRevisionsRequest::new().set_page_token("example");
     /// ```
@@ -1798,7 +1798,7 @@ impl ListWorkflowRevisionsResponse {
     /// Sets the value of [workflows][crate::model::ListWorkflowRevisionsResponse::workflows].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowRevisionsResponse;
     /// use google_cloud_workflows_v1::model::Workflow;
     /// let x = ListWorkflowRevisionsResponse::new()
@@ -1820,7 +1820,7 @@ impl ListWorkflowRevisionsResponse {
     /// Sets the value of [next_page_token][crate::model::ListWorkflowRevisionsResponse::next_page_token].
     ///
     /// # Example
-    /// ```
+    /// ```ignore,no_run
     /// # use google_cloud_workflows_v1::model::ListWorkflowRevisionsResponse;
     /// let x = ListWorkflowRevisionsResponse::new().set_next_page_token("example");
     /// ```

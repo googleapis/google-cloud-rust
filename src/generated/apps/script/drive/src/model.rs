@@ -50,6 +50,13 @@ impl DriveAddOnManifest {
     }
 
     /// Sets the value of [homepage_trigger][crate::model::DriveAddOnManifest::homepage_trigger].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type_drive::model::DriveAddOnManifest;
+    /// use apps_script_type::model::HomepageExtensionPoint;
+    /// let x = DriveAddOnManifest::new().set_homepage_trigger(HomepageExtensionPoint::default()/* use setters */);
+    /// ```
     pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
@@ -59,6 +66,14 @@ impl DriveAddOnManifest {
     }
 
     /// Sets or clears the value of [homepage_trigger][crate::model::DriveAddOnManifest::homepage_trigger].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type_drive::model::DriveAddOnManifest;
+    /// use apps_script_type::model::HomepageExtensionPoint;
+    /// let x = DriveAddOnManifest::new().set_or_clear_homepage_trigger(Some(HomepageExtensionPoint::default()/* use setters */));
+    /// let x = DriveAddOnManifest::new().set_or_clear_homepage_trigger(None::<HomepageExtensionPoint>);
+    /// ```
     pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<apps_script_type::model::HomepageExtensionPoint>,
@@ -68,6 +83,13 @@ impl DriveAddOnManifest {
     }
 
     /// Sets the value of [on_items_selected_trigger][crate::model::DriveAddOnManifest::on_items_selected_trigger].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type_drive::model::DriveAddOnManifest;
+    /// use google_cloud_apps_script_type_drive::model::DriveExtensionPoint;
+    /// let x = DriveAddOnManifest::new().set_on_items_selected_trigger(DriveExtensionPoint::default()/* use setters */);
+    /// ```
     pub fn set_on_items_selected_trigger<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::DriveExtensionPoint>,
@@ -77,6 +99,14 @@ impl DriveAddOnManifest {
     }
 
     /// Sets or clears the value of [on_items_selected_trigger][crate::model::DriveAddOnManifest::on_items_selected_trigger].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type_drive::model::DriveAddOnManifest;
+    /// use google_cloud_apps_script_type_drive::model::DriveExtensionPoint;
+    /// let x = DriveAddOnManifest::new().set_or_clear_on_items_selected_trigger(Some(DriveExtensionPoint::default()/* use setters */));
+    /// let x = DriveAddOnManifest::new().set_or_clear_on_items_selected_trigger(None::<DriveExtensionPoint>);
+    /// ```
     pub fn set_or_clear_on_items_selected_trigger<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::DriveExtensionPoint>,
@@ -110,6 +140,12 @@ impl DriveExtensionPoint {
     }
 
     /// Sets the value of [run_function][crate::model::DriveExtensionPoint::run_function].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_apps_script_type_drive::model::DriveExtensionPoint;
+    /// let x = DriveExtensionPoint::new().set_run_function("example");
+    /// ```
     pub fn set_run_function<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.run_function = v.into();
         self
