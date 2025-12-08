@@ -138,6 +138,15 @@ locals {
       config = "complex.yaml"
       script = "workspace"
     }
+    # Runs doctest for samples marked ignore.
+    # These are mostly generated samples which are many and take a long time to build.
+    ignored-samples = {
+      config = "complex.yaml"
+      script = "test-ignored-samples"
+      included_files = [
+        "**/generated/**",
+      ]
+    }
   }
 
   # Compute the effective list of builds.
@@ -203,11 +212,12 @@ resource "google_cloudbuild_trigger" "pull-request" {
 }
 
 resource "google_cloudbuild_trigger" "post-merge" {
-  for_each = tomap(local.pm_builds)
-  location = var.region
-  name     = "gcb-pm-${each.key}"
-  filename = ".gcb/${each.value.config}"
-  tags     = ["post-merge", "push", "name:${each.key}"]
+  for_each       = tomap(local.pm_builds)
+  location       = var.region
+  name           = "gcb-pm-${each.key}"
+  filename       = ".gcb/${each.value.config}"
+  tags           = ["post-merge", "push", "name:${each.key}"]
+  included_files = each.value.included_files
 
   service_account = var.service_account
 
