@@ -272,7 +272,7 @@ impl Client {
             use crate::observability::grpc_tracing::{AttemptCount, ResourceName};
             request
                 .extensions_mut()
-                .insert(AttemptCount(prior_attempt_count));
+                .insert(AttemptCount::new(prior_attempt_count));
             if let Some(resource_name) =
                 gax::options::internal::get_resource_name(options).map(|s| s.to_string())
             {
