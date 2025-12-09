@@ -51,17 +51,22 @@ pub fn to_gax_error(status: tonic::Status) -> Error {
         return Error::connect(status);
     }
     let headers = status.metadata().clone().into_headers();
-    if as_inner::<tonic::transport::Error>(&status).is_some() {
+    if status.source().is_some() {
         return Error::transport(headers, status);
     }
 
-    let content_type = headers.get("content-type").map(|v| v.as_bytes());
-    if content_type.is_some_and(|v| !v.starts_with("application/grpc".as_bytes())) {
+    if headers
+        .get("content-type")
+        .map(|v| v.as_bytes())
+        .is_some_and(|v| !v.starts_with(b"application/grpc"))
+    {
+        // Some kind of HTTP error, but not gRPC. The Google Cloud load
+        // balancer does this when the service does not match the endpoint,
+        // or the routing headers are bad.
         return Error::transport(headers, GrpcError::BadContentType(status));
     }
-
     let gax_status = to_gax_status(&status);
-    gax::error::Error::service_full(gax_status, None, Some(headers), Some(Box::new(status)))
+    Error::service_full(gax_status, None, Some(headers), Some(Box::new(status)))
 }
 
 #[derive(Debug, thiserror::Error)]
@@ -111,6 +116,33 @@ mod tests {
 
     #[test]
     fn gax_error() {
+        let input = tonic::Status::invalid_argument("test-only");
+        let got = to_gax_error(input.clone());
+        assert!(got.status().is_some(), "{got:?}");
+        let status = got.status().unwrap();
+        assert_eq!(status.code, Code::InvalidArgument);
+        assert_eq!(&status.message, "test-only");
+
+        let source = got
+            .source()
+            .and_then(|e| e.downcast_ref::<tonic::Status>())
+            .unwrap();
+        assert_eq!(source.code(), input.code());
+        assert_eq!(source.message(), input.message());
+        assert_eq!(source.details(), input.details());
+    }
+
+    #[test]
+    fn gax_error_with_source() {
+        let input = tonic::Status::from_error("string as error".into());
+        let got = to_gax_error(input.clone());
+        assert!(got.is_transport(), "{got:?}");
+        let source = got.source().and_then(|e| e.downcast_ref::<tonic::Status>());
+        assert!(source.is_some(), "{got:?}");
+    }
+
+    #[test]
+    fn gax_error_with_metadata() {
         let mut input = tonic::Status::invalid_argument("test-only");
         input.metadata_mut().append(
             "content-type",
@@ -178,7 +210,17 @@ mod tests {
         };
         status.encode(&mut buf)?;
 
-        let status = tonic::Status::with_details(code.into(), "test-only", buf.freeze());
+        let mut headers = http::HeaderMap::new();
+        headers.insert(
+            "content-type",
+            http::HeaderValue::from_static("application/grpc"),
+        );
+        let status = tonic::Status::with_details_and_metadata(
+            code.into(),
+            "test-only",
+            buf.freeze(),
+            tonic::metadata::MetadataMap::from_headers(headers),
+        );
         let got = to_gax_error(status);
         let status = got.status().unwrap();
         assert_eq!(status.code, Code::InvalidArgument);
