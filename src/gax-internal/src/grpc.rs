@@ -510,7 +510,7 @@ mod tests {
         config.cred = Some(auth::credentials::anonymous::Builder::new().build());
         let client = Client::new(config, "http://localhost:1234").await.unwrap();
 
-        let mut options = gax::options::RequestOptions::default();
+        let options = gax::options::RequestOptions::default();
         let options = gax::options::internal::set_resource_name(
             options,
             "projects/p/locations/l/resources/r".into(),
