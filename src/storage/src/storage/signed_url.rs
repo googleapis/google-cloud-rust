@@ -17,6 +17,12 @@ use auth::signer::Signer;
 use std::collections::BTreeMap;
 use tokio::time::Duration;
 
+/// Re-export types from `http` crate used in this module.
+pub mod http {
+    /// HTTP method for the signed URL.
+    pub use http::Method;
+}
+
 /// Creates signed URLs.
 ///
 /// This builder allows you to generate signed URLs for Google Cloud Storage objects and buckets.
