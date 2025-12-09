@@ -306,15 +306,46 @@ type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 /// Represents an error that can occur when signing a URL.
 #[cfg(google_cloud_unstable_signed_url)]
 #[derive(thiserror::Error, Debug)]
-#[non_exhaustive]
-pub enum SigningError {
+#[error(transparent)]
+pub struct SigningError(SigningErrorKind);
+
+#[cfg(google_cloud_unstable_signed_url)]
+impl SigningError {
+    pub fn is_signing(&self) -> bool {
+        matches!(self.0, SigningErrorKind::Signing(_))
+    }
+
+    pub fn is_invalid_parameter(&self) -> bool {
+        matches!(self.0, SigningErrorKind::InvalidParameter(_, _))
+    }
+
+    /// A problem to sign the URL.
+    fn signing<T>(source: T) -> Error
+    where
+        T: Into<BoxError>,
+    {
+        Error(ErrorKind::Signing(source.into()))
+    }
+
+    /// A problem to sign the URL due to invalid input.
+    fn invalid_parameter<S: Into<String>, T>(field: S, source: T) -> Error
+    where
+        T: Into<BoxError>,
+    {
+        Error(ErrorKind::InvalidParameter(field.into(), source.into()))
+    }
+}
+
+#[cfg(google_cloud_unstable_signed_url)]
+#[derive(thiserror::Error, Debug)]
+enum SigningErrorKind {
     /// The signing operation failed.
     #[error("signing failed: {0}")]
-    Signing(#[source] auth::signer::SigningError),
+    Signing(#[source] BoxError),
 
-    /// The endpoint URL is invalid.
-    #[error("invalid GCS endpoint: {0}")]
-    InvalidEndpoint(#[source] BoxError),
+    /// An invalid input was provided to generate a signed URL.
+    #[error("invalid `{0}` parameter: {1}")]
+    InvalidParameter(String, #[source] BoxError),
 }
 
 #[cfg(test)]
@@ -376,17 +407,17 @@ mod tests {
 
     #[test]
     fn signing_errors() {
-        let value = SigningError::Signing(auth::signer::SigningError::from_msg("test"));
+        let value = SigningError::signing("sign error".into());
         let fmt = value.to_string();
         assert!(
-            fmt.contains("signing failed: failed to sign content: test"),
+            fmt.contains("signing failed: sign error"),
             "{value:?} => {fmt}"
         );
 
-        let value = SigningError::InvalidEndpoint("test".into());
+        let value = SigningError::invalid_parameter("endpoint", "missing scheme".into());
         let fmt = value.to_string();
         assert!(
-            fmt.contains("invalid GCS endpoint: test"),
+            fmt.contains("invalid `endpoint` parameter: missing scheme"),
             "{value:?} => {fmt}"
         );
     }
