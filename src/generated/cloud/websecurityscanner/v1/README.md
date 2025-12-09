@@ -18,6 +18,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-websecurityscanner-v1/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-websecurityscanner-v1/1.2.0)
 
-[WebSecurityScanner]: https://docs.rs/google-cloud-websecurityscanner-v1/1.1.0/google_cloud_websecurityscanner_v1/client/struct.WebSecurityScanner.html
+[WebSecurityScanner]: https://docs.rs/google-cloud-websecurityscanner-v1/1.2.0/google_cloud_websecurityscanner_v1/client/struct.WebSecurityScanner.html

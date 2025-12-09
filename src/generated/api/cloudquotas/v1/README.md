@@ -20,6 +20,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-api-cloudquotas-v1/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-api-cloudquotas-v1/1.2.0)
 
-[CloudQuotas]: https://docs.rs/google-cloud-api-cloudquotas-v1/1.1.0/google_cloud_api_cloudquotas_v1/client/struct.CloudQuotas.html
+[CloudQuotas]: https://docs.rs/google-cloud-api-cloudquotas-v1/1.2.0/google_cloud_api_cloudquotas_v1/client/struct.CloudQuotas.html

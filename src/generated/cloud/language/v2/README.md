@@ -20,6 +20,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-language-v2/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-language-v2/1.2.0)
 
-[LanguageService]: https://docs.rs/google-cloud-language-v2/1.1.0/google_cloud_language_v2/client/struct.LanguageService.html
+[LanguageService]: https://docs.rs/google-cloud-language-v2/1.2.0/google_cloud_language_v2/client/struct.LanguageService.html

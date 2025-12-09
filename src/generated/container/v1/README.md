@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-container-v1/1.2.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-container-v1/1.3.0)
 
-[ClusterManager]: https://docs.rs/google-cloud-container-v1/1.2.0/google_cloud_container_v1/client/struct.ClusterManager.html
+[ClusterManager]: https://docs.rs/google-cloud-container-v1/1.3.0/google_cloud_container_v1/client/struct.ClusterManager.html

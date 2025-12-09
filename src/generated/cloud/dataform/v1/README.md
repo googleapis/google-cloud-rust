@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-dataform-v1/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-dataform-v1/1.2.0)
 
-[Dataform]: https://docs.rs/google-cloud-dataform-v1/1.1.0/google_cloud_dataform_v1/client/struct.Dataform.html
+[Dataform]: https://docs.rs/google-cloud-dataform-v1/1.2.0/google_cloud_dataform_v1/client/struct.Dataform.html

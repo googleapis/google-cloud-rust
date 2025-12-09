@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-grafeas-v1/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-grafeas-v1/1.2.0)
 
-[Grafeas]: https://docs.rs/google-cloud-grafeas-v1/1.1.0/google_cloud_grafeas_v1/client/struct.Grafeas.html
+[Grafeas]: https://docs.rs/google-cloud-grafeas-v1/1.2.0/google_cloud_grafeas_v1/client/struct.Grafeas.html

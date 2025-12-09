@@ -20,6 +20,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-privacy-dlp-v2/1.2.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-privacy-dlp-v2/1.3.0)
 
-[DlpService]: https://docs.rs/google-cloud-privacy-dlp-v2/1.2.0/google_cloud_privacy_dlp_v2/client/struct.DlpService.html
+[DlpService]: https://docs.rs/google-cloud-privacy-dlp-v2/1.3.0/google_cloud_privacy_dlp_v2/client/struct.DlpService.html
