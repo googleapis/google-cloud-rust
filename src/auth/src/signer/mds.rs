@@ -51,9 +51,9 @@ impl SigningProvider for MDSSigner {
     async fn client_email(&self) -> Result<String> {
         if self.client_email.get().is_none() {
             let email = self.fetch_client_email().await?;
-            self.client_email
-                .set(email.clone())
-                .map_err(|_e| SigningError::transport("failed to cache client email"))?;
+            // Ignore error if we can't set the client email.
+            // Might be due to multiple tasks trying to set value
+            let _ = self.client_email.set(email.clone());
             return Ok(email);
         }
 
