@@ -269,10 +269,15 @@ impl Client {
 
         #[cfg(google_cloud_unstable_tracing)]
         {
-            use crate::observability::grpc_tracing::AttemptCount;
+            use crate::observability::grpc_tracing::{AttemptCount, ResourceName};
             request
                 .extensions_mut()
                 .insert(AttemptCount(prior_attempt_count));
+            if let Some(name) = gax::options::internal::get_resource_name(options) {
+                request
+                    .extensions_mut()
+                    .insert(ResourceName(name.to_string()));
+            }
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         let _ = prior_attempt_count;
@@ -475,7 +480,7 @@ mod tests {
     use super::Client;
     use crate::options::InstrumentationClientInfo;
 
-    #[tokio::test]
+    #[tokio::test(flavor = "multi_thread")]
     async fn test_new_with_instrumentation() {
         let config = crate::options::ClientConfig::default();
         static TEST_INFO: InstrumentationClientInfo = InstrumentationClientInfo {
@@ -489,5 +494,72 @@ mod tests {
             .unwrap();
         // We can't easily assert the internal state without exposing more internals,
         // but this verifies the method exists and runs.
+    }
+
+    #[derive(Debug)]
+    struct NoAuth;
+
+    impl auth::credentials::CredentialsProvider for NoAuth {
+        async fn headers(
+            &self,
+            _extensions: http::Extensions,
+        ) -> std::result::Result<
+            auth::credentials::CacheableResource<http::HeaderMap>,
+            auth::errors::CredentialsError,
+        > {
+            Ok(auth::credentials::CacheableResource::New {
+                entity_tag: Default::default(),
+                data: http::HeaderMap::new(),
+            })
+        }
+        async fn universe_domain(&self) -> Option<String> {
+            None
+        }
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn test_resource_name_in_span() {
+        use crate::observability::attributes::keys::GCP_RESOURCE_NAME;
+        use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
+
+        let guard = TestLayer::initialize();
+
+        let mut config = crate::options::ClientConfig::default();
+        config.tracing = true;
+        config.cred = Some(auth::credentials::Credentials::from(NoAuth));
+        let client = Client::new(config, "http://localhost:1234").await.unwrap();
+
+        let mut options = gax::options::RequestOptions::default();
+        let options = gax::options::internal::set_resource_name(
+            options,
+            "projects/p/locations/l/resources/r".into(),
+        );
+
+        // We expect this to fail because there is no server, but the span should be created.
+        let _ = client
+            .execute::<(), ()>(
+                tonic::Extensions::new(),
+                http::uri::PathAndQuery::from_static("/test.Service/Method"),
+                (),
+                options,
+                "test-client",
+                "",
+            )
+            .await;
+
+        let spans = TestLayer::capture(&guard);
+        let span = spans
+            .iter()
+            .find(|s| s.name == "grpc.request")
+            .expect("span not found");
+
+        let resource_name = span
+            .attributes
+            .get(GCP_RESOURCE_NAME)
+            .expect("attribute not found");
+        assert_eq!(
+            resource_name,
+            &AttributeValue::String("projects/p/locations/l/resources/r".into())
+        );
     }
 }
