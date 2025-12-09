@@ -17,8 +17,7 @@ use crate::credentials::mds::{MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_
 use crate::signer::{Result, SigningError, dynamic::SigningProvider};
 use http::HeaderValue;
 use reqwest::Client;
-use std::sync::Arc;
-use tokio::sync::RwLock;
+use tokio::sync::SetOnce;
 
 // Implements Signer for MDS that extends the existing IamSigner by fetching
 // email via MDS email endpoint.
@@ -26,7 +25,7 @@ use tokio::sync::RwLock;
 pub(crate) struct MDSSigner {
     endpoint: String,
     iam_endpoint_override: Option<String>,
-    client_email: Arc<RwLock<String>>,
+    client_email: SetOnce<String>,
     inner: Credentials,
 }
 
@@ -34,7 +33,7 @@ impl MDSSigner {
     pub(crate) fn new(endpoint: String, inner: Credentials) -> Self {
         Self {
             endpoint,
-            client_email: Arc::new(RwLock::new(String::new())),
+            client_email: SetOnce::new(),
             inner,
             iam_endpoint_override: None,
         }
@@ -50,17 +49,15 @@ impl MDSSigner {
 #[async_trait::async_trait]
 impl SigningProvider for MDSSigner {
     async fn client_email(&self) -> Result<String> {
-        let mut client_email = self
-            .client_email
-            .try_write()
-            .map_err(|_e| SigningError::transport("failed to obtain lock to read client email"))?;
-
-        if client_email.is_empty() {
+        if self.client_email.get().is_none() {
             let email = self.fetch_client_email().await?;
-            *client_email = email.clone();
+            self.client_email
+                .set(email.clone())
+                .map_err(|_e| SigningError::transport("failed to cache client email"))?;
+            return Ok(email);
         }
 
-        Ok(client_email.clone())
+        Ok(self.client_email.get().unwrap().to_string())
     }
 
     async fn sign(&self, content: &[u8]) -> Result<bytes::Bytes> {
