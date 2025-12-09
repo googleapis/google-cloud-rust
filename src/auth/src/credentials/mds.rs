@@ -1050,6 +1050,9 @@ mod tests {
     #[tokio::test]
     #[cfg(google_cloud_unstable_signed_url)]
     async fn get_mds_signer() -> TestResult {
+        use base64::{Engine, prelude::BASE64_STANDARD};
+        use serde_json::json;
+        
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/token")),])
