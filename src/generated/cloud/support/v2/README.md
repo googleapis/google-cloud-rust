@@ -21,8 +21,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-support-v2/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-support-v2/1.2.0)
 
-[CaseAttachmentService]: https://docs.rs/google-cloud-support-v2/1.1.0/google_cloud_support_v2/client/struct.CaseAttachmentService.html
-[CaseService]: https://docs.rs/google-cloud-support-v2/1.1.0/google_cloud_support_v2/client/struct.CaseService.html
-[CommentService]: https://docs.rs/google-cloud-support-v2/1.1.0/google_cloud_support_v2/client/struct.CommentService.html
+[CaseAttachmentService]: https://docs.rs/google-cloud-support-v2/1.2.0/google_cloud_support_v2/client/struct.CaseAttachmentService.html
+[CaseService]: https://docs.rs/google-cloud-support-v2/1.2.0/google_cloud_support_v2/client/struct.CaseService.html
+[CommentService]: https://docs.rs/google-cloud-support-v2/1.2.0/google_cloud_support_v2/client/struct.CommentService.html

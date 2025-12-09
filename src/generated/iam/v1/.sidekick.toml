@@ -17,7 +17,7 @@ specification-source = 'google/iam/v1'
 service-config = 'google/iam/v1/iam_meta_api.yaml'
 
 [codec]
-version        = '1.1.0'
+version        = '1.2.0'
 # ATTENTION: if you change the major version, remember to change the major
 #     version of all downstream dependencies. For details see:
 #         https://github.com/googleapis/google-cloud-rust/issues/3237
