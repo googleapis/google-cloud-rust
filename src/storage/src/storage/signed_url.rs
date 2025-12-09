@@ -334,9 +334,7 @@ impl SignedUrlBuilder {
     /// A `Result` containing the signed URL as a `String` or a `SigningError`.
     pub async fn sign_with(self, _signer: &Signer) -> std::result::Result<String, SigningError> {
         // TODO(#3645): implement gcs logic for signed url generation.
-        Err(SigningError::Signing(auth::signer::SigningError::from_msg(
-            "not implemented",
-        )))
+        Err(SigningError::signing("not implemented".to_string()))
     }
 }
 
@@ -354,7 +352,7 @@ mod tests {
 
         impl SigningProvider for Signer {
             async fn client_email(&self) -> auth::signer::Result<String>;
-            async fn sign(&self, _content: &[u8]) -> auth::signer::Result<String>;
+            async fn sign(&self, content: &[u8]) -> auth::signer::Result<bytes::Bytes>;
         }
     }
 
@@ -364,7 +362,7 @@ mod tests {
         mock.expect_client_email()
             .return_once(|| Ok("test@example.com".to_string()));
         mock.expect_sign()
-            .return_once(|_content| Ok("test-signature".to_string()));
+            .return_once(|_content| Ok(bytes::Bytes::from("test-signature")));
 
         let signer = Signer::from(mock);
         let err = SignedUrlBuilder::for_object("test-bucket", "test-object")
@@ -380,7 +378,7 @@ mod tests {
             .await
             .unwrap_err();
 
-        assert!(matches!(err, SigningError::Signing(_)));
+        assert!(err.is_signing());
 
         Ok(())
     }

@@ -320,24 +320,29 @@ impl SigningError {
     }
 
     /// A problem to sign the URL.
-    fn signing<T>(source: T) -> Error
+    pub(crate) fn signing<T>(source: T) -> SigningError
     where
         T: Into<BoxError>,
     {
-        Error(ErrorKind::Signing(source.into()))
+        SigningError(SigningErrorKind::Signing(source.into()))
     }
 
     /// A problem to sign the URL due to invalid input.
-    fn invalid_parameter<S: Into<String>, T>(field: S, source: T) -> Error
+    #[allow(dead_code)]
+    fn invalid_parameter<S: Into<String>, T>(field: S, source: T) -> SigningError
     where
         T: Into<BoxError>,
     {
-        Error(ErrorKind::InvalidParameter(field.into(), source.into()))
+        SigningError(SigningErrorKind::InvalidParameter(
+            field.into(),
+            source.into(),
+        ))
     }
 }
 
 #[cfg(google_cloud_unstable_signed_url)]
 #[derive(thiserror::Error, Debug)]
+#[allow(dead_code)]
 enum SigningErrorKind {
     /// The signing operation failed.
     #[error("signing failed: {0}")]
@@ -405,16 +410,17 @@ mod tests {
         );
     }
 
+    #[cfg(google_cloud_unstable_signed_url)]
     #[test]
     fn signing_errors() {
-        let value = SigningError::signing("sign error".into());
+        let value = SigningError::signing("sign error".to_string());
         let fmt = value.to_string();
         assert!(
             fmt.contains("signing failed: sign error"),
             "{value:?} => {fmt}"
         );
 
-        let value = SigningError::invalid_parameter("endpoint", "missing scheme".into());
+        let value = SigningError::invalid_parameter("endpoint", "missing scheme".to_string());
         let fmt = value.to_string();
         assert!(
             fmt.contains("invalid `endpoint` parameter: missing scheme"),
