@@ -24,6 +24,7 @@ use crate::storage::bidi::resume_redirect::ResumeRedirect;
 use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
 use crate::{Error, Result};
 use gaxi::grpc::Client as GrpcClient;
+use http::HeaderMap;
 use std::sync::{Arc, Mutex};
 use tokio::sync::mpsc::Sender;
 
@@ -81,7 +82,7 @@ where
     pub async fn connect(
         &mut self,
         ranges: Vec<ProtoRange>,
-    ) -> Result<(BidiReadObjectResponse, Connection<T::Stream>)> {
+    ) -> Result<(BidiReadObjectResponse, HeaderMap, Connection<T::Stream>)> {
         // Copy a number of elements so the retry loop can be `Send` and `Sync`.
         let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(RetryRedirect::new(self.options.retry_policy.clone()));
@@ -102,7 +103,7 @@ where
         &mut self,
         status: tonic::Status,
         ranges: Vec<ProtoRange>,
-    ) -> Result<(BidiReadObjectResponse, Connection<T::Stream>)> {
+    ) -> Result<(BidiReadObjectResponse, HeaderMap, Connection<T::Stream>)> {
         use crate::read_resume_policy::ReadResumePolicy;
 
         let error = handle_redirect(self.spec.clone(), status);
@@ -130,7 +131,7 @@ where
         spec: Arc<Mutex<BidiReadObjectSpec>>,
         ranges: Vec<ProtoRange>,
         options: &RequestOptions,
-    ) -> Result<(BidiReadObjectResponse, Connection<T::Stream>)> {
+    ) -> Result<(BidiReadObjectResponse, HeaderMap, Connection<T::Stream>)> {
         let request = BidiReadObjectRequest {
             read_object_spec: Some((*spec.lock().expect("never poisoned")).clone()),
             read_ranges: ranges,
@@ -201,7 +202,8 @@ where
             Err(status) => return Err(handle_redirect(spec, status)),
         };
         // Handle the initial response.
-        let (_metadata, mut stream, _) = response.into_parts();
+        let (metadata, mut stream, _) = response.into_parts();
+        let headers = metadata.into_headers();
         match stream.next_message().await {
             Ok(Some(m)) => {
                 let mut guard = spec.lock().expect("never poisoned");
@@ -211,7 +213,7 @@ where
                 if m.read_handle.is_some() {
                     guard.read_handle = m.read_handle.clone();
                 }
-                Ok((m, Connection::new(tx, stream)))
+                Ok((m, headers, Connection::new(tx, stream)))
             }
             Ok(None) => Err(Error::io("bidi_read_object stream closed before start")),
             Err(status) => Err(handle_redirect(spec, status)),
@@ -604,7 +606,7 @@ mod tests {
         tx2.send(Ok(initial.clone())).await?;
 
         let mut connector = Connector::new(spec, test_options(), client);
-        let (response, _connection) = connector.connect(Vec::new()).await?;
+        let (response, _h, _connection) = connector.connect(Vec::new()).await?;
         assert_eq!(response, initial);
 
         let guard = connector.spec.lock().expect("never poisoned");
@@ -649,7 +651,7 @@ mod tests {
         tx.send(Ok(initial.clone())).await?;
 
         let mut connector = Connector::new(spec, test_options(), client);
-        let (response, _connection) = connector.connect(Vec::new()).await?;
+        let (response, _h, _connection) = connector.connect(Vec::new()).await?;
         assert_eq!(response, initial);
 
         let guard = connector.spec.lock().expect("never poisoned");
@@ -703,7 +705,7 @@ mod tests {
         tx1.send(Ok(i1.clone())).await?;
 
         let mut connector = Connector::new(spec, test_options(), client);
-        let (response, _connection) = connector.connect(Vec::new()).await?;
+        let (response, _h, _connection) = connector.connect(Vec::new()).await?;
         assert_eq!(response, i1);
 
         let got = connector.spec.lock().expect("never poisoned").clone();
@@ -742,7 +744,7 @@ mod tests {
             ..BidiReadObjectResponse::default()
         };
         tx2.send(Ok(i2.clone())).await?;
-        let (response, _connection) = connector
+        let (response, _h, _connection) = connector
             .reconnect(redirect_status("r2"), ranges.clone())
             .await?;
         assert_eq!(response, i2);

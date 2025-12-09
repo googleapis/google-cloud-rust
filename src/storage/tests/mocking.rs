@@ -27,7 +27,7 @@ mod tests {
     #[cfg(google_cloud_unstable_storage_bidi)]
     use gcs::{
         model_ext::{OpenObjectRequest, ReadRange},
-        object_descriptor::ObjectDescriptor,
+        object_descriptor::{HeaderMap, ObjectDescriptor},
     };
     use google_cloud_storage as gcs;
     use pastey::paste;
@@ -65,6 +65,7 @@ mod tests {
         impl gcs::stub::ObjectDescriptor for Descriptor {
             fn object(&self) -> &Object;
             async fn read_range(&self, range: ReadRange) -> ReadObjectResponse;
+            fn headers(&self) -> &HeaderMap;
         }
     }
 
