@@ -469,7 +469,6 @@ mod tests {
     use crate::errors;
     use crate::errors::CredentialsError;
     use crate::token::tests::MockTokenProvider;
-    use base64::{Engine, prelude::BASE64_STANDARD};
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
     use httptest::cycle;
@@ -478,7 +477,6 @@ mod tests {
     use httptest::{Expectation, Server};
     use reqwest::StatusCode;
     use scoped_env::ScopedEnv;
-    use serde_json::json;
     use serial_test::{parallel, serial};
     use std::error::Error;
     use test_case::test_case;
