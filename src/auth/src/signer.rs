@@ -183,8 +183,8 @@ mod tests {
         Signer{}
 
         impl SigningProvider for Signer {
-            async fn client_email(&self) -> auth::signer::Result<String>;
-            async fn sign(&self, content: &[u8]) -> auth::signer::Result<bytes::Bytes>;
+            async fn client_email(&self) -> Result<String>;
+            async fn sign(&self, content: &[u8]) -> Result<bytes::Bytes>;
         }
     }
 
