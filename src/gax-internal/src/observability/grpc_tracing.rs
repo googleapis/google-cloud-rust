@@ -23,7 +23,16 @@ use tower::{Layer, Service};
 
 /// A wrapper for the attempt count to be stored in request extensions.
 #[derive(Clone, Copy, Debug)]
-pub struct AttemptCount(pub i64);
+pub struct AttemptCount(i64);
+
+impl AttemptCount {
+    pub fn new(value: i64) -> Self {
+        Self(value)
+    }
+    pub fn as_i64(&self) -> i64 {
+        self.0
+    }
+}
 
 /// A wrapper for the resource name to be stored in request extensions.
 #[derive(Clone, Debug)]
@@ -175,7 +184,7 @@ where
     }
 
     fn call(&mut self, req: http::Request<B>) -> Self::Future {
-        let attempt_count = req.extensions().get::<AttemptCount>().map(|a| a.0);
+        let attempt_count = req.extensions().get::<AttemptCount>().map(|a| a.as_i64());
         let resource_name = req.extensions().get::<ResourceName>().map(|r| r.as_str());
         let span = create_grpc_span(req.uri(), &self.layer.inner, attempt_count, resource_name);
         let future = self.inner.call(req);
