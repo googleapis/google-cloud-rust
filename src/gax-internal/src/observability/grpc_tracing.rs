@@ -27,7 +27,16 @@ pub struct AttemptCount(pub i64);
 
 /// A wrapper for the resource name to be stored in request extensions.
 #[derive(Clone, Debug)]
-pub struct ResourceName(pub String);
+pub struct ResourceName(String);
+
+impl ResourceName {
+    pub fn new(value: String) -> Self {
+        Self(value)
+    }
+    pub fn as_str(&self) -> &str {
+        self.0.as_str()
+    }
+}
 
 /// A type alias for the response body that can be either an instrumented body or a raw body.
 ///
@@ -167,7 +176,7 @@ where
 
     fn call(&mut self, req: http::Request<B>) -> Self::Future {
         let attempt_count = req.extensions().get::<AttemptCount>().map(|a| a.0);
-        let resource_name = req.extensions().get::<ResourceName>().map(|r| r.0.as_str());
+        let resource_name = req.extensions().get::<ResourceName>().map(|r| r.as_str());
         let span = create_grpc_span(req.uri(), &self.layer.inner, attempt_count, resource_name);
         let future = self.inner.call(req);
         ResponseFuture {

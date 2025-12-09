@@ -273,10 +273,12 @@ impl Client {
             request
                 .extensions_mut()
                 .insert(AttemptCount(prior_attempt_count));
-            if let Some(name) = gax::options::internal::get_resource_name(options) {
+            if let Some(resource_name) =
+                gax::options::internal::get_resource_name(options).map(|s| s.to_string())
+            {
                 request
                     .extensions_mut()
-                    .insert(ResourceName(name.to_string()));
+                    .insert(ResourceName::new(resource_name));
             }
         }
         #[cfg(not(google_cloud_unstable_tracing))]
@@ -496,27 +498,6 @@ mod tests {
         // but this verifies the method exists and runs.
     }
 
-    #[derive(Debug)]
-    struct NoAuth;
-
-    impl auth::credentials::CredentialsProvider for NoAuth {
-        async fn headers(
-            &self,
-            _extensions: http::Extensions,
-        ) -> std::result::Result<
-            auth::credentials::CacheableResource<http::HeaderMap>,
-            auth::errors::CredentialsError,
-        > {
-            Ok(auth::credentials::CacheableResource::New {
-                entity_tag: Default::default(),
-                data: http::HeaderMap::new(),
-            })
-        }
-        async fn universe_domain(&self) -> Option<String> {
-            None
-        }
-    }
-
     #[tokio::test(flavor = "multi_thread")]
     async fn test_resource_name_in_span() {
         use crate::observability::attributes::keys::GCP_RESOURCE_NAME;
@@ -526,7 +507,7 @@ mod tests {
 
         let mut config = crate::options::ClientConfig::default();
         config.tracing = true;
-        config.cred = Some(auth::credentials::Credentials::from(NoAuth));
+        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
         let client = Client::new(config, "http://localhost:1234").await.unwrap();
 
         let mut options = gax::options::RequestOptions::default();
