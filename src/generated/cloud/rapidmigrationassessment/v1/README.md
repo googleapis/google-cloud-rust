@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-rapidmigrationassessment-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-rapidmigrationassessment-v1/1.3.0)
 
-[RapidMigrationAssessment]: https://docs.rs/google-cloud-rapidmigrationassessment-v1/1.2.1/google_cloud_rapidmigrationassessment_v1/client/struct.RapidMigrationAssessment.html
+[RapidMigrationAssessment]: https://docs.rs/google-cloud-rapidmigrationassessment-v1/1.3.0/google_cloud_rapidmigrationassessment_v1/client/struct.RapidMigrationAssessment.html

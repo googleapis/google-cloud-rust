@@ -20,6 +20,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-documentai-v1/1.3.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-documentai-v1/1.4.0)
 
-[DocumentProcessorService]: https://docs.rs/google-cloud-documentai-v1/1.3.1/google_cloud_documentai_v1/client/struct.DocumentProcessorService.html
+[DocumentProcessorService]: https://docs.rs/google-cloud-documentai-v1/1.4.0/google_cloud_documentai_v1/client/struct.DocumentProcessorService.html

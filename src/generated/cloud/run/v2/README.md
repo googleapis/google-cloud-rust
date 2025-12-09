@@ -27,12 +27,12 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-run-v2/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-run-v2/1.3.0)
 
-[Builds]: https://docs.rs/google-cloud-run-v2/1.2.1/google_cloud_run_v2/client/struct.Builds.html
-[Executions]: https://docs.rs/google-cloud-run-v2/1.2.1/google_cloud_run_v2/client/struct.Executions.html
-[Jobs]: https://docs.rs/google-cloud-run-v2/1.2.1/google_cloud_run_v2/client/struct.Jobs.html
-[Revisions]: https://docs.rs/google-cloud-run-v2/1.2.1/google_cloud_run_v2/client/struct.Revisions.html
-[Services]: https://docs.rs/google-cloud-run-v2/1.2.1/google_cloud_run_v2/client/struct.Services.html
-[Tasks]: https://docs.rs/google-cloud-run-v2/1.2.1/google_cloud_run_v2/client/struct.Tasks.html
-[WorkerPools]: https://docs.rs/google-cloud-run-v2/1.2.1/google_cloud_run_v2/client/struct.WorkerPools.html
+[Builds]: https://docs.rs/google-cloud-run-v2/1.3.0/google_cloud_run_v2/client/struct.Builds.html
+[Executions]: https://docs.rs/google-cloud-run-v2/1.3.0/google_cloud_run_v2/client/struct.Executions.html
+[Jobs]: https://docs.rs/google-cloud-run-v2/1.3.0/google_cloud_run_v2/client/struct.Jobs.html
+[Revisions]: https://docs.rs/google-cloud-run-v2/1.3.0/google_cloud_run_v2/client/struct.Revisions.html
+[Services]: https://docs.rs/google-cloud-run-v2/1.3.0/google_cloud_run_v2/client/struct.Services.html
+[Tasks]: https://docs.rs/google-cloud-run-v2/1.3.0/google_cloud_run_v2/client/struct.Tasks.html
+[WorkerPools]: https://docs.rs/google-cloud-run-v2/1.3.0/google_cloud_run_v2/client/struct.WorkerPools.html

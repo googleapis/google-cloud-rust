@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-workflows-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-workflows-v1/1.3.0)
 
-[Workflows]: https://docs.rs/google-cloud-workflows-v1/1.2.1/google_cloud_workflows_v1/client/struct.Workflows.html
+[Workflows]: https://docs.rs/google-cloud-workflows-v1/1.3.0/google_cloud_workflows_v1/client/struct.Workflows.html

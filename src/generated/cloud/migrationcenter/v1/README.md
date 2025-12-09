@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-migrationcenter-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-migrationcenter-v1/1.3.0)
 
-[MigrationCenter]: https://docs.rs/google-cloud-migrationcenter-v1/1.2.1/google_cloud_migrationcenter_v1/client/struct.MigrationCenter.html
+[MigrationCenter]: https://docs.rs/google-cloud-migrationcenter-v1/1.3.0/google_cloud_migrationcenter_v1/client/struct.MigrationCenter.html

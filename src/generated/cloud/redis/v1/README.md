@@ -18,6 +18,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-redis-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-redis-v1/1.3.0)
 
-[CloudRedis]: https://docs.rs/google-cloud-redis-v1/1.2.1/google_cloud_redis_v1/client/struct.CloudRedis.html
+[CloudRedis]: https://docs.rs/google-cloud-redis-v1/1.3.0/google_cloud_redis_v1/client/struct.CloudRedis.html

@@ -22,6 +22,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-ids-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-ids-v1/1.3.0)
 
-[Ids]: https://docs.rs/google-cloud-ids-v1/1.2.1/google_cloud_ids_v1/client/struct.Ids.html
+[Ids]: https://docs.rs/google-cloud-ids-v1/1.3.0/google_cloud_ids_v1/client/struct.Ids.html

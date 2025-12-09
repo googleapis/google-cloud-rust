@@ -28,7 +28,7 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-policysimulator-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-policysimulator-v1/1.3.0)
 
-[OrgPolicyViolationsPreviewService]: https://docs.rs/google-cloud-policysimulator-v1/1.2.1/google_cloud_policysimulator_v1/client/struct.OrgPolicyViolationsPreviewService.html
-[Simulator]: https://docs.rs/google-cloud-policysimulator-v1/1.2.1/google_cloud_policysimulator_v1/client/struct.Simulator.html
+[OrgPolicyViolationsPreviewService]: https://docs.rs/google-cloud-policysimulator-v1/1.3.0/google_cloud_policysimulator_v1/client/struct.OrgPolicyViolationsPreviewService.html
+[Simulator]: https://docs.rs/google-cloud-policysimulator-v1/1.3.0/google_cloud_policysimulator_v1/client/struct.Simulator.html
