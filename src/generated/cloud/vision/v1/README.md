@@ -21,7 +21,7 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-vision-v1/1.1.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-vision-v1/1.2.0)
 
-[ImageAnnotator]: https://docs.rs/google-cloud-vision-v1/1.1.1/google_cloud_vision_v1/client/struct.ImageAnnotator.html
-[ProductSearch]: https://docs.rs/google-cloud-vision-v1/1.1.1/google_cloud_vision_v1/client/struct.ProductSearch.html
+[ImageAnnotator]: https://docs.rs/google-cloud-vision-v1/1.2.0/google_cloud_vision_v1/client/struct.ImageAnnotator.html
+[ProductSearch]: https://docs.rs/google-cloud-vision-v1/1.2.0/google_cloud_vision_v1/client/struct.ProductSearch.html

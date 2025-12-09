@@ -18,6 +18,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-functions-v2/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-functions-v2/1.3.0)
 
-[FunctionService]: https://docs.rs/google-cloud-functions-v2/1.2.1/google_cloud_functions_v2/client/struct.FunctionService.html
+[FunctionService]: https://docs.rs/google-cloud-functions-v2/1.3.0/google_cloud_functions_v2/client/struct.FunctionService.html

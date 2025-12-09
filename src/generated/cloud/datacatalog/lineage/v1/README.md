@@ -16,6 +16,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-datacatalog-lineage-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-datacatalog-lineage-v1/1.3.0)
 
-[Lineage]: https://docs.rs/google-cloud-datacatalog-lineage-v1/1.2.1/google_cloud_datacatalog_lineage_v1/client/struct.Lineage.html
+[Lineage]: https://docs.rs/google-cloud-datacatalog-lineage-v1/1.3.0/google_cloud_datacatalog_lineage_v1/client/struct.Lineage.html

@@ -18,6 +18,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-apikeys-v2/1.1.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-apikeys-v2/1.2.0)
 
-[ApiKeys]: https://docs.rs/google-cloud-apikeys-v2/1.1.1/google_cloud_apikeys_v2/client/struct.ApiKeys.html
+[ApiKeys]: https://docs.rs/google-cloud-apikeys-v2/1.2.0/google_cloud_apikeys_v2/client/struct.ApiKeys.html

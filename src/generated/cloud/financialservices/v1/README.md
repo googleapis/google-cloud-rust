@@ -16,6 +16,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-financialservices-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-financialservices-v1/1.3.0)
 
-[Aml]: https://docs.rs/google-cloud-financialservices-v1/1.2.1/google_cloud_financialservices_v1/client/struct.Aml.html
+[Aml]: https://docs.rs/google-cloud-financialservices-v1/1.3.0/google_cloud_financialservices_v1/client/struct.Aml.html

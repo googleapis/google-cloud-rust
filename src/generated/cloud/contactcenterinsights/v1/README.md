@@ -16,6 +16,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-contactcenterinsights-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-contactcenterinsights-v1/1.3.0)
 
-[ContactCenterInsights]: https://docs.rs/google-cloud-contactcenterinsights-v1/1.2.1/google_cloud_contactcenterinsights_v1/client/struct.ContactCenterInsights.html
+[ContactCenterInsights]: https://docs.rs/google-cloud-contactcenterinsights-v1/1.3.0/google_cloud_contactcenterinsights_v1/client/struct.ContactCenterInsights.html

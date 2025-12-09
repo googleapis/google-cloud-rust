@@ -27,8 +27,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-logging-v2/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-logging-v2/1.3.0)
 
-[LoggingServiceV2]: https://docs.rs/google-cloud-logging-v2/1.2.1/google_cloud_logging_v2/client/struct.LoggingServiceV2.html
-[ConfigServiceV2]: https://docs.rs/google-cloud-logging-v2/1.2.1/google_cloud_logging_v2/client/struct.ConfigServiceV2.html
-[MetricsServiceV2]: https://docs.rs/google-cloud-logging-v2/1.2.1/google_cloud_logging_v2/client/struct.MetricsServiceV2.html
+[LoggingServiceV2]: https://docs.rs/google-cloud-logging-v2/1.3.0/google_cloud_logging_v2/client/struct.LoggingServiceV2.html
+[ConfigServiceV2]: https://docs.rs/google-cloud-logging-v2/1.3.0/google_cloud_logging_v2/client/struct.ConfigServiceV2.html
+[MetricsServiceV2]: https://docs.rs/google-cloud-logging-v2/1.3.0/google_cloud_logging_v2/client/struct.MetricsServiceV2.html

@@ -25,12 +25,12 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-resourcemanager-v3/1.1.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-resourcemanager-v3/1.2.0)
 
-[Folders]: https://docs.rs/google-cloud-resourcemanager-v3/1.1.1/google_cloud_resourcemanager_v3/client/struct.Folders.html
-[Organizations]: https://docs.rs/google-cloud-resourcemanager-v3/1.1.1/google_cloud_resourcemanager_v3/client/struct.Organizations.html
-[Projects]: https://docs.rs/google-cloud-resourcemanager-v3/1.1.1/google_cloud_resourcemanager_v3/client/struct.Projects.html
-[TagBindings]: https://docs.rs/google-cloud-resourcemanager-v3/1.1.1/google_cloud_resourcemanager_v3/client/struct.TagBindings.html
-[TagHolds]: https://docs.rs/google-cloud-resourcemanager-v3/1.1.1/google_cloud_resourcemanager_v3/client/struct.TagHolds.html
-[TagKeys]: https://docs.rs/google-cloud-resourcemanager-v3/1.1.1/google_cloud_resourcemanager_v3/client/struct.TagKeys.html
-[TagValues]: https://docs.rs/google-cloud-resourcemanager-v3/1.1.1/google_cloud_resourcemanager_v3/client/struct.TagValues.html
+[Folders]: https://docs.rs/google-cloud-resourcemanager-v3/1.2.0/google_cloud_resourcemanager_v3/client/struct.Folders.html
+[Organizations]: https://docs.rs/google-cloud-resourcemanager-v3/1.2.0/google_cloud_resourcemanager_v3/client/struct.Organizations.html
+[Projects]: https://docs.rs/google-cloud-resourcemanager-v3/1.2.0/google_cloud_resourcemanager_v3/client/struct.Projects.html
+[TagBindings]: https://docs.rs/google-cloud-resourcemanager-v3/1.2.0/google_cloud_resourcemanager_v3/client/struct.TagBindings.html
+[TagHolds]: https://docs.rs/google-cloud-resourcemanager-v3/1.2.0/google_cloud_resourcemanager_v3/client/struct.TagHolds.html
+[TagKeys]: https://docs.rs/google-cloud-resourcemanager-v3/1.2.0/google_cloud_resourcemanager_v3/client/struct.TagKeys.html
+[TagValues]: https://docs.rs/google-cloud-resourcemanager-v3/1.2.0/google_cloud_resourcemanager_v3/client/struct.TagValues.html

@@ -18,6 +18,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-storageinsights-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-storageinsights-v1/1.3.0)
 
-[StorageInsights]: https://docs.rs/google-cloud-storageinsights-v1/1.2.1/google_cloud_storageinsights_v1/client/struct.StorageInsights.html
+[StorageInsights]: https://docs.rs/google-cloud-storageinsights-v1/1.3.0/google_cloud_storageinsights_v1/client/struct.StorageInsights.html

@@ -17,7 +17,7 @@ specification-source = 'google/cloud/storageinsights/v1'
 service-config = 'google/cloud/storageinsights/v1/storageinsights_v1.yaml'
 
 [codec]
-version        = '1.2.1'
+version        = '1.3.0'
 copyright-year = '2025'
 name-overrides    = """\
 .google.cloud.storageinsights.v1.DatasetConfig.cloud_storage_buckets=CloudStorageBucketsOneOf,\

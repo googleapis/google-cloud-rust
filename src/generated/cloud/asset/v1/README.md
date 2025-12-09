@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-asset-v1/1.1.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-asset-v1/1.2.0)
 
-[AssetService]: https://docs.rs/google-cloud-asset-v1/1.1.1/google_cloud_asset_v1/client/struct.AssetService.html
+[AssetService]: https://docs.rs/google-cloud-asset-v1/1.2.0/google_cloud_asset_v1/client/struct.AssetService.html
