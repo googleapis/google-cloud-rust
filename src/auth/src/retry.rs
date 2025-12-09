@@ -64,11 +64,10 @@ impl Builder {
             None => Arc::new(Mutex::new(AdaptiveThrottler::default())),
         };
 
-        let retry_policy = match self.retry_policy {
-            Some(p) => p,
-            None => AlwaysRetry.with_attempt_limit(1).into(),
-        }
-        .into();
+        let retry_policy = self
+            .retry_policy
+            .unwrap_or_else(|| AlwaysRetry.with_attempt_limit(1).into())
+            .into();
 
         TokenProviderWithRetry {
             inner: Arc::new(token_provider),

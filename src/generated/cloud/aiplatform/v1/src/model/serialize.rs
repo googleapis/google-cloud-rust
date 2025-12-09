@@ -11082,6 +11082,9 @@ impl serde::ser::Serialize for super::feature_online_store::Bigtable {
         if self.bigtable_metadata.is_some() {
             state.serialize_entry("bigtableMetadata", &self.bigtable_metadata)?;
         }
+        if !self.zone.is_empty() {
+            state.serialize_entry("zone", &self.zone)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

@@ -50,12 +50,14 @@ impl Runner {
             .set_read_range(ReadRange::segment(range.read_offset, range.read_length))
             .send()
             .await?;
-        let ttfb = Instant::now() - start;
+        let mut ttfb = None;
         let mut size = 0;
         while let Some(b) = reader.next().await.transpose()? {
+            let _ = ttfb.get_or_insert(start.elapsed());
             size += b.len();
         }
-        let ttlb = Instant::now() - start;
+        let ttlb = start.elapsed();
+        let ttfb = ttfb.unwrap_or(ttlb);
         Ok(Attempt { size, ttfb, ttlb })
     }
 }

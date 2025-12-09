@@ -2003,6 +2003,74 @@ pub mod cloud_build {
         }
     }
 
+    /// The request builder for [CloudBuild::get_default_service_account][crate::client::CloudBuild::get_default_service_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v1::builder;
+    /// use builder::cloud_build::GetDefaultServiceAccount;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDefaultServiceAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetDefaultServiceAccount(
+        RequestBuilder<crate::model::GetDefaultServiceAccountRequest>,
+    );
+
+    impl GetDefaultServiceAccount {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBuild>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetDefaultServiceAccountRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DefaultServiceAccount> {
+            (*self.0.stub)
+                .get_default_service_account(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetDefaultServiceAccountRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDefaultServiceAccount {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [CloudBuild::get_operation][crate::client::CloudBuild::get_operation] calls.
     ///
     /// # Example

@@ -91,6 +91,7 @@ members = [
   "src/generated/cloud/beyondcorp/appgateways/v1",
   "src/generated/cloud/beyondcorp/clientconnectorservices/v1",
   "src/generated/cloud/beyondcorp/clientgateways/v1",
+  "src/generated/cloud/biglake/v1",
   "src/generated/cloud/bigquery/analyticshub/v1",
   "src/generated/cloud/bigquery/connection/v1",
   "src/generated/cloud/bigquery/datapolicies/v1",
@@ -153,6 +154,7 @@ members = [
   "src/generated/cloud/location",
   "src/generated/cloud/locationfinder/v1",
   "src/generated/cloud/lustre/v1",
+  "src/generated/cloud/maintenance/api/v1",
   "src/generated/cloud/managedidentities/v1",
   "src/generated/cloud/managedkafka/schemaregistry/v1",
   "src/generated/cloud/managedkafka/v1",
@@ -335,15 +337,16 @@ thiserror             = { default-features = false, version = "2" }
 time                  = { default-features = false, version = "0.3.44" }
 tokio                 = { default-features = false, version = "1" }
 tokio-metrics         = { default-features = false, version = "0.4.5" }
+tokio-util            = { default-features = false, version = "0.7" }
 toml_edit             = { default-features = false, version = "0.23" }
 tonic                 = { default-features = false, version = "0.14.1", features = ["tls-native-roots", "tls-ring"] }
 tonic-prost           = { default-features = false, version = "0.14.2" }
 tonic-prost-build     = { default-features = false, version = "0.14.1" }
 tower                 = { default-features = false, version = "0.5", features = ["util"] }
-tracing               = { default-features = false, version = "0.1.41", features = ["attributes"] }
+tracing               = { default-features = false, version = "0.1.43", features = ["attributes"] }
 tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.32" }
-tracing-subscriber    = { default-features = false, version = "0.3.18" }
+tracing-subscriber    = { default-features = false, version = "0.3.22" }
 url                   = { default-features = false, version = "2" }
 uuid                  = { default-features = false, version = "1", features = ["v4"] }
 
@@ -430,7 +433,7 @@ google-cloud-speech-v2          = { version = "1", path = "src/generated/cloud/s
 google-cloud-secretmanager-v1   = { version = "1", path = "src/generated/cloud/secretmanager/v1" }
 secretmanager                   = { version = "1", path = "src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
 google-cloud-aiplatform-v1      = { version = "1", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
-google-cloud-compute-v1         = { version = "0.2", default-features = false, path = "src/generated/cloud/compute/v1" }
+google-cloud-compute-v1         = { version = "1", default-features = false, path = "src/generated/cloud/compute/v1" }
 google-cloud-storage            = { version = "1", path = "src/storage" }
 google-cloud-pubsub             = { path = "src/pubsub" }
 google-cloud-bigquery-v2        = { version = "1", path = "src/generated/cloud/bigquery/v2" }

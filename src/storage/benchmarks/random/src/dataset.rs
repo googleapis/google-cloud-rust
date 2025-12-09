@@ -49,7 +49,7 @@ pub async fn populate(args: &Args, credentials: Credentials) -> Result<Vec<Strin
 /// the experiment described by the `args` size parameters.
 async fn existing(args: &Args, control: StorageControl) -> Result<Vec<String>> {
     use google_cloud_gax::paginator::ItemPaginator;
-    let target_size = args.min_range_count * args.max_range_size;
+    let target_size = args.min_range_count * args.range_size.max();
     let mut objects = Vec::new();
     let mut list = control
         .list_objects()
@@ -84,7 +84,7 @@ async fn create(args: &Args, client: Storage, control: StorageControl) -> Result
         .send_unbuffered()
         .await?;
 
-    let target_size = args.min_range_count * args.max_range_size;
+    let target_size = args.min_range_count * args.range_size.max();
     while (block.size as u64) < target_size {
         let count = target_size.div_ceil(block.size as u64);
         let source = block;

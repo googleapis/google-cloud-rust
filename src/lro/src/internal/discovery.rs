@@ -179,7 +179,7 @@ where
     match result {
         Err(e) => {
             let state = error_policy.on_error(state, e);
-            self::handle_polling_error(state, operation_name)
+            handle_polling_error(state, operation_name)
         }
         Ok(o) if o.done() => (None, PollingResult::Completed(Ok(o))),
         Ok(o) => handle_polling_success(o),

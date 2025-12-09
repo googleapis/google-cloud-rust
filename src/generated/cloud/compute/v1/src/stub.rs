@@ -212,6 +212,32 @@ pub trait Addresses: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::Advice].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::Advice`.  In other use-cases, application developers only
+/// use `client::Advice` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "advice")]
+#[cfg_attr(docsrs, doc(cfg(feature = "advice")))]
+pub trait Advice: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::Advice::calendar_mode].
+    fn calendar_mode(
+        &self,
+        _req: crate::model::advice::CalendarModeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::CalendarModeAdviceResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::Autoscalers].
 ///
 /// Application developers may need to implement this trait to mock

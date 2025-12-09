@@ -140,20 +140,25 @@ pub struct AttachedCluster {
     /// Optional. Security Posture configuration for this cluster.
     pub security_posture_config: std::option::Option<crate::model::SecurityPostureConfig>,
 
-    /// Optional. Input only. Tag keys/values directly bound to this resource.
+    /// Optional. Input only. Tag keys and values directly bound to this resource.
     ///
-    /// Tag key must be specified in the format \<tag namespace\>/\<tag key name\>
+    /// The tag key must be specified in the format
+    /// `<tag namespace>/<tag key name>,`
     /// where the tag namespace is the ID of the organization or name of the
-    /// project that the tag key is defined in.
-    /// The short name of a tag key or value can have a maximum length of 256
-    /// characters. The permitted character set for the short name includes UTF-8
-    /// encoded Unicode characters except single quotes ('), double quotes ("),
-    /// backslashes (\), and forward slashes (/).
+    /// project that the tag key is defined in. The short name of a tag key or
+    /// value can have a maximum length of 256 characters. The permitted character
+    /// set for the short name includes UTF-8 encoded Unicode characters except
+    /// single quotation marks (`'`), double quotation marks (`"`), backslashes
+    /// (`\`), and forward slashes (`/`).
     ///
     /// See
     /// [Tags](https://cloud.google.com/resource-manager/docs/tags/tags-overview)
     /// for more details on Google Cloud Platform tags.
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Kubernetes configurations for auto-installed components on the
+    /// cluster.
+    pub system_components_config: std::option::Option<crate::model::SystemComponentsConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -462,6 +467,24 @@ impl AttachedCluster {
     {
         use std::iter::Iterator;
         self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [system_components_config][crate::model::AttachedCluster::system_components_config].
+    pub fn set_system_components_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SystemComponentsConfig>,
+    {
+        self.system_components_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [system_components_config][crate::model::AttachedCluster::system_components_config].
+    pub fn set_or_clear_system_components_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SystemComponentsConfig>,
+    {
+        self.system_components_config = v.map(|x| x.into());
         self
     }
 }
@@ -858,6 +881,24 @@ pub struct AttachedPlatformVersionInfo {
     /// Platform version name.
     pub version: std::string::String,
 
+    /// Optional. True if the version is available for attachedcluster creation. If
+    /// a version is enabled, it can be used to attach new clusters.
+    pub enabled: bool,
+
+    /// Optional. True if this cluster version belongs to a minor version that has
+    /// reached its end of life and is no longer in scope to receive security and
+    /// bug fixes.
+    pub end_of_life: bool,
+
+    /// Optional. The estimated date (in Pacific Time) when this cluster version
+    /// will reach its end of life. Or if this version is no longer supported (the
+    /// `end_of_life` field is true), this is the actual date (in Pacific time)
+    /// when the version reached its end of life.
+    pub end_of_life_date: std::option::Option<gtype::model::Date>,
+
+    /// Optional. The date (in Pacific Time) when the cluster version was released.
+    pub release_date: std::option::Option<gtype::model::Date>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -869,6 +910,54 @@ impl AttachedPlatformVersionInfo {
     /// Sets the value of [version][crate::model::AttachedPlatformVersionInfo::version].
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
+        self
+    }
+
+    /// Sets the value of [enabled][crate::model::AttachedPlatformVersionInfo::enabled].
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [end_of_life][crate::model::AttachedPlatformVersionInfo::end_of_life].
+    pub fn set_end_of_life<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.end_of_life = v.into();
+        self
+    }
+
+    /// Sets the value of [end_of_life_date][crate::model::AttachedPlatformVersionInfo::end_of_life_date].
+    pub fn set_end_of_life_date<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Date>,
+    {
+        self.end_of_life_date = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_of_life_date][crate::model::AttachedPlatformVersionInfo::end_of_life_date].
+    pub fn set_or_clear_end_of_life_date<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Date>,
+    {
+        self.end_of_life_date = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [release_date][crate::model::AttachedPlatformVersionInfo::release_date].
+    pub fn set_release_date<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Date>,
+    {
+        self.release_date = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [release_date][crate::model::AttachedPlatformVersionInfo::release_date].
+    pub fn set_or_clear_release_date<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Date>,
+    {
+        self.release_date = v.map(|x| x.into());
         self
     }
 }
@@ -987,6 +1076,431 @@ impl KubernetesSecret {
 impl wkt::message::Message for KubernetesSecret {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.gkemulticloud.v1.KubernetesSecret"
+    }
+}
+
+/// SystemComponentsConfig defines the fields for customizing configurations for
+/// auto-installed components.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SystemComponentsConfig {
+    /// Sets custom tolerations for pods created by auto-installed components.
+    pub tolerations: std::vec::Vec<crate::model::Toleration>,
+
+    /// Sets custom labels for pods created by auto-installed components.
+    pub labels: std::vec::Vec<crate::model::Label>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SystemComponentsConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tolerations][crate::model::SystemComponentsConfig::tolerations].
+    pub fn set_tolerations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Toleration>,
+    {
+        use std::iter::Iterator;
+        self.tolerations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::SystemComponentsConfig::labels].
+    pub fn set_labels<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Label>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SystemComponentsConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkemulticloud.v1.SystemComponentsConfig"
+    }
+}
+
+/// Toleration defines the fields for tolerations for pods created by
+/// auto-installed components.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Toleration {
+    /// Key is the taint key that the toleration applies to.
+    pub key: std::string::String,
+
+    /// Value is the taint value that the toleration applies to.
+    pub value: std::string::String,
+
+    /// KeyOperator represents a key's relationship to the value e.g. 'Exist'.
+    pub key_operator: crate::model::toleration::KeyOperator,
+
+    /// Effect indicates the taint effect to match e.g. 'NoSchedule'
+    pub effect: crate::model::toleration::Effect,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Toleration {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [key][crate::model::Toleration::key].
+    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key = v.into();
+        self
+    }
+
+    /// Sets the value of [value][crate::model::Toleration::value].
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value = v.into();
+        self
+    }
+
+    /// Sets the value of [key_operator][crate::model::Toleration::key_operator].
+    pub fn set_key_operator<T: std::convert::Into<crate::model::toleration::KeyOperator>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.key_operator = v.into();
+        self
+    }
+
+    /// Sets the value of [effect][crate::model::Toleration::effect].
+    pub fn set_effect<T: std::convert::Into<crate::model::toleration::Effect>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.effect = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Toleration {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkemulticloud.v1.Toleration"
+    }
+}
+
+/// Defines additional types related to [Toleration].
+pub mod toleration {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// KeyOperator represents a key's relationship to the value e.g. 'Equal'.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum KeyOperator {
+        /// Operator is not specified.
+        Unspecified,
+        /// Operator maps to 'Equal'.
+        Equal,
+        /// Operator maps to 'Exists'.
+        Exists,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [KeyOperator::value] or
+        /// [KeyOperator::name].
+        UnknownValue(key_operator::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod key_operator {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl KeyOperator {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Equal => std::option::Option::Some(1),
+                Self::Exists => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("KEY_OPERATOR_UNSPECIFIED"),
+                Self::Equal => std::option::Option::Some("KEY_OPERATOR_EQUAL"),
+                Self::Exists => std::option::Option::Some("KEY_OPERATOR_EXISTS"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for KeyOperator {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for KeyOperator {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for KeyOperator {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Equal,
+                2 => Self::Exists,
+                _ => Self::UnknownValue(key_operator::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for KeyOperator {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "KEY_OPERATOR_UNSPECIFIED" => Self::Unspecified,
+                "KEY_OPERATOR_EQUAL" => Self::Equal,
+                "KEY_OPERATOR_EXISTS" => Self::Exists,
+                _ => Self::UnknownValue(key_operator::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for KeyOperator {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Equal => serializer.serialize_i32(1),
+                Self::Exists => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for KeyOperator {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<KeyOperator>::new(
+                ".google.cloud.gkemulticloud.v1.Toleration.KeyOperator",
+            ))
+        }
+    }
+
+    /// Effect indicates the taint effect to match e.g. 'NoSchedule'.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Effect {
+        /// Effect is not specified.
+        Unspecified,
+        /// Effect maps to 'NoSchedule'.
+        NoSchedule,
+        /// Effect maps to 'PreferNoSchedule'.
+        PreferNoSchedule,
+        /// Effect maps to 'NoExecute'.
+        NoExecute,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Effect::value] or
+        /// [Effect::name].
+        UnknownValue(effect::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod effect {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Effect {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NoSchedule => std::option::Option::Some(1),
+                Self::PreferNoSchedule => std::option::Option::Some(2),
+                Self::NoExecute => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EFFECT_UNSPECIFIED"),
+                Self::NoSchedule => std::option::Option::Some("EFFECT_NO_SCHEDULE"),
+                Self::PreferNoSchedule => std::option::Option::Some("EFFECT_PREFER_NO_SCHEDULE"),
+                Self::NoExecute => std::option::Option::Some("EFFECT_NO_EXECUTE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Effect {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Effect {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Effect {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NoSchedule,
+                2 => Self::PreferNoSchedule,
+                3 => Self::NoExecute,
+                _ => Self::UnknownValue(effect::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Effect {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EFFECT_UNSPECIFIED" => Self::Unspecified,
+                "EFFECT_NO_SCHEDULE" => Self::NoSchedule,
+                "EFFECT_PREFER_NO_SCHEDULE" => Self::PreferNoSchedule,
+                "EFFECT_NO_EXECUTE" => Self::NoExecute,
+                _ => Self::UnknownValue(effect::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Effect {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NoSchedule => serializer.serialize_i32(1),
+                Self::PreferNoSchedule => serializer.serialize_i32(2),
+                Self::NoExecute => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Effect {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Effect>::new(
+                ".google.cloud.gkemulticloud.v1.Toleration.Effect",
+            ))
+        }
+    }
+}
+
+/// Label defines the additional fields for labels for pods created by
+/// auto-installed components.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Label {
+    /// This is the key of the label.
+    pub key: std::string::String,
+
+    /// This is the value of the label.
+    pub value: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Label {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [key][crate::model::Label::key].
+    pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.key = v.into();
+        self
+    }
+
+    /// Sets the value of [value][crate::model::Label::value].
+    pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.value = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Label {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.gkemulticloud.v1.Label"
     }
 }
 
@@ -1868,6 +2382,7 @@ impl wkt::message::Message for GenerateAttachedClusterAgentTokenResponse {
 /// An Anthos cluster running on AWS.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsCluster {
     /// The name of this resource.
     ///
@@ -2409,6 +2924,7 @@ pub mod aws_cluster {
 /// ControlPlane defines common parameters between control plane nodes.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsControlPlane {
     /// Required. The Kubernetes version to run on control plane replicas
     /// (e.g. `1.19.10-gke.1000`).
@@ -2704,6 +3220,7 @@ impl wkt::message::Message for AwsControlPlane {
 /// Authentication configuration for the management of AWS resources.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsServicesAuthentication {
     /// Required. The Amazon Resource Name (ARN) of the role that the Anthos
     /// Multi-Cloud API will assume when managing AWS resources on your account.
@@ -2747,6 +3264,7 @@ impl wkt::message::Message for AwsServicesAuthentication {
 /// Configuration related to the cluster RBAC settings.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsAuthorization {
     /// Optional. Users that can perform operations as a cluster admin. A managed
     /// ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole
@@ -2804,6 +3322,7 @@ impl wkt::message::Message for AwsAuthorization {
 /// Identities of a user-type subject for AWS clusters.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsClusterUser {
     /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
     pub username: std::string::String,
@@ -2832,6 +3351,7 @@ impl wkt::message::Message for AwsClusterUser {
 /// Identities of a group-type subject for AWS clusters.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsClusterGroup {
     /// Required. The name of the group, e.g. `my-group@domain.com`.
     pub group: std::string::String,
@@ -2860,6 +3380,7 @@ impl wkt::message::Message for AwsClusterGroup {
 /// Configuration related to application-layer secrets encryption.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsDatabaseEncryption {
     /// Required. The ARN of the AWS KMS key used to encrypt cluster secrets.
     pub kms_key_arn: std::string::String,
@@ -2888,6 +3409,7 @@ impl wkt::message::Message for AwsDatabaseEncryption {
 /// Configuration template for AWS EBS volumes.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsVolumeTemplate {
     /// Optional. The size of the volume, in GiBs.
     ///
@@ -2907,7 +3429,7 @@ pub struct AwsVolumeTemplate {
     /// Optional. The throughput that the volume supports, in MiB/s. Only valid if
     /// volume_type is GP3.
     ///
-    /// If the volume_type is GP3 and this is not speficied, it defaults to 125.
+    /// If the volume_type is GP3 and this is not specified, it defaults to 125.
     pub throughput: i32,
 
     /// Optional. The Amazon Resource Name (ARN) of the Customer Managed Key (CMK)
@@ -3112,6 +3634,7 @@ pub mod aws_volume_template {
 /// plane replicas and node pool nodes.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsClusterNetworking {
     /// Required. The VPC associated with the cluster. All component clusters
     /// (i.e. control plane and node pools) run on a single VPC.
@@ -3191,6 +3714,7 @@ impl wkt::message::Message for AwsClusterNetworking {
 /// An Anthos node pool running on AWS.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsNodePool {
     /// The name of this resource.
     ///
@@ -3692,6 +4216,7 @@ pub mod aws_node_pool {
 ///    the number of nodes being updated at the same time).
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct UpdateSettings {
     /// Optional. Settings for surge update.
     pub surge_settings: std::option::Option<crate::model::SurgeSettings>,
@@ -3732,6 +4257,7 @@ impl wkt::message::Message for UpdateSettings {
 /// SurgeSettings contains the parameters for Surge update.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct SurgeSettings {
     /// Optional. The maximum number of nodes that can be created beyond the
     /// current size of the node pool during the update process.
@@ -3773,6 +4299,7 @@ impl wkt::message::Message for SurgeSettings {
 /// an AWS node pool.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsNodeManagement {
     /// Optional. Whether or not the nodes will be automatically repaired. When set
     /// to true, the nodes in this node pool will be monitored and if they fail
@@ -3804,6 +4331,7 @@ impl wkt::message::Message for AwsNodeManagement {
 /// Parameters that describe the nodes in a cluster.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsNodeConfig {
     /// Optional. The EC2 instance type when creating on-Demand instances.
     ///
@@ -4089,6 +4617,7 @@ impl wkt::message::Message for AwsNodeConfig {
 /// to adjust the size of the node pool to the current cluster usage.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsNodePoolAutoscaling {
     /// Required. Minimum number of nodes in the node pool. Must be greater than or
     /// equal to 1 and less than or equal to max_node_count.
@@ -4129,6 +4658,7 @@ impl wkt::message::Message for AwsNodePoolAutoscaling {
 /// See the OpenID Connect Discovery 1.0 specification for details.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsOpenIdConfig {
     /// OIDC Issuer.
     pub issuer: std::string::String,
@@ -4236,6 +4766,7 @@ impl wkt::message::Message for AwsOpenIdConfig {
 /// AwsJsonWebKeys is a valid JSON Web Key Set as specififed in RFC 7517.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsJsonWebKeys {
     /// The public component of the keys used by the cluster to sign token
     /// requests.
@@ -4270,6 +4801,7 @@ impl wkt::message::Message for AwsJsonWebKeys {
 /// AwsServerConfig is the configuration of GKE cluster on AWS.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsServerConfig {
     /// The resource name of the config.
     pub name: std::string::String,
@@ -4329,6 +4861,7 @@ impl wkt::message::Message for AwsServerConfig {
 /// Kubernetes version information of GKE cluster on AWS.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsK8sVersionInfo {
     /// Kubernetes version name.
     pub version: std::string::String,
@@ -4425,6 +4958,7 @@ impl wkt::message::Message for AwsK8sVersionInfo {
 /// SSH configuration for AWS resources.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsSshConfig {
     /// Required. The name of the EC2 key pair used to login into cluster machines.
     pub ec2_key_pair: std::string::String,
@@ -4453,6 +4987,7 @@ impl wkt::message::Message for AwsSshConfig {
 /// Details of a proxy config stored in AWS Secret Manager.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsProxyConfig {
     /// The ARN of the AWS Secret Manager secret that contains the HTTP(S) proxy
     /// configuration.
@@ -4496,6 +5031,7 @@ impl wkt::message::Message for AwsProxyConfig {
 /// Config encryption for user data.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsConfigEncryption {
     /// Required. The ARN of the AWS KMS key used to encrypt user data.
     pub kms_key_arn: std::string::String,
@@ -4528,6 +5064,7 @@ impl wkt::message::Message for AwsConfigEncryption {
 ///   tenancy.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsInstancePlacement {
     /// Required. The tenancy for instance.
     pub tenancy: crate::model::aws_instance_placement::Tenancy,
@@ -4705,6 +5242,7 @@ pub mod aws_instance_placement {
 /// Auto Scaling group.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsAutoscalingGroupMetricsCollection {
     /// Required. The frequency at which EC2 Auto Scaling sends aggregated data to
     /// AWS CloudWatch. The only valid value is "1Minute".
@@ -4751,6 +5289,7 @@ impl wkt::message::Message for AwsAutoscalingGroupMetricsCollection {
 /// SpotConfig has configuration info for Spot node.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct SpotConfig {
     /// Required. A list of instance types for creating spot node pool.
     pub instance_types: std::vec::Vec<std::string::String>,
@@ -4784,6 +5323,7 @@ impl wkt::message::Message for SpotConfig {
 /// AwsClusterError describes errors found on AWS clusters.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsClusterError {
     /// Human-friendly description of the error.
     pub message: std::string::String,
@@ -4812,6 +5352,7 @@ impl wkt::message::Message for AwsClusterError {
 /// AwsNodePoolError describes errors found on AWS node pools.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AwsNodePoolError {
     /// Human-friendly description of the error.
     pub message: std::string::String,
@@ -4840,6 +5381,7 @@ impl wkt::message::Message for AwsNodePoolError {
 /// Request message for `AwsClusters.CreateAwsCluster` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct CreateAwsClusterRequest {
     /// Required. The parent location where this
     /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource will be
@@ -4929,6 +5471,7 @@ impl wkt::message::Message for CreateAwsClusterRequest {
 /// Request message for `AwsClusters.UpdateAwsCluster` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct UpdateAwsClusterRequest {
     /// Required. The [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
     /// resource to update.
@@ -5034,6 +5577,7 @@ impl wkt::message::Message for UpdateAwsClusterRequest {
 /// Request message for `AwsClusters.GetAwsCluster` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetAwsClusterRequest {
     /// Required. The name of the
     /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource to
@@ -5072,6 +5616,7 @@ impl wkt::message::Message for GetAwsClusterRequest {
 /// Request message for `AwsClusters.ListAwsClusters` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct ListAwsClustersRequest {
     /// Required. The parent location which owns this collection of
     /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources.
@@ -5138,6 +5683,7 @@ impl wkt::message::Message for ListAwsClustersRequest {
 /// Response message for `AwsClusters.ListAwsClusters` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct ListAwsClustersResponse {
     /// A list of [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources
     /// in the specified Google Cloud Platform project and region region.
@@ -5198,6 +5744,7 @@ impl gax::paginator::internal::PageableResponse for ListAwsClustersResponse {
 /// Request message for `AwsClusters.DeleteAwsCluster` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct DeleteAwsClusterRequest {
     /// Required. The resource name the
     /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] to delete.
@@ -5292,6 +5839,7 @@ impl wkt::message::Message for DeleteAwsClusterRequest {
 /// Response message for `AwsClusters.CreateAwsNodePool` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct CreateAwsNodePoolRequest {
     /// Required. The [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
     /// resource where this node pool will be created.
@@ -5385,6 +5933,7 @@ impl wkt::message::Message for CreateAwsNodePoolRequest {
 /// Request message for `AwsClusters.UpdateAwsNodePool` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct UpdateAwsNodePoolRequest {
     /// Required. The [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
     /// resource to update.
@@ -5493,6 +6042,7 @@ impl wkt::message::Message for UpdateAwsNodePoolRequest {
 /// Request message for `AwsClusters.RollbackAwsNodePoolUpdate` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct RollbackAwsNodePoolUpdateRequest {
     /// Required. The name of the
     /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource to
@@ -5541,6 +6091,7 @@ impl wkt::message::Message for RollbackAwsNodePoolUpdateRequest {
 /// Request message for `AwsClusters.GetAwsNodePool` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetAwsNodePoolRequest {
     /// Required. The name of the
     /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource to
@@ -5579,6 +6130,7 @@ impl wkt::message::Message for GetAwsNodePoolRequest {
 /// Request message for `AwsClusters.ListAwsNodePools` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct ListAwsNodePoolsRequest {
     /// Required. The parent `AwsCluster` which owns this collection of
     /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resources.
@@ -5646,6 +6198,7 @@ impl wkt::message::Message for ListAwsNodePoolsRequest {
 /// Response message for `AwsClusters.ListAwsNodePools` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct ListAwsNodePoolsResponse {
     /// A list of [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
     /// resources in the specified `AwsCluster`.
@@ -5706,6 +6259,7 @@ impl gax::paginator::internal::PageableResponse for ListAwsNodePoolsResponse {
 /// Request message for `AwsClusters.DeleteAwsNodePool` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct DeleteAwsNodePoolRequest {
     /// Required. The resource name the
     /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] to delete.
@@ -5802,6 +6356,7 @@ impl wkt::message::Message for DeleteAwsNodePoolRequest {
 /// cluster. See the OpenID Connect Discovery 1.0 specification for details.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetAwsOpenIdConfigRequest {
     /// Required. The AwsCluster, which owns the OIDC discovery document.
     /// Format:
@@ -5835,6 +6390,7 @@ impl wkt::message::Message for GetAwsOpenIdConfigRequest {
 /// Discovery 1.0 specification for details.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetAwsJsonWebKeysRequest {
     /// Required. The AwsCluster, which owns the JsonWebKeys.
     /// Format:
@@ -5865,6 +6421,7 @@ impl wkt::message::Message for GetAwsJsonWebKeysRequest {
 /// GetAwsServerConfigRequest gets the server config of GKE cluster on AWS.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetAwsServerConfigRequest {
     /// Required. The name of the
     /// [AwsServerConfig][google.cloud.gkemulticloud.v1.AwsServerConfig] resource
@@ -5903,6 +6460,7 @@ impl wkt::message::Message for GetAwsServerConfigRequest {
 /// Request message for `AwsClusters.GenerateAwsAccessToken` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GenerateAwsAccessTokenRequest {
     /// Required. The name of the
     /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource to
@@ -5941,6 +6499,7 @@ impl wkt::message::Message for GenerateAwsAccessTokenRequest {
 /// Response message for `AwsClusters.GenerateAwsAccessToken` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GenerateAwsAccessTokenResponse {
     /// Output only. Access token to authenticate to k8s api-server.
     pub access_token: std::string::String,
@@ -5989,6 +6548,7 @@ impl wkt::message::Message for GenerateAwsAccessTokenResponse {
 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GenerateAwsClusterAgentTokenRequest {
     /// Required.
     pub aws_cluster: std::string::String,
@@ -6103,6 +6663,7 @@ impl wkt::message::Message for GenerateAwsClusterAgentTokenRequest {
 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GenerateAwsClusterAgentTokenResponse {
     pub access_token: std::string::String,
 
@@ -6146,6 +6707,7 @@ impl wkt::message::Message for GenerateAwsClusterAgentTokenResponse {
 /// An Anthos cluster running on Azure.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureCluster {
     /// The name of this resource.
     ///
@@ -6753,6 +7315,7 @@ pub mod azure_cluster {
 /// ClusterNetworking contains cluster-wide networking configuration.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureClusterNetworking {
     /// Required. The Azure Resource Manager (ARM) ID of the VNet associated with
     /// your cluster.
@@ -6850,6 +7413,7 @@ impl wkt::message::Message for AzureClusterNetworking {
 /// AzureControlPlane represents the control plane configurations.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureControlPlane {
     /// Required. The Kubernetes version to run on control plane replicas
     /// (e.g. `1.19.10-gke.1000`).
@@ -7101,6 +7665,7 @@ impl wkt::message::Message for AzureControlPlane {
 /// Configuration for the placement of a control plane replica.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct ReplicaPlacement {
     /// Required. For a given replica, the ARM ID of the subnet where the control
     /// plane VM is deployed. Make sure it's a subnet under the virtual network in
@@ -7144,6 +7709,7 @@ impl wkt::message::Message for ReplicaPlacement {
 /// Details of a proxy config stored in Azure Key Vault.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureProxyConfig {
     /// The ARM ID the of the resource group containing proxy keyvault.
     ///
@@ -7197,6 +7763,7 @@ impl wkt::message::Message for AzureProxyConfig {
 /// in etcd using Azure Key Vault.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureDatabaseEncryption {
     /// Required. The ARM ID of the Azure Key Vault key to encrypt / decrypt data.
     ///
@@ -7233,6 +7800,7 @@ impl wkt::message::Message for AzureDatabaseEncryption {
 /// key.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureConfigEncryption {
     /// Required. The ARM ID of the Azure Key Vault key to encrypt / decrypt config
     /// data.
@@ -7279,6 +7847,7 @@ impl wkt::message::Message for AzureConfigEncryption {
 /// Configuration for Azure Disks.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureDiskTemplate {
     /// Optional. The size of the disk, in GiBs.
     ///
@@ -7323,6 +7892,7 @@ impl wkt::message::Message for AzureDiskTemplate {
 /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureClient {
     /// The name of this resource.
     ///
@@ -7467,6 +8037,7 @@ impl wkt::message::Message for AzureClient {
 /// Configuration related to the cluster RBAC settings.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureAuthorization {
     /// Optional. Users that can perform operations as a cluster admin. A managed
     /// ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole
@@ -7524,6 +8095,7 @@ impl wkt::message::Message for AzureAuthorization {
 /// Authentication configuration for the management of Azure resources.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureServicesAuthentication {
     /// Required. The Azure Active Directory Tenant ID.
     pub tenant_id: std::string::String,
@@ -7561,6 +8133,7 @@ impl wkt::message::Message for AzureServicesAuthentication {
 /// Identities of a user-type subject for Azure clusters.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureClusterUser {
     /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
     pub username: std::string::String,
@@ -7589,6 +8162,7 @@ impl wkt::message::Message for AzureClusterUser {
 /// Identities of a group-type subject for Azure clusters.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureClusterGroup {
     /// Required. The name of the group, e.g. `my-group@domain.com`.
     pub group: std::string::String,
@@ -7617,6 +8191,7 @@ impl wkt::message::Message for AzureClusterGroup {
 /// An Anthos node pool running on Azure.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureNodePool {
     /// The name of this resource.
     ///
@@ -8063,6 +8638,7 @@ pub mod azure_node_pool {
 /// an Azure node pool.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureNodeManagement {
     /// Optional. Whether or not the nodes will be automatically repaired. When set
     /// to true, the nodes in this node pool will be monitored and if they fail
@@ -8095,6 +8671,7 @@ impl wkt::message::Message for AzureNodeManagement {
 /// on a given node pool.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureNodeConfig {
     /// Optional. The Azure VM size name. Example: `Standard_DS2_v2`.
     ///
@@ -8281,6 +8858,7 @@ impl wkt::message::Message for AzureNodeConfig {
 /// size of the node pool based on the cluster load.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureNodePoolAutoscaling {
     /// Required. Minimum number of nodes in the node pool. Must be greater than or
     /// equal to 1 and less than or equal to max_node_count.
@@ -8321,6 +8899,7 @@ impl wkt::message::Message for AzureNodePoolAutoscaling {
 /// See the OpenID Connect Discovery 1.0 specification for details.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureOpenIdConfig {
     /// OIDC Issuer.
     pub issuer: std::string::String,
@@ -8428,6 +9007,7 @@ impl wkt::message::Message for AzureOpenIdConfig {
 /// AzureJsonWebKeys is a valid JSON Web Key Set as specififed in RFC 7517.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureJsonWebKeys {
     /// The public component of the keys used by the cluster to sign token
     /// requests.
@@ -8463,6 +9043,7 @@ impl wkt::message::Message for AzureJsonWebKeys {
 /// supported Azure regions and Kubernetes versions.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureServerConfig {
     /// The `AzureServerConfig` resource name.
     ///
@@ -8528,6 +9109,7 @@ impl wkt::message::Message for AzureServerConfig {
 /// Kubernetes version information of GKE cluster on Azure.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureK8sVersionInfo {
     /// Kubernetes version name (for example, `1.19.10-gke.1000`)
     pub version: std::string::String,
@@ -8624,6 +9206,7 @@ impl wkt::message::Message for AzureK8sVersionInfo {
 /// SSH configuration for Azure resources.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureSshConfig {
     /// Required. The SSH public key data for VMs managed by Anthos. This accepts
     /// the authorized_keys file format used in OpenSSH according to the sshd(8)
@@ -8656,6 +9239,7 @@ impl wkt::message::Message for AzureSshConfig {
 /// The values could change and be empty, depending on the state of the cluster.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureClusterResources {
     /// Output only. The ARM ID of the cluster network security group.
     pub network_security_group_id: std::string::String,
@@ -8701,6 +9285,7 @@ impl wkt::message::Message for AzureClusterResources {
 /// AzureClusterError describes errors found on Azure clusters.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureClusterError {
     /// Human-friendly description of the error.
     pub message: std::string::String,
@@ -8729,6 +9314,7 @@ impl wkt::message::Message for AzureClusterError {
 /// AzureNodePoolError describes errors found on Azure node pools.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct AzureNodePoolError {
     /// Human-friendly description of the error.
     pub message: std::string::String,
@@ -8757,6 +9343,7 @@ impl wkt::message::Message for AzureNodePoolError {
 /// Request message for `AzureClusters.CreateAzureCluster` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct CreateAzureClusterRequest {
     /// Required. The parent location where this
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource will be
@@ -8849,6 +9436,7 @@ impl wkt::message::Message for CreateAzureClusterRequest {
 /// Request message for `AzureClusters.UpdateAzureCluster` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct UpdateAzureClusterRequest {
     /// Required. The [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
     /// resource to update.
@@ -8944,6 +9532,7 @@ impl wkt::message::Message for UpdateAzureClusterRequest {
 /// Request message for `AzureClusters.GetAzureCluster` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetAzureClusterRequest {
     /// Required. The name of the
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource to
@@ -8982,6 +9571,7 @@ impl wkt::message::Message for GetAzureClusterRequest {
 /// Request message for `AzureClusters.ListAzureClusters` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct ListAzureClustersRequest {
     /// Required. The parent location which owns this collection of
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resources.
@@ -9048,6 +9638,7 @@ impl wkt::message::Message for ListAzureClustersRequest {
 /// Response message for `AzureClusters.ListAzureClusters` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct ListAzureClustersResponse {
     /// A list of [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
     /// resources in the specified Google Cloud Platform project and region region.
@@ -9108,6 +9699,7 @@ impl gax::paginator::internal::PageableResponse for ListAzureClustersResponse {
 /// Request message for `AzureClusters.DeleteAzureCluster` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct DeleteAzureClusterRequest {
     /// Required. The resource name the
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] to delete.
@@ -9202,6 +9794,7 @@ impl wkt::message::Message for DeleteAzureClusterRequest {
 /// Response message for `AzureClusters.CreateAzureNodePool` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct CreateAzureNodePoolRequest {
     /// Required. The [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
     /// resource where this node pool will be created.
@@ -9295,6 +9888,7 @@ impl wkt::message::Message for CreateAzureNodePoolRequest {
 /// Request message for `AzureClusters.UpdateAzureNodePool` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct UpdateAzureNodePoolRequest {
     /// Required. The [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool]
     /// resource to update.
@@ -9381,6 +9975,7 @@ impl wkt::message::Message for UpdateAzureNodePoolRequest {
 /// Request message for `AzureClusters.GetAzureNodePool` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetAzureNodePoolRequest {
     /// Required. The name of the
     /// [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool] resource to
@@ -9419,6 +10014,7 @@ impl wkt::message::Message for GetAzureNodePoolRequest {
 /// Request message for `AzureClusters.ListAzureNodePools` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct ListAzureNodePoolsRequest {
     /// Required. The parent `AzureCluster` which owns this collection of
     /// [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool] resources.
@@ -9486,6 +10082,7 @@ impl wkt::message::Message for ListAzureNodePoolsRequest {
 /// Response message for `AzureClusters.ListAzureNodePools` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct ListAzureNodePoolsResponse {
     /// A list of [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool]
     /// resources in the specified `AzureCluster`.
@@ -9546,6 +10143,7 @@ impl gax::paginator::internal::PageableResponse for ListAzureNodePoolsResponse {
 /// Request message for `AzureClusters.DeleteAzureNodePool` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct DeleteAzureNodePoolRequest {
     /// Required. The resource name the
     /// [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool] to delete.
@@ -9643,6 +10241,7 @@ impl wkt::message::Message for DeleteAzureNodePoolRequest {
 /// cluster. See the OpenID Connect Discovery 1.0 specification for details.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetAzureOpenIdConfigRequest {
     /// Required. The AzureCluster, which owns the OIDC discovery document.
     /// Format:
@@ -9676,6 +10275,7 @@ impl wkt::message::Message for GetAzureOpenIdConfigRequest {
 /// Discovery 1.0 specification for details.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetAzureJsonWebKeysRequest {
     /// Required. The AzureCluster, which owns the JsonWebKeys.
     /// Format:
@@ -9706,6 +10306,7 @@ impl wkt::message::Message for GetAzureJsonWebKeysRequest {
 /// GetAzureServerConfigRequest gets the server config of GKE cluster on Azure.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetAzureServerConfigRequest {
     /// Required. The name of the
     /// [AzureServerConfig][google.cloud.gkemulticloud.v1.AzureServerConfig]
@@ -9744,6 +10345,7 @@ impl wkt::message::Message for GetAzureServerConfigRequest {
 /// Request message for `AzureClusters.CreateAzureClient` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct CreateAzureClientRequest {
     /// Required. The parent location where this
     /// [AzureClient][google.cloud.gkemulticloud.v1.AzureClient] resource will be
@@ -9833,6 +10435,7 @@ impl wkt::message::Message for CreateAzureClientRequest {
 /// Request message for `AzureClusters.GetAzureClient` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GetAzureClientRequest {
     /// Required. The name of the
     /// [AzureClient][google.cloud.gkemulticloud.v1.AzureClient] resource to
@@ -9872,6 +10475,7 @@ impl wkt::message::Message for GetAzureClientRequest {
 /// Request message for `AzureClusters.ListAzureClients` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct ListAzureClientsRequest {
     /// Required. The parent location which owns this collection of
     /// [AzureClient][google.cloud.gkemulticloud.v1.AzureClient] resources.
@@ -9938,6 +10542,7 @@ impl wkt::message::Message for ListAzureClientsRequest {
 /// Response message for `AzureClusters.ListAzureClients` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct ListAzureClientsResponse {
     /// A list of [AzureClient][google.cloud.gkemulticloud.v1.AzureClient]
     /// resources in the specified Google Cloud project and region region.
@@ -9998,6 +10603,7 @@ impl gax::paginator::internal::PageableResponse for ListAzureClientsResponse {
 /// Request message for `AzureClusters.DeleteAzureClient` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct DeleteAzureClientRequest {
     /// Required. The resource name the
     /// [AzureClient][google.cloud.gkemulticloud.v1.AzureClient] to delete.
@@ -10062,6 +10668,7 @@ impl wkt::message::Message for DeleteAzureClientRequest {
 /// Request message for `AzureClusters.GenerateAzureAccessToken` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GenerateAzureAccessTokenRequest {
     /// Required. The name of the
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource to
@@ -10100,6 +10707,7 @@ impl wkt::message::Message for GenerateAzureAccessTokenRequest {
 /// Response message for `AzureClusters.GenerateAzureAccessToken` method.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GenerateAzureAccessTokenResponse {
     /// Output only. Access token to authenticate to k8s api-server.
     pub access_token: std::string::String,
@@ -10148,6 +10756,7 @@ impl wkt::message::Message for GenerateAzureAccessTokenResponse {
 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GenerateAzureClusterAgentTokenRequest {
     /// Required.
     pub azure_cluster: std::string::String,
@@ -10262,6 +10871,7 @@ impl wkt::message::Message for GenerateAzureClusterAgentTokenRequest {
 
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
+#[deprecated]
 pub struct GenerateAzureClusterAgentTokenResponse {
     pub access_token: std::string::String,
 
@@ -10504,9 +11114,8 @@ pub struct OperationMetadata {
     /// operation. Possible values are "create", "delete", "update" and "import".
     pub verb: std::string::String,
 
-    /// Output only. Identifies whether it has been requested cancellation
-    /// for the operation. Operations that have successfully been cancelled
-    /// have
+    /// Output only. Identifies whether cancellation has been requested for the
+    /// operation. Operations that have successfully been cancelled have
     /// [google.longrunning.Operation.error][google.longrunning.Operation.error]
     /// value with a [google.rpc.Status.code][google.rpc.Status.code] of 1,
     /// corresponding to `Code.CANCELLED`.

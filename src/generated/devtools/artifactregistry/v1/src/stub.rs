@@ -570,6 +570,17 @@ pub trait ArtifactRegistry: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::ArtifactRegistry::export_artifact].
+    fn export_artifact(
+        &self,
+        _req: crate::model::ExportArtifactRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::ArtifactRegistry::list_locations].
     fn list_locations(
         &self,
