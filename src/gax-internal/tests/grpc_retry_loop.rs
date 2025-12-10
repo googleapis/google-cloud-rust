@@ -99,6 +99,7 @@ mod tests {
         Ok(tonic::Response::new(EchoResponse {
             message: "success!".into(),
             metadata: std::collections::HashMap::default(),
+            ..EchoResponse::default()
         }))
     }
 

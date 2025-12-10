@@ -93,6 +93,34 @@ mod tests {
         check_simple_request(client).await
     }
 
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn multiple_endpoints() -> anyhow::Result<()> {
+        use std::collections::HashSet;
+        let (endpoint, _server) = start_echo_server().await?;
+
+        let client = builder("https://test-only.googleapis.com")
+            .with_endpoint(endpoint)
+            .with_credentials(test_credentials())
+            .with_subchannel_count(16)
+            .build()
+            .await?;
+        // Make sure we can make at least one request.
+        check_simple_request(client.clone()).await?;
+
+        // Make sure not all requests use the same client address.
+        let addresses = futures::future::join_all(
+            (0..32).map(|_| send_request(client.clone(), "test message", "")),
+        )
+        .await
+        .into_iter()
+        .map(|r| r.map(|e| e.client_address))
+        .collect::<gax::Result<HashSet<_>>>()?;
+
+        assert!(addresses.len() > 1, "{addresses:?}");
+        Ok(())
+    }
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn credentials_error() -> anyhow::Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
