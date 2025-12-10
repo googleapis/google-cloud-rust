@@ -81,18 +81,31 @@ Then send a PR with whatever changed.
 
 ## Bump all version numbers
 
+Manually bump the version of `google-cloud-gax-internal`, if necessary, in:
+
+- `Cargo.toml`
+- `src/gax-internal/Cargo.toml`
+
 Run:
 
 ```bash
+git fetch upstream
 git checkout -b chore-bump-version-numbers-circa-$(date +%Y-%m-%d)
 V=$(cat .sidekick-version.txt)
 go run github.com/googleapis/librarian/cmd/sidekick@${V} rust-bump-versions
-# The previous command fails when `gax-internal` has changed.
 git ls-files -z -- \
     '*.toml' ':!:**/testdata/**' ':!:**/generated/**' | \
     xargs -0 taplo fmt
-git commit -m"chore: bump version numbers circa $(date +%Y-%m-%d)" .
+# A crate's README depends on the crate's version. We need to regenerate them.
+go run github.com/googleapis/librarian/cmd/sidekick@${V} refreshall
+git add Cargo.lock '*Cargo.toml' '*README.md'
+git restore . # Effectively a `cargo fmt`, but much faster.
+git commit -m"chore: bump version numbers circa $(date +%Y-%m-%d)"
 ```
+
+When running on Cloudtop, you might need to set
+`CARGO_HTTP_CAINFO=/etc/ssl/certs/ca-certificates.crt` in order for crates.io to
+accept your certs.
 
 ## Refreshing the code
 
