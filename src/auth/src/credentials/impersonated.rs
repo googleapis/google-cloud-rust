@@ -490,7 +490,7 @@ impl Builder {
                 let client_email =
                     extract_client_email(&components.service_account_impersonation_url)?;
                 let creds = self.build()?;
-                let signer = crate::signer::iam::IamSigner::new(client_email, creds);
+                let signer = crate::signer::iam::IamSigner::new(client_email, creds, None);
                 Ok(crate::signer::Signer {
                     inner: Arc::new(signer),
                 })
@@ -503,7 +503,7 @@ impl Builder {
                 let client_email =
                     extract_client_email(&components.service_account_impersonation_url)?;
                 let creds = self.build()?;
-                let signer = crate::signer::iam::IamSigner::new(client_email, creds);
+                let signer = crate::signer::iam::IamSigner::new(client_email, creds, None);
                 Ok(crate::signer::Signer {
                     inner: Arc::new(signer),
                 })

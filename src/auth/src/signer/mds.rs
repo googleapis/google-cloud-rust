@@ -93,6 +93,9 @@ impl MDSSigner {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+    use crate::credentials::{CacheableResource, Credentials, CredentialsProvider, EntityTag};
+    use crate::errors::CredentialsError;
     use base64::{Engine, prelude::BASE64_STANDARD};
     use http::header::{HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
