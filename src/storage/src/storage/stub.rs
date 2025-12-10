@@ -21,6 +21,7 @@ use crate::streaming_source::{Seek, StreamingSource};
 #[cfg(google_cloud_unstable_storage_bidi)]
 use crate::{
     model_ext::{OpenObjectRequest, ReadRange},
+    object_descriptor::HeaderMap,
     object_descriptor::ObjectDescriptor as Descriptor,
 };
 use gaxi::unimplemented::UNIMPLEMENTED;
@@ -99,6 +100,9 @@ pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
         &self,
         range: ReadRange,
     ) -> impl Future<Output = ReadObjectResponse> + Send + Sync;
+
+    /// The implementation for [ObjectDescriptor::headers][Descriptor::headers].
+    fn headers(&self) -> &HeaderMap;
 }
 
 async fn unimplemented_stub<T>() -> gax::Result<T> {

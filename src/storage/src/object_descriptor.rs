@@ -19,6 +19,9 @@ use crate::model_ext::ReadRange;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::bidi::stub::dynamic::ObjectDescriptor as ObjectDescriptorStub;
 
+/// The `open_object()` metadata attributes.
+pub use http::HeaderMap;
+
 /// An open object ready to read one or more ranges.
 ///
 /// # Example
@@ -111,6 +114,27 @@ impl ObjectDescriptor {
         self.inner.read_range(range).await
     }
 
+    /// Returns metadata about the original `open_object()` request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::object_descriptor::ObjectDescriptor;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let descriptor = open();
+    /// // Often useful when troubleshooting problems with Google Support.
+    /// let header = descriptor.headers().get("x-guploader-uploadid");
+    /// println!("debugging header = {:?}", header);
+    ///
+    /// fn open() -> ObjectDescriptor {
+    /// # panic!()
+    /// // ... details omitted ...
+    /// }
+    /// # Ok(()) }
+    /// ```
+    pub fn headers(&self) -> &HeaderMap {
+        self.inner.headers()
+    }
+
     /// Create a new instance.
     pub fn new<T>(inner: T) -> Self
     where
@@ -127,6 +151,7 @@ mod tests {
     use super::*;
     use crate::model_ext::ObjectHighlights;
     use crate::read_object::ReadObjectResponse;
+    use http::{HeaderName, HeaderValue};
     use mockall::mock;
 
     // Verify this can be mocked inside the crate.
@@ -134,15 +159,24 @@ mod tests {
     #[tokio::test]
     async fn can_be_mocked() -> anyhow::Result<()> {
         let object = Object::new().set_name("test-object").set_generation(123456);
+        let headers = HeaderMap::from_iter(
+            [
+                ("content-type", "application/octet-stream"),
+                ("x-guploader-uploadid", "abc-123"),
+            ]
+            .map(|(k, v)| (HeaderName::from_static(k), HeaderValue::from_static(v))),
+        );
         let mut mock = MockDescriptor::new();
         mock.expect_object().times(1).return_const(object.clone());
         mock.expect_read_range()
             .times(1)
             .withf(|range| range.0 == ReadRange::segment(100, 200).0)
             .returning(|_| ReadObjectResponse::new(Box::new(MockResponse::new())));
+        mock.expect_headers().times(1).return_const(headers.clone());
 
         let descriptor = ObjectDescriptor::new(mock);
         assert_eq!(descriptor.object(), &object);
+        assert_eq!(descriptor.headers(), &headers);
 
         let _reader = descriptor.read_range(ReadRange::segment(100, 200)).await;
         Ok(())
@@ -155,6 +189,7 @@ mod tests {
         impl crate::stub::ObjectDescriptor for Descriptor {
             fn object(&self) -> &Object;
             async fn read_range(&self, range: ReadRange) -> ReadObjectResponse;
+            fn headers(&self) -> &HeaderMap;
         }
     }
 

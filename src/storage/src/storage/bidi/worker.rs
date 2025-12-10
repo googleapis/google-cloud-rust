@@ -136,13 +136,14 @@ where
             .iter()
             .map(|(id, r)| r.as_proto(*id))
             .collect();
-        let (response, connection) = match self.connector.reconnect(status, ranges).await {
+        let (response, _headers, connection) = match self.connector.reconnect(status, ranges).await
+        {
             Err(e) => {
                 let error = Arc::new(e);
                 self.close_readers(error.clone()).await;
                 return Some(Err(error));
             }
-            Ok((m, connection)) => (m, connection),
+            Ok(t) => t,
         };
         if let Err(e) = self.handle_ranges(response.object_data_ranges).await {
             // An error in the response. These are not recoverable.

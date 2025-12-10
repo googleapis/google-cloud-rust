@@ -337,6 +337,7 @@ mod tests {
     use crate::model_ext::tests::create_key_helper;
     use anyhow::Result;
     use auth::credentials::anonymous::Builder as Anonymous;
+    use http::HeaderValue;
     use storage_grpc_mock::google::storage::v2::{BidiReadObjectResponse, Object as ProtoObject};
     use storage_grpc_mock::{MockStorage, start};
 
@@ -542,6 +543,12 @@ mod tests {
             .set_name("test-object")
             .set_generation(123456);
         assert_eq!(descriptor.object(), &want, "{descriptor:?}");
+        assert_eq!(
+            descriptor.headers().get("content-type"),
+            Some(&HeaderValue::from_static("application/grpc")),
+            "headers={:?}",
+            descriptor.headers()
+        );
         Ok(())
     }
 
