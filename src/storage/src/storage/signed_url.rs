@@ -12,16 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::error::SigningError;
+use crate::{error::SigningError, signed_url::UrlStyle};
 use auth::signer::Signer;
 use std::collections::BTreeMap;
 use tokio::time::Duration;
-
-/// Re-export types from `http` crate used in this module.
-pub mod http {
-    /// HTTP method for the signed URL.
-    pub use http::Method;
-}
 
 /// Creates signed URLs.
 ///
@@ -33,8 +27,8 @@ pub mod http {
 ///
 /// ```no_run
 /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
-/// use auth::signer::Signer;
 /// use std::time::Duration;
+/// # use auth::signer::Signer;
 ///
 /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
 /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
@@ -59,25 +53,6 @@ pub struct SignedUrlBuilder {
     universe_domain: String,
     client_email: Option<String>,
     url_style: UrlStyle,
-}
-
-/// The style of the URL to generate.
-#[derive(Debug, Clone, Default)]
-#[allow(dead_code)]
-pub enum UrlStyle {
-    /// Path style URL: `https://storage.googleapis.com/bucket/object`.
-    ///
-    /// This is the default style.
-    #[default]
-    PathStyle,
-
-    /// Bucket bound hostname URL: `https://bucket-name/object`.
-    ///
-    /// This style is used when you have a CNAME alias for your bucket.
-    BucketBoundHostname,
-
-    /// Virtual hosted style URL: `https://bucket.storage.googleapis.com/object`.
-    VirtualHostedStyle,
 }
 
 #[derive(Debug)]
@@ -113,7 +88,7 @@ impl SignedUrlBuilder {
     ///
     /// ```no_run
     /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
-    /// use auth::signer::Signer;
+    /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
     /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
@@ -140,7 +115,7 @@ impl SignedUrlBuilder {
     ///
     /// ```no_run
     /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
-    /// use auth::signer::Signer;
+    /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
     /// let url = SignedUrlBuilder::for_bucket("my-bucket")
@@ -162,7 +137,7 @@ impl SignedUrlBuilder {
     ///
     /// ```no_run
     /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
-    /// use auth::signer::Signer;
+    /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
     /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
@@ -183,8 +158,8 @@ impl SignedUrlBuilder {
     ///
     /// ```no_run
     /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
-    /// use auth::signer::Signer;
     /// use std::time::Duration;
+    /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
     /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
@@ -204,8 +179,9 @@ impl SignedUrlBuilder {
     /// # Example
     ///
     /// ```no_run
-    /// use google_cloud_storage::builder::storage::{SignedUrlBuilder, UrlStyle};
-    /// use auth::signer::Signer;
+    /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+    /// use google_cloud_storage::signed_url::UrlStyle;
+    /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
     /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
@@ -228,7 +204,7 @@ impl SignedUrlBuilder {
     ///
     /// ```no_run
     /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
-    /// use auth::signer::Signer;
+    /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
     /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
@@ -249,7 +225,7 @@ impl SignedUrlBuilder {
     ///
     /// ```no_run
     /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
-    /// use auth::signer::Signer;
+    /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
     /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
@@ -270,7 +246,7 @@ impl SignedUrlBuilder {
     ///
     /// ```no_run
     /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
-    /// use auth::signer::Signer;
+    /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
     /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
@@ -291,7 +267,7 @@ impl SignedUrlBuilder {
     ///
     /// ```no_run
     /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
-    /// use auth::signer::Signer;
+    /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
     /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
@@ -314,7 +290,7 @@ impl SignedUrlBuilder {
     ///
     /// ```no_run
     /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
-    /// use auth::signer::Signer;
+    /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
     /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
