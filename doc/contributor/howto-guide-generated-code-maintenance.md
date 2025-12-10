@@ -82,6 +82,7 @@ Then send a PR with whatever changed.
 ## Bump all version numbers
 
 Manually bump the version of `google-cloud-gax-internal`, if necessary, in:
+
 - `Cargo.toml`
 - `src/gax-internal/Cargo.toml`
 
