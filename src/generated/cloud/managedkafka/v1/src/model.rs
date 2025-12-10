@@ -72,30 +72,60 @@ impl ListClustersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListClustersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListClustersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListClustersRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListClustersRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListClustersRequest;
+    /// let x = ListClustersRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -131,6 +161,17 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [clusters][crate::model::ListClustersResponse::clusters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListClustersResponse;
+    /// use google_cloud_managedkafka_v1::model::Cluster;
+    /// let x = ListClustersResponse::new()
+    ///     .set_clusters([
+    ///         Cluster::default()/* use setters */,
+    ///         Cluster::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -142,12 +183,24 @@ impl ListClustersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListClustersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListClustersResponse;
+    /// let x = ListClustersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListClustersResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListClustersResponse;
+    /// let x = ListClustersResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -195,6 +248,12 @@ impl GetClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetClusterRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::GetClusterRequest;
+    /// let x = GetClusterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -252,18 +311,37 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateClusterRequest;
+    /// let x = CreateClusterRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [cluster_id][crate::model::CreateClusterRequest::cluster_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateClusterRequest;
+    /// let x = CreateClusterRequest::new().set_cluster_id("example");
+    /// ```
     pub fn set_cluster_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.cluster_id = v.into();
         self
     }
 
     /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateClusterRequest;
+    /// use google_cloud_managedkafka_v1::model::Cluster;
+    /// let x = CreateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
+    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -273,6 +351,14 @@ impl CreateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateClusterRequest;
+    /// use google_cloud_managedkafka_v1::model::Cluster;
+    /// let x = CreateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
+    /// let x = CreateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
+    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -282,6 +368,12 @@ impl CreateClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateClusterRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateClusterRequest;
+    /// let x = CreateClusterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -333,6 +425,13 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateClusterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -342,6 +441,14 @@ impl UpdateClusterRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateClusterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateClusterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -351,6 +458,13 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateClusterRequest;
+    /// use google_cloud_managedkafka_v1::model::Cluster;
+    /// let x = UpdateClusterRequest::new().set_cluster(Cluster::default()/* use setters */);
+    /// ```
     pub fn set_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -360,6 +474,14 @@ impl UpdateClusterRequest {
     }
 
     /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateClusterRequest;
+    /// use google_cloud_managedkafka_v1::model::Cluster;
+    /// let x = UpdateClusterRequest::new().set_or_clear_cluster(Some(Cluster::default()/* use setters */));
+    /// let x = UpdateClusterRequest::new().set_or_clear_cluster(None::<Cluster>);
+    /// ```
     pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Cluster>,
@@ -369,6 +491,12 @@ impl UpdateClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateClusterRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateClusterRequest;
+    /// let x = UpdateClusterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -413,12 +541,24 @@ impl DeleteClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::DeleteClusterRequest;
+    /// let x = DeleteClusterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteClusterRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::DeleteClusterRequest;
+    /// let x = DeleteClusterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -460,18 +600,36 @@ impl ListTopicsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTopicsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListTopicsRequest;
+    /// let x = ListTopicsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTopicsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListTopicsRequest;
+    /// let x = ListTopicsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTopicsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListTopicsRequest;
+    /// let x = ListTopicsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -505,6 +663,17 @@ impl ListTopicsResponse {
     }
 
     /// Sets the value of [topics][crate::model::ListTopicsResponse::topics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListTopicsResponse;
+    /// use google_cloud_managedkafka_v1::model::Topic;
+    /// let x = ListTopicsResponse::new()
+    ///     .set_topics([
+    ///         Topic::default()/* use setters */,
+    ///         Topic::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_topics<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -516,6 +685,12 @@ impl ListTopicsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTopicsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListTopicsResponse;
+    /// let x = ListTopicsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -560,6 +735,12 @@ impl GetTopicRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTopicRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::GetTopicRequest;
+    /// let x = GetTopicRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -600,18 +781,37 @@ impl CreateTopicRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateTopicRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateTopicRequest;
+    /// let x = CreateTopicRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [topic_id][crate::model::CreateTopicRequest::topic_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateTopicRequest;
+    /// let x = CreateTopicRequest::new().set_topic_id("example");
+    /// ```
     pub fn set_topic_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.topic_id = v.into();
         self
     }
 
     /// Sets the value of [topic][crate::model::CreateTopicRequest::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateTopicRequest;
+    /// use google_cloud_managedkafka_v1::model::Topic;
+    /// let x = CreateTopicRequest::new().set_topic(Topic::default()/* use setters */);
+    /// ```
     pub fn set_topic<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Topic>,
@@ -621,6 +821,14 @@ impl CreateTopicRequest {
     }
 
     /// Sets or clears the value of [topic][crate::model::CreateTopicRequest::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateTopicRequest;
+    /// use google_cloud_managedkafka_v1::model::Topic;
+    /// let x = CreateTopicRequest::new().set_or_clear_topic(Some(Topic::default()/* use setters */));
+    /// let x = CreateTopicRequest::new().set_or_clear_topic(None::<Topic>);
+    /// ```
     pub fn set_or_clear_topic<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Topic>,
@@ -659,6 +867,13 @@ impl UpdateTopicRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateTopicRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateTopicRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTopicRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -668,6 +883,14 @@ impl UpdateTopicRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateTopicRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateTopicRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateTopicRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateTopicRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -677,6 +900,13 @@ impl UpdateTopicRequest {
     }
 
     /// Sets the value of [topic][crate::model::UpdateTopicRequest::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateTopicRequest;
+    /// use google_cloud_managedkafka_v1::model::Topic;
+    /// let x = UpdateTopicRequest::new().set_topic(Topic::default()/* use setters */);
+    /// ```
     pub fn set_topic<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Topic>,
@@ -686,6 +916,14 @@ impl UpdateTopicRequest {
     }
 
     /// Sets or clears the value of [topic][crate::model::UpdateTopicRequest::topic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateTopicRequest;
+    /// use google_cloud_managedkafka_v1::model::Topic;
+    /// let x = UpdateTopicRequest::new().set_or_clear_topic(Some(Topic::default()/* use setters */));
+    /// let x = UpdateTopicRequest::new().set_or_clear_topic(None::<Topic>);
+    /// ```
     pub fn set_or_clear_topic<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Topic>,
@@ -718,6 +956,12 @@ impl DeleteTopicRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteTopicRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::DeleteTopicRequest;
+    /// let x = DeleteTopicRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -760,18 +1004,36 @@ impl ListConsumerGroupsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConsumerGroupsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConsumerGroupsRequest;
+    /// let x = ListConsumerGroupsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConsumerGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConsumerGroupsRequest;
+    /// let x = ListConsumerGroupsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConsumerGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConsumerGroupsRequest;
+    /// let x = ListConsumerGroupsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -805,6 +1067,17 @@ impl ListConsumerGroupsResponse {
     }
 
     /// Sets the value of [consumer_groups][crate::model::ListConsumerGroupsResponse::consumer_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConsumerGroupsResponse;
+    /// use google_cloud_managedkafka_v1::model::ConsumerGroup;
+    /// let x = ListConsumerGroupsResponse::new()
+    ///     .set_consumer_groups([
+    ///         ConsumerGroup::default()/* use setters */,
+    ///         ConsumerGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_consumer_groups<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -816,6 +1089,12 @@ impl ListConsumerGroupsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConsumerGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConsumerGroupsResponse;
+    /// let x = ListConsumerGroupsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -859,6 +1138,12 @@ impl GetConsumerGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConsumerGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::GetConsumerGroupRequest;
+    /// let x = GetConsumerGroupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -894,6 +1179,13 @@ impl UpdateConsumerGroupRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConsumerGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConsumerGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConsumerGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -903,6 +1195,14 @@ impl UpdateConsumerGroupRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConsumerGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConsumerGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConsumerGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateConsumerGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -912,6 +1212,13 @@ impl UpdateConsumerGroupRequest {
     }
 
     /// Sets the value of [consumer_group][crate::model::UpdateConsumerGroupRequest::consumer_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConsumerGroupRequest;
+    /// use google_cloud_managedkafka_v1::model::ConsumerGroup;
+    /// let x = UpdateConsumerGroupRequest::new().set_consumer_group(ConsumerGroup::default()/* use setters */);
+    /// ```
     pub fn set_consumer_group<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConsumerGroup>,
@@ -921,6 +1228,14 @@ impl UpdateConsumerGroupRequest {
     }
 
     /// Sets or clears the value of [consumer_group][crate::model::UpdateConsumerGroupRequest::consumer_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConsumerGroupRequest;
+    /// use google_cloud_managedkafka_v1::model::ConsumerGroup;
+    /// let x = UpdateConsumerGroupRequest::new().set_or_clear_consumer_group(Some(ConsumerGroup::default()/* use setters */));
+    /// let x = UpdateConsumerGroupRequest::new().set_or_clear_consumer_group(None::<ConsumerGroup>);
+    /// ```
     pub fn set_or_clear_consumer_group<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConsumerGroup>,
@@ -953,6 +1268,12 @@ impl DeleteConsumerGroupRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteConsumerGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::DeleteConsumerGroupRequest;
+    /// let x = DeleteConsumerGroupRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -995,18 +1316,36 @@ impl ListAclsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAclsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListAclsRequest;
+    /// let x = ListAclsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAclsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListAclsRequest;
+    /// let x = ListAclsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAclsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListAclsRequest;
+    /// let x = ListAclsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -1040,6 +1379,17 @@ impl ListAclsResponse {
     }
 
     /// Sets the value of [acls][crate::model::ListAclsResponse::acls].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListAclsResponse;
+    /// use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = ListAclsResponse::new()
+    ///     .set_acls([
+    ///         Acl::default()/* use setters */,
+    ///         Acl::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_acls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1051,6 +1401,12 @@ impl ListAclsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAclsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListAclsResponse;
+    /// let x = ListAclsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1099,6 +1455,12 @@ impl GetAclRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAclRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::GetAclRequest;
+    /// let x = GetAclRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1156,18 +1518,37 @@ impl CreateAclRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAclRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateAclRequest;
+    /// let x = CreateAclRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [acl_id][crate::model::CreateAclRequest::acl_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateAclRequest;
+    /// let x = CreateAclRequest::new().set_acl_id("example");
+    /// ```
     pub fn set_acl_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.acl_id = v.into();
         self
     }
 
     /// Sets the value of [acl][crate::model::CreateAclRequest::acl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateAclRequest;
+    /// use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = CreateAclRequest::new().set_acl(Acl::default()/* use setters */);
+    /// ```
     pub fn set_acl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Acl>,
@@ -1177,6 +1558,14 @@ impl CreateAclRequest {
     }
 
     /// Sets or clears the value of [acl][crate::model::CreateAclRequest::acl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateAclRequest;
+    /// use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = CreateAclRequest::new().set_or_clear_acl(Some(Acl::default()/* use setters */));
+    /// let x = CreateAclRequest::new().set_or_clear_acl(None::<Acl>);
+    /// ```
     pub fn set_or_clear_acl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Acl>,
@@ -1216,6 +1605,13 @@ impl UpdateAclRequest {
     }
 
     /// Sets the value of [acl][crate::model::UpdateAclRequest::acl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateAclRequest;
+    /// use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = UpdateAclRequest::new().set_acl(Acl::default()/* use setters */);
+    /// ```
     pub fn set_acl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Acl>,
@@ -1225,6 +1621,14 @@ impl UpdateAclRequest {
     }
 
     /// Sets or clears the value of [acl][crate::model::UpdateAclRequest::acl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateAclRequest;
+    /// use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = UpdateAclRequest::new().set_or_clear_acl(Some(Acl::default()/* use setters */));
+    /// let x = UpdateAclRequest::new().set_or_clear_acl(None::<Acl>);
+    /// ```
     pub fn set_or_clear_acl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Acl>,
@@ -1234,6 +1638,13 @@ impl UpdateAclRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAclRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateAclRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAclRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1243,6 +1654,14 @@ impl UpdateAclRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAclRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateAclRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAclRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAclRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1279,6 +1698,12 @@ impl DeleteAclRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteAclRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::DeleteAclRequest;
+    /// let x = DeleteAclRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1316,12 +1741,25 @@ impl AddAclEntryRequest {
     }
 
     /// Sets the value of [acl][crate::model::AddAclEntryRequest::acl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::AddAclEntryRequest;
+    /// let x = AddAclEntryRequest::new().set_acl("example");
+    /// ```
     pub fn set_acl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.acl = v.into();
         self
     }
 
     /// Sets the value of [acl_entry][crate::model::AddAclEntryRequest::acl_entry].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::AddAclEntryRequest;
+    /// use google_cloud_managedkafka_v1::model::AclEntry;
+    /// let x = AddAclEntryRequest::new().set_acl_entry(AclEntry::default()/* use setters */);
+    /// ```
     pub fn set_acl_entry<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AclEntry>,
@@ -1331,6 +1769,14 @@ impl AddAclEntryRequest {
     }
 
     /// Sets or clears the value of [acl_entry][crate::model::AddAclEntryRequest::acl_entry].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::AddAclEntryRequest;
+    /// use google_cloud_managedkafka_v1::model::AclEntry;
+    /// let x = AddAclEntryRequest::new().set_or_clear_acl_entry(Some(AclEntry::default()/* use setters */));
+    /// let x = AddAclEntryRequest::new().set_or_clear_acl_entry(None::<AclEntry>);
+    /// ```
     pub fn set_or_clear_acl_entry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AclEntry>,
@@ -1365,6 +1811,13 @@ impl AddAclEntryResponse {
     }
 
     /// Sets the value of [acl][crate::model::AddAclEntryResponse::acl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::AddAclEntryResponse;
+    /// use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = AddAclEntryResponse::new().set_acl(Acl::default()/* use setters */);
+    /// ```
     pub fn set_acl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Acl>,
@@ -1374,6 +1827,14 @@ impl AddAclEntryResponse {
     }
 
     /// Sets or clears the value of [acl][crate::model::AddAclEntryResponse::acl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::AddAclEntryResponse;
+    /// use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = AddAclEntryResponse::new().set_or_clear_acl(Some(Acl::default()/* use setters */));
+    /// let x = AddAclEntryResponse::new().set_or_clear_acl(None::<Acl>);
+    /// ```
     pub fn set_or_clear_acl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Acl>,
@@ -1383,6 +1844,12 @@ impl AddAclEntryResponse {
     }
 
     /// Sets the value of [acl_created][crate::model::AddAclEntryResponse::acl_created].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::AddAclEntryResponse;
+    /// let x = AddAclEntryResponse::new().set_acl_created(true);
+    /// ```
     pub fn set_acl_created<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.acl_created = v.into();
         self
@@ -1420,12 +1887,25 @@ impl RemoveAclEntryRequest {
     }
 
     /// Sets the value of [acl][crate::model::RemoveAclEntryRequest::acl].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::RemoveAclEntryRequest;
+    /// let x = RemoveAclEntryRequest::new().set_acl("example");
+    /// ```
     pub fn set_acl<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.acl = v.into();
         self
     }
 
     /// Sets the value of [acl_entry][crate::model::RemoveAclEntryRequest::acl_entry].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::RemoveAclEntryRequest;
+    /// use google_cloud_managedkafka_v1::model::AclEntry;
+    /// let x = RemoveAclEntryRequest::new().set_acl_entry(AclEntry::default()/* use setters */);
+    /// ```
     pub fn set_acl_entry<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AclEntry>,
@@ -1435,6 +1915,14 @@ impl RemoveAclEntryRequest {
     }
 
     /// Sets or clears the value of [acl_entry][crate::model::RemoveAclEntryRequest::acl_entry].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::RemoveAclEntryRequest;
+    /// use google_cloud_managedkafka_v1::model::AclEntry;
+    /// let x = RemoveAclEntryRequest::new().set_or_clear_acl_entry(Some(AclEntry::default()/* use setters */));
+    /// let x = RemoveAclEntryRequest::new().set_or_clear_acl_entry(None::<AclEntry>);
+    /// ```
     pub fn set_or_clear_acl_entry<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AclEntry>,
@@ -1470,6 +1958,13 @@ impl RemoveAclEntryResponse {
     ///
     /// Note that all the setters affecting `result` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::RemoveAclEntryResponse;
+    /// use google_cloud_managedkafka_v1::model::remove_acl_entry_response::Result;
+    /// let x = RemoveAclEntryResponse::new().set_result(Some(Result::AclDeleted(true)));
+    /// ```
     pub fn set_result<
         T: std::convert::Into<std::option::Option<crate::model::remove_acl_entry_response::Result>>,
     >(
@@ -1496,6 +1991,15 @@ impl RemoveAclEntryResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::RemoveAclEntryResponse;
+    /// use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = RemoveAclEntryResponse::new().set_acl(Acl::default()/* use setters */);
+    /// assert!(x.acl().is_some());
+    /// assert!(x.acl_deleted().is_none());
+    /// ```
     pub fn set_acl<T: std::convert::Into<std::boxed::Box<crate::model::Acl>>>(
         mut self,
         v: T,
@@ -1524,6 +2028,14 @@ impl RemoveAclEntryResponse {
     ///
     /// Note that all the setters affecting `result` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::RemoveAclEntryResponse;
+    /// let x = RemoveAclEntryResponse::new().set_acl_deleted(true);
+    /// assert!(x.acl_deleted().is_some());
+    /// assert!(x.acl().is_none());
+    /// ```
     pub fn set_acl_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.result = std::option::Option::Some(
             crate::model::remove_acl_entry_response::Result::AclDeleted(v.into()),
@@ -1575,6 +2087,12 @@ impl GetConnectClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConnectClusterRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::GetConnectClusterRequest;
+    /// let x = GetConnectClusterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1633,12 +2151,24 @@ impl CreateConnectClusterRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateConnectClusterRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateConnectClusterRequest;
+    /// let x = CreateConnectClusterRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [connect_cluster_id][crate::model::CreateConnectClusterRequest::connect_cluster_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateConnectClusterRequest;
+    /// let x = CreateConnectClusterRequest::new().set_connect_cluster_id("example");
+    /// ```
     pub fn set_connect_cluster_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1648,6 +2178,13 @@ impl CreateConnectClusterRequest {
     }
 
     /// Sets the value of [connect_cluster][crate::model::CreateConnectClusterRequest::connect_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateConnectClusterRequest;
+    /// use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// let x = CreateConnectClusterRequest::new().set_connect_cluster(ConnectCluster::default()/* use setters */);
+    /// ```
     pub fn set_connect_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConnectCluster>,
@@ -1657,6 +2194,14 @@ impl CreateConnectClusterRequest {
     }
 
     /// Sets or clears the value of [connect_cluster][crate::model::CreateConnectClusterRequest::connect_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateConnectClusterRequest;
+    /// use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// let x = CreateConnectClusterRequest::new().set_or_clear_connect_cluster(Some(ConnectCluster::default()/* use setters */));
+    /// let x = CreateConnectClusterRequest::new().set_or_clear_connect_cluster(None::<ConnectCluster>);
+    /// ```
     pub fn set_or_clear_connect_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectCluster>,
@@ -1666,6 +2211,12 @@ impl CreateConnectClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateConnectClusterRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateConnectClusterRequest;
+    /// let x = CreateConnectClusterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1718,6 +2269,13 @@ impl UpdateConnectClusterRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConnectClusterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConnectClusterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConnectClusterRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1727,6 +2285,14 @@ impl UpdateConnectClusterRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConnectClusterRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConnectClusterRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConnectClusterRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateConnectClusterRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -1736,6 +2302,13 @@ impl UpdateConnectClusterRequest {
     }
 
     /// Sets the value of [connect_cluster][crate::model::UpdateConnectClusterRequest::connect_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConnectClusterRequest;
+    /// use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// let x = UpdateConnectClusterRequest::new().set_connect_cluster(ConnectCluster::default()/* use setters */);
+    /// ```
     pub fn set_connect_cluster<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConnectCluster>,
@@ -1745,6 +2318,14 @@ impl UpdateConnectClusterRequest {
     }
 
     /// Sets or clears the value of [connect_cluster][crate::model::UpdateConnectClusterRequest::connect_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConnectClusterRequest;
+    /// use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// let x = UpdateConnectClusterRequest::new().set_or_clear_connect_cluster(Some(ConnectCluster::default()/* use setters */));
+    /// let x = UpdateConnectClusterRequest::new().set_or_clear_connect_cluster(None::<ConnectCluster>);
+    /// ```
     pub fn set_or_clear_connect_cluster<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectCluster>,
@@ -1754,6 +2335,12 @@ impl UpdateConnectClusterRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateConnectClusterRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConnectClusterRequest;
+    /// let x = UpdateConnectClusterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1800,12 +2387,24 @@ impl DeleteConnectClusterRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteConnectClusterRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::DeleteConnectClusterRequest;
+    /// let x = DeleteConnectClusterRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteConnectClusterRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::DeleteConnectClusterRequest;
+    /// let x = DeleteConnectClusterRequest::new().set_request_id("example");
+    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1853,30 +2452,60 @@ impl ListConnectClustersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConnectClustersRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectClustersRequest;
+    /// let x = ListConnectClustersRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConnectClustersRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectClustersRequest;
+    /// let x = ListConnectClustersRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConnectClustersRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectClustersRequest;
+    /// let x = ListConnectClustersRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [filter][crate::model::ListConnectClustersRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectClustersRequest;
+    /// let x = ListConnectClustersRequest::new().set_filter("example");
+    /// ```
     pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.filter = v.into();
         self
     }
 
     /// Sets the value of [order_by][crate::model::ListConnectClustersRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectClustersRequest;
+    /// let x = ListConnectClustersRequest::new().set_order_by("example");
+    /// ```
     pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.order_by = v.into();
         self
@@ -1912,6 +2541,17 @@ impl ListConnectClustersResponse {
     }
 
     /// Sets the value of [connect_clusters][crate::model::ListConnectClustersResponse::connect_clusters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectClustersResponse;
+    /// use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// let x = ListConnectClustersResponse::new()
+    ///     .set_connect_clusters([
+    ///         ConnectCluster::default()/* use setters */,
+    ///         ConnectCluster::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_connect_clusters<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1923,12 +2563,24 @@ impl ListConnectClustersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConnectClustersResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectClustersResponse;
+    /// let x = ListConnectClustersResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
     }
 
     /// Sets the value of [unreachable][crate::model::ListConnectClustersResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectClustersResponse;
+    /// let x = ListConnectClustersResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
     pub fn set_unreachable<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1978,6 +2630,12 @@ impl GetConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::GetConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::GetConnectorRequest;
+    /// let x = GetConnectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2019,18 +2677,37 @@ impl CreateConnectorRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateConnectorRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateConnectorRequest;
+    /// let x = CreateConnectorRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [connector_id][crate::model::CreateConnectorRequest::connector_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateConnectorRequest;
+    /// let x = CreateConnectorRequest::new().set_connector_id("example");
+    /// ```
     pub fn set_connector_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connector_id = v.into();
         self
     }
 
     /// Sets the value of [connector][crate::model::CreateConnectorRequest::connector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateConnectorRequest;
+    /// use google_cloud_managedkafka_v1::model::Connector;
+    /// let x = CreateConnectorRequest::new().set_connector(Connector::default()/* use setters */);
+    /// ```
     pub fn set_connector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Connector>,
@@ -2040,6 +2717,14 @@ impl CreateConnectorRequest {
     }
 
     /// Sets or clears the value of [connector][crate::model::CreateConnectorRequest::connector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CreateConnectorRequest;
+    /// use google_cloud_managedkafka_v1::model::Connector;
+    /// let x = CreateConnectorRequest::new().set_or_clear_connector(Some(Connector::default()/* use setters */));
+    /// let x = CreateConnectorRequest::new().set_or_clear_connector(None::<Connector>);
+    /// ```
     pub fn set_or_clear_connector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connector>,
@@ -2078,6 +2763,13 @@ impl UpdateConnectorRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateConnectorRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConnectorRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConnectorRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2087,6 +2779,14 @@ impl UpdateConnectorRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateConnectorRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConnectorRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateConnectorRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateConnectorRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2096,6 +2796,13 @@ impl UpdateConnectorRequest {
     }
 
     /// Sets the value of [connector][crate::model::UpdateConnectorRequest::connector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConnectorRequest;
+    /// use google_cloud_managedkafka_v1::model::Connector;
+    /// let x = UpdateConnectorRequest::new().set_connector(Connector::default()/* use setters */);
+    /// ```
     pub fn set_connector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Connector>,
@@ -2105,6 +2812,14 @@ impl UpdateConnectorRequest {
     }
 
     /// Sets or clears the value of [connector][crate::model::UpdateConnectorRequest::connector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::UpdateConnectorRequest;
+    /// use google_cloud_managedkafka_v1::model::Connector;
+    /// let x = UpdateConnectorRequest::new().set_or_clear_connector(Some(Connector::default()/* use setters */));
+    /// let x = UpdateConnectorRequest::new().set_or_clear_connector(None::<Connector>);
+    /// ```
     pub fn set_or_clear_connector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Connector>,
@@ -2138,6 +2853,12 @@ impl DeleteConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::DeleteConnectorRequest;
+    /// let x = DeleteConnectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2180,18 +2901,36 @@ impl ListConnectorsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListConnectorsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectorsRequest;
+    /// let x = ListConnectorsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListConnectorsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectorsRequest;
+    /// let x = ListConnectorsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListConnectorsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectorsRequest;
+    /// let x = ListConnectorsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
@@ -2224,6 +2963,17 @@ impl ListConnectorsResponse {
     }
 
     /// Sets the value of [connectors][crate::model::ListConnectorsResponse::connectors].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectorsResponse;
+    /// use google_cloud_managedkafka_v1::model::Connector;
+    /// let x = ListConnectorsResponse::new()
+    ///     .set_connectors([
+    ///         Connector::default()/* use setters */,
+    ///         Connector::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_connectors<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2235,6 +2985,12 @@ impl ListConnectorsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListConnectorsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ListConnectorsResponse;
+    /// let x = ListConnectorsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2279,6 +3035,12 @@ impl PauseConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::PauseConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::PauseConnectorRequest;
+    /// let x = PauseConnectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2328,6 +3090,12 @@ impl ResumeConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::ResumeConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ResumeConnectorRequest;
+    /// let x = ResumeConnectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2377,6 +3145,12 @@ impl RestartConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::RestartConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::RestartConnectorRequest;
+    /// let x = RestartConnectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2426,6 +3200,12 @@ impl StopConnectorRequest {
     }
 
     /// Sets the value of [name][crate::model::StopConnectorRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::StopConnectorRequest;
+    /// let x = StopConnectorRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2504,12 +3284,25 @@ impl Cluster {
     }
 
     /// Sets the value of [name][crate::model::Cluster::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// let x = Cluster::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Cluster::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use wkt::Timestamp;
+    /// let x = Cluster::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2519,6 +3312,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Cluster::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use wkt::Timestamp;
+    /// let x = Cluster::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2528,6 +3329,13 @@ impl Cluster {
     }
 
     /// Sets the value of [update_time][crate::model::Cluster::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use wkt::Timestamp;
+    /// let x = Cluster::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2537,6 +3345,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Cluster::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use wkt::Timestamp;
+    /// let x = Cluster::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2546,6 +3362,15 @@ impl Cluster {
     }
 
     /// Sets the value of [labels][crate::model::Cluster::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// let x = Cluster::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2558,6 +3383,13 @@ impl Cluster {
     }
 
     /// Sets the value of [capacity_config][crate::model::Cluster::capacity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use google_cloud_managedkafka_v1::model::CapacityConfig;
+    /// let x = Cluster::new().set_capacity_config(CapacityConfig::default()/* use setters */);
+    /// ```
     pub fn set_capacity_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CapacityConfig>,
@@ -2567,6 +3399,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [capacity_config][crate::model::Cluster::capacity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use google_cloud_managedkafka_v1::model::CapacityConfig;
+    /// let x = Cluster::new().set_or_clear_capacity_config(Some(CapacityConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_capacity_config(None::<CapacityConfig>);
+    /// ```
     pub fn set_or_clear_capacity_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CapacityConfig>,
@@ -2576,6 +3416,13 @@ impl Cluster {
     }
 
     /// Sets the value of [rebalance_config][crate::model::Cluster::rebalance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use google_cloud_managedkafka_v1::model::RebalanceConfig;
+    /// let x = Cluster::new().set_rebalance_config(RebalanceConfig::default()/* use setters */);
+    /// ```
     pub fn set_rebalance_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RebalanceConfig>,
@@ -2585,6 +3432,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [rebalance_config][crate::model::Cluster::rebalance_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use google_cloud_managedkafka_v1::model::RebalanceConfig;
+    /// let x = Cluster::new().set_or_clear_rebalance_config(Some(RebalanceConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_rebalance_config(None::<RebalanceConfig>);
+    /// ```
     pub fn set_or_clear_rebalance_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RebalanceConfig>,
@@ -2594,12 +3449,27 @@ impl Cluster {
     }
 
     /// Sets the value of [state][crate::model::Cluster::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use google_cloud_managedkafka_v1::model::cluster::State;
+    /// let x0 = Cluster::new().set_state(State::Creating);
+    /// let x1 = Cluster::new().set_state(State::Active);
+    /// let x2 = Cluster::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::cluster::State>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzi][crate::model::Cluster::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// let x = Cluster::new().set_satisfies_pzi(true);
+    /// ```
     pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2609,6 +3479,13 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [satisfies_pzi][crate::model::Cluster::satisfies_pzi].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// let x = Cluster::new().set_or_clear_satisfies_pzi(Some(false));
+    /// let x = Cluster::new().set_or_clear_satisfies_pzi(None::<bool>);
+    /// ```
     pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2618,6 +3495,12 @@ impl Cluster {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Cluster::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// let x = Cluster::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2627,6 +3510,13 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [satisfies_pzs][crate::model::Cluster::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// let x = Cluster::new().set_or_clear_satisfies_pzs(Some(false));
+    /// let x = Cluster::new().set_or_clear_satisfies_pzs(None::<bool>);
+    /// ```
     pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<bool>,
@@ -2636,6 +3526,13 @@ impl Cluster {
     }
 
     /// Sets the value of [tls_config][crate::model::Cluster::tls_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use google_cloud_managedkafka_v1::model::TlsConfig;
+    /// let x = Cluster::new().set_tls_config(TlsConfig::default()/* use setters */);
+    /// ```
     pub fn set_tls_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TlsConfig>,
@@ -2645,6 +3542,14 @@ impl Cluster {
     }
 
     /// Sets or clears the value of [tls_config][crate::model::Cluster::tls_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use google_cloud_managedkafka_v1::model::TlsConfig;
+    /// let x = Cluster::new().set_or_clear_tls_config(Some(TlsConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_tls_config(None::<TlsConfig>);
+    /// ```
     pub fn set_or_clear_tls_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TlsConfig>,
@@ -2657,6 +3562,14 @@ impl Cluster {
     ///
     /// Note that all the setters affecting `platform_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use google_cloud_managedkafka_v1::model::GcpConfig;
+    /// let x = Cluster::new().set_platform_config(Some(
+    ///     google_cloud_managedkafka_v1::model::cluster::PlatformConfig::GcpConfig(GcpConfig::default().into())));
+    /// ```
     pub fn set_platform_config<
         T: std::convert::Into<std::option::Option<crate::model::cluster::PlatformConfig>>,
     >(
@@ -2683,6 +3596,14 @@ impl Cluster {
     ///
     /// Note that all the setters affecting `platform_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Cluster;
+    /// use google_cloud_managedkafka_v1::model::GcpConfig;
+    /// let x = Cluster::new().set_gcp_config(GcpConfig::default()/* use setters */);
+    /// assert!(x.gcp_config().is_some());
+    /// ```
     pub fn set_gcp_config<T: std::convert::Into<std::boxed::Box<crate::model::GcpConfig>>>(
         mut self,
         v: T,
@@ -2874,12 +3795,24 @@ impl CapacityConfig {
     }
 
     /// Sets the value of [vcpu_count][crate::model::CapacityConfig::vcpu_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CapacityConfig;
+    /// let x = CapacityConfig::new().set_vcpu_count(42);
+    /// ```
     pub fn set_vcpu_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.vcpu_count = v.into();
         self
     }
 
     /// Sets the value of [memory_bytes][crate::model::CapacityConfig::memory_bytes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::CapacityConfig;
+    /// let x = CapacityConfig::new().set_memory_bytes(42);
+    /// ```
     pub fn set_memory_bytes<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.memory_bytes = v.into();
         self
@@ -2909,6 +3842,14 @@ impl RebalanceConfig {
     }
 
     /// Sets the value of [mode][crate::model::RebalanceConfig::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::RebalanceConfig;
+    /// use google_cloud_managedkafka_v1::model::rebalance_config::Mode;
+    /// let x0 = RebalanceConfig::new().set_mode(Mode::NoRebalance);
+    /// let x1 = RebalanceConfig::new().set_mode(Mode::AutoRebalanceOnScaleUp);
+    /// ```
     pub fn set_mode<T: std::convert::Into<crate::model::rebalance_config::Mode>>(
         mut self,
         v: T,
@@ -3088,6 +4029,12 @@ impl NetworkConfig {
     }
 
     /// Sets the value of [subnet][crate::model::NetworkConfig::subnet].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::NetworkConfig;
+    /// let x = NetworkConfig::new().set_subnet("example");
+    /// ```
     pub fn set_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.subnet = v.into();
         self
@@ -3118,6 +4065,17 @@ impl AccessConfig {
     }
 
     /// Sets the value of [network_configs][crate::model::AccessConfig::network_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::AccessConfig;
+    /// use google_cloud_managedkafka_v1::model::NetworkConfig;
+    /// let x = AccessConfig::new()
+    ///     .set_network_configs([
+    ///         NetworkConfig::default()/* use setters */,
+    ///         NetworkConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3158,6 +4116,13 @@ impl GcpConfig {
     }
 
     /// Sets the value of [access_config][crate::model::GcpConfig::access_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::GcpConfig;
+    /// use google_cloud_managedkafka_v1::model::AccessConfig;
+    /// let x = GcpConfig::new().set_access_config(AccessConfig::default()/* use setters */);
+    /// ```
     pub fn set_access_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AccessConfig>,
@@ -3167,6 +4132,14 @@ impl GcpConfig {
     }
 
     /// Sets or clears the value of [access_config][crate::model::GcpConfig::access_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::GcpConfig;
+    /// use google_cloud_managedkafka_v1::model::AccessConfig;
+    /// let x = GcpConfig::new().set_or_clear_access_config(Some(AccessConfig::default()/* use setters */));
+    /// let x = GcpConfig::new().set_or_clear_access_config(None::<AccessConfig>);
+    /// ```
     pub fn set_or_clear_access_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AccessConfig>,
@@ -3176,6 +4149,12 @@ impl GcpConfig {
     }
 
     /// Sets the value of [kms_key][crate::model::GcpConfig::kms_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::GcpConfig;
+    /// let x = GcpConfig::new().set_kms_key("example");
+    /// ```
     pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kms_key = v.into();
         self
@@ -3216,6 +4195,13 @@ impl TlsConfig {
     }
 
     /// Sets the value of [trust_config][crate::model::TlsConfig::trust_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::TlsConfig;
+    /// use google_cloud_managedkafka_v1::model::TrustConfig;
+    /// let x = TlsConfig::new().set_trust_config(TrustConfig::default()/* use setters */);
+    /// ```
     pub fn set_trust_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TrustConfig>,
@@ -3225,6 +4211,14 @@ impl TlsConfig {
     }
 
     /// Sets or clears the value of [trust_config][crate::model::TlsConfig::trust_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::TlsConfig;
+    /// use google_cloud_managedkafka_v1::model::TrustConfig;
+    /// let x = TlsConfig::new().set_or_clear_trust_config(Some(TrustConfig::default()/* use setters */));
+    /// let x = TlsConfig::new().set_or_clear_trust_config(None::<TrustConfig>);
+    /// ```
     pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TrustConfig>,
@@ -3234,6 +4228,12 @@ impl TlsConfig {
     }
 
     /// Sets the value of [ssl_principal_mapping_rules][crate::model::TlsConfig::ssl_principal_mapping_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::TlsConfig;
+    /// let x = TlsConfig::new().set_ssl_principal_mapping_rules("example");
+    /// ```
     pub fn set_ssl_principal_mapping_rules<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3266,6 +4266,17 @@ impl TrustConfig {
     }
 
     /// Sets the value of [cas_configs][crate::model::TrustConfig::cas_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::TrustConfig;
+    /// use google_cloud_managedkafka_v1::model::trust_config::CertificateAuthorityServiceConfig;
+    /// let x = TrustConfig::new()
+    ///     .set_cas_configs([
+    ///         CertificateAuthorityServiceConfig::default()/* use setters */,
+    ///         CertificateAuthorityServiceConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_cas_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3308,6 +4319,12 @@ pub mod trust_config {
         }
 
         /// Sets the value of [ca_pool][crate::model::trust_config::CertificateAuthorityServiceConfig::ca_pool].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_managedkafka_v1::model::trust_config::CertificateAuthorityServiceConfig;
+        /// let x = CertificateAuthorityServiceConfig::new().set_ca_pool("example");
+        /// ```
         pub fn set_ca_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.ca_pool = v.into();
             self
@@ -3354,24 +4371,51 @@ impl Topic {
     }
 
     /// Sets the value of [name][crate::model::Topic::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Topic;
+    /// let x = Topic::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [partition_count][crate::model::Topic::partition_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Topic;
+    /// let x = Topic::new().set_partition_count(42);
+    /// ```
     pub fn set_partition_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.partition_count = v.into();
         self
     }
 
     /// Sets the value of [replication_factor][crate::model::Topic::replication_factor].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Topic;
+    /// let x = Topic::new().set_replication_factor(42);
+    /// ```
     pub fn set_replication_factor<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.replication_factor = v.into();
         self
     }
 
     /// Sets the value of [configs][crate::model::Topic::configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Topic;
+    /// let x = Topic::new().set_configs([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_configs<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3407,6 +4451,16 @@ impl ConsumerTopicMetadata {
     }
 
     /// Sets the value of [partitions][crate::model::ConsumerTopicMetadata::partitions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConsumerTopicMetadata;
+    /// use google_cloud_managedkafka_v1::model::ConsumerPartitionMetadata;
+    /// let x = ConsumerTopicMetadata::new().set_partitions([
+    ///     (0, ConsumerPartitionMetadata::default()/* use setters */),
+    ///     (1, ConsumerPartitionMetadata::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_partitions<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3446,12 +4500,24 @@ impl ConsumerPartitionMetadata {
     }
 
     /// Sets the value of [offset][crate::model::ConsumerPartitionMetadata::offset].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConsumerPartitionMetadata;
+    /// let x = ConsumerPartitionMetadata::new().set_offset(42);
+    /// ```
     pub fn set_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.offset = v.into();
         self
     }
 
     /// Sets the value of [metadata][crate::model::ConsumerPartitionMetadata::metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConsumerPartitionMetadata;
+    /// let x = ConsumerPartitionMetadata::new().set_metadata("example");
+    /// ```
     pub fn set_metadata<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.metadata = v.into();
         self
@@ -3487,12 +4553,28 @@ impl ConsumerGroup {
     }
 
     /// Sets the value of [name][crate::model::ConsumerGroup::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConsumerGroup;
+    /// let x = ConsumerGroup::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [topics][crate::model::ConsumerGroup::topics].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConsumerGroup;
+    /// use google_cloud_managedkafka_v1::model::ConsumerTopicMetadata;
+    /// let x = ConsumerGroup::new().set_topics([
+    ///     ("key0", ConsumerTopicMetadata::default()/* use setters */),
+    ///     ("key1", ConsumerTopicMetadata::default()/* use (different) setters */),
+    /// ]);
+    /// ```
     pub fn set_topics<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3551,6 +4633,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3560,6 +4649,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::OperationMetadata::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3569,6 +4666,13 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3578,6 +4682,14 @@ impl OperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::OperationMetadata::end_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::OperationMetadata;
+    /// use wkt::Timestamp;
+    /// let x = OperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
+    /// let x = OperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3587,30 +4699,60 @@ impl OperationMetadata {
     }
 
     /// Sets the value of [target][crate::model::OperationMetadata::target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_target("example");
+    /// ```
     pub fn set_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target = v.into();
         self
     }
 
     /// Sets the value of [verb][crate::model::OperationMetadata::verb].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_verb("example");
+    /// ```
     pub fn set_verb<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.verb = v.into();
         self
     }
 
     /// Sets the value of [status_message][crate::model::OperationMetadata::status_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_status_message("example");
+    /// ```
     pub fn set_status_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.status_message = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::OperationMetadata::requested_cancellation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_requested_cancellation(true);
+    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [api_version][crate::model::OperationMetadata::api_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::OperationMetadata;
+    /// let x = OperationMetadata::new().set_api_version("example");
+    /// ```
     pub fn set_api_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.api_version = v.into();
         self
@@ -3668,18 +4810,37 @@ impl ConnectCluster {
     }
 
     /// Sets the value of [name][crate::model::ConnectCluster::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// let x = ConnectCluster::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [kafka_cluster][crate::model::ConnectCluster::kafka_cluster].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// let x = ConnectCluster::new().set_kafka_cluster("example");
+    /// ```
     pub fn set_kafka_cluster<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.kafka_cluster = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ConnectCluster::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// use wkt::Timestamp;
+    /// let x = ConnectCluster::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3689,6 +4850,14 @@ impl ConnectCluster {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ConnectCluster::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// use wkt::Timestamp;
+    /// let x = ConnectCluster::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ConnectCluster::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3698,6 +4867,13 @@ impl ConnectCluster {
     }
 
     /// Sets the value of [update_time][crate::model::ConnectCluster::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// use wkt::Timestamp;
+    /// let x = ConnectCluster::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3707,6 +4883,14 @@ impl ConnectCluster {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ConnectCluster::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// use wkt::Timestamp;
+    /// let x = ConnectCluster::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ConnectCluster::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3716,6 +4900,15 @@ impl ConnectCluster {
     }
 
     /// Sets the value of [labels][crate::model::ConnectCluster::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// let x = ConnectCluster::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3728,6 +4921,13 @@ impl ConnectCluster {
     }
 
     /// Sets the value of [capacity_config][crate::model::ConnectCluster::capacity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// use google_cloud_managedkafka_v1::model::CapacityConfig;
+    /// let x = ConnectCluster::new().set_capacity_config(CapacityConfig::default()/* use setters */);
+    /// ```
     pub fn set_capacity_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CapacityConfig>,
@@ -3737,6 +4937,14 @@ impl ConnectCluster {
     }
 
     /// Sets or clears the value of [capacity_config][crate::model::ConnectCluster::capacity_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// use google_cloud_managedkafka_v1::model::CapacityConfig;
+    /// let x = ConnectCluster::new().set_or_clear_capacity_config(Some(CapacityConfig::default()/* use setters */));
+    /// let x = ConnectCluster::new().set_or_clear_capacity_config(None::<CapacityConfig>);
+    /// ```
     pub fn set_or_clear_capacity_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CapacityConfig>,
@@ -3746,6 +4954,15 @@ impl ConnectCluster {
     }
 
     /// Sets the value of [state][crate::model::ConnectCluster::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// use google_cloud_managedkafka_v1::model::connect_cluster::State;
+    /// let x0 = ConnectCluster::new().set_state(State::Creating);
+    /// let x1 = ConnectCluster::new().set_state(State::Active);
+    /// let x2 = ConnectCluster::new().set_state(State::Deleting);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::connect_cluster::State>>(
         mut self,
         v: T,
@@ -3755,6 +4972,15 @@ impl ConnectCluster {
     }
 
     /// Sets the value of [config][crate::model::ConnectCluster::config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// let x = ConnectCluster::new().set_config([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_config<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3770,6 +4996,14 @@ impl ConnectCluster {
     ///
     /// Note that all the setters affecting `platform_config` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// use google_cloud_managedkafka_v1::model::ConnectGcpConfig;
+    /// let x = ConnectCluster::new().set_platform_config(Some(
+    ///     google_cloud_managedkafka_v1::model::connect_cluster::PlatformConfig::GcpConfig(ConnectGcpConfig::default().into())));
+    /// ```
     pub fn set_platform_config<
         T: std::convert::Into<std::option::Option<crate::model::connect_cluster::PlatformConfig>>,
     >(
@@ -3800,6 +5034,14 @@ impl ConnectCluster {
     ///
     /// Note that all the setters affecting `platform_config` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectCluster;
+    /// use google_cloud_managedkafka_v1::model::ConnectGcpConfig;
+    /// let x = ConnectCluster::new().set_gcp_config(ConnectGcpConfig::default()/* use setters */);
+    /// assert!(x.gcp_config().is_some());
+    /// ```
     pub fn set_gcp_config<
         T: std::convert::Into<std::boxed::Box<crate::model::ConnectGcpConfig>>,
     >(
@@ -4013,12 +5255,24 @@ impl ConnectNetworkConfig {
     }
 
     /// Sets the value of [primary_subnet][crate::model::ConnectNetworkConfig::primary_subnet].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectNetworkConfig;
+    /// let x = ConnectNetworkConfig::new().set_primary_subnet("example");
+    /// ```
     pub fn set_primary_subnet<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.primary_subnet = v.into();
         self
     }
 
     /// Sets the value of [additional_subnets][crate::model::ConnectNetworkConfig::additional_subnets].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectNetworkConfig;
+    /// let x = ConnectNetworkConfig::new().set_additional_subnets(["a", "b", "c"]);
+    /// ```
     pub fn set_additional_subnets<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4030,6 +5284,12 @@ impl ConnectNetworkConfig {
     }
 
     /// Sets the value of [dns_domain_names][crate::model::ConnectNetworkConfig::dns_domain_names].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectNetworkConfig;
+    /// let x = ConnectNetworkConfig::new().set_dns_domain_names(["a", "b", "c"]);
+    /// ```
     pub fn set_dns_domain_names<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4066,6 +5326,17 @@ impl ConnectAccessConfig {
     }
 
     /// Sets the value of [network_configs][crate::model::ConnectAccessConfig::network_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectAccessConfig;
+    /// use google_cloud_managedkafka_v1::model::ConnectNetworkConfig;
+    /// let x = ConnectAccessConfig::new()
+    ///     .set_network_configs([
+    ///         ConnectNetworkConfig::default()/* use setters */,
+    ///         ConnectNetworkConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_configs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4106,6 +5377,13 @@ impl ConnectGcpConfig {
     }
 
     /// Sets the value of [access_config][crate::model::ConnectGcpConfig::access_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectGcpConfig;
+    /// use google_cloud_managedkafka_v1::model::ConnectAccessConfig;
+    /// let x = ConnectGcpConfig::new().set_access_config(ConnectAccessConfig::default()/* use setters */);
+    /// ```
     pub fn set_access_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ConnectAccessConfig>,
@@ -4115,6 +5393,14 @@ impl ConnectGcpConfig {
     }
 
     /// Sets or clears the value of [access_config][crate::model::ConnectGcpConfig::access_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectGcpConfig;
+    /// use google_cloud_managedkafka_v1::model::ConnectAccessConfig;
+    /// let x = ConnectGcpConfig::new().set_or_clear_access_config(Some(ConnectAccessConfig::default()/* use setters */));
+    /// let x = ConnectGcpConfig::new().set_or_clear_access_config(None::<ConnectAccessConfig>);
+    /// ```
     pub fn set_or_clear_access_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ConnectAccessConfig>,
@@ -4124,6 +5410,12 @@ impl ConnectGcpConfig {
     }
 
     /// Sets the value of [secret_paths][crate::model::ConnectGcpConfig::secret_paths].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::ConnectGcpConfig;
+    /// let x = ConnectGcpConfig::new().set_secret_paths(["a", "b", "c"]);
+    /// ```
     pub fn set_secret_paths<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4172,12 +5464,27 @@ impl Connector {
     }
 
     /// Sets the value of [name][crate::model::Connector::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Connector;
+    /// let x = Connector::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [configs][crate::model::Connector::configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Connector;
+    /// let x = Connector::new().set_configs([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_configs<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4190,6 +5497,15 @@ impl Connector {
     }
 
     /// Sets the value of [state][crate::model::Connector::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Connector;
+    /// use google_cloud_managedkafka_v1::model::connector::State;
+    /// let x0 = Connector::new().set_state(State::Unassigned);
+    /// let x1 = Connector::new().set_state(State::Running);
+    /// let x2 = Connector::new().set_state(State::Paused);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::connector::State>>(
         mut self,
         v: T,
@@ -4202,6 +5518,14 @@ impl Connector {
     ///
     /// Note that all the setters affecting `restart_policy` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Connector;
+    /// use google_cloud_managedkafka_v1::model::TaskRetryPolicy;
+    /// let x = Connector::new().set_restart_policy(Some(
+    ///     google_cloud_managedkafka_v1::model::connector::RestartPolicy::TaskRestartPolicy(TaskRetryPolicy::default().into())));
+    /// ```
     pub fn set_restart_policy<
         T: std::convert::Into<std::option::Option<crate::model::connector::RestartPolicy>>,
     >(
@@ -4232,6 +5556,14 @@ impl Connector {
     ///
     /// Note that all the setters affecting `restart_policy` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Connector;
+    /// use google_cloud_managedkafka_v1::model::TaskRetryPolicy;
+    /// let x = Connector::new().set_task_restart_policy(TaskRetryPolicy::default()/* use setters */);
+    /// assert!(x.task_restart_policy().is_some());
+    /// ```
     pub fn set_task_restart_policy<
         T: std::convert::Into<std::boxed::Box<crate::model::TaskRetryPolicy>>,
     >(
@@ -4456,6 +5788,13 @@ impl TaskRetryPolicy {
     }
 
     /// Sets the value of [minimum_backoff][crate::model::TaskRetryPolicy::minimum_backoff].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::TaskRetryPolicy;
+    /// use wkt::Duration;
+    /// let x = TaskRetryPolicy::new().set_minimum_backoff(Duration::default()/* use setters */);
+    /// ```
     pub fn set_minimum_backoff<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4465,6 +5804,14 @@ impl TaskRetryPolicy {
     }
 
     /// Sets or clears the value of [minimum_backoff][crate::model::TaskRetryPolicy::minimum_backoff].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::TaskRetryPolicy;
+    /// use wkt::Duration;
+    /// let x = TaskRetryPolicy::new().set_or_clear_minimum_backoff(Some(Duration::default()/* use setters */));
+    /// let x = TaskRetryPolicy::new().set_or_clear_minimum_backoff(None::<Duration>);
+    /// ```
     pub fn set_or_clear_minimum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4474,6 +5821,13 @@ impl TaskRetryPolicy {
     }
 
     /// Sets the value of [maximum_backoff][crate::model::TaskRetryPolicy::maximum_backoff].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::TaskRetryPolicy;
+    /// use wkt::Duration;
+    /// let x = TaskRetryPolicy::new().set_maximum_backoff(Duration::default()/* use setters */);
+    /// ```
     pub fn set_maximum_backoff<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4483,6 +5837,14 @@ impl TaskRetryPolicy {
     }
 
     /// Sets or clears the value of [maximum_backoff][crate::model::TaskRetryPolicy::maximum_backoff].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::TaskRetryPolicy;
+    /// use wkt::Duration;
+    /// let x = TaskRetryPolicy::new().set_or_clear_maximum_backoff(Some(Duration::default()/* use setters */));
+    /// let x = TaskRetryPolicy::new().set_or_clear_maximum_backoff(None::<Duration>);
+    /// ```
     pub fn set_or_clear_maximum_backoff<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -4566,12 +5928,29 @@ impl Acl {
     }
 
     /// Sets the value of [name][crate::model::Acl::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = Acl::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [acl_entries][crate::model::Acl::acl_entries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Acl;
+    /// use google_cloud_managedkafka_v1::model::AclEntry;
+    /// let x = Acl::new()
+    ///     .set_acl_entries([
+    ///         AclEntry::default()/* use setters */,
+    ///         AclEntry::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_acl_entries<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4583,24 +5962,48 @@ impl Acl {
     }
 
     /// Sets the value of [etag][crate::model::Acl::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = Acl::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [resource_type][crate::model::Acl::resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = Acl::new().set_resource_type("example");
+    /// ```
     pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_type = v.into();
         self
     }
 
     /// Sets the value of [resource_name][crate::model::Acl::resource_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = Acl::new().set_resource_name("example");
+    /// ```
     pub fn set_resource_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.resource_name = v.into();
         self
     }
 
     /// Sets the value of [pattern_type][crate::model::Acl::pattern_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::Acl;
+    /// let x = Acl::new().set_pattern_type("example");
+    /// ```
     pub fn set_pattern_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.pattern_type = v.into();
         self
@@ -4648,24 +6051,48 @@ impl AclEntry {
     }
 
     /// Sets the value of [principal][crate::model::AclEntry::principal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::AclEntry;
+    /// let x = AclEntry::new().set_principal("example");
+    /// ```
     pub fn set_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.principal = v.into();
         self
     }
 
     /// Sets the value of [permission_type][crate::model::AclEntry::permission_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::AclEntry;
+    /// let x = AclEntry::new().set_permission_type("example");
+    /// ```
     pub fn set_permission_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.permission_type = v.into();
         self
     }
 
     /// Sets the value of [operation][crate::model::AclEntry::operation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::AclEntry;
+    /// let x = AclEntry::new().set_operation("example");
+    /// ```
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation = v.into();
         self
     }
 
     /// Sets the value of [host][crate::model::AclEntry::host].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_managedkafka_v1::model::AclEntry;
+    /// let x = AclEntry::new().set_host("example");
+    /// ```
     pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.host = v.into();
         self

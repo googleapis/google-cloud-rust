@@ -18,6 +18,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-domains-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-domains-v1/1.3.0)
 
-[Domains]: https://docs.rs/google-cloud-domains-v1/1.2.1/google_cloud_domains_v1/client/struct.Domains.html
+[Domains]: https://docs.rs/google-cloud-domains-v1/1.3.0/google_cloud_domains_v1/client/struct.Domains.html

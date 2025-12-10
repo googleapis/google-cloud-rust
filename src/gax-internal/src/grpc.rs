@@ -269,10 +269,17 @@ impl Client {
 
         #[cfg(google_cloud_unstable_tracing)]
         {
-            use crate::observability::grpc_tracing::AttemptCount;
+            use crate::observability::grpc_tracing::{AttemptCount, ResourceName};
             request
                 .extensions_mut()
-                .insert(AttemptCount(prior_attempt_count));
+                .insert(AttemptCount::new(prior_attempt_count));
+            if let Some(resource_name) =
+                gax::options::internal::get_resource_name(options).map(|s| s.to_string())
+            {
+                request
+                    .extensions_mut()
+                    .insert(ResourceName::new(resource_name));
+            }
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         let _ = prior_attempt_count;
@@ -475,7 +482,7 @@ mod tests {
     use super::Client;
     use crate::options::InstrumentationClientInfo;
 
-    #[tokio::test]
+    #[tokio::test(flavor = "multi_thread")]
     async fn test_new_with_instrumentation() {
         let config = crate::options::ClientConfig::default();
         static TEST_INFO: InstrumentationClientInfo = InstrumentationClientInfo {

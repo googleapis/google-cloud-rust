@@ -18,6 +18,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-reservation-v1/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-reservation-v1/1.2.0)
 
-[ReservationService]: https://docs.rs/google-cloud-bigquery-reservation-v1/1.1.0/google_cloud_bigquery_reservation_v1/client/struct.ReservationService.html
+[ReservationService]: https://docs.rs/google-cloud-bigquery-reservation-v1/1.2.0/google_cloud_bigquery_reservation_v1/client/struct.ReservationService.html

@@ -18,6 +18,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-iam-credentials-v1/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-iam-credentials-v1/1.2.0)
 
-[IAMCredentials]: https://docs.rs/google-cloud-iam-credentials-v1/1.1.0/google_cloud_iam_credentials_v1/client/struct.IAMCredentials.html
+[IAMCredentials]: https://docs.rs/google-cloud-iam-credentials-v1/1.2.0/google_cloud_iam_credentials_v1/client/struct.IAMCredentials.html

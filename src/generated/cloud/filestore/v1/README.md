@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-filestore-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-filestore-v1/1.3.0)
 
-[CloudFilestoreManager]: https://docs.rs/google-cloud-filestore-v1/1.2.1/google_cloud_filestore_v1/client/struct.CloudFilestoreManager.html
+[CloudFilestoreManager]: https://docs.rs/google-cloud-filestore-v1/1.3.0/google_cloud_filestore_v1/client/struct.CloudFilestoreManager.html

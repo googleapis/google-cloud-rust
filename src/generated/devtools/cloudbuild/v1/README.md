@@ -18,6 +18,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-build-v1/1.1.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-build-v1/1.2.0)
 
-[CloudBuild]: https://docs.rs/google-cloud-build-v1/1.1.1/google_cloud_build_v1/client/struct.CloudBuild.html
+[CloudBuild]: https://docs.rs/google-cloud-build-v1/1.2.0/google_cloud_build_v1/client/struct.CloudBuild.html

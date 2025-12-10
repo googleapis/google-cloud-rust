@@ -324,9 +324,23 @@ impl Builder {
 
     #[cfg(google_cloud_unstable_signed_url)]
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
+        self.build_signer_with_iam_endpoint_override(None)
+    }
+
+    #[cfg(google_cloud_unstable_signed_url)]
+    // only used for testing
+    fn build_signer_with_iam_endpoint_override(
+        self,
+        iam_endpoint: Option<String>,
+    ) -> BuildResult<crate::signer::Signer> {
         let (endpoint, _) = self.resolve_endpoint();
         let credentials = self.build()?;
         let signing_provider = crate::signer::mds::MDSSigner::new(endpoint, credentials);
+        let signing_provider = iam_endpoint
+            .iter()
+            .fold(signing_provider, |signing_provider, endpoint| {
+                signing_provider.with_iam_endpoint_override(endpoint)
+            });
         Ok(crate::signer::Signer {
             inner: Arc::new(signing_provider),
         })
@@ -1030,6 +1044,53 @@ mod tests {
     async fn get_default_universe_domain_success() -> TestResult {
         let universe_domain_response = Builder::default().build()?.universe_domain().await.unwrap();
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_signed_url)]
+    async fn get_mds_signer() -> TestResult {
+        use base64::{Engine, prelude::BASE64_STANDARD};
+        use serde_json::json;
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/token")),])
+                .respond_with(json_encoded(MDSTokenResponse {
+                    access_token: "test-access-token".to_string(),
+                    expires_in: None,
+                    token_type: "Bearer".to_string(),
+                })),
+        );
+        server.expect(
+            Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/email")),])
+                .respond_with(status_code(200).body("test-client-email")),
+        );
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-client-email:signBlob"
+                ),
+                request::headers(contains(("authorization", "Bearer test-access-token"))),
+            ])
+            .respond_with(json_encoded(json!({
+                "signedBlob": BASE64_STANDARD.encode("signed_blob"),
+            }))),
+        );
+
+        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+
+        let signer = Builder::default()
+            .with_endpoint(&endpoint)
+            .build_signer_with_iam_endpoint_override(Some(endpoint))?;
+
+        let client_email = signer.client_email().await?;
+        assert_eq!(client_email, "test-client-email");
+
+        let signature = signer.sign(b"test").await?;
+        assert_eq!(signature.as_ref(), b"signed_blob");
+
         Ok(())
     }
 }

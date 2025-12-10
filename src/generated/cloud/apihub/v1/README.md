@@ -25,15 +25,15 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-apihub-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-apihub-v1/1.3.0)
 
-[ApiHub]: https://docs.rs/google-cloud-apihub-v1/1.2.1/google_cloud_apihub_v1/client/struct.ApiHub.html
-[ApiHubDependencies]: https://docs.rs/google-cloud-apihub-v1/1.2.1/google_cloud_apihub_v1/client/struct.ApiHubDependencies.html
-[ApiHubCollect]: https://docs.rs/google-cloud-apihub-v1/1.2.1/google_cloud_apihub_v1/client/struct.ApiHubCollect.html
-[ApiHubCurate]: https://docs.rs/google-cloud-apihub-v1/1.2.1/google_cloud_apihub_v1/client/struct.ApiHubCurate.html
-[ApiHubDiscovery]: https://docs.rs/google-cloud-apihub-v1/1.2.1/google_cloud_apihub_v1/client/struct.ApiHubDiscovery.html
-[HostProjectRegistrationService]: https://docs.rs/google-cloud-apihub-v1/1.2.1/google_cloud_apihub_v1/client/struct.HostProjectRegistrationService.html
-[LintingService]: https://docs.rs/google-cloud-apihub-v1/1.2.1/google_cloud_apihub_v1/client/struct.LintingService.html
-[ApiHubPlugin]: https://docs.rs/google-cloud-apihub-v1/1.2.1/google_cloud_apihub_v1/client/struct.ApiHubPlugin.html
-[Provisioning]: https://docs.rs/google-cloud-apihub-v1/1.2.1/google_cloud_apihub_v1/client/struct.Provisioning.html
-[RuntimeProjectAttachmentService]: https://docs.rs/google-cloud-apihub-v1/1.2.1/google_cloud_apihub_v1/client/struct.RuntimeProjectAttachmentService.html
+[ApiHub]: https://docs.rs/google-cloud-apihub-v1/1.3.0/google_cloud_apihub_v1/client/struct.ApiHub.html
+[ApiHubDependencies]: https://docs.rs/google-cloud-apihub-v1/1.3.0/google_cloud_apihub_v1/client/struct.ApiHubDependencies.html
+[ApiHubCollect]: https://docs.rs/google-cloud-apihub-v1/1.3.0/google_cloud_apihub_v1/client/struct.ApiHubCollect.html
+[ApiHubCurate]: https://docs.rs/google-cloud-apihub-v1/1.3.0/google_cloud_apihub_v1/client/struct.ApiHubCurate.html
+[ApiHubDiscovery]: https://docs.rs/google-cloud-apihub-v1/1.3.0/google_cloud_apihub_v1/client/struct.ApiHubDiscovery.html
+[HostProjectRegistrationService]: https://docs.rs/google-cloud-apihub-v1/1.3.0/google_cloud_apihub_v1/client/struct.HostProjectRegistrationService.html
+[LintingService]: https://docs.rs/google-cloud-apihub-v1/1.3.0/google_cloud_apihub_v1/client/struct.LintingService.html
+[ApiHubPlugin]: https://docs.rs/google-cloud-apihub-v1/1.3.0/google_cloud_apihub_v1/client/struct.ApiHubPlugin.html
+[Provisioning]: https://docs.rs/google-cloud-apihub-v1/1.3.0/google_cloud_apihub_v1/client/struct.Provisioning.html
+[RuntimeProjectAttachmentService]: https://docs.rs/google-cloud-apihub-v1/1.3.0/google_cloud_apihub_v1/client/struct.RuntimeProjectAttachmentService.html

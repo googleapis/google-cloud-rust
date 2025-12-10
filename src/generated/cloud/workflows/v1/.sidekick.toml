@@ -17,10 +17,9 @@ specification-source = 'google/cloud/workflows/v1'
 service-config       = 'google/cloud/workflows/v1/workflows_v1.yaml'
 
 [codec]
-version        = '1.2.1'
+version        = '1.3.0'
 copyright-year = '2025'
 # TODO(#1285) - remove `redundant_explicit_links` workaround when no longer needed
 # TODO(#742) - remove `broken_intro_doc_links` workaround when no longer needed
 # TODO(#1532) - fix the multi-line <a></a> problems
 disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links,invalid_html_tags,bare_urls"
-generate-setter-samples = 'true'

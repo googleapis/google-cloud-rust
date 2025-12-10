@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-api-servicecontrol-v2/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-api-servicecontrol-v2/1.2.0)
 
-[ServiceController]: https://docs.rs/google-cloud-api-servicecontrol-v2/1.1.0/google_cloud_api_servicecontrol_v2/client/struct.ServiceController.html
+[ServiceController]: https://docs.rs/google-cloud-api-servicecontrol-v2/1.2.0/google_cloud_api_servicecontrol_v2/client/struct.ServiceController.html

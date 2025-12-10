@@ -18,11 +18,13 @@ use crate::read_object::ReadObjectResponse;
 
 pub(crate) mod dynamic {
     use super::{Object, ReadObjectResponse, ReadRange};
+    use http::HeaderMap;
 
     #[async_trait::async_trait]
     pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
         fn object(&self) -> &Object;
         async fn read_range(&self, range: ReadRange) -> ReadObjectResponse;
+        fn headers(&self) -> &HeaderMap;
     }
 
     #[async_trait::async_trait]
@@ -33,6 +35,10 @@ pub(crate) mod dynamic {
 
         async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
             T::read_range(self, range).await
+        }
+
+        fn headers(&self) -> &HeaderMap {
+            T::headers(self)
         }
     }
 }

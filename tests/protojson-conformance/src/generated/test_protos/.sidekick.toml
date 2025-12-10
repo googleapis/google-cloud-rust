@@ -21,6 +21,7 @@ roots        = 'conformance'
 include-list = 'test_messages_proto3.proto'
 
 [codec]
-copyright-year    = '2025'
-template-override = 'templates/mod'
-module-path       = 'crate::generated::test_protos'
+copyright-year          = '2025'
+template-override       = 'templates/mod'
+module-path             = 'crate::generated::test_protos'
+generate-setter-samples = 'false'

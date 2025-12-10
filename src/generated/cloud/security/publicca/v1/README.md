@@ -20,6 +20,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-security-publicca-v1/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-security-publicca-v1/1.2.0)
 
-[PublicCertificateAuthorityService]: https://docs.rs/google-cloud-security-publicca-v1/1.1.0/google_cloud_security_publicca_v1/client/struct.PublicCertificateAuthorityService.html
+[PublicCertificateAuthorityService]: https://docs.rs/google-cloud-security-publicca-v1/1.2.0/google_cloud_security_publicca_v1/client/struct.PublicCertificateAuthorityService.html

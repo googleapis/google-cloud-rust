@@ -17,7 +17,7 @@ specification-source = 'google/cloud/networkservices/v1'
 service-config = 'google/cloud/networkservices/v1/networkservices_v1.yaml'
 
 [codec]
-version        = '1.2.1'
+version        = '1.3.0'
 copyright-year = '2025'
 
 [[documentation-overrides]]

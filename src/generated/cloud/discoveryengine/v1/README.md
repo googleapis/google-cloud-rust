@@ -45,26 +45,26 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-discoveryengine-v1/2.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-discoveryengine-v1/2.3.0)
 
-[AssistantService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.AssistantService.html
-[CmekConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.CmekConfigService.html
-[CompletionService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.CompletionService.html
-[ControlService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.ControlService.html
-[ConversationalSearchService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.ConversationalSearchService.html
-[DataStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.DataStoreService.html
-[DocumentService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.DocumentService.html
-[EngineService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.EngineService.html
-[GroundedGenerationService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.GroundedGenerationService.html
-[IdentityMappingStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.IdentityMappingStoreService.html
-[ProjectService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.ProjectService.html
-[RankService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.RankService.html
-[RecommendationService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.RecommendationService.html
-[SchemaService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.SchemaService.html
-[SearchService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.SearchService.html
-[SearchTuningService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.SearchTuningService.html
-[ServingConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.ServingConfigService.html
-[SessionService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.SessionService.html
-[SiteSearchEngineService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.SiteSearchEngineService.html
-[UserEventService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.UserEventService.html
-[UserLicenseService]: https://docs.rs/google-cloud-discoveryengine-v1/2.2.1/google_cloud_discoveryengine_v1/client/struct.UserLicenseService.html
+[AssistantService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.AssistantService.html
+[CmekConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.CmekConfigService.html
+[CompletionService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.CompletionService.html
+[ControlService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.ControlService.html
+[ConversationalSearchService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.ConversationalSearchService.html
+[DataStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.DataStoreService.html
+[DocumentService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.DocumentService.html
+[EngineService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.EngineService.html
+[GroundedGenerationService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.GroundedGenerationService.html
+[IdentityMappingStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.IdentityMappingStoreService.html
+[ProjectService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.ProjectService.html
+[RankService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.RankService.html
+[RecommendationService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.RecommendationService.html
+[SchemaService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.SchemaService.html
+[SearchService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.SearchService.html
+[SearchTuningService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.SearchTuningService.html
+[ServingConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.ServingConfigService.html
+[SessionService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.SessionService.html
+[SiteSearchEngineService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.SiteSearchEngineService.html
+[UserEventService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.UserEventService.html
+[UserLicenseService]: https://docs.rs/google-cloud-discoveryengine-v1/2.3.0/google_cloud_discoveryengine_v1/client/struct.UserLicenseService.html

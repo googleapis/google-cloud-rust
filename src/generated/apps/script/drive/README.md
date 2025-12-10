@@ -10,4 +10,4 @@ should not introduce breaking changes to the client libraries.
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-apps-script-type-drive/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-apps-script-type-drive/1.2.0)

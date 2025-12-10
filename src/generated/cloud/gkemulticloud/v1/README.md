@@ -28,8 +28,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-gkemulticloud-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-gkemulticloud-v1/1.3.0)
 
-[AttachedClusters]: https://docs.rs/google-cloud-gkemulticloud-v1/1.2.1/google_cloud_gkemulticloud_v1/client/struct.AttachedClusters.html
-[AwsClusters]: https://docs.rs/google-cloud-gkemulticloud-v1/1.2.1/google_cloud_gkemulticloud_v1/client/struct.AwsClusters.html
-[AzureClusters]: https://docs.rs/google-cloud-gkemulticloud-v1/1.2.1/google_cloud_gkemulticloud_v1/client/struct.AzureClusters.html
+[AttachedClusters]: https://docs.rs/google-cloud-gkemulticloud-v1/1.3.0/google_cloud_gkemulticloud_v1/client/struct.AttachedClusters.html
+[AwsClusters]: https://docs.rs/google-cloud-gkemulticloud-v1/1.3.0/google_cloud_gkemulticloud_v1/client/struct.AwsClusters.html
+[AzureClusters]: https://docs.rs/google-cloud-gkemulticloud-v1/1.3.0/google_cloud_gkemulticloud_v1/client/struct.AzureClusters.html

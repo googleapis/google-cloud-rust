@@ -24,10 +24,10 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-chronicle-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-chronicle-v1/1.3.0)
 
-[DataAccessControlService]: https://docs.rs/google-cloud-chronicle-v1/1.2.1/google_cloud_chronicle_v1/client/struct.DataAccessControlService.html
-[EntityService]: https://docs.rs/google-cloud-chronicle-v1/1.2.1/google_cloud_chronicle_v1/client/struct.EntityService.html
-[InstanceService]: https://docs.rs/google-cloud-chronicle-v1/1.2.1/google_cloud_chronicle_v1/client/struct.InstanceService.html
-[ReferenceListService]: https://docs.rs/google-cloud-chronicle-v1/1.2.1/google_cloud_chronicle_v1/client/struct.ReferenceListService.html
-[RuleService]: https://docs.rs/google-cloud-chronicle-v1/1.2.1/google_cloud_chronicle_v1/client/struct.RuleService.html
+[DataAccessControlService]: https://docs.rs/google-cloud-chronicle-v1/1.3.0/google_cloud_chronicle_v1/client/struct.DataAccessControlService.html
+[EntityService]: https://docs.rs/google-cloud-chronicle-v1/1.3.0/google_cloud_chronicle_v1/client/struct.EntityService.html
+[InstanceService]: https://docs.rs/google-cloud-chronicle-v1/1.3.0/google_cloud_chronicle_v1/client/struct.InstanceService.html
+[ReferenceListService]: https://docs.rs/google-cloud-chronicle-v1/1.3.0/google_cloud_chronicle_v1/client/struct.ReferenceListService.html
+[RuleService]: https://docs.rs/google-cloud-chronicle-v1/1.3.0/google_cloud_chronicle_v1/client/struct.RuleService.html

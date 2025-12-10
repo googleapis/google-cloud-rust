@@ -19,7 +19,7 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-profiler-v2/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-profiler-v2/1.2.0)
 
-[ProfilerService]: https://docs.rs/google-cloud-profiler-v2/1.1.0/google_cloud_profiler_v2/client/struct.ProfilerService.html
-[ExportService]: https://docs.rs/google-cloud-profiler-v2/1.1.0/google_cloud_profiler_v2/client/struct.ExportService.html
+[ProfilerService]: https://docs.rs/google-cloud-profiler-v2/1.2.0/google_cloud_profiler_v2/client/struct.ProfilerService.html
+[ExportService]: https://docs.rs/google-cloud-profiler-v2/1.2.0/google_cloud_profiler_v2/client/struct.ExportService.html

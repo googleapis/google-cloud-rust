@@ -212,7 +212,16 @@ resource "google_cloudbuild_trigger" "pull-request" {
 }
 
 resource "google_cloudbuild_trigger" "post-merge" {
-  for_each       = tomap(local.pm_builds)
+  for_each = {
+    # `tomap` will not do because we need to normalize these as objects.
+    for k, v in local.pm_builds : k => {
+      config         = v.config,
+      script         = try(v.script, "")
+      flags          = try(v.flags, "")
+      rust_version   = try(v.rust_version, "1.91")
+      included_files = try(v.included_files, [])
+    }
+  }
   location       = var.region
   name           = "gcb-pm-${each.key}"
   filename       = ".gcb/${each.value.config}"

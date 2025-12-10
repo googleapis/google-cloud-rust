@@ -12,4 +12,4 @@ should not introduce breaking changes to the client libraries.
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-type/1.1.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-type/1.2.0)

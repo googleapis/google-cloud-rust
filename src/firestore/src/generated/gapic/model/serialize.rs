@@ -342,6 +342,15 @@ impl serde::ser::Serialize for super::Value {
         if let Some(value) = self.map_value() {
             state.serialize_entry("mapValue", value)?;
         }
+        if let Some(value) = self.field_reference_value() {
+            state.serialize_entry("fieldReferenceValue", value)?;
+        }
+        if let Some(value) = self.function_value() {
+            state.serialize_entry("functionValue", value)?;
+        }
+        if let Some(value) = self.pipeline_value() {
+            state.serialize_entry("pipelineValue", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -385,6 +394,84 @@ impl serde::ser::Serialize for super::MapValue {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.fields.is_empty() {
             state.serialize_entry("fields", &self.fields)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Function {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.args.is_empty() {
+            state.serialize_entry("args", &self.args)?;
+        }
+        if !self.options.is_empty() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Pipeline {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.stages.is_empty() {
+            state.serialize_entry("stages", &self.stages)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::pipeline::Stage {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.args.is_empty() {
+            state.serialize_entry("args", &self.args)?;
+        }
+        if !self.options.is_empty() {
+            state.serialize_entry("options", &self.options)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1554,6 +1641,31 @@ impl serde::ser::Serialize for super::BatchWriteResponse {
         }
         if !self.status.is_empty() {
             state.serialize_entry("status", &self.status)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::StructuredPipeline {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.pipeline.is_some() {
+            state.serialize_entry("pipeline", &self.pipeline)?;
+        }
+        if !self.options.is_empty() {
+            state.serialize_entry("options", &self.options)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

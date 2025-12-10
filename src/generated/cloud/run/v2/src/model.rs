@@ -67,6 +67,17 @@ pub struct SubmitBuildRequest {
     /// Optional. Additional tags to annotate the build.
     pub tags: std::vec::Vec<std::string::String>,
 
+    /// Optional. The machine type from default pool to use for the build. If left
+    /// blank, cloudbuild will use a sensible default. Currently only E2_HIGHCPU_8
+    /// is supported. If worker_pool is set, this field will be ignored.
+    pub machine_type: std::string::String,
+
+    /// Optional. The release track of the client that initiated the build request.
+    pub release_track: api::model::LaunchStage,
+
+    /// Optional. The client that initiated the build request.
+    pub client: std::string::String,
+
     /// Location of source.
     pub source: std::option::Option<crate::model::submit_build_request::Source>,
 
@@ -82,30 +93,60 @@ impl SubmitBuildRequest {
     }
 
     /// Sets the value of [parent][crate::model::SubmitBuildRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// let x = SubmitBuildRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [image_uri][crate::model::SubmitBuildRequest::image_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// let x = SubmitBuildRequest::new().set_image_uri("example");
+    /// ```
     pub fn set_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_uri = v.into();
         self
     }
 
     /// Sets the value of [service_account][crate::model::SubmitBuildRequest::service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// let x = SubmitBuildRequest::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [worker_pool][crate::model::SubmitBuildRequest::worker_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// let x = SubmitBuildRequest::new().set_worker_pool("example");
+    /// ```
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();
         self
     }
 
     /// Sets the value of [tags][crate::model::SubmitBuildRequest::tags].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// let x = SubmitBuildRequest::new().set_tags(["a", "b", "c"]);
+    /// ```
     pub fn set_tags<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -116,10 +157,60 @@ impl SubmitBuildRequest {
         self
     }
 
+    /// Sets the value of [machine_type][crate::model::SubmitBuildRequest::machine_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// let x = SubmitBuildRequest::new().set_machine_type("example");
+    /// ```
+    pub fn set_machine_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.machine_type = v.into();
+        self
+    }
+
+    /// Sets the value of [release_track][crate::model::SubmitBuildRequest::release_track].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// use api::model::LaunchStage;
+    /// let x0 = SubmitBuildRequest::new().set_release_track(LaunchStage::Unimplemented);
+    /// let x1 = SubmitBuildRequest::new().set_release_track(LaunchStage::Prelaunch);
+    /// let x2 = SubmitBuildRequest::new().set_release_track(LaunchStage::EarlyAccess);
+    /// ```
+    pub fn set_release_track<T: std::convert::Into<api::model::LaunchStage>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.release_track = v.into();
+        self
+    }
+
+    /// Sets the value of [client][crate::model::SubmitBuildRequest::client].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// let x = SubmitBuildRequest::new().set_client("example");
+    /// ```
+    pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client = v.into();
+        self
+    }
+
     /// Sets the value of [source][crate::model::SubmitBuildRequest::source].
     ///
     /// Note that all the setters affecting `source` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// use google_cloud_run_v2::model::StorageSource;
+    /// let x = SubmitBuildRequest::new().set_source(Some(
+    ///     google_cloud_run_v2::model::submit_build_request::Source::StorageSource(StorageSource::default().into())));
+    /// ```
     pub fn set_source<
         T: std::convert::Into<std::option::Option<crate::model::submit_build_request::Source>>,
     >(
@@ -150,6 +241,14 @@ impl SubmitBuildRequest {
     ///
     /// Note that all the setters affecting `source` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// use google_cloud_run_v2::model::StorageSource;
+    /// let x = SubmitBuildRequest::new().set_storage_source(StorageSource::default()/* use setters */);
+    /// assert!(x.storage_source().is_some());
+    /// ```
     pub fn set_storage_source<
         T: std::convert::Into<std::boxed::Box<crate::model::StorageSource>>,
     >(
@@ -166,6 +265,14 @@ impl SubmitBuildRequest {
     ///
     /// Note that all the setters affecting `build_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// use google_cloud_run_v2::model::submit_build_request::BuildpacksBuild;
+    /// let x = SubmitBuildRequest::new().set_build_type(Some(
+    ///     google_cloud_run_v2::model::submit_build_request::BuildType::BuildpackBuild(BuildpacksBuild::default().into())));
+    /// ```
     pub fn set_build_type<
         T: std::convert::Into<std::option::Option<crate::model::submit_build_request::BuildType>>,
     >(
@@ -197,6 +304,15 @@ impl SubmitBuildRequest {
     ///
     /// Note that all the setters affecting `build_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// use google_cloud_run_v2::model::submit_build_request::BuildpacksBuild;
+    /// let x = SubmitBuildRequest::new().set_buildpack_build(BuildpacksBuild::default()/* use setters */);
+    /// assert!(x.buildpack_build().is_some());
+    /// assert!(x.docker_build().is_none());
+    /// ```
     pub fn set_buildpack_build<
         T: std::convert::Into<std::boxed::Box<crate::model::submit_build_request::BuildpacksBuild>>,
     >(
@@ -230,6 +346,15 @@ impl SubmitBuildRequest {
     ///
     /// Note that all the setters affecting `build_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildRequest;
+    /// use google_cloud_run_v2::model::submit_build_request::DockerBuild;
+    /// let x = SubmitBuildRequest::new().set_docker_build(DockerBuild::default()/* use setters */);
+    /// assert!(x.docker_build().is_some());
+    /// assert!(x.buildpack_build().is_none());
+    /// ```
     pub fn set_docker_build<
         T: std::convert::Into<std::boxed::Box<crate::model::submit_build_request::DockerBuild>>,
     >(
@@ -318,6 +443,12 @@ pub mod submit_build_request {
         }
 
         /// Sets the value of [runtime][crate::model::submit_build_request::BuildpacksBuild::runtime].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::submit_build_request::BuildpacksBuild;
+        /// let x = BuildpacksBuild::new().set_runtime("example");
+        /// ```
         #[deprecated]
         pub fn set_runtime<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.runtime = v.into();
@@ -325,6 +456,12 @@ pub mod submit_build_request {
         }
 
         /// Sets the value of [function_target][crate::model::submit_build_request::BuildpacksBuild::function_target].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::submit_build_request::BuildpacksBuild;
+        /// let x = BuildpacksBuild::new().set_function_target("example");
+        /// ```
         pub fn set_function_target<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -334,6 +471,12 @@ pub mod submit_build_request {
         }
 
         /// Sets the value of [cache_image_uri][crate::model::submit_build_request::BuildpacksBuild::cache_image_uri].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::submit_build_request::BuildpacksBuild;
+        /// let x = BuildpacksBuild::new().set_cache_image_uri("example");
+        /// ```
         pub fn set_cache_image_uri<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -343,12 +486,27 @@ pub mod submit_build_request {
         }
 
         /// Sets the value of [base_image][crate::model::submit_build_request::BuildpacksBuild::base_image].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::submit_build_request::BuildpacksBuild;
+        /// let x = BuildpacksBuild::new().set_base_image("example");
+        /// ```
         pub fn set_base_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.base_image = v.into();
             self
         }
 
         /// Sets the value of [environment_variables][crate::model::submit_build_request::BuildpacksBuild::environment_variables].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::submit_build_request::BuildpacksBuild;
+        /// let x = BuildpacksBuild::new().set_environment_variables([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
         pub fn set_environment_variables<T, K, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = (K, V)>,
@@ -361,12 +519,24 @@ pub mod submit_build_request {
         }
 
         /// Sets the value of [enable_automatic_updates][crate::model::submit_build_request::BuildpacksBuild::enable_automatic_updates].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::submit_build_request::BuildpacksBuild;
+        /// let x = BuildpacksBuild::new().set_enable_automatic_updates(true);
+        /// ```
         pub fn set_enable_automatic_updates<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enable_automatic_updates = v.into();
             self
         }
 
         /// Sets the value of [project_descriptor][crate::model::submit_build_request::BuildpacksBuild::project_descriptor].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::submit_build_request::BuildpacksBuild;
+        /// let x = BuildpacksBuild::new().set_project_descriptor("example");
+        /// ```
         pub fn set_project_descriptor<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -424,6 +594,13 @@ impl SubmitBuildResponse {
     }
 
     /// Sets the value of [build_operation][crate::model::SubmitBuildResponse::build_operation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildResponse;
+    /// use longrunning::model::Operation;
+    /// let x = SubmitBuildResponse::new().set_build_operation(Operation::default()/* use setters */);
+    /// ```
     pub fn set_build_operation<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<longrunning::model::Operation>,
@@ -433,6 +610,14 @@ impl SubmitBuildResponse {
     }
 
     /// Sets or clears the value of [build_operation][crate::model::SubmitBuildResponse::build_operation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildResponse;
+    /// use longrunning::model::Operation;
+    /// let x = SubmitBuildResponse::new().set_or_clear_build_operation(Some(Operation::default()/* use setters */));
+    /// let x = SubmitBuildResponse::new().set_or_clear_build_operation(None::<Operation>);
+    /// ```
     pub fn set_or_clear_build_operation<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<longrunning::model::Operation>,
@@ -442,12 +627,24 @@ impl SubmitBuildResponse {
     }
 
     /// Sets the value of [base_image_uri][crate::model::SubmitBuildResponse::base_image_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildResponse;
+    /// let x = SubmitBuildResponse::new().set_base_image_uri("example");
+    /// ```
     pub fn set_base_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_image_uri = v.into();
         self
     }
 
     /// Sets the value of [base_image_warning][crate::model::SubmitBuildResponse::base_image_warning].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SubmitBuildResponse;
+    /// let x = SubmitBuildResponse::new().set_base_image_warning("example");
+    /// ```
     pub fn set_base_image_warning<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -491,18 +688,36 @@ impl StorageSource {
     }
 
     /// Sets the value of [bucket][crate::model::StorageSource::bucket].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::StorageSource;
+    /// let x = StorageSource::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [object][crate::model::StorageSource::object].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::StorageSource;
+    /// let x = StorageSource::new().set_object("example");
+    /// ```
     pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.object = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::StorageSource::generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::StorageSource;
+    /// let x = StorageSource::new().set_generation(42);
+    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
@@ -553,12 +768,27 @@ impl Condition {
     }
 
     /// Sets the value of [r#type][crate::model::Condition::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Condition;
+    /// let x = Condition::new().set_type("example");
+    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [state][crate::model::Condition::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Condition;
+    /// use google_cloud_run_v2::model::condition::State;
+    /// let x0 = Condition::new().set_state(State::ConditionPending);
+    /// let x1 = Condition::new().set_state(State::ConditionReconciling);
+    /// let x2 = Condition::new().set_state(State::ConditionFailed);
+    /// ```
     pub fn set_state<T: std::convert::Into<crate::model::condition::State>>(
         mut self,
         v: T,
@@ -568,12 +798,25 @@ impl Condition {
     }
 
     /// Sets the value of [message][crate::model::Condition::message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Condition;
+    /// let x = Condition::new().set_message("example");
+    /// ```
     pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.message = v.into();
         self
     }
 
     /// Sets the value of [last_transition_time][crate::model::Condition::last_transition_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Condition;
+    /// use wkt::Timestamp;
+    /// let x = Condition::new().set_last_transition_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_last_transition_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -583,6 +826,14 @@ impl Condition {
     }
 
     /// Sets or clears the value of [last_transition_time][crate::model::Condition::last_transition_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Condition;
+    /// use wkt::Timestamp;
+    /// let x = Condition::new().set_or_clear_last_transition_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Condition::new().set_or_clear_last_transition_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_last_transition_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -592,6 +843,15 @@ impl Condition {
     }
 
     /// Sets the value of [severity][crate::model::Condition::severity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Condition;
+    /// use google_cloud_run_v2::model::condition::Severity;
+    /// let x0 = Condition::new().set_severity(Severity::Error);
+    /// let x1 = Condition::new().set_severity(Severity::Warning);
+    /// let x2 = Condition::new().set_severity(Severity::Info);
+    /// ```
     pub fn set_severity<T: std::convert::Into<crate::model::condition::Severity>>(
         mut self,
         v: T,
@@ -604,6 +864,18 @@ impl Condition {
     ///
     /// Note that all the setters affecting `reasons` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Condition;
+    /// use google_cloud_run_v2::model::condition::CommonReason;
+    /// let x0 = Condition::new().set_reasons(Some(
+    ///     google_cloud_run_v2::model::condition::Reasons::Reason(CommonReason::Unknown)));
+    /// let x1 = Condition::new().set_reasons(Some(
+    ///     google_cloud_run_v2::model::condition::Reasons::Reason(CommonReason::RevisionFailed)));
+    /// let x2 = Condition::new().set_reasons(Some(
+    ///     google_cloud_run_v2::model::condition::Reasons::Reason(CommonReason::ProgressDeadlineExceeded)));
+    /// ```
     pub fn set_reasons<
         T: std::convert::Into<std::option::Option<crate::model::condition::Reasons>>,
     >(
@@ -630,6 +902,24 @@ impl Condition {
     ///
     /// Note that all the setters affecting `reasons` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Condition;
+    /// use google_cloud_run_v2::model::condition::CommonReason;
+    /// let x0 = Condition::new().set_reason(CommonReason::Unknown);
+    /// let x1 = Condition::new().set_reason(CommonReason::RevisionFailed);
+    /// let x2 = Condition::new().set_reason(CommonReason::ProgressDeadlineExceeded);
+    /// assert!(x0.reason().is_some());
+    /// assert!(x0.revision_reason().is_none());
+    /// assert!(x0.execution_reason().is_none());
+    /// assert!(x1.reason().is_some());
+    /// assert!(x1.revision_reason().is_none());
+    /// assert!(x1.execution_reason().is_none());
+    /// assert!(x2.reason().is_some());
+    /// assert!(x2.revision_reason().is_none());
+    /// assert!(x2.execution_reason().is_none());
+    /// ```
     pub fn set_reason<T: std::convert::Into<crate::model::condition::CommonReason>>(
         mut self,
         v: T,
@@ -655,6 +945,24 @@ impl Condition {
     ///
     /// Note that all the setters affecting `reasons` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Condition;
+    /// use google_cloud_run_v2::model::condition::RevisionReason;
+    /// let x0 = Condition::new().set_revision_reason(RevisionReason::Pending);
+    /// let x1 = Condition::new().set_revision_reason(RevisionReason::Reserve);
+    /// let x2 = Condition::new().set_revision_reason(RevisionReason::Retired);
+    /// assert!(x0.revision_reason().is_some());
+    /// assert!(x0.reason().is_none());
+    /// assert!(x0.execution_reason().is_none());
+    /// assert!(x1.revision_reason().is_some());
+    /// assert!(x1.reason().is_none());
+    /// assert!(x1.execution_reason().is_none());
+    /// assert!(x2.revision_reason().is_some());
+    /// assert!(x2.reason().is_none());
+    /// assert!(x2.execution_reason().is_none());
+    /// ```
     pub fn set_revision_reason<T: std::convert::Into<crate::model::condition::RevisionReason>>(
         mut self,
         v: T,
@@ -682,6 +990,24 @@ impl Condition {
     ///
     /// Note that all the setters affecting `reasons` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Condition;
+    /// use google_cloud_run_v2::model::condition::ExecutionReason;
+    /// let x0 = Condition::new().set_execution_reason(ExecutionReason::JobStatusServicePollingError);
+    /// let x1 = Condition::new().set_execution_reason(ExecutionReason::NonZeroExitCode);
+    /// let x2 = Condition::new().set_execution_reason(ExecutionReason::Cancelled);
+    /// assert!(x0.execution_reason().is_some());
+    /// assert!(x0.reason().is_none());
+    /// assert!(x0.revision_reason().is_none());
+    /// assert!(x1.execution_reason().is_some());
+    /// assert!(x1.reason().is_none());
+    /// assert!(x1.revision_reason().is_none());
+    /// assert!(x2.execution_reason().is_some());
+    /// assert!(x2.reason().is_none());
+    /// assert!(x2.revision_reason().is_none());
+    /// ```
     pub fn set_execution_reason<T: std::convert::Into<crate::model::condition::ExecutionReason>>(
         mut self,
         v: T,
@@ -1475,6 +1801,8 @@ pub mod condition {
         Cancelling,
         /// The execution was deleted.
         Deleted,
+        /// A delayed execution is waiting for a start time.
+        DelayedStartPending,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ExecutionReason::value] or
@@ -1503,6 +1831,7 @@ pub mod condition {
                 Self::Cancelled => std::option::Option::Some(3),
                 Self::Cancelling => std::option::Option::Some(4),
                 Self::Deleted => std::option::Option::Some(5),
+                Self::DelayedStartPending => std::option::Option::Some(6),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -1521,6 +1850,7 @@ pub mod condition {
                 Self::Cancelled => std::option::Option::Some("CANCELLED"),
                 Self::Cancelling => std::option::Option::Some("CANCELLING"),
                 Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::DelayedStartPending => std::option::Option::Some("DELAYED_START_PENDING"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1548,6 +1878,7 @@ pub mod condition {
                 3 => Self::Cancelled,
                 4 => Self::Cancelling,
                 5 => Self::Deleted,
+                6 => Self::DelayedStartPending,
                 _ => Self::UnknownValue(execution_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -1565,6 +1896,7 @@ pub mod condition {
                 "CANCELLED" => Self::Cancelled,
                 "CANCELLING" => Self::Cancelling,
                 "DELETED" => Self::Deleted,
+                "DELAYED_START_PENDING" => Self::DelayedStartPending,
                 _ => Self::UnknownValue(execution_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -1584,6 +1916,7 @@ pub mod condition {
                 Self::Cancelled => serializer.serialize_i32(3),
                 Self::Cancelling => serializer.serialize_i32(4),
                 Self::Deleted => serializer.serialize_i32(5),
+                Self::DelayedStartPending => serializer.serialize_i32(6),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1634,6 +1967,12 @@ impl GetExecutionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetExecutionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::GetExecutionRequest;
+    /// let x = GetExecutionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -1675,24 +2014,48 @@ impl ListExecutionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListExecutionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListExecutionsRequest;
+    /// let x = ListExecutionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListExecutionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListExecutionsRequest;
+    /// let x = ListExecutionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListExecutionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListExecutionsRequest;
+    /// let x = ListExecutionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListExecutionsRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListExecutionsRequest;
+    /// let x = ListExecutionsRequest::new().set_show_deleted(true);
+    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -1725,6 +2088,17 @@ impl ListExecutionsResponse {
     }
 
     /// Sets the value of [executions][crate::model::ListExecutionsResponse::executions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListExecutionsResponse;
+    /// use google_cloud_run_v2::model::Execution;
+    /// let x = ListExecutionsResponse::new()
+    ///     .set_executions([
+    ///         Execution::default()/* use setters */,
+    ///         Execution::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_executions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -1736,6 +2110,12 @@ impl ListExecutionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListExecutionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListExecutionsResponse;
+    /// let x = ListExecutionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -1789,18 +2169,36 @@ impl DeleteExecutionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteExecutionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteExecutionRequest;
+    /// let x = DeleteExecutionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteExecutionRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteExecutionRequest;
+    /// let x = DeleteExecutionRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteExecutionRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteExecutionRequest;
+    /// let x = DeleteExecutionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -1840,18 +2238,36 @@ impl CancelExecutionRequest {
     }
 
     /// Sets the value of [name][crate::model::CancelExecutionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CancelExecutionRequest;
+    /// let x = CancelExecutionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CancelExecutionRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CancelExecutionRequest;
+    /// let x = CancelExecutionRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::CancelExecutionRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CancelExecutionRequest;
+    /// let x = CancelExecutionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2004,30 +2420,63 @@ impl Execution {
     }
 
     /// Sets the value of [name][crate::model::Execution::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Execution::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [creator][crate::model::Execution::creator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_creator("example");
+    /// ```
     pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.creator = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::Execution::generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_generation(42);
+    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Execution::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2040,6 +2489,15 @@ impl Execution {
     }
 
     /// Sets the value of [annotations][crate::model::Execution::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2052,6 +2510,13 @@ impl Execution {
     }
 
     /// Sets the value of [create_time][crate::model::Execution::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2061,6 +2526,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Execution::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2070,6 +2543,13 @@ impl Execution {
     }
 
     /// Sets the value of [start_time][crate::model::Execution::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2079,6 +2559,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Execution::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2088,6 +2576,13 @@ impl Execution {
     }
 
     /// Sets the value of [completion_time][crate::model::Execution::completion_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_completion_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_completion_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2097,6 +2592,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [completion_time][crate::model::Execution::completion_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_or_clear_completion_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_completion_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_completion_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2106,6 +2609,13 @@ impl Execution {
     }
 
     /// Sets the value of [update_time][crate::model::Execution::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2115,6 +2625,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Execution::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2124,6 +2642,13 @@ impl Execution {
     }
 
     /// Sets the value of [delete_time][crate::model::Execution::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2133,6 +2658,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Execution::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2142,6 +2675,13 @@ impl Execution {
     }
 
     /// Sets the value of [expire_time][crate::model::Execution::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2151,6 +2691,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Execution::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use wkt::Timestamp;
+    /// let x = Execution::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2160,6 +2708,15 @@ impl Execution {
     }
 
     /// Sets the value of [launch_stage][crate::model::Execution::launch_stage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use api::model::LaunchStage;
+    /// let x0 = Execution::new().set_launch_stage(LaunchStage::Unimplemented);
+    /// let x1 = Execution::new().set_launch_stage(LaunchStage::Prelaunch);
+    /// let x2 = Execution::new().set_launch_stage(LaunchStage::EarlyAccess);
+    /// ```
     pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
         mut self,
         v: T,
@@ -2169,24 +2726,49 @@ impl Execution {
     }
 
     /// Sets the value of [job][crate::model::Execution::job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_job("example");
+    /// ```
     pub fn set_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job = v.into();
         self
     }
 
     /// Sets the value of [parallelism][crate::model::Execution::parallelism].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_parallelism(42);
+    /// ```
     pub fn set_parallelism<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.parallelism = v.into();
         self
     }
 
     /// Sets the value of [task_count][crate::model::Execution::task_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_task_count(42);
+    /// ```
     pub fn set_task_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.task_count = v.into();
         self
     }
 
     /// Sets the value of [template][crate::model::Execution::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use google_cloud_run_v2::model::TaskTemplate;
+    /// let x = Execution::new().set_template(TaskTemplate::default()/* use setters */);
+    /// ```
     pub fn set_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TaskTemplate>,
@@ -2196,6 +2778,14 @@ impl Execution {
     }
 
     /// Sets or clears the value of [template][crate::model::Execution::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use google_cloud_run_v2::model::TaskTemplate;
+    /// let x = Execution::new().set_or_clear_template(Some(TaskTemplate::default()/* use setters */));
+    /// let x = Execution::new().set_or_clear_template(None::<TaskTemplate>);
+    /// ```
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TaskTemplate>,
@@ -2205,12 +2795,29 @@ impl Execution {
     }
 
     /// Sets the value of [reconciling][crate::model::Execution::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_reconciling(true);
+    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [conditions][crate::model::Execution::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = Execution::new()
+    ///     .set_conditions([
+    ///         Condition::default()/* use setters */,
+    ///         Condition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2222,54 +2829,108 @@ impl Execution {
     }
 
     /// Sets the value of [observed_generation][crate::model::Execution::observed_generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_observed_generation(42);
+    /// ```
     pub fn set_observed_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.observed_generation = v.into();
         self
     }
 
     /// Sets the value of [running_count][crate::model::Execution::running_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_running_count(42);
+    /// ```
     pub fn set_running_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.running_count = v.into();
         self
     }
 
     /// Sets the value of [succeeded_count][crate::model::Execution::succeeded_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_succeeded_count(42);
+    /// ```
     pub fn set_succeeded_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.succeeded_count = v.into();
         self
     }
 
     /// Sets the value of [failed_count][crate::model::Execution::failed_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_failed_count(42);
+    /// ```
     pub fn set_failed_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.failed_count = v.into();
         self
     }
 
     /// Sets the value of [cancelled_count][crate::model::Execution::cancelled_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_cancelled_count(42);
+    /// ```
     pub fn set_cancelled_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.cancelled_count = v.into();
         self
     }
 
     /// Sets the value of [retried_count][crate::model::Execution::retried_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_retried_count(42);
+    /// ```
     pub fn set_retried_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retried_count = v.into();
         self
     }
 
     /// Sets the value of [log_uri][crate::model::Execution::log_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_log_uri("example");
+    /// ```
     pub fn set_log_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_uri = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Execution::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Execution::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Execution;
+    /// let x = Execution::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2327,6 +2988,15 @@ impl ExecutionTemplate {
     }
 
     /// Sets the value of [labels][crate::model::ExecutionTemplate::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionTemplate;
+    /// let x = ExecutionTemplate::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2339,6 +3009,15 @@ impl ExecutionTemplate {
     }
 
     /// Sets the value of [annotations][crate::model::ExecutionTemplate::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionTemplate;
+    /// let x = ExecutionTemplate::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -2351,18 +3030,37 @@ impl ExecutionTemplate {
     }
 
     /// Sets the value of [parallelism][crate::model::ExecutionTemplate::parallelism].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionTemplate;
+    /// let x = ExecutionTemplate::new().set_parallelism(42);
+    /// ```
     pub fn set_parallelism<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.parallelism = v.into();
         self
     }
 
     /// Sets the value of [task_count][crate::model::ExecutionTemplate::task_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionTemplate;
+    /// let x = ExecutionTemplate::new().set_task_count(42);
+    /// ```
     pub fn set_task_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.task_count = v.into();
         self
     }
 
     /// Sets the value of [template][crate::model::ExecutionTemplate::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionTemplate;
+    /// use google_cloud_run_v2::model::TaskTemplate;
+    /// let x = ExecutionTemplate::new().set_template(TaskTemplate::default()/* use setters */);
+    /// ```
     pub fn set_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TaskTemplate>,
@@ -2372,6 +3070,14 @@ impl ExecutionTemplate {
     }
 
     /// Sets or clears the value of [template][crate::model::ExecutionTemplate::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionTemplate;
+    /// use google_cloud_run_v2::model::TaskTemplate;
+    /// let x = ExecutionTemplate::new().set_or_clear_template(Some(TaskTemplate::default()/* use setters */));
+    /// let x = ExecutionTemplate::new().set_or_clear_template(None::<TaskTemplate>);
+    /// ```
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TaskTemplate>,
@@ -2412,6 +3118,14 @@ impl InstanceSplit {
     }
 
     /// Sets the value of [r#type][crate::model::InstanceSplit::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::InstanceSplit;
+    /// use google_cloud_run_v2::model::InstanceSplitAllocationType;
+    /// let x0 = InstanceSplit::new().set_type(InstanceSplitAllocationType::Latest);
+    /// let x1 = InstanceSplit::new().set_type(InstanceSplitAllocationType::Revision);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::InstanceSplitAllocationType>>(
         mut self,
         v: T,
@@ -2421,12 +3135,24 @@ impl InstanceSplit {
     }
 
     /// Sets the value of [revision][crate::model::InstanceSplit::revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::InstanceSplit;
+    /// let x = InstanceSplit::new().set_revision("example");
+    /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
     }
 
     /// Sets the value of [percent][crate::model::InstanceSplit::percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::InstanceSplit;
+    /// let x = InstanceSplit::new().set_percent(42);
+    /// ```
     pub fn set_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.percent = v.into();
         self
@@ -2461,6 +3187,14 @@ impl InstanceSplitStatus {
     }
 
     /// Sets the value of [r#type][crate::model::InstanceSplitStatus::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::InstanceSplitStatus;
+    /// use google_cloud_run_v2::model::InstanceSplitAllocationType;
+    /// let x0 = InstanceSplitStatus::new().set_type(InstanceSplitAllocationType::Latest);
+    /// let x1 = InstanceSplitStatus::new().set_type(InstanceSplitAllocationType::Revision);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::InstanceSplitAllocationType>>(
         mut self,
         v: T,
@@ -2470,12 +3204,24 @@ impl InstanceSplitStatus {
     }
 
     /// Sets the value of [revision][crate::model::InstanceSplitStatus::revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::InstanceSplitStatus;
+    /// let x = InstanceSplitStatus::new().set_revision("example");
+    /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
     }
 
     /// Sets the value of [percent][crate::model::InstanceSplitStatus::percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::InstanceSplitStatus;
+    /// let x = InstanceSplitStatus::new().set_percent(42);
+    /// ```
     pub fn set_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.percent = v.into();
         self
@@ -2517,12 +3263,25 @@ impl CreateJobRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateJobRequest;
+    /// let x = CreateJobRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [job][crate::model::CreateJobRequest::job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateJobRequest;
+    /// use google_cloud_run_v2::model::Job;
+    /// let x = CreateJobRequest::new().set_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -2532,6 +3291,14 @@ impl CreateJobRequest {
     }
 
     /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateJobRequest;
+    /// use google_cloud_run_v2::model::Job;
+    /// let x = CreateJobRequest::new().set_or_clear_job(Some(Job::default()/* use setters */));
+    /// let x = CreateJobRequest::new().set_or_clear_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -2541,12 +3308,24 @@ impl CreateJobRequest {
     }
 
     /// Sets the value of [job_id][crate::model::CreateJobRequest::job_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateJobRequest;
+    /// let x = CreateJobRequest::new().set_job_id("example");
+    /// ```
     pub fn set_job_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateJobRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateJobRequest;
+    /// let x = CreateJobRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -2577,6 +3356,12 @@ impl GetJobRequest {
     }
 
     /// Sets the value of [name][crate::model::GetJobRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::GetJobRequest;
+    /// let x = GetJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -2614,6 +3399,13 @@ impl UpdateJobRequest {
     }
 
     /// Sets the value of [job][crate::model::UpdateJobRequest::job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateJobRequest;
+    /// use google_cloud_run_v2::model::Job;
+    /// let x = UpdateJobRequest::new().set_job(Job::default()/* use setters */);
+    /// ```
     pub fn set_job<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -2623,6 +3415,14 @@ impl UpdateJobRequest {
     }
 
     /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateJobRequest;
+    /// use google_cloud_run_v2::model::Job;
+    /// let x = UpdateJobRequest::new().set_or_clear_job(Some(Job::default()/* use setters */));
+    /// let x = UpdateJobRequest::new().set_or_clear_job(None::<Job>);
+    /// ```
     pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Job>,
@@ -2632,12 +3432,24 @@ impl UpdateJobRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateJobRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateJobRequest;
+    /// let x = UpdateJobRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateJobRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateJobRequest;
+    /// let x = UpdateJobRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -2678,24 +3490,48 @@ impl ListJobsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListJobsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListJobsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListJobsRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListJobsRequest;
+    /// let x = ListJobsRequest::new().set_show_deleted(true);
+    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -2728,6 +3564,17 @@ impl ListJobsResponse {
     }
 
     /// Sets the value of [jobs][crate::model::ListJobsResponse::jobs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListJobsResponse;
+    /// use google_cloud_run_v2::model::Job;
+    /// let x = ListJobsResponse::new()
+    ///     .set_jobs([
+    ///         Job::default()/* use setters */,
+    ///         Job::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_jobs<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2739,6 +3586,12 @@ impl ListJobsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListJobsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListJobsResponse;
+    /// let x = ListJobsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2791,18 +3644,36 @@ impl DeleteJobRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteJobRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteJobRequest;
+    /// let x = DeleteJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteJobRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteJobRequest;
+    /// let x = DeleteJobRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteJobRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteJobRequest;
+    /// let x = DeleteJobRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -2845,24 +3716,49 @@ impl RunJobRequest {
     }
 
     /// Sets the value of [name][crate::model::RunJobRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RunJobRequest;
+    /// let x = RunJobRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::RunJobRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RunJobRequest;
+    /// let x = RunJobRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::RunJobRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RunJobRequest;
+    /// let x = RunJobRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
     }
 
     /// Sets the value of [overrides][crate::model::RunJobRequest::overrides].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RunJobRequest;
+    /// use google_cloud_run_v2::model::run_job_request::Overrides;
+    /// let x = RunJobRequest::new().set_overrides(Overrides::default()/* use setters */);
+    /// ```
     pub fn set_overrides<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::run_job_request::Overrides>,
@@ -2872,6 +3768,14 @@ impl RunJobRequest {
     }
 
     /// Sets or clears the value of [overrides][crate::model::RunJobRequest::overrides].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RunJobRequest;
+    /// use google_cloud_run_v2::model::run_job_request::Overrides;
+    /// let x = RunJobRequest::new().set_or_clear_overrides(Some(Overrides::default()/* use setters */));
+    /// let x = RunJobRequest::new().set_or_clear_overrides(None::<Overrides>);
+    /// ```
     pub fn set_or_clear_overrides<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::run_job_request::Overrides>,
@@ -2918,6 +3822,17 @@ pub mod run_job_request {
         }
 
         /// Sets the value of [container_overrides][crate::model::run_job_request::Overrides::container_overrides].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::run_job_request::Overrides;
+        /// use google_cloud_run_v2::model::run_job_request::overrides::ContainerOverride;
+        /// let x = Overrides::new()
+        ///     .set_container_overrides([
+        ///         ContainerOverride::default()/* use setters */,
+        ///         ContainerOverride::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
         pub fn set_container_overrides<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -2929,12 +3844,25 @@ pub mod run_job_request {
         }
 
         /// Sets the value of [task_count][crate::model::run_job_request::Overrides::task_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::run_job_request::Overrides;
+        /// let x = Overrides::new().set_task_count(42);
+        /// ```
         pub fn set_task_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.task_count = v.into();
             self
         }
 
         /// Sets the value of [timeout][crate::model::run_job_request::Overrides::timeout].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::run_job_request::Overrides;
+        /// use wkt::Duration;
+        /// let x = Overrides::new().set_timeout(Duration::default()/* use setters */);
+        /// ```
         pub fn set_timeout<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2944,6 +3872,14 @@ pub mod run_job_request {
         }
 
         /// Sets or clears the value of [timeout][crate::model::run_job_request::Overrides::timeout].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::run_job_request::Overrides;
+        /// use wkt::Duration;
+        /// let x = Overrides::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+        /// let x = Overrides::new().set_or_clear_timeout(None::<Duration>);
+        /// ```
         pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Duration>,
@@ -2991,12 +3927,24 @@ pub mod run_job_request {
             }
 
             /// Sets the value of [name][crate::model::run_job_request::overrides::ContainerOverride::name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_run_v2::model::run_job_request::overrides::ContainerOverride;
+            /// let x = ContainerOverride::new().set_name("example");
+            /// ```
             pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
                 self.name = v.into();
                 self
             }
 
             /// Sets the value of [args][crate::model::run_job_request::overrides::ContainerOverride::args].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_run_v2::model::run_job_request::overrides::ContainerOverride;
+            /// let x = ContainerOverride::new().set_args(["a", "b", "c"]);
+            /// ```
             pub fn set_args<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -3008,6 +3956,17 @@ pub mod run_job_request {
             }
 
             /// Sets the value of [env][crate::model::run_job_request::overrides::ContainerOverride::env].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_run_v2::model::run_job_request::overrides::ContainerOverride;
+            /// use google_cloud_run_v2::model::EnvVar;
+            /// let x = ContainerOverride::new()
+            ///     .set_env([
+            ///         EnvVar::default()/* use setters */,
+            ///         EnvVar::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
             pub fn set_env<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -3019,6 +3978,12 @@ pub mod run_job_request {
             }
 
             /// Sets the value of [clear_args][crate::model::run_job_request::overrides::ContainerOverride::clear_args].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_run_v2::model::run_job_request::overrides::ContainerOverride;
+            /// let x = ContainerOverride::new().set_clear_args(true);
+            /// ```
             pub fn set_clear_args<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
                 self.clear_args = v.into();
                 self
@@ -3158,7 +4123,7 @@ pub struct Job {
     /// Output only. Reserved for future use.
     pub satisfies_pzs: bool,
 
-    /// Output only. A system-generated fingerprint for this version of the
+    /// Optional. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
     pub etag: std::string::String,
 
@@ -3173,24 +4138,51 @@ impl Job {
     }
 
     /// Sets the value of [name][crate::model::Job::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Job::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::Job::generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_generation(42);
+    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Job::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3203,6 +4195,15 @@ impl Job {
     }
 
     /// Sets the value of [annotations][crate::model::Job::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -3215,6 +4216,13 @@ impl Job {
     }
 
     /// Sets the value of [create_time][crate::model::Job::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3224,6 +4232,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Job::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3233,6 +4249,13 @@ impl Job {
     }
 
     /// Sets the value of [update_time][crate::model::Job::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3242,6 +4265,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Job::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3251,6 +4282,13 @@ impl Job {
     }
 
     /// Sets the value of [delete_time][crate::model::Job::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3260,6 +4298,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Job::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3269,6 +4315,13 @@ impl Job {
     }
 
     /// Sets the value of [expire_time][crate::model::Job::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3278,6 +4331,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Job::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use wkt::Timestamp;
+    /// let x = Job::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3287,30 +4348,63 @@ impl Job {
     }
 
     /// Sets the value of [creator][crate::model::Job::creator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_creator("example");
+    /// ```
     pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.creator = v.into();
         self
     }
 
     /// Sets the value of [last_modifier][crate::model::Job::last_modifier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_last_modifier("example");
+    /// ```
     pub fn set_last_modifier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_modifier = v.into();
         self
     }
 
     /// Sets the value of [client][crate::model::Job::client].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_client("example");
+    /// ```
     pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client = v.into();
         self
     }
 
     /// Sets the value of [client_version][crate::model::Job::client_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_client_version("example");
+    /// ```
     pub fn set_client_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_version = v.into();
         self
     }
 
     /// Sets the value of [launch_stage][crate::model::Job::launch_stage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use api::model::LaunchStage;
+    /// let x0 = Job::new().set_launch_stage(LaunchStage::Unimplemented);
+    /// let x1 = Job::new().set_launch_stage(LaunchStage::Prelaunch);
+    /// let x2 = Job::new().set_launch_stage(LaunchStage::EarlyAccess);
+    /// ```
     pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
         mut self,
         v: T,
@@ -3320,6 +4414,13 @@ impl Job {
     }
 
     /// Sets the value of [binary_authorization][crate::model::Job::binary_authorization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::model::BinaryAuthorization;
+    /// let x = Job::new().set_binary_authorization(BinaryAuthorization::default()/* use setters */);
+    /// ```
     pub fn set_binary_authorization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BinaryAuthorization>,
@@ -3329,6 +4430,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [binary_authorization][crate::model::Job::binary_authorization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::model::BinaryAuthorization;
+    /// let x = Job::new().set_or_clear_binary_authorization(Some(BinaryAuthorization::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_binary_authorization(None::<BinaryAuthorization>);
+    /// ```
     pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BinaryAuthorization>,
@@ -3338,6 +4447,13 @@ impl Job {
     }
 
     /// Sets the value of [template][crate::model::Job::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::model::ExecutionTemplate;
+    /// let x = Job::new().set_template(ExecutionTemplate::default()/* use setters */);
+    /// ```
     pub fn set_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExecutionTemplate>,
@@ -3347,6 +4463,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [template][crate::model::Job::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::model::ExecutionTemplate;
+    /// let x = Job::new().set_or_clear_template(Some(ExecutionTemplate::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_template(None::<ExecutionTemplate>);
+    /// ```
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecutionTemplate>,
@@ -3356,12 +4480,25 @@ impl Job {
     }
 
     /// Sets the value of [observed_generation][crate::model::Job::observed_generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_observed_generation(42);
+    /// ```
     pub fn set_observed_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.observed_generation = v.into();
         self
     }
 
     /// Sets the value of [terminal_condition][crate::model::Job::terminal_condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = Job::new().set_terminal_condition(Condition::default()/* use setters */);
+    /// ```
     pub fn set_terminal_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Condition>,
@@ -3371,6 +4508,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [terminal_condition][crate::model::Job::terminal_condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = Job::new().set_or_clear_terminal_condition(Some(Condition::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_terminal_condition(None::<Condition>);
+    /// ```
     pub fn set_or_clear_terminal_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Condition>,
@@ -3380,6 +4525,17 @@ impl Job {
     }
 
     /// Sets the value of [conditions][crate::model::Job::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = Job::new()
+    ///     .set_conditions([
+    ///         Condition::default()/* use setters */,
+    ///         Condition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3391,12 +4547,25 @@ impl Job {
     }
 
     /// Sets the value of [execution_count][crate::model::Job::execution_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_execution_count(42);
+    /// ```
     pub fn set_execution_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.execution_count = v.into();
         self
     }
 
     /// Sets the value of [latest_created_execution][crate::model::Job::latest_created_execution].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::model::ExecutionReference;
+    /// let x = Job::new().set_latest_created_execution(ExecutionReference::default()/* use setters */);
+    /// ```
     pub fn set_latest_created_execution<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ExecutionReference>,
@@ -3406,6 +4575,14 @@ impl Job {
     }
 
     /// Sets or clears the value of [latest_created_execution][crate::model::Job::latest_created_execution].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::model::ExecutionReference;
+    /// let x = Job::new().set_or_clear_latest_created_execution(Some(ExecutionReference::default()/* use setters */));
+    /// let x = Job::new().set_or_clear_latest_created_execution(None::<ExecutionReference>);
+    /// ```
     pub fn set_or_clear_latest_created_execution<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ExecutionReference>,
@@ -3415,18 +4592,36 @@ impl Job {
     }
 
     /// Sets the value of [reconciling][crate::model::Job::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_reconciling(true);
+    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Job::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Job::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -3436,6 +4631,13 @@ impl Job {
     ///
     /// Note that all the setters affecting `create_execution` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::model::job::CreateExecution;
+    /// let x = Job::new().set_create_execution(Some(CreateExecution::StartExecutionToken("example".to_string())));
+    /// ```
     pub fn set_create_execution<
         T: std::convert::Into<std::option::Option<crate::model::job::CreateExecution>>,
     >(
@@ -3464,6 +4666,14 @@ impl Job {
     ///
     /// Note that all the setters affecting `create_execution` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_start_execution_token("example");
+    /// assert!(x.start_execution_token().is_some());
+    /// assert!(x.run_execution_token().is_none());
+    /// ```
     pub fn set_start_execution_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3492,6 +4702,14 @@ impl Job {
     ///
     /// Note that all the setters affecting `create_execution` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Job;
+    /// let x = Job::new().set_run_execution_token("example");
+    /// assert!(x.run_execution_token().is_some());
+    /// assert!(x.start_execution_token().is_none());
+    /// ```
     pub fn set_run_execution_token<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -3558,12 +4776,25 @@ impl ExecutionReference {
     }
 
     /// Sets the value of [name][crate::model::ExecutionReference::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionReference;
+    /// let x = ExecutionReference::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ExecutionReference::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionReference;
+    /// use wkt::Timestamp;
+    /// let x = ExecutionReference::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3573,6 +4804,14 @@ impl ExecutionReference {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ExecutionReference::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionReference;
+    /// use wkt::Timestamp;
+    /// let x = ExecutionReference::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExecutionReference::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3582,6 +4821,13 @@ impl ExecutionReference {
     }
 
     /// Sets the value of [completion_time][crate::model::ExecutionReference::completion_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionReference;
+    /// use wkt::Timestamp;
+    /// let x = ExecutionReference::new().set_completion_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_completion_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3591,6 +4837,14 @@ impl ExecutionReference {
     }
 
     /// Sets or clears the value of [completion_time][crate::model::ExecutionReference::completion_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionReference;
+    /// use wkt::Timestamp;
+    /// let x = ExecutionReference::new().set_or_clear_completion_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExecutionReference::new().set_or_clear_completion_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_completion_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3600,6 +4854,13 @@ impl ExecutionReference {
     }
 
     /// Sets the value of [delete_time][crate::model::ExecutionReference::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionReference;
+    /// use wkt::Timestamp;
+    /// let x = ExecutionReference::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3609,6 +4870,14 @@ impl ExecutionReference {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::ExecutionReference::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionReference;
+    /// use wkt::Timestamp;
+    /// let x = ExecutionReference::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ExecutionReference::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3618,6 +4887,15 @@ impl ExecutionReference {
     }
 
     /// Sets the value of [completion_status][crate::model::ExecutionReference::completion_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ExecutionReference;
+    /// use google_cloud_run_v2::model::execution_reference::CompletionStatus;
+    /// let x0 = ExecutionReference::new().set_completion_status(CompletionStatus::ExecutionSucceeded);
+    /// let x1 = ExecutionReference::new().set_completion_status(CompletionStatus::ExecutionFailed);
+    /// let x2 = ExecutionReference::new().set_completion_status(CompletionStatus::ExecutionRunning);
+    /// ```
     pub fn set_completion_status<
         T: std::convert::Into<crate::model::execution_reference::CompletionStatus>,
     >(
@@ -3810,6 +5088,9 @@ pub struct Container {
     /// Dockerhub is assumed.
     pub image: std::string::String,
 
+    /// Optional. Location of the source.
+    pub source_code: std::option::Option<crate::model::SourceCode>,
+
     /// Entrypoint array. Not executed within a shell.
     /// The docker image's ENTRYPOINT is used if this is not provided.
     pub command: std::vec::Vec<std::string::String>,
@@ -3869,18 +5150,69 @@ impl Container {
     }
 
     /// Sets the value of [name][crate::model::Container::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// let x = Container::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [image][crate::model::Container::image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// let x = Container::new().set_image("example");
+    /// ```
     pub fn set_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image = v.into();
         self
     }
 
+    /// Sets the value of [source_code][crate::model::Container::source_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::SourceCode;
+    /// let x = Container::new().set_source_code(SourceCode::default()/* use setters */);
+    /// ```
+    pub fn set_source_code<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCode>,
+    {
+        self.source_code = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [source_code][crate::model::Container::source_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::SourceCode;
+    /// let x = Container::new().set_or_clear_source_code(Some(SourceCode::default()/* use setters */));
+    /// let x = Container::new().set_or_clear_source_code(None::<SourceCode>);
+    /// ```
+    pub fn set_or_clear_source_code<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SourceCode>,
+    {
+        self.source_code = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [command][crate::model::Container::command].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// let x = Container::new().set_command(["a", "b", "c"]);
+    /// ```
     pub fn set_command<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3892,6 +5224,12 @@ impl Container {
     }
 
     /// Sets the value of [args][crate::model::Container::args].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// let x = Container::new().set_args(["a", "b", "c"]);
+    /// ```
     pub fn set_args<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3903,6 +5241,17 @@ impl Container {
     }
 
     /// Sets the value of [env][crate::model::Container::env].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::EnvVar;
+    /// let x = Container::new()
+    ///     .set_env([
+    ///         EnvVar::default()/* use setters */,
+    ///         EnvVar::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_env<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3914,6 +5263,13 @@ impl Container {
     }
 
     /// Sets the value of [resources][crate::model::Container::resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::ResourceRequirements;
+    /// let x = Container::new().set_resources(ResourceRequirements::default()/* use setters */);
+    /// ```
     pub fn set_resources<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ResourceRequirements>,
@@ -3923,6 +5279,14 @@ impl Container {
     }
 
     /// Sets or clears the value of [resources][crate::model::Container::resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::ResourceRequirements;
+    /// let x = Container::new().set_or_clear_resources(Some(ResourceRequirements::default()/* use setters */));
+    /// let x = Container::new().set_or_clear_resources(None::<ResourceRequirements>);
+    /// ```
     pub fn set_or_clear_resources<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ResourceRequirements>,
@@ -3932,6 +5296,17 @@ impl Container {
     }
 
     /// Sets the value of [ports][crate::model::Container::ports].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::ContainerPort;
+    /// let x = Container::new()
+    ///     .set_ports([
+    ///         ContainerPort::default()/* use setters */,
+    ///         ContainerPort::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_ports<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3943,6 +5318,17 @@ impl Container {
     }
 
     /// Sets the value of [volume_mounts][crate::model::Container::volume_mounts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::VolumeMount;
+    /// let x = Container::new()
+    ///     .set_volume_mounts([
+    ///         VolumeMount::default()/* use setters */,
+    ///         VolumeMount::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_volume_mounts<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3954,12 +5340,25 @@ impl Container {
     }
 
     /// Sets the value of [working_dir][crate::model::Container::working_dir].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// let x = Container::new().set_working_dir("example");
+    /// ```
     pub fn set_working_dir<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.working_dir = v.into();
         self
     }
 
     /// Sets the value of [liveness_probe][crate::model::Container::liveness_probe].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::Probe;
+    /// let x = Container::new().set_liveness_probe(Probe::default()/* use setters */);
+    /// ```
     pub fn set_liveness_probe<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Probe>,
@@ -3969,6 +5368,14 @@ impl Container {
     }
 
     /// Sets or clears the value of [liveness_probe][crate::model::Container::liveness_probe].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::Probe;
+    /// let x = Container::new().set_or_clear_liveness_probe(Some(Probe::default()/* use setters */));
+    /// let x = Container::new().set_or_clear_liveness_probe(None::<Probe>);
+    /// ```
     pub fn set_or_clear_liveness_probe<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Probe>,
@@ -3978,6 +5385,13 @@ impl Container {
     }
 
     /// Sets the value of [startup_probe][crate::model::Container::startup_probe].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::Probe;
+    /// let x = Container::new().set_startup_probe(Probe::default()/* use setters */);
+    /// ```
     pub fn set_startup_probe<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Probe>,
@@ -3987,6 +5401,14 @@ impl Container {
     }
 
     /// Sets or clears the value of [startup_probe][crate::model::Container::startup_probe].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::Probe;
+    /// let x = Container::new().set_or_clear_startup_probe(Some(Probe::default()/* use setters */));
+    /// let x = Container::new().set_or_clear_startup_probe(None::<Probe>);
+    /// ```
     pub fn set_or_clear_startup_probe<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Probe>,
@@ -3996,6 +5418,12 @@ impl Container {
     }
 
     /// Sets the value of [depends_on][crate::model::Container::depends_on].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// let x = Container::new().set_depends_on(["a", "b", "c"]);
+    /// ```
     pub fn set_depends_on<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4007,12 +5435,25 @@ impl Container {
     }
 
     /// Sets the value of [base_image_uri][crate::model::Container::base_image_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// let x = Container::new().set_base_image_uri("example");
+    /// ```
     pub fn set_base_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_image_uri = v.into();
         self
     }
 
     /// Sets the value of [build_info][crate::model::Container::build_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::BuildInfo;
+    /// let x = Container::new().set_build_info(BuildInfo::default()/* use setters */);
+    /// ```
     pub fn set_build_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BuildInfo>,
@@ -4022,6 +5463,14 @@ impl Container {
     }
 
     /// Sets or clears the value of [build_info][crate::model::Container::build_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::BuildInfo;
+    /// let x = Container::new().set_or_clear_build_info(Some(BuildInfo::default()/* use setters */));
+    /// let x = Container::new().set_or_clear_build_info(None::<BuildInfo>);
+    /// ```
     pub fn set_or_clear_build_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BuildInfo>,
@@ -4041,7 +5490,7 @@ impl wkt::message::Message for Container {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ResourceRequirements {
-    /// Only `memory` and `cpu` keys in the map are supported.
+    /// Only `memory`, `cpu` and `nvidia.com/gpu` keys in the map are supported.
     pub limits: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Determines whether CPU is only allocated during requests (true by default).
@@ -4063,6 +5512,15 @@ impl ResourceRequirements {
     }
 
     /// Sets the value of [limits][crate::model::ResourceRequirements::limits].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ResourceRequirements;
+    /// let x = ResourceRequirements::new().set_limits([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_limits<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -4075,12 +5533,24 @@ impl ResourceRequirements {
     }
 
     /// Sets the value of [cpu_idle][crate::model::ResourceRequirements::cpu_idle].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ResourceRequirements;
+    /// let x = ResourceRequirements::new().set_cpu_idle(true);
+    /// ```
     pub fn set_cpu_idle<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.cpu_idle = v.into();
         self
     }
 
     /// Sets the value of [startup_cpu_boost][crate::model::ResourceRequirements::startup_cpu_boost].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ResourceRequirements;
+    /// let x = ResourceRequirements::new().set_startup_cpu_boost(true);
+    /// ```
     pub fn set_startup_cpu_boost<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.startup_cpu_boost = v.into();
         self
@@ -4112,6 +5582,12 @@ impl EnvVar {
     }
 
     /// Sets the value of [name][crate::model::EnvVar::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::EnvVar;
+    /// let x = EnvVar::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4121,6 +5597,13 @@ impl EnvVar {
     ///
     /// Note that all the setters affecting `values` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::EnvVar;
+    /// use google_cloud_run_v2::model::env_var::Values;
+    /// let x = EnvVar::new().set_values(Some(Values::Value("example".to_string())));
+    /// ```
     pub fn set_values<T: std::convert::Into<std::option::Option<crate::model::env_var::Values>>>(
         mut self,
         v: T,
@@ -4145,6 +5628,14 @@ impl EnvVar {
     ///
     /// Note that all the setters affecting `values` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::EnvVar;
+    /// let x = EnvVar::new().set_value("example");
+    /// assert!(x.value().is_some());
+    /// assert!(x.value_source().is_none());
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.values = std::option::Option::Some(crate::model::env_var::Values::Value(v.into()));
         self
@@ -4168,6 +5659,15 @@ impl EnvVar {
     ///
     /// Note that all the setters affecting `values` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::EnvVar;
+    /// use google_cloud_run_v2::model::EnvVarSource;
+    /// let x = EnvVar::new().set_value_source(EnvVarSource::default()/* use setters */);
+    /// assert!(x.value_source().is_some());
+    /// assert!(x.value().is_none());
+    /// ```
     pub fn set_value_source<T: std::convert::Into<std::boxed::Box<crate::model::EnvVarSource>>>(
         mut self,
         v: T,
@@ -4217,6 +5717,13 @@ impl EnvVarSource {
     }
 
     /// Sets the value of [secret_key_ref][crate::model::EnvVarSource::secret_key_ref].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::EnvVarSource;
+    /// use google_cloud_run_v2::model::SecretKeySelector;
+    /// let x = EnvVarSource::new().set_secret_key_ref(SecretKeySelector::default()/* use setters */);
+    /// ```
     pub fn set_secret_key_ref<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::SecretKeySelector>,
@@ -4226,6 +5733,14 @@ impl EnvVarSource {
     }
 
     /// Sets or clears the value of [secret_key_ref][crate::model::EnvVarSource::secret_key_ref].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::EnvVarSource;
+    /// use google_cloud_run_v2::model::SecretKeySelector;
+    /// let x = EnvVarSource::new().set_or_clear_secret_key_ref(Some(SecretKeySelector::default()/* use setters */));
+    /// let x = EnvVarSource::new().set_or_clear_secret_key_ref(None::<SecretKeySelector>);
+    /// ```
     pub fn set_or_clear_secret_key_ref<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::SecretKeySelector>,
@@ -4265,12 +5780,24 @@ impl SecretKeySelector {
     }
 
     /// Sets the value of [secret][crate::model::SecretKeySelector::secret].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SecretKeySelector;
+    /// let x = SecretKeySelector::new().set_secret("example");
+    /// ```
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::SecretKeySelector::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SecretKeySelector;
+    /// let x = SecretKeySelector::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
@@ -4304,12 +5831,24 @@ impl ContainerPort {
     }
 
     /// Sets the value of [name][crate::model::ContainerPort::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ContainerPort;
+    /// let x = ContainerPort::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [container_port][crate::model::ContainerPort::container_port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ContainerPort;
+    /// let x = ContainerPort::new().set_container_port(42);
+    /// ```
     pub fn set_container_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.container_port = v.into();
         self
@@ -4336,6 +5875,10 @@ pub struct VolumeMount {
     /// volumes, visit <https://cloud.google.com/sql/docs/mysql/connect-run>
     pub mount_path: std::string::String,
 
+    /// Optional. Path within the volume from which the container's volume should
+    /// be mounted. Defaults to "" (volume's root).
+    pub sub_path: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4345,14 +5888,38 @@ impl VolumeMount {
     }
 
     /// Sets the value of [name][crate::model::VolumeMount::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::VolumeMount;
+    /// let x = VolumeMount::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [mount_path][crate::model::VolumeMount::mount_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::VolumeMount;
+    /// let x = VolumeMount::new().set_mount_path("example");
+    /// ```
     pub fn set_mount_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mount_path = v.into();
+        self
+    }
+
+    /// Sets the value of [sub_path][crate::model::VolumeMount::sub_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::VolumeMount;
+    /// let x = VolumeMount::new().set_sub_path("example");
+    /// ```
+    pub fn set_sub_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.sub_path = v.into();
         self
     }
 }
@@ -4381,6 +5948,12 @@ impl Volume {
     }
 
     /// Sets the value of [name][crate::model::Volume::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Volume;
+    /// let x = Volume::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4390,6 +5963,14 @@ impl Volume {
     ///
     /// Note that all the setters affecting `volume_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Volume;
+    /// use google_cloud_run_v2::model::SecretVolumeSource;
+    /// let x = Volume::new().set_volume_type(Some(
+    ///     google_cloud_run_v2::model::volume::VolumeType::Secret(SecretVolumeSource::default().into())));
+    /// ```
     pub fn set_volume_type<
         T: std::convert::Into<std::option::Option<crate::model::volume::VolumeType>>,
     >(
@@ -4418,6 +5999,18 @@ impl Volume {
     ///
     /// Note that all the setters affecting `volume_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Volume;
+    /// use google_cloud_run_v2::model::SecretVolumeSource;
+    /// let x = Volume::new().set_secret(SecretVolumeSource::default()/* use setters */);
+    /// assert!(x.secret().is_some());
+    /// assert!(x.cloud_sql_instance().is_none());
+    /// assert!(x.empty_dir().is_none());
+    /// assert!(x.nfs().is_none());
+    /// assert!(x.gcs().is_none());
+    /// ```
     pub fn set_secret<T: std::convert::Into<std::boxed::Box<crate::model::SecretVolumeSource>>>(
         mut self,
         v: T,
@@ -4445,6 +6038,18 @@ impl Volume {
     ///
     /// Note that all the setters affecting `volume_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Volume;
+    /// use google_cloud_run_v2::model::CloudSqlInstance;
+    /// let x = Volume::new().set_cloud_sql_instance(CloudSqlInstance::default()/* use setters */);
+    /// assert!(x.cloud_sql_instance().is_some());
+    /// assert!(x.secret().is_none());
+    /// assert!(x.empty_dir().is_none());
+    /// assert!(x.nfs().is_none());
+    /// assert!(x.gcs().is_none());
+    /// ```
     pub fn set_cloud_sql_instance<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSqlInstance>>,
     >(
@@ -4474,6 +6079,18 @@ impl Volume {
     ///
     /// Note that all the setters affecting `volume_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Volume;
+    /// use google_cloud_run_v2::model::EmptyDirVolumeSource;
+    /// let x = Volume::new().set_empty_dir(EmptyDirVolumeSource::default()/* use setters */);
+    /// assert!(x.empty_dir().is_some());
+    /// assert!(x.secret().is_none());
+    /// assert!(x.cloud_sql_instance().is_none());
+    /// assert!(x.nfs().is_none());
+    /// assert!(x.gcs().is_none());
+    /// ```
     pub fn set_empty_dir<
         T: std::convert::Into<std::boxed::Box<crate::model::EmptyDirVolumeSource>>,
     >(
@@ -4501,6 +6118,18 @@ impl Volume {
     ///
     /// Note that all the setters affecting `volume_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Volume;
+    /// use google_cloud_run_v2::model::NFSVolumeSource;
+    /// let x = Volume::new().set_nfs(NFSVolumeSource::default()/* use setters */);
+    /// assert!(x.nfs().is_some());
+    /// assert!(x.secret().is_none());
+    /// assert!(x.cloud_sql_instance().is_none());
+    /// assert!(x.empty_dir().is_none());
+    /// assert!(x.gcs().is_none());
+    /// ```
     pub fn set_nfs<T: std::convert::Into<std::boxed::Box<crate::model::NFSVolumeSource>>>(
         mut self,
         v: T,
@@ -4526,6 +6155,18 @@ impl Volume {
     ///
     /// Note that all the setters affecting `volume_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Volume;
+    /// use google_cloud_run_v2::model::GCSVolumeSource;
+    /// let x = Volume::new().set_gcs(GCSVolumeSource::default()/* use setters */);
+    /// assert!(x.gcs().is_some());
+    /// assert!(x.secret().is_none());
+    /// assert!(x.cloud_sql_instance().is_none());
+    /// assert!(x.empty_dir().is_none());
+    /// assert!(x.nfs().is_none());
+    /// ```
     pub fn set_gcs<T: std::convert::Into<std::boxed::Box<crate::model::GCSVolumeSource>>>(
         mut self,
         v: T,
@@ -4578,7 +6219,7 @@ pub struct SecretVolumeSource {
     pub secret: std::string::String,
 
     /// If unspecified, the volume will expose a file whose name is the
-    /// secret, relative to VolumeMount.mount_path.
+    /// secret, relative to VolumeMount.mount_path + VolumeMount.sub_path.
     /// If specified, the key will be used as the version to fetch from Cloud
     /// Secret Manager and the path will be the name of the file exposed in the
     /// volume. When items are defined, they must specify a path and a version.
@@ -4612,12 +6253,29 @@ impl SecretVolumeSource {
     }
 
     /// Sets the value of [secret][crate::model::SecretVolumeSource::secret].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SecretVolumeSource;
+    /// let x = SecretVolumeSource::new().set_secret("example");
+    /// ```
     pub fn set_secret<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.secret = v.into();
         self
     }
 
     /// Sets the value of [items][crate::model::SecretVolumeSource::items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SecretVolumeSource;
+    /// use google_cloud_run_v2::model::VersionToPath;
+    /// let x = SecretVolumeSource::new()
+    ///     .set_items([
+    ///         VersionToPath::default()/* use setters */,
+    ///         VersionToPath::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_items<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4629,6 +6287,12 @@ impl SecretVolumeSource {
     }
 
     /// Sets the value of [default_mode][crate::model::SecretVolumeSource::default_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SecretVolumeSource;
+    /// let x = SecretVolumeSource::new().set_default_mode(42);
+    /// ```
     pub fn set_default_mode<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.default_mode = v.into();
         self
@@ -4679,18 +6343,36 @@ impl VersionToPath {
     }
 
     /// Sets the value of [path][crate::model::VersionToPath::path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::VersionToPath;
+    /// let x = VersionToPath::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [version][crate::model::VersionToPath::version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::VersionToPath;
+    /// let x = VersionToPath::new().set_version("example");
+    /// ```
     pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.version = v.into();
         self
     }
 
     /// Sets the value of [mode][crate::model::VersionToPath::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::VersionToPath;
+    /// let x = VersionToPath::new().set_mode(42);
+    /// ```
     pub fn set_mode<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.mode = v.into();
         self
@@ -4726,6 +6408,12 @@ impl CloudSqlInstance {
     }
 
     /// Sets the value of [instances][crate::model::CloudSqlInstance::instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CloudSqlInstance;
+    /// let x = CloudSqlInstance::new().set_instances(["a", "b", "c"]);
+    /// ```
     pub fn set_instances<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -4774,6 +6462,13 @@ impl EmptyDirVolumeSource {
     }
 
     /// Sets the value of [medium][crate::model::EmptyDirVolumeSource::medium].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::EmptyDirVolumeSource;
+    /// use google_cloud_run_v2::model::empty_dir_volume_source::Medium;
+    /// let x0 = EmptyDirVolumeSource::new().set_medium(Medium::Memory);
+    /// ```
     pub fn set_medium<T: std::convert::Into<crate::model::empty_dir_volume_source::Medium>>(
         mut self,
         v: T,
@@ -4783,6 +6478,12 @@ impl EmptyDirVolumeSource {
     }
 
     /// Sets the value of [size_limit][crate::model::EmptyDirVolumeSource::size_limit].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::EmptyDirVolumeSource;
+    /// let x = EmptyDirVolumeSource::new().set_size_limit("example");
+    /// ```
     pub fn set_size_limit<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.size_limit = v.into();
         self
@@ -4949,18 +6650,36 @@ impl NFSVolumeSource {
     }
 
     /// Sets the value of [server][crate::model::NFSVolumeSource::server].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::NFSVolumeSource;
+    /// let x = NFSVolumeSource::new().set_server("example");
+    /// ```
     pub fn set_server<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.server = v.into();
         self
     }
 
     /// Sets the value of [path][crate::model::NFSVolumeSource::path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::NFSVolumeSource;
+    /// let x = NFSVolumeSource::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [read_only][crate::model::NFSVolumeSource::read_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::NFSVolumeSource;
+    /// let x = NFSVolumeSource::new().set_read_only(true);
+    /// ```
     pub fn set_read_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.read_only = v.into();
         self
@@ -4997,18 +6716,36 @@ impl GCSVolumeSource {
     }
 
     /// Sets the value of [bucket][crate::model::GCSVolumeSource::bucket].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::GCSVolumeSource;
+    /// let x = GCSVolumeSource::new().set_bucket("example");
+    /// ```
     pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.bucket = v.into();
         self
     }
 
     /// Sets the value of [read_only][crate::model::GCSVolumeSource::read_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::GCSVolumeSource;
+    /// let x = GCSVolumeSource::new().set_read_only(true);
+    /// ```
     pub fn set_read_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.read_only = v.into();
         self
     }
 
     /// Sets the value of [mount_options][crate::model::GCSVolumeSource::mount_options].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::GCSVolumeSource;
+    /// let x = GCSVolumeSource::new().set_mount_options(["a", "b", "c"]);
+    /// ```
     pub fn set_mount_options<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5062,24 +6799,48 @@ impl Probe {
     }
 
     /// Sets the value of [initial_delay_seconds][crate::model::Probe::initial_delay_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Probe;
+    /// let x = Probe::new().set_initial_delay_seconds(42);
+    /// ```
     pub fn set_initial_delay_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.initial_delay_seconds = v.into();
         self
     }
 
     /// Sets the value of [timeout_seconds][crate::model::Probe::timeout_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Probe;
+    /// let x = Probe::new().set_timeout_seconds(42);
+    /// ```
     pub fn set_timeout_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.timeout_seconds = v.into();
         self
     }
 
     /// Sets the value of [period_seconds][crate::model::Probe::period_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Probe;
+    /// let x = Probe::new().set_period_seconds(42);
+    /// ```
     pub fn set_period_seconds<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.period_seconds = v.into();
         self
     }
 
     /// Sets the value of [failure_threshold][crate::model::Probe::failure_threshold].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Probe;
+    /// let x = Probe::new().set_failure_threshold(42);
+    /// ```
     pub fn set_failure_threshold<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.failure_threshold = v.into();
         self
@@ -5089,6 +6850,14 @@ impl Probe {
     ///
     /// Note that all the setters affecting `probe_type` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Probe;
+    /// use google_cloud_run_v2::model::HTTPGetAction;
+    /// let x = Probe::new().set_probe_type(Some(
+    ///     google_cloud_run_v2::model::probe::ProbeType::HttpGet(HTTPGetAction::default().into())));
+    /// ```
     pub fn set_probe_type<
         T: std::convert::Into<std::option::Option<crate::model::probe::ProbeType>>,
     >(
@@ -5115,6 +6884,16 @@ impl Probe {
     ///
     /// Note that all the setters affecting `probe_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Probe;
+    /// use google_cloud_run_v2::model::HTTPGetAction;
+    /// let x = Probe::new().set_http_get(HTTPGetAction::default()/* use setters */);
+    /// assert!(x.http_get().is_some());
+    /// assert!(x.tcp_socket().is_none());
+    /// assert!(x.grpc().is_none());
+    /// ```
     pub fn set_http_get<T: std::convert::Into<std::boxed::Box<crate::model::HTTPGetAction>>>(
         mut self,
         v: T,
@@ -5142,6 +6921,16 @@ impl Probe {
     ///
     /// Note that all the setters affecting `probe_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Probe;
+    /// use google_cloud_run_v2::model::TCPSocketAction;
+    /// let x = Probe::new().set_tcp_socket(TCPSocketAction::default()/* use setters */);
+    /// assert!(x.tcp_socket().is_some());
+    /// assert!(x.http_get().is_none());
+    /// assert!(x.grpc().is_none());
+    /// ```
     pub fn set_tcp_socket<T: std::convert::Into<std::boxed::Box<crate::model::TCPSocketAction>>>(
         mut self,
         v: T,
@@ -5167,6 +6956,16 @@ impl Probe {
     ///
     /// Note that all the setters affecting `probe_type` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Probe;
+    /// use google_cloud_run_v2::model::GRPCAction;
+    /// let x = Probe::new().set_grpc(GRPCAction::default()/* use setters */);
+    /// assert!(x.grpc().is_some());
+    /// assert!(x.http_get().is_none());
+    /// assert!(x.tcp_socket().is_none());
+    /// ```
     pub fn set_grpc<T: std::convert::Into<std::boxed::Box<crate::model::GRPCAction>>>(
         mut self,
         v: T,
@@ -5227,12 +7026,29 @@ impl HTTPGetAction {
     }
 
     /// Sets the value of [path][crate::model::HTTPGetAction::path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::HTTPGetAction;
+    /// let x = HTTPGetAction::new().set_path("example");
+    /// ```
     pub fn set_path<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.path = v.into();
         self
     }
 
     /// Sets the value of [http_headers][crate::model::HTTPGetAction::http_headers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::HTTPGetAction;
+    /// use google_cloud_run_v2::model::HTTPHeader;
+    /// let x = HTTPGetAction::new()
+    ///     .set_http_headers([
+    ///         HTTPHeader::default()/* use setters */,
+    ///         HTTPHeader::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_http_headers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5244,6 +7060,12 @@ impl HTTPGetAction {
     }
 
     /// Sets the value of [port][crate::model::HTTPGetAction::port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::HTTPGetAction;
+    /// let x = HTTPGetAction::new().set_port(42);
+    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
@@ -5275,12 +7097,24 @@ impl HTTPHeader {
     }
 
     /// Sets the value of [name][crate::model::HTTPHeader::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::HTTPHeader;
+    /// let x = HTTPHeader::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [value][crate::model::HTTPHeader::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::HTTPHeader;
+    /// let x = HTTPHeader::new().set_value("example");
+    /// ```
     pub fn set_value<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.value = v.into();
         self
@@ -5311,6 +7145,12 @@ impl TCPSocketAction {
     }
 
     /// Sets the value of [port][crate::model::TCPSocketAction::port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TCPSocketAction;
+    /// let x = TCPSocketAction::new().set_port(42);
+    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
@@ -5347,12 +7187,24 @@ impl GRPCAction {
     }
 
     /// Sets the value of [port][crate::model::GRPCAction::port].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::GRPCAction;
+    /// let x = GRPCAction::new().set_port(42);
+    /// ```
     pub fn set_port<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.port = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::GRPCAction::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::GRPCAction;
+    /// let x = GRPCAction::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
@@ -5385,12 +7237,24 @@ impl BuildInfo {
     }
 
     /// Sets the value of [function_target][crate::model::BuildInfo::function_target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BuildInfo;
+    /// let x = BuildInfo::new().set_function_target("example");
+    /// ```
     pub fn set_function_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.function_target = v.into();
         self
     }
 
     /// Sets the value of [source_location][crate::model::BuildInfo::source_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BuildInfo;
+    /// let x = BuildInfo::new().set_source_location("example");
+    /// ```
     pub fn set_source_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_location = v.into();
         self
@@ -5400,6 +7264,168 @@ impl BuildInfo {
 impl wkt::message::Message for BuildInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.run.v2.BuildInfo"
+    }
+}
+
+/// Source type for the container.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SourceCode {
+    /// The source type.
+    pub source_type: std::option::Option<crate::model::source_code::SourceType>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SourceCode {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [source_type][crate::model::SourceCode::source_type].
+    ///
+    /// Note that all the setters affecting `source_type` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SourceCode;
+    /// use google_cloud_run_v2::model::source_code::CloudStorageSource;
+    /// let x = SourceCode::new().set_source_type(Some(
+    ///     google_cloud_run_v2::model::source_code::SourceType::CloudStorageSource(CloudStorageSource::default().into())));
+    /// ```
+    pub fn set_source_type<
+        T: std::convert::Into<std::option::Option<crate::model::source_code::SourceType>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_type = v.into();
+        self
+    }
+
+    /// The value of [source_type][crate::model::SourceCode::source_type]
+    /// if it holds a `CloudStorageSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cloud_storage_source(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::source_code::CloudStorageSource>> {
+        #[allow(unreachable_patterns)]
+        self.source_type.as_ref().and_then(|v| match v {
+            crate::model::source_code::SourceType::CloudStorageSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source_type][crate::model::SourceCode::source_type]
+    /// to hold a `CloudStorageSource`.
+    ///
+    /// Note that all the setters affecting `source_type` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::SourceCode;
+    /// use google_cloud_run_v2::model::source_code::CloudStorageSource;
+    /// let x = SourceCode::new().set_cloud_storage_source(CloudStorageSource::default()/* use setters */);
+    /// assert!(x.cloud_storage_source().is_some());
+    /// ```
+    pub fn set_cloud_storage_source<
+        T: std::convert::Into<std::boxed::Box<crate::model::source_code::CloudStorageSource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source_type = std::option::Option::Some(
+            crate::model::source_code::SourceType::CloudStorageSource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for SourceCode {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.SourceCode"
+    }
+}
+
+/// Defines additional types related to [SourceCode].
+pub mod source_code {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Cloud Storage source.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CloudStorageSource {
+        /// Required. The Cloud Storage bucket name.
+        pub bucket: std::string::String,
+
+        /// Required. The Cloud Storage object name.
+        pub object: std::string::String,
+
+        /// Optional. The Cloud Storage object generation.
+        pub generation: i64,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl CloudStorageSource {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [bucket][crate::model::source_code::CloudStorageSource::bucket].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::source_code::CloudStorageSource;
+        /// let x = CloudStorageSource::new().set_bucket("example");
+        /// ```
+        pub fn set_bucket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.bucket = v.into();
+            self
+        }
+
+        /// Sets the value of [object][crate::model::source_code::CloudStorageSource::object].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::source_code::CloudStorageSource;
+        /// let x = CloudStorageSource::new().set_object("example");
+        /// ```
+        pub fn set_object<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.object = v.into();
+            self
+        }
+
+        /// Sets the value of [generation][crate::model::source_code::CloudStorageSource::generation].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::source_code::CloudStorageSource;
+        /// let x = CloudStorageSource::new().set_generation(42);
+        /// ```
+        pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.generation = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for CloudStorageSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.run.v2.SourceCode.CloudStorageSource"
+        }
+    }
+
+    /// The source type.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SourceType {
+        /// The source is a Cloud Storage bucket.
+        CloudStorageSource(std::boxed::Box<crate::model::source_code::CloudStorageSource>),
     }
 }
 
@@ -5421,6 +7447,12 @@ impl GetRevisionRequest {
     }
 
     /// Sets the value of [name][crate::model::GetRevisionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::GetRevisionRequest;
+    /// let x = GetRevisionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -5462,24 +7494,48 @@ impl ListRevisionsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListRevisionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListRevisionsRequest;
+    /// let x = ListRevisionsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListRevisionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListRevisionsRequest;
+    /// let x = ListRevisionsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListRevisionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListRevisionsRequest;
+    /// let x = ListRevisionsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListRevisionsRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListRevisionsRequest;
+    /// let x = ListRevisionsRequest::new().set_show_deleted(true);
+    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -5512,6 +7568,17 @@ impl ListRevisionsResponse {
     }
 
     /// Sets the value of [revisions][crate::model::ListRevisionsResponse::revisions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListRevisionsResponse;
+    /// use google_cloud_run_v2::model::Revision;
+    /// let x = ListRevisionsResponse::new()
+    ///     .set_revisions([
+    ///         Revision::default()/* use setters */,
+    ///         Revision::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_revisions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5523,6 +7590,12 @@ impl ListRevisionsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListRevisionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListRevisionsResponse;
+    /// let x = ListRevisionsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -5577,18 +7650,36 @@ impl DeleteRevisionRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteRevisionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteRevisionRequest;
+    /// let x = DeleteRevisionRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteRevisionRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteRevisionRequest;
+    /// let x = DeleteRevisionRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteRevisionRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteRevisionRequest;
+    /// let x = DeleteRevisionRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -5755,24 +7846,51 @@ impl Revision {
     }
 
     /// Sets the value of [name][crate::model::Revision::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Revision::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::Revision::generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_generation(42);
+    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Revision::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5785,6 +7903,15 @@ impl Revision {
     }
 
     /// Sets the value of [annotations][crate::model::Revision::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -5797,6 +7924,13 @@ impl Revision {
     }
 
     /// Sets the value of [create_time][crate::model::Revision::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use wkt::Timestamp;
+    /// let x = Revision::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5806,6 +7940,14 @@ impl Revision {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Revision::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use wkt::Timestamp;
+    /// let x = Revision::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5815,6 +7957,13 @@ impl Revision {
     }
 
     /// Sets the value of [update_time][crate::model::Revision::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use wkt::Timestamp;
+    /// let x = Revision::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5824,6 +7973,14 @@ impl Revision {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Revision::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use wkt::Timestamp;
+    /// let x = Revision::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5833,6 +7990,13 @@ impl Revision {
     }
 
     /// Sets the value of [delete_time][crate::model::Revision::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use wkt::Timestamp;
+    /// let x = Revision::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5842,6 +8006,14 @@ impl Revision {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Revision::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use wkt::Timestamp;
+    /// let x = Revision::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5851,6 +8023,13 @@ impl Revision {
     }
 
     /// Sets the value of [expire_time][crate::model::Revision::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use wkt::Timestamp;
+    /// let x = Revision::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5860,6 +8039,14 @@ impl Revision {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Revision::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use wkt::Timestamp;
+    /// let x = Revision::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -5869,6 +8056,15 @@ impl Revision {
     }
 
     /// Sets the value of [launch_stage][crate::model::Revision::launch_stage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use api::model::LaunchStage;
+    /// let x0 = Revision::new().set_launch_stage(LaunchStage::Unimplemented);
+    /// let x1 = Revision::new().set_launch_stage(LaunchStage::Prelaunch);
+    /// let x2 = Revision::new().set_launch_stage(LaunchStage::EarlyAccess);
+    /// ```
     pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
         mut self,
         v: T,
@@ -5878,12 +8074,25 @@ impl Revision {
     }
 
     /// Sets the value of [service][crate::model::Revision::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_service("example");
+    /// ```
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
         self
     }
 
     /// Sets the value of [scaling][crate::model::Revision::scaling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::RevisionScaling;
+    /// let x = Revision::new().set_scaling(RevisionScaling::default()/* use setters */);
+    /// ```
     pub fn set_scaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RevisionScaling>,
@@ -5893,6 +8102,14 @@ impl Revision {
     }
 
     /// Sets or clears the value of [scaling][crate::model::Revision::scaling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::RevisionScaling;
+    /// let x = Revision::new().set_or_clear_scaling(Some(RevisionScaling::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_scaling(None::<RevisionScaling>);
+    /// ```
     pub fn set_or_clear_scaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RevisionScaling>,
@@ -5902,6 +8119,13 @@ impl Revision {
     }
 
     /// Sets the value of [vpc_access][crate::model::Revision::vpc_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::VpcAccess;
+    /// let x = Revision::new().set_vpc_access(VpcAccess::default()/* use setters */);
+    /// ```
     pub fn set_vpc_access<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VpcAccess>,
@@ -5911,6 +8135,14 @@ impl Revision {
     }
 
     /// Sets or clears the value of [vpc_access][crate::model::Revision::vpc_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::VpcAccess;
+    /// let x = Revision::new().set_or_clear_vpc_access(Some(VpcAccess::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_vpc_access(None::<VpcAccess>);
+    /// ```
     pub fn set_or_clear_vpc_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VpcAccess>,
@@ -5920,6 +8152,12 @@ impl Revision {
     }
 
     /// Sets the value of [max_instance_request_concurrency][crate::model::Revision::max_instance_request_concurrency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_max_instance_request_concurrency(42);
+    /// ```
     pub fn set_max_instance_request_concurrency<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -5929,6 +8167,13 @@ impl Revision {
     }
 
     /// Sets the value of [timeout][crate::model::Revision::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use wkt::Duration;
+    /// let x = Revision::new().set_timeout(Duration::default()/* use setters */);
+    /// ```
     pub fn set_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5938,6 +8183,14 @@ impl Revision {
     }
 
     /// Sets or clears the value of [timeout][crate::model::Revision::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use wkt::Duration;
+    /// let x = Revision::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_timeout(None::<Duration>);
+    /// ```
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -5947,12 +8200,29 @@ impl Revision {
     }
 
     /// Sets the value of [service_account][crate::model::Revision::service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [containers][crate::model::Revision::containers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::Container;
+    /// let x = Revision::new()
+    ///     .set_containers([
+    ///         Container::default()/* use setters */,
+    ///         Container::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_containers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5964,6 +8234,17 @@ impl Revision {
     }
 
     /// Sets the value of [volumes][crate::model::Revision::volumes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::Volume;
+    /// let x = Revision::new()
+    ///     .set_volumes([
+    ///         Volume::default()/* use setters */,
+    ///         Volume::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -5975,6 +8256,14 @@ impl Revision {
     }
 
     /// Sets the value of [execution_environment][crate::model::Revision::execution_environment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::ExecutionEnvironment;
+    /// let x0 = Revision::new().set_execution_environment(ExecutionEnvironment::Gen1);
+    /// let x1 = Revision::new().set_execution_environment(ExecutionEnvironment::Gen2);
+    /// ```
     pub fn set_execution_environment<T: std::convert::Into<crate::model::ExecutionEnvironment>>(
         mut self,
         v: T,
@@ -5984,12 +8273,25 @@ impl Revision {
     }
 
     /// Sets the value of [encryption_key][crate::model::Revision::encryption_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_encryption_key("example");
+    /// ```
     pub fn set_encryption_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encryption_key = v.into();
         self
     }
 
     /// Sets the value of [service_mesh][crate::model::Revision::service_mesh].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::ServiceMesh;
+    /// let x = Revision::new().set_service_mesh(ServiceMesh::default()/* use setters */);
+    /// ```
     pub fn set_service_mesh<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceMesh>,
@@ -5999,6 +8301,14 @@ impl Revision {
     }
 
     /// Sets or clears the value of [service_mesh][crate::model::Revision::service_mesh].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::ServiceMesh;
+    /// let x = Revision::new().set_or_clear_service_mesh(Some(ServiceMesh::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_service_mesh(None::<ServiceMesh>);
+    /// ```
     pub fn set_or_clear_service_mesh<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceMesh>,
@@ -6008,6 +8318,14 @@ impl Revision {
     }
 
     /// Sets the value of [encryption_key_revocation_action][crate::model::Revision::encryption_key_revocation_action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::EncryptionKeyRevocationAction;
+    /// let x0 = Revision::new().set_encryption_key_revocation_action(EncryptionKeyRevocationAction::PreventNew);
+    /// let x1 = Revision::new().set_encryption_key_revocation_action(EncryptionKeyRevocationAction::Shutdown);
+    /// ```
     pub fn set_encryption_key_revocation_action<
         T: std::convert::Into<crate::model::EncryptionKeyRevocationAction>,
     >(
@@ -6019,6 +8337,13 @@ impl Revision {
     }
 
     /// Sets the value of [encryption_key_shutdown_duration][crate::model::Revision::encryption_key_shutdown_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use wkt::Duration;
+    /// let x = Revision::new().set_encryption_key_shutdown_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_encryption_key_shutdown_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -6028,6 +8353,14 @@ impl Revision {
     }
 
     /// Sets or clears the value of [encryption_key_shutdown_duration][crate::model::Revision::encryption_key_shutdown_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use wkt::Duration;
+    /// let x = Revision::new().set_or_clear_encryption_key_shutdown_duration(Some(Duration::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_encryption_key_shutdown_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_encryption_key_shutdown_duration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -6040,12 +8373,29 @@ impl Revision {
     }
 
     /// Sets the value of [reconciling][crate::model::Revision::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_reconciling(true);
+    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [conditions][crate::model::Revision::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = Revision::new()
+    ///     .set_conditions([
+    ///         Condition::default()/* use setters */,
+    ///         Condition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6057,30 +8407,61 @@ impl Revision {
     }
 
     /// Sets the value of [observed_generation][crate::model::Revision::observed_generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_observed_generation(42);
+    /// ```
     pub fn set_observed_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.observed_generation = v.into();
         self
     }
 
     /// Sets the value of [log_uri][crate::model::Revision::log_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_log_uri("example");
+    /// ```
     pub fn set_log_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_uri = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Revision::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [session_affinity][crate::model::Revision::session_affinity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_session_affinity(true);
+    /// ```
     pub fn set_session_affinity<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.session_affinity = v.into();
         self
     }
 
     /// Sets the value of [scaling_status][crate::model::Revision::scaling_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::RevisionScalingStatus;
+    /// let x = Revision::new().set_scaling_status(RevisionScalingStatus::default()/* use setters */);
+    /// ```
     pub fn set_scaling_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RevisionScalingStatus>,
@@ -6090,6 +8471,14 @@ impl Revision {
     }
 
     /// Sets or clears the value of [scaling_status][crate::model::Revision::scaling_status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::RevisionScalingStatus;
+    /// let x = Revision::new().set_or_clear_scaling_status(Some(RevisionScalingStatus::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_scaling_status(None::<RevisionScalingStatus>);
+    /// ```
     pub fn set_or_clear_scaling_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RevisionScalingStatus>,
@@ -6099,6 +8488,13 @@ impl Revision {
     }
 
     /// Sets the value of [node_selector][crate::model::Revision::node_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::NodeSelector;
+    /// let x = Revision::new().set_node_selector(NodeSelector::default()/* use setters */);
+    /// ```
     pub fn set_node_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeSelector>,
@@ -6108,6 +8504,14 @@ impl Revision {
     }
 
     /// Sets or clears the value of [node_selector][crate::model::Revision::node_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// use google_cloud_run_v2::model::NodeSelector;
+    /// let x = Revision::new().set_or_clear_node_selector(Some(NodeSelector::default()/* use setters */));
+    /// let x = Revision::new().set_or_clear_node_selector(None::<NodeSelector>);
+    /// ```
     pub fn set_or_clear_node_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeSelector>,
@@ -6117,6 +8521,12 @@ impl Revision {
     }
 
     /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::Revision::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_gpu_zonal_redundancy_disabled(true);
+    /// ```
     pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6126,6 +8536,13 @@ impl Revision {
     }
 
     /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::Revision::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_or_clear_gpu_zonal_redundancy_disabled(Some(false));
+    /// let x = Revision::new().set_or_clear_gpu_zonal_redundancy_disabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -6138,12 +8555,24 @@ impl Revision {
     }
 
     /// Sets the value of [creator][crate::model::Revision::creator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_creator("example");
+    /// ```
     pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.creator = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Revision::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Revision;
+    /// let x = Revision::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -6246,12 +8675,27 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [revision][crate::model::RevisionTemplate::revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = RevisionTemplate::new().set_revision("example");
+    /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::RevisionTemplate::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = RevisionTemplate::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6264,6 +8708,15 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [annotations][crate::model::RevisionTemplate::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = RevisionTemplate::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -6276,6 +8729,13 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [scaling][crate::model::RevisionTemplate::scaling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::RevisionScaling;
+    /// let x = RevisionTemplate::new().set_scaling(RevisionScaling::default()/* use setters */);
+    /// ```
     pub fn set_scaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RevisionScaling>,
@@ -6285,6 +8745,14 @@ impl RevisionTemplate {
     }
 
     /// Sets or clears the value of [scaling][crate::model::RevisionTemplate::scaling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::RevisionScaling;
+    /// let x = RevisionTemplate::new().set_or_clear_scaling(Some(RevisionScaling::default()/* use setters */));
+    /// let x = RevisionTemplate::new().set_or_clear_scaling(None::<RevisionScaling>);
+    /// ```
     pub fn set_or_clear_scaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RevisionScaling>,
@@ -6294,6 +8762,13 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [vpc_access][crate::model::RevisionTemplate::vpc_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::VpcAccess;
+    /// let x = RevisionTemplate::new().set_vpc_access(VpcAccess::default()/* use setters */);
+    /// ```
     pub fn set_vpc_access<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VpcAccess>,
@@ -6303,6 +8778,14 @@ impl RevisionTemplate {
     }
 
     /// Sets or clears the value of [vpc_access][crate::model::RevisionTemplate::vpc_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::VpcAccess;
+    /// let x = RevisionTemplate::new().set_or_clear_vpc_access(Some(VpcAccess::default()/* use setters */));
+    /// let x = RevisionTemplate::new().set_or_clear_vpc_access(None::<VpcAccess>);
+    /// ```
     pub fn set_or_clear_vpc_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VpcAccess>,
@@ -6312,6 +8795,13 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [timeout][crate::model::RevisionTemplate::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use wkt::Duration;
+    /// let x = RevisionTemplate::new().set_timeout(Duration::default()/* use setters */);
+    /// ```
     pub fn set_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -6321,6 +8811,14 @@ impl RevisionTemplate {
     }
 
     /// Sets or clears the value of [timeout][crate::model::RevisionTemplate::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use wkt::Duration;
+    /// let x = RevisionTemplate::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+    /// let x = RevisionTemplate::new().set_or_clear_timeout(None::<Duration>);
+    /// ```
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -6330,12 +8828,29 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [service_account][crate::model::RevisionTemplate::service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = RevisionTemplate::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [containers][crate::model::RevisionTemplate::containers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::Container;
+    /// let x = RevisionTemplate::new()
+    ///     .set_containers([
+    ///         Container::default()/* use setters */,
+    ///         Container::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_containers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6347,6 +8862,17 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [volumes][crate::model::RevisionTemplate::volumes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::Volume;
+    /// let x = RevisionTemplate::new()
+    ///     .set_volumes([
+    ///         Volume::default()/* use setters */,
+    ///         Volume::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6358,6 +8884,14 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [execution_environment][crate::model::RevisionTemplate::execution_environment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::ExecutionEnvironment;
+    /// let x0 = RevisionTemplate::new().set_execution_environment(ExecutionEnvironment::Gen1);
+    /// let x1 = RevisionTemplate::new().set_execution_environment(ExecutionEnvironment::Gen2);
+    /// ```
     pub fn set_execution_environment<T: std::convert::Into<crate::model::ExecutionEnvironment>>(
         mut self,
         v: T,
@@ -6367,12 +8901,24 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [encryption_key][crate::model::RevisionTemplate::encryption_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = RevisionTemplate::new().set_encryption_key("example");
+    /// ```
     pub fn set_encryption_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encryption_key = v.into();
         self
     }
 
     /// Sets the value of [max_instance_request_concurrency][crate::model::RevisionTemplate::max_instance_request_concurrency].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = RevisionTemplate::new().set_max_instance_request_concurrency(42);
+    /// ```
     pub fn set_max_instance_request_concurrency<T: std::convert::Into<i32>>(
         mut self,
         v: T,
@@ -6382,6 +8928,13 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [service_mesh][crate::model::RevisionTemplate::service_mesh].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::ServiceMesh;
+    /// let x = RevisionTemplate::new().set_service_mesh(ServiceMesh::default()/* use setters */);
+    /// ```
     pub fn set_service_mesh<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceMesh>,
@@ -6391,6 +8944,14 @@ impl RevisionTemplate {
     }
 
     /// Sets or clears the value of [service_mesh][crate::model::RevisionTemplate::service_mesh].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::ServiceMesh;
+    /// let x = RevisionTemplate::new().set_or_clear_service_mesh(Some(ServiceMesh::default()/* use setters */));
+    /// let x = RevisionTemplate::new().set_or_clear_service_mesh(None::<ServiceMesh>);
+    /// ```
     pub fn set_or_clear_service_mesh<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceMesh>,
@@ -6400,6 +8961,14 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [encryption_key_revocation_action][crate::model::RevisionTemplate::encryption_key_revocation_action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::EncryptionKeyRevocationAction;
+    /// let x0 = RevisionTemplate::new().set_encryption_key_revocation_action(EncryptionKeyRevocationAction::PreventNew);
+    /// let x1 = RevisionTemplate::new().set_encryption_key_revocation_action(EncryptionKeyRevocationAction::Shutdown);
+    /// ```
     pub fn set_encryption_key_revocation_action<
         T: std::convert::Into<crate::model::EncryptionKeyRevocationAction>,
     >(
@@ -6411,6 +8980,13 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [encryption_key_shutdown_duration][crate::model::RevisionTemplate::encryption_key_shutdown_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use wkt::Duration;
+    /// let x = RevisionTemplate::new().set_encryption_key_shutdown_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_encryption_key_shutdown_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -6420,6 +8996,14 @@ impl RevisionTemplate {
     }
 
     /// Sets or clears the value of [encryption_key_shutdown_duration][crate::model::RevisionTemplate::encryption_key_shutdown_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use wkt::Duration;
+    /// let x = RevisionTemplate::new().set_or_clear_encryption_key_shutdown_duration(Some(Duration::default()/* use setters */));
+    /// let x = RevisionTemplate::new().set_or_clear_encryption_key_shutdown_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_encryption_key_shutdown_duration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -6432,18 +9016,37 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [session_affinity][crate::model::RevisionTemplate::session_affinity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = RevisionTemplate::new().set_session_affinity(true);
+    /// ```
     pub fn set_session_affinity<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.session_affinity = v.into();
         self
     }
 
     /// Sets the value of [health_check_disabled][crate::model::RevisionTemplate::health_check_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = RevisionTemplate::new().set_health_check_disabled(true);
+    /// ```
     pub fn set_health_check_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.health_check_disabled = v.into();
         self
     }
 
     /// Sets the value of [node_selector][crate::model::RevisionTemplate::node_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::NodeSelector;
+    /// let x = RevisionTemplate::new().set_node_selector(NodeSelector::default()/* use setters */);
+    /// ```
     pub fn set_node_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeSelector>,
@@ -6453,6 +9056,14 @@ impl RevisionTemplate {
     }
 
     /// Sets or clears the value of [node_selector][crate::model::RevisionTemplate::node_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// use google_cloud_run_v2::model::NodeSelector;
+    /// let x = RevisionTemplate::new().set_or_clear_node_selector(Some(NodeSelector::default()/* use setters */));
+    /// let x = RevisionTemplate::new().set_or_clear_node_selector(None::<NodeSelector>);
+    /// ```
     pub fn set_or_clear_node_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeSelector>,
@@ -6462,6 +9073,12 @@ impl RevisionTemplate {
     }
 
     /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::RevisionTemplate::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = RevisionTemplate::new().set_gpu_zonal_redundancy_disabled(true);
+    /// ```
     pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -6471,6 +9088,13 @@ impl RevisionTemplate {
     }
 
     /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::RevisionTemplate::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = RevisionTemplate::new().set_or_clear_gpu_zonal_redundancy_disabled(Some(false));
+    /// let x = RevisionTemplate::new().set_or_clear_gpu_zonal_redundancy_disabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -6519,12 +9143,25 @@ impl CreateServiceRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateServiceRequest;
+    /// let x = CreateServiceRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [service][crate::model::CreateServiceRequest::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateServiceRequest;
+    /// use google_cloud_run_v2::model::Service;
+    /// let x = CreateServiceRequest::new().set_service(Service::default()/* use setters */);
+    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -6534,6 +9171,14 @@ impl CreateServiceRequest {
     }
 
     /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateServiceRequest;
+    /// use google_cloud_run_v2::model::Service;
+    /// let x = CreateServiceRequest::new().set_or_clear_service(Some(Service::default()/* use setters */));
+    /// let x = CreateServiceRequest::new().set_or_clear_service(None::<Service>);
+    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -6543,12 +9188,24 @@ impl CreateServiceRequest {
     }
 
     /// Sets the value of [service_id][crate::model::CreateServiceRequest::service_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateServiceRequest;
+    /// let x = CreateServiceRequest::new().set_service_id("example");
+    /// ```
     pub fn set_service_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateServiceRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateServiceRequest;
+    /// let x = CreateServiceRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -6589,6 +9246,13 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateServiceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateServiceRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6598,6 +9262,14 @@ impl UpdateServiceRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateServiceRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateServiceRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateServiceRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -6607,6 +9279,13 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateServiceRequest;
+    /// use google_cloud_run_v2::model::Service;
+    /// let x = UpdateServiceRequest::new().set_service(Service::default()/* use setters */);
+    /// ```
     pub fn set_service<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -6616,6 +9295,14 @@ impl UpdateServiceRequest {
     }
 
     /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateServiceRequest;
+    /// use google_cloud_run_v2::model::Service;
+    /// let x = UpdateServiceRequest::new().set_or_clear_service(Some(Service::default()/* use setters */));
+    /// let x = UpdateServiceRequest::new().set_or_clear_service(None::<Service>);
+    /// ```
     pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Service>,
@@ -6625,12 +9312,24 @@ impl UpdateServiceRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateServiceRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateServiceRequest;
+    /// let x = UpdateServiceRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateServiceRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateServiceRequest;
+    /// let x = UpdateServiceRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
@@ -6672,24 +9371,48 @@ impl ListServicesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListServicesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListServicesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListServicesRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListServicesRequest;
+    /// let x = ListServicesRequest::new().set_show_deleted(true);
+    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -6713,6 +9436,10 @@ pub struct ListServicesResponse {
     /// ListServices request to continue.
     pub next_page_token: std::string::String,
 
+    /// Output only. For global requests, returns the list of regions that could
+    /// not be reached within the deadline.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6722,6 +9449,17 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [services][crate::model::ListServicesResponse::services].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListServicesResponse;
+    /// use google_cloud_run_v2::model::Service;
+    /// let x = ListServicesResponse::new()
+    ///     .set_services([
+    ///         Service::default()/* use setters */,
+    ///         Service::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_services<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -6733,8 +9471,31 @@ impl ListServicesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListServicesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListServicesResponse;
+    /// let x = ListServicesResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListServicesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListServicesResponse;
+    /// let x = ListServicesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6777,6 +9538,12 @@ impl GetServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::GetServiceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::GetServiceRequest;
+    /// let x = GetServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -6815,18 +9582,36 @@ impl DeleteServiceRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteServiceRequest;
+    /// let x = DeleteServiceRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteServiceRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteServiceRequest;
+    /// let x = DeleteServiceRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteServiceRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteServiceRequest;
+    /// let x = DeleteServiceRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -6847,9 +9632,9 @@ impl wkt::message::Message for DeleteServiceRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Service {
-    /// The fully qualified name of this Service. In CreateServiceRequest, this
-    /// field is ignored, and instead composed from CreateServiceRequest.parent and
-    /// CreateServiceRequest.service_id.
+    /// Identifier. The fully qualified name of this Service. In
+    /// CreateServiceRequest, this field is ignored, and instead composed from
+    /// CreateServiceRequest.parent and CreateServiceRequest.service_id.
     ///
     /// Format:
     /// projects/{project}/locations/{location}/services/{service_id}
@@ -6941,8 +9726,7 @@ pub struct Service {
     pub scaling: std::option::Option<crate::model::ServiceScaling>,
 
     /// Optional. Disables IAM permission check for run.routes.invoke for callers
-    /// of this service. This feature is available by invitation only. For more
-    /// information, visit
+    /// of this service. For more information, visit
     /// <https://cloud.google.com/run/docs/securing/managing-access#invoker_check>.
     pub invoker_iam_disabled: bool,
 
@@ -6951,6 +9735,12 @@ pub struct Service {
 
     /// Output only. All URLs serving traffic for this Service.
     pub urls: std::vec::Vec<std::string::String>,
+
+    /// Optional. IAP settings on the Service.
+    pub iap_enabled: bool,
+
+    /// Optional. Settings for multi-region deployment.
+    pub multi_region_settings: std::option::Option<crate::model::service::MultiRegionSettings>,
 
     /// One or more custom audiences that you want this service to support. Specify
     /// each custom audience as the full URL in a string. The custom audiences are
@@ -6999,6 +9789,10 @@ pub struct Service {
     /// Output only. Reserved for future use.
     pub satisfies_pzs: bool,
 
+    /// Output only. True if Cloud Run Threat Detection monitoring is enabled for
+    /// the parent project of this Service.
+    pub threat_detection_enabled: bool,
+
     /// Optional. Configuration for building a Cloud Run function.
     pub build_config: std::option::Option<crate::model::BuildConfig>,
 
@@ -7026,7 +9820,7 @@ pub struct Service {
     /// can be found in `terminal_condition` and `conditions`.
     pub reconciling: bool,
 
-    /// Output only. A system-generated fingerprint for this version of the
+    /// Optional. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
     pub etag: std::string::String,
 
@@ -7039,30 +9833,63 @@ impl Service {
     }
 
     /// Sets the value of [name][crate::model::Service::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::Service::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Service::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::Service::generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_generation(42);
+    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Service::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7075,6 +9902,15 @@ impl Service {
     }
 
     /// Sets the value of [annotations][crate::model::Service::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7087,6 +9923,13 @@ impl Service {
     }
 
     /// Sets the value of [create_time][crate::model::Service::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use wkt::Timestamp;
+    /// let x = Service::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7096,6 +9939,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Service::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use wkt::Timestamp;
+    /// let x = Service::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7105,6 +9956,13 @@ impl Service {
     }
 
     /// Sets the value of [update_time][crate::model::Service::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use wkt::Timestamp;
+    /// let x = Service::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7114,6 +9972,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Service::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use wkt::Timestamp;
+    /// let x = Service::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7123,6 +9989,13 @@ impl Service {
     }
 
     /// Sets the value of [delete_time][crate::model::Service::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use wkt::Timestamp;
+    /// let x = Service::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7132,6 +10005,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Service::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use wkt::Timestamp;
+    /// let x = Service::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7141,6 +10022,13 @@ impl Service {
     }
 
     /// Sets the value of [expire_time][crate::model::Service::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use wkt::Timestamp;
+    /// let x = Service::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7150,6 +10038,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Service::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use wkt::Timestamp;
+    /// let x = Service::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7159,30 +10055,63 @@ impl Service {
     }
 
     /// Sets the value of [creator][crate::model::Service::creator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_creator("example");
+    /// ```
     pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.creator = v.into();
         self
     }
 
     /// Sets the value of [last_modifier][crate::model::Service::last_modifier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_last_modifier("example");
+    /// ```
     pub fn set_last_modifier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_modifier = v.into();
         self
     }
 
     /// Sets the value of [client][crate::model::Service::client].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_client("example");
+    /// ```
     pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client = v.into();
         self
     }
 
     /// Sets the value of [client_version][crate::model::Service::client_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_client_version("example");
+    /// ```
     pub fn set_client_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_version = v.into();
         self
     }
 
     /// Sets the value of [ingress][crate::model::Service::ingress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::IngressTraffic;
+    /// let x0 = Service::new().set_ingress(IngressTraffic::All);
+    /// let x1 = Service::new().set_ingress(IngressTraffic::InternalOnly);
+    /// let x2 = Service::new().set_ingress(IngressTraffic::InternalLoadBalancer);
+    /// ```
     pub fn set_ingress<T: std::convert::Into<crate::model::IngressTraffic>>(
         mut self,
         v: T,
@@ -7192,6 +10121,15 @@ impl Service {
     }
 
     /// Sets the value of [launch_stage][crate::model::Service::launch_stage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use api::model::LaunchStage;
+    /// let x0 = Service::new().set_launch_stage(LaunchStage::Unimplemented);
+    /// let x1 = Service::new().set_launch_stage(LaunchStage::Prelaunch);
+    /// let x2 = Service::new().set_launch_stage(LaunchStage::EarlyAccess);
+    /// ```
     pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
         mut self,
         v: T,
@@ -7201,6 +10139,13 @@ impl Service {
     }
 
     /// Sets the value of [binary_authorization][crate::model::Service::binary_authorization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::BinaryAuthorization;
+    /// let x = Service::new().set_binary_authorization(BinaryAuthorization::default()/* use setters */);
+    /// ```
     pub fn set_binary_authorization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BinaryAuthorization>,
@@ -7210,6 +10155,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [binary_authorization][crate::model::Service::binary_authorization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::BinaryAuthorization;
+    /// let x = Service::new().set_or_clear_binary_authorization(Some(BinaryAuthorization::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_binary_authorization(None::<BinaryAuthorization>);
+    /// ```
     pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BinaryAuthorization>,
@@ -7219,6 +10172,13 @@ impl Service {
     }
 
     /// Sets the value of [template][crate::model::Service::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = Service::new().set_template(RevisionTemplate::default()/* use setters */);
+    /// ```
     pub fn set_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::RevisionTemplate>,
@@ -7228,6 +10188,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [template][crate::model::Service::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::RevisionTemplate;
+    /// let x = Service::new().set_or_clear_template(Some(RevisionTemplate::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_template(None::<RevisionTemplate>);
+    /// ```
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::RevisionTemplate>,
@@ -7237,6 +10205,17 @@ impl Service {
     }
 
     /// Sets the value of [traffic][crate::model::Service::traffic].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::TrafficTarget;
+    /// let x = Service::new()
+    ///     .set_traffic([
+    ///         TrafficTarget::default()/* use setters */,
+    ///         TrafficTarget::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_traffic<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7248,6 +10227,13 @@ impl Service {
     }
 
     /// Sets the value of [scaling][crate::model::Service::scaling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::ServiceScaling;
+    /// let x = Service::new().set_scaling(ServiceScaling::default()/* use setters */);
+    /// ```
     pub fn set_scaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceScaling>,
@@ -7257,6 +10243,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [scaling][crate::model::Service::scaling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::ServiceScaling;
+    /// let x = Service::new().set_or_clear_scaling(Some(ServiceScaling::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_scaling(None::<ServiceScaling>);
+    /// ```
     pub fn set_or_clear_scaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceScaling>,
@@ -7266,18 +10260,36 @@ impl Service {
     }
 
     /// Sets the value of [invoker_iam_disabled][crate::model::Service::invoker_iam_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_invoker_iam_disabled(true);
+    /// ```
     pub fn set_invoker_iam_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.invoker_iam_disabled = v.into();
         self
     }
 
     /// Sets the value of [default_uri_disabled][crate::model::Service::default_uri_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_default_uri_disabled(true);
+    /// ```
     pub fn set_default_uri_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.default_uri_disabled = v.into();
         self
     }
 
     /// Sets the value of [urls][crate::model::Service::urls].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_urls(["a", "b", "c"]);
+    /// ```
     pub fn set_urls<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7288,7 +10300,58 @@ impl Service {
         self
     }
 
+    /// Sets the value of [iap_enabled][crate::model::Service::iap_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_iap_enabled(true);
+    /// ```
+    pub fn set_iap_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.iap_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [multi_region_settings][crate::model::Service::multi_region_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::service::MultiRegionSettings;
+    /// let x = Service::new().set_multi_region_settings(MultiRegionSettings::default()/* use setters */);
+    /// ```
+    pub fn set_multi_region_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::service::MultiRegionSettings>,
+    {
+        self.multi_region_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [multi_region_settings][crate::model::Service::multi_region_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::service::MultiRegionSettings;
+    /// let x = Service::new().set_or_clear_multi_region_settings(Some(MultiRegionSettings::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_multi_region_settings(None::<MultiRegionSettings>);
+    /// ```
+    pub fn set_or_clear_multi_region_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::service::MultiRegionSettings>,
+    {
+        self.multi_region_settings = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [custom_audiences][crate::model::Service::custom_audiences].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_custom_audiences(["a", "b", "c"]);
+    /// ```
     pub fn set_custom_audiences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7300,12 +10363,25 @@ impl Service {
     }
 
     /// Sets the value of [observed_generation][crate::model::Service::observed_generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_observed_generation(42);
+    /// ```
     pub fn set_observed_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.observed_generation = v.into();
         self
     }
 
     /// Sets the value of [terminal_condition][crate::model::Service::terminal_condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = Service::new().set_terminal_condition(Condition::default()/* use setters */);
+    /// ```
     pub fn set_terminal_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Condition>,
@@ -7315,6 +10391,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [terminal_condition][crate::model::Service::terminal_condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = Service::new().set_or_clear_terminal_condition(Some(Condition::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_terminal_condition(None::<Condition>);
+    /// ```
     pub fn set_or_clear_terminal_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Condition>,
@@ -7324,6 +10408,17 @@ impl Service {
     }
 
     /// Sets the value of [conditions][crate::model::Service::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = Service::new()
+    ///     .set_conditions([
+    ///         Condition::default()/* use setters */,
+    ///         Condition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7335,6 +10430,12 @@ impl Service {
     }
 
     /// Sets the value of [latest_ready_revision][crate::model::Service::latest_ready_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_latest_ready_revision("example");
+    /// ```
     pub fn set_latest_ready_revision<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7344,6 +10445,12 @@ impl Service {
     }
 
     /// Sets the value of [latest_created_revision][crate::model::Service::latest_created_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_latest_created_revision("example");
+    /// ```
     pub fn set_latest_created_revision<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7353,6 +10460,17 @@ impl Service {
     }
 
     /// Sets the value of [traffic_statuses][crate::model::Service::traffic_statuses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::TrafficTargetStatus;
+    /// let x = Service::new()
+    ///     .set_traffic_statuses([
+    ///         TrafficTargetStatus::default()/* use setters */,
+    ///         TrafficTargetStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_traffic_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7364,18 +10482,49 @@ impl Service {
     }
 
     /// Sets the value of [uri][crate::model::Service::uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Service::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
+    /// Sets the value of [threat_detection_enabled][crate::model::Service::threat_detection_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_threat_detection_enabled(true);
+    /// ```
+    pub fn set_threat_detection_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.threat_detection_enabled = v.into();
+        self
+    }
+
     /// Sets the value of [build_config][crate::model::Service::build_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::BuildConfig;
+    /// let x = Service::new().set_build_config(BuildConfig::default()/* use setters */);
+    /// ```
     pub fn set_build_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BuildConfig>,
@@ -7385,6 +10534,14 @@ impl Service {
     }
 
     /// Sets or clears the value of [build_config][crate::model::Service::build_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::model::BuildConfig;
+    /// let x = Service::new().set_or_clear_build_config(Some(BuildConfig::default()/* use setters */));
+    /// let x = Service::new().set_or_clear_build_config(None::<BuildConfig>);
+    /// ```
     pub fn set_or_clear_build_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BuildConfig>,
@@ -7394,12 +10551,24 @@ impl Service {
     }
 
     /// Sets the value of [reconciling][crate::model::Service::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_reconciling(true);
+    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::Service::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Service;
+    /// let x = Service::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -7409,6 +10578,69 @@ impl Service {
 impl wkt::message::Message for Service {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.run.v2.Service"
+    }
+}
+
+/// Defines additional types related to [Service].
+pub mod service {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Settings for multi-region deployment.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct MultiRegionSettings {
+        /// Required. List of regions to deploy to, including primary region.
+        pub regions: std::vec::Vec<std::string::String>,
+
+        /// Optional. System-generated unique id for the multi-region Service.
+        pub multi_region_id: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl MultiRegionSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [regions][crate::model::service::MultiRegionSettings::regions].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::service::MultiRegionSettings;
+        /// let x = MultiRegionSettings::new().set_regions(["a", "b", "c"]);
+        /// ```
+        pub fn set_regions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.regions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [multi_region_id][crate::model::service::MultiRegionSettings::multi_region_id].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::service::MultiRegionSettings;
+        /// let x = MultiRegionSettings::new().set_multi_region_id("example");
+        /// ```
+        pub fn set_multi_region_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.multi_region_id = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for MultiRegionSettings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.run.v2.Service.MultiRegionSettings"
+        }
     }
 }
 
@@ -7428,6 +10660,12 @@ impl RevisionScalingStatus {
     }
 
     /// Sets the value of [desired_min_instance_count][crate::model::RevisionScalingStatus::desired_min_instance_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionScalingStatus;
+    /// let x = RevisionScalingStatus::new().set_desired_min_instance_count(42);
+    /// ```
     pub fn set_desired_min_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.desired_min_instance_count = v.into();
         self
@@ -7458,6 +10696,12 @@ impl GetTaskRequest {
     }
 
     /// Sets the value of [name][crate::model::GetTaskRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::GetTaskRequest;
+    /// let x = GetTaskRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -7499,24 +10743,48 @@ impl ListTasksRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListTasksRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListTasksRequest;
+    /// let x = ListTasksRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListTasksRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListTasksRequest;
+    /// let x = ListTasksRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListTasksRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListTasksRequest;
+    /// let x = ListTasksRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListTasksRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListTasksRequest;
+    /// let x = ListTasksRequest::new().set_show_deleted(true);
+    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -7549,6 +10817,17 @@ impl ListTasksResponse {
     }
 
     /// Sets the value of [tasks][crate::model::ListTasksResponse::tasks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListTasksResponse;
+    /// use google_cloud_run_v2::model::Task;
+    /// let x = ListTasksResponse::new()
+    ///     .set_tasks([
+    ///         Task::default()/* use setters */,
+    ///         Task::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_tasks<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7560,6 +10839,12 @@ impl ListTasksResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListTasksResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListTasksResponse;
+    /// let x = ListTasksResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -7737,24 +11022,51 @@ impl Task {
     }
 
     /// Sets the value of [name][crate::model::Task::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::Task::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::Task::generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_generation(42);
+    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::Task::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7767,6 +11079,15 @@ impl Task {
     }
 
     /// Sets the value of [annotations][crate::model::Task::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -7779,6 +11100,13 @@ impl Task {
     }
 
     /// Sets the value of [create_time][crate::model::Task::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7788,6 +11116,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Task::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7797,6 +11133,13 @@ impl Task {
     }
 
     /// Sets the value of [scheduled_time][crate::model::Task::scheduled_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_scheduled_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_scheduled_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7806,6 +11149,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [scheduled_time][crate::model::Task::scheduled_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_or_clear_scheduled_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_scheduled_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_scheduled_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7815,6 +11166,13 @@ impl Task {
     }
 
     /// Sets the value of [start_time][crate::model::Task::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_start_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7824,6 +11182,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [start_time][crate::model::Task::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7833,6 +11199,13 @@ impl Task {
     }
 
     /// Sets the value of [completion_time][crate::model::Task::completion_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_completion_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_completion_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7842,6 +11215,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [completion_time][crate::model::Task::completion_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_or_clear_completion_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_completion_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_completion_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7851,6 +11232,13 @@ impl Task {
     }
 
     /// Sets the value of [update_time][crate::model::Task::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7860,6 +11248,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Task::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7869,6 +11265,13 @@ impl Task {
     }
 
     /// Sets the value of [delete_time][crate::model::Task::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7878,6 +11281,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::Task::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7887,6 +11298,13 @@ impl Task {
     }
 
     /// Sets the value of [expire_time][crate::model::Task::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7896,6 +11314,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::Task::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Timestamp;
+    /// let x = Task::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -7905,18 +11331,41 @@ impl Task {
     }
 
     /// Sets the value of [job][crate::model::Task::job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_job("example");
+    /// ```
     pub fn set_job<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.job = v.into();
         self
     }
 
     /// Sets the value of [execution][crate::model::Task::execution].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_execution("example");
+    /// ```
     pub fn set_execution<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.execution = v.into();
         self
     }
 
     /// Sets the value of [containers][crate::model::Task::containers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::Container;
+    /// let x = Task::new()
+    ///     .set_containers([
+    ///         Container::default()/* use setters */,
+    ///         Container::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_containers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7928,6 +11377,17 @@ impl Task {
     }
 
     /// Sets the value of [volumes][crate::model::Task::volumes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::Volume;
+    /// let x = Task::new()
+    ///     .set_volumes([
+    ///         Volume::default()/* use setters */,
+    ///         Volume::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7939,12 +11399,25 @@ impl Task {
     }
 
     /// Sets the value of [max_retries][crate::model::Task::max_retries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_max_retries(42);
+    /// ```
     pub fn set_max_retries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_retries = v.into();
         self
     }
 
     /// Sets the value of [timeout][crate::model::Task::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Duration;
+    /// let x = Task::new().set_timeout(Duration::default()/* use setters */);
+    /// ```
     pub fn set_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7954,6 +11427,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [timeout][crate::model::Task::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use wkt::Duration;
+    /// let x = Task::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_timeout(None::<Duration>);
+    /// ```
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -7963,12 +11444,26 @@ impl Task {
     }
 
     /// Sets the value of [service_account][crate::model::Task::service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [execution_environment][crate::model::Task::execution_environment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::ExecutionEnvironment;
+    /// let x0 = Task::new().set_execution_environment(ExecutionEnvironment::Gen1);
+    /// let x1 = Task::new().set_execution_environment(ExecutionEnvironment::Gen2);
+    /// ```
     pub fn set_execution_environment<T: std::convert::Into<crate::model::ExecutionEnvironment>>(
         mut self,
         v: T,
@@ -7978,12 +11473,29 @@ impl Task {
     }
 
     /// Sets the value of [reconciling][crate::model::Task::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_reconciling(true);
+    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [conditions][crate::model::Task::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = Task::new()
+    ///     .set_conditions([
+    ///         Condition::default()/* use setters */,
+    ///         Condition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -7995,24 +11507,49 @@ impl Task {
     }
 
     /// Sets the value of [observed_generation][crate::model::Task::observed_generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_observed_generation(42);
+    /// ```
     pub fn set_observed_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.observed_generation = v.into();
         self
     }
 
     /// Sets the value of [index][crate::model::Task::index].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_index(42);
+    /// ```
     pub fn set_index<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.index = v.into();
         self
     }
 
     /// Sets the value of [retried][crate::model::Task::retried].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_retried(42);
+    /// ```
     pub fn set_retried<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retried = v.into();
         self
     }
 
     /// Sets the value of [last_attempt_result][crate::model::Task::last_attempt_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::TaskAttemptResult;
+    /// let x = Task::new().set_last_attempt_result(TaskAttemptResult::default()/* use setters */);
+    /// ```
     pub fn set_last_attempt_result<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::TaskAttemptResult>,
@@ -8022,6 +11559,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [last_attempt_result][crate::model::Task::last_attempt_result].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::TaskAttemptResult;
+    /// let x = Task::new().set_or_clear_last_attempt_result(Some(TaskAttemptResult::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_last_attempt_result(None::<TaskAttemptResult>);
+    /// ```
     pub fn set_or_clear_last_attempt_result<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::TaskAttemptResult>,
@@ -8031,12 +11576,25 @@ impl Task {
     }
 
     /// Sets the value of [encryption_key][crate::model::Task::encryption_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_encryption_key("example");
+    /// ```
     pub fn set_encryption_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encryption_key = v.into();
         self
     }
 
     /// Sets the value of [vpc_access][crate::model::Task::vpc_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::VpcAccess;
+    /// let x = Task::new().set_vpc_access(VpcAccess::default()/* use setters */);
+    /// ```
     pub fn set_vpc_access<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VpcAccess>,
@@ -8046,6 +11604,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [vpc_access][crate::model::Task::vpc_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::VpcAccess;
+    /// let x = Task::new().set_or_clear_vpc_access(Some(VpcAccess::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_vpc_access(None::<VpcAccess>);
+    /// ```
     pub fn set_or_clear_vpc_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VpcAccess>,
@@ -8055,18 +11621,37 @@ impl Task {
     }
 
     /// Sets the value of [log_uri][crate::model::Task::log_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_log_uri("example");
+    /// ```
     pub fn set_log_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.log_uri = v.into();
         self
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::Task::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [node_selector][crate::model::Task::node_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::NodeSelector;
+    /// let x = Task::new().set_node_selector(NodeSelector::default()/* use setters */);
+    /// ```
     pub fn set_node_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeSelector>,
@@ -8076,6 +11661,14 @@ impl Task {
     }
 
     /// Sets or clears the value of [node_selector][crate::model::Task::node_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// use google_cloud_run_v2::model::NodeSelector;
+    /// let x = Task::new().set_or_clear_node_selector(Some(NodeSelector::default()/* use setters */));
+    /// let x = Task::new().set_or_clear_node_selector(None::<NodeSelector>);
+    /// ```
     pub fn set_or_clear_node_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeSelector>,
@@ -8085,6 +11678,12 @@ impl Task {
     }
 
     /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::Task::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_gpu_zonal_redundancy_disabled(true);
+    /// ```
     pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -8094,6 +11693,13 @@ impl Task {
     }
 
     /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::Task::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_or_clear_gpu_zonal_redundancy_disabled(Some(false));
+    /// let x = Task::new().set_or_clear_gpu_zonal_redundancy_disabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -8106,6 +11712,12 @@ impl Task {
     }
 
     /// Sets the value of [etag][crate::model::Task::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Task;
+    /// let x = Task::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -8149,6 +11761,13 @@ impl TaskAttemptResult {
     }
 
     /// Sets the value of [status][crate::model::TaskAttemptResult::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskAttemptResult;
+    /// use rpc::model::Status;
+    /// let x = TaskAttemptResult::new().set_status(Status::default()/* use setters */);
+    /// ```
     pub fn set_status<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -8158,6 +11777,14 @@ impl TaskAttemptResult {
     }
 
     /// Sets or clears the value of [status][crate::model::TaskAttemptResult::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskAttemptResult;
+    /// use rpc::model::Status;
+    /// let x = TaskAttemptResult::new().set_or_clear_status(Some(Status::default()/* use setters */));
+    /// let x = TaskAttemptResult::new().set_or_clear_status(None::<Status>);
+    /// ```
     pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<rpc::model::Status>,
@@ -8167,12 +11794,24 @@ impl TaskAttemptResult {
     }
 
     /// Sets the value of [exit_code][crate::model::TaskAttemptResult::exit_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskAttemptResult;
+    /// let x = TaskAttemptResult::new().set_exit_code(42);
+    /// ```
     pub fn set_exit_code<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.exit_code = v.into();
         self
     }
 
     /// Sets the value of [term_signal][crate::model::TaskAttemptResult::term_signal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskAttemptResult;
+    /// let x = TaskAttemptResult::new().set_term_signal(42);
+    /// ```
     pub fn set_term_signal<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.term_signal = v.into();
         self
@@ -8239,6 +11878,17 @@ impl TaskTemplate {
     }
 
     /// Sets the value of [containers][crate::model::TaskTemplate::containers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use google_cloud_run_v2::model::Container;
+    /// let x = TaskTemplate::new()
+    ///     .set_containers([
+    ///         Container::default()/* use setters */,
+    ///         Container::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_containers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8250,6 +11900,17 @@ impl TaskTemplate {
     }
 
     /// Sets the value of [volumes][crate::model::TaskTemplate::volumes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use google_cloud_run_v2::model::Volume;
+    /// let x = TaskTemplate::new()
+    ///     .set_volumes([
+    ///         Volume::default()/* use setters */,
+    ///         Volume::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8261,6 +11922,13 @@ impl TaskTemplate {
     }
 
     /// Sets the value of [timeout][crate::model::TaskTemplate::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use wkt::Duration;
+    /// let x = TaskTemplate::new().set_timeout(Duration::default()/* use setters */);
+    /// ```
     pub fn set_timeout<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8270,6 +11938,14 @@ impl TaskTemplate {
     }
 
     /// Sets or clears the value of [timeout][crate::model::TaskTemplate::timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use wkt::Duration;
+    /// let x = TaskTemplate::new().set_or_clear_timeout(Some(Duration::default()/* use setters */));
+    /// let x = TaskTemplate::new().set_or_clear_timeout(None::<Duration>);
+    /// ```
     pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -8279,12 +11955,26 @@ impl TaskTemplate {
     }
 
     /// Sets the value of [service_account][crate::model::TaskTemplate::service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// let x = TaskTemplate::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [execution_environment][crate::model::TaskTemplate::execution_environment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use google_cloud_run_v2::model::ExecutionEnvironment;
+    /// let x0 = TaskTemplate::new().set_execution_environment(ExecutionEnvironment::Gen1);
+    /// let x1 = TaskTemplate::new().set_execution_environment(ExecutionEnvironment::Gen2);
+    /// ```
     pub fn set_execution_environment<T: std::convert::Into<crate::model::ExecutionEnvironment>>(
         mut self,
         v: T,
@@ -8294,12 +11984,25 @@ impl TaskTemplate {
     }
 
     /// Sets the value of [encryption_key][crate::model::TaskTemplate::encryption_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// let x = TaskTemplate::new().set_encryption_key("example");
+    /// ```
     pub fn set_encryption_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encryption_key = v.into();
         self
     }
 
     /// Sets the value of [vpc_access][crate::model::TaskTemplate::vpc_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use google_cloud_run_v2::model::VpcAccess;
+    /// let x = TaskTemplate::new().set_vpc_access(VpcAccess::default()/* use setters */);
+    /// ```
     pub fn set_vpc_access<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VpcAccess>,
@@ -8309,6 +12012,14 @@ impl TaskTemplate {
     }
 
     /// Sets or clears the value of [vpc_access][crate::model::TaskTemplate::vpc_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use google_cloud_run_v2::model::VpcAccess;
+    /// let x = TaskTemplate::new().set_or_clear_vpc_access(Some(VpcAccess::default()/* use setters */));
+    /// let x = TaskTemplate::new().set_or_clear_vpc_access(None::<VpcAccess>);
+    /// ```
     pub fn set_or_clear_vpc_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VpcAccess>,
@@ -8318,6 +12029,13 @@ impl TaskTemplate {
     }
 
     /// Sets the value of [node_selector][crate::model::TaskTemplate::node_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use google_cloud_run_v2::model::NodeSelector;
+    /// let x = TaskTemplate::new().set_node_selector(NodeSelector::default()/* use setters */);
+    /// ```
     pub fn set_node_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeSelector>,
@@ -8327,6 +12045,14 @@ impl TaskTemplate {
     }
 
     /// Sets or clears the value of [node_selector][crate::model::TaskTemplate::node_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use google_cloud_run_v2::model::NodeSelector;
+    /// let x = TaskTemplate::new().set_or_clear_node_selector(Some(NodeSelector::default()/* use setters */));
+    /// let x = TaskTemplate::new().set_or_clear_node_selector(None::<NodeSelector>);
+    /// ```
     pub fn set_or_clear_node_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeSelector>,
@@ -8336,6 +12062,12 @@ impl TaskTemplate {
     }
 
     /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::TaskTemplate::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// let x = TaskTemplate::new().set_gpu_zonal_redundancy_disabled(true);
+    /// ```
     pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<bool>,
@@ -8345,6 +12077,13 @@ impl TaskTemplate {
     }
 
     /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::TaskTemplate::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// let x = TaskTemplate::new().set_or_clear_gpu_zonal_redundancy_disabled(Some(false));
+    /// let x = TaskTemplate::new().set_or_clear_gpu_zonal_redundancy_disabled(None::<bool>);
+    /// ```
     pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
         mut self,
         v: std::option::Option<T>,
@@ -8360,6 +12099,13 @@ impl TaskTemplate {
     ///
     /// Note that all the setters affecting `retries` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// use google_cloud_run_v2::model::task_template::Retries;
+    /// let x = TaskTemplate::new().set_retries(Some(Retries::MaxRetries(42)));
+    /// ```
     pub fn set_retries<
         T: std::convert::Into<std::option::Option<crate::model::task_template::Retries>>,
     >(
@@ -8386,6 +12132,13 @@ impl TaskTemplate {
     ///
     /// Note that all the setters affecting `retries` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TaskTemplate;
+    /// let x = TaskTemplate::new().set_max_retries(42);
+    /// assert!(x.max_retries().is_some());
+    /// ```
     pub fn set_max_retries<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.retries =
             std::option::Option::Some(crate::model::task_template::Retries::MaxRetries(v.into()));
@@ -8442,6 +12195,14 @@ impl TrafficTarget {
     }
 
     /// Sets the value of [r#type][crate::model::TrafficTarget::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TrafficTarget;
+    /// use google_cloud_run_v2::model::TrafficTargetAllocationType;
+    /// let x0 = TrafficTarget::new().set_type(TrafficTargetAllocationType::Latest);
+    /// let x1 = TrafficTarget::new().set_type(TrafficTargetAllocationType::Revision);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::TrafficTargetAllocationType>>(
         mut self,
         v: T,
@@ -8451,18 +12212,36 @@ impl TrafficTarget {
     }
 
     /// Sets the value of [revision][crate::model::TrafficTarget::revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TrafficTarget;
+    /// let x = TrafficTarget::new().set_revision("example");
+    /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
     }
 
     /// Sets the value of [percent][crate::model::TrafficTarget::percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TrafficTarget;
+    /// let x = TrafficTarget::new().set_percent(42);
+    /// ```
     pub fn set_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.percent = v.into();
         self
     }
 
     /// Sets the value of [tag][crate::model::TrafficTarget::tag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TrafficTarget;
+    /// let x = TrafficTarget::new().set_tag("example");
+    /// ```
     pub fn set_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag = v.into();
         self
@@ -8503,6 +12282,14 @@ impl TrafficTargetStatus {
     }
 
     /// Sets the value of [r#type][crate::model::TrafficTargetStatus::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TrafficTargetStatus;
+    /// use google_cloud_run_v2::model::TrafficTargetAllocationType;
+    /// let x0 = TrafficTargetStatus::new().set_type(TrafficTargetAllocationType::Latest);
+    /// let x1 = TrafficTargetStatus::new().set_type(TrafficTargetAllocationType::Revision);
+    /// ```
     pub fn set_type<T: std::convert::Into<crate::model::TrafficTargetAllocationType>>(
         mut self,
         v: T,
@@ -8512,24 +12299,48 @@ impl TrafficTargetStatus {
     }
 
     /// Sets the value of [revision][crate::model::TrafficTargetStatus::revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TrafficTargetStatus;
+    /// let x = TrafficTargetStatus::new().set_revision("example");
+    /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
     }
 
     /// Sets the value of [percent][crate::model::TrafficTargetStatus::percent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TrafficTargetStatus;
+    /// let x = TrafficTargetStatus::new().set_percent(42);
+    /// ```
     pub fn set_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.percent = v.into();
         self
     }
 
     /// Sets the value of [tag][crate::model::TrafficTargetStatus::tag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TrafficTargetStatus;
+    /// let x = TrafficTargetStatus::new().set_tag("example");
+    /// ```
     pub fn set_tag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.tag = v.into();
         self
     }
 
     /// Sets the value of [uri][crate::model::TrafficTargetStatus::uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::TrafficTargetStatus;
+    /// let x = TrafficTargetStatus::new().set_uri("example");
+    /// ```
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
         self
@@ -8571,12 +12382,26 @@ impl VpcAccess {
     }
 
     /// Sets the value of [connector][crate::model::VpcAccess::connector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::VpcAccess;
+    /// let x = VpcAccess::new().set_connector("example");
+    /// ```
     pub fn set_connector<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.connector = v.into();
         self
     }
 
     /// Sets the value of [egress][crate::model::VpcAccess::egress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::VpcAccess;
+    /// use google_cloud_run_v2::model::vpc_access::VpcEgress;
+    /// let x0 = VpcAccess::new().set_egress(VpcEgress::AllTraffic);
+    /// let x1 = VpcAccess::new().set_egress(VpcEgress::PrivateRangesOnly);
+    /// ```
     pub fn set_egress<T: std::convert::Into<crate::model::vpc_access::VpcEgress>>(
         mut self,
         v: T,
@@ -8586,6 +12411,17 @@ impl VpcAccess {
     }
 
     /// Sets the value of [network_interfaces][crate::model::VpcAccess::network_interfaces].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::VpcAccess;
+    /// use google_cloud_run_v2::model::vpc_access::NetworkInterface;
+    /// let x = VpcAccess::new()
+    ///     .set_network_interfaces([
+    ///         NetworkInterface::default()/* use setters */,
+    ///         NetworkInterface::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_network_interfaces<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -8638,18 +12474,36 @@ pub mod vpc_access {
         }
 
         /// Sets the value of [network][crate::model::vpc_access::NetworkInterface::network].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::vpc_access::NetworkInterface;
+        /// let x = NetworkInterface::new().set_network("example");
+        /// ```
         pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.network = v.into();
             self
         }
 
         /// Sets the value of [subnetwork][crate::model::vpc_access::NetworkInterface::subnetwork].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::vpc_access::NetworkInterface;
+        /// let x = NetworkInterface::new().set_subnetwork("example");
+        /// ```
         pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.subnetwork = v.into();
             self
         }
 
         /// Sets the value of [tags][crate::model::vpc_access::NetworkInterface::tags].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_run_v2::model::vpc_access::NetworkInterface;
+        /// let x = NetworkInterface::new().set_tags(["a", "b", "c"]);
+        /// ```
         pub fn set_tags<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -8821,6 +12675,12 @@ impl BinaryAuthorization {
     }
 
     /// Sets the value of [breakglass_justification][crate::model::BinaryAuthorization::breakglass_justification].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BinaryAuthorization;
+    /// let x = BinaryAuthorization::new().set_breakglass_justification("example");
+    /// ```
     pub fn set_breakglass_justification<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -8833,6 +12693,13 @@ impl BinaryAuthorization {
     ///
     /// Note that all the setters affecting `binauthz_method` are mutually
     /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BinaryAuthorization;
+    /// use google_cloud_run_v2::model::binary_authorization::BinauthzMethod;
+    /// let x = BinaryAuthorization::new().set_binauthz_method(Some(BinauthzMethod::UseDefault(true)));
+    /// ```
     pub fn set_binauthz_method<
         T: std::convert::Into<std::option::Option<crate::model::binary_authorization::BinauthzMethod>>,
     >(
@@ -8861,6 +12728,14 @@ impl BinaryAuthorization {
     ///
     /// Note that all the setters affecting `binauthz_method` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BinaryAuthorization;
+    /// let x = BinaryAuthorization::new().set_use_default(true);
+    /// assert!(x.use_default().is_some());
+    /// assert!(x.policy().is_none());
+    /// ```
     pub fn set_use_default<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.binauthz_method = std::option::Option::Some(
             crate::model::binary_authorization::BinauthzMethod::UseDefault(v.into()),
@@ -8886,6 +12761,14 @@ impl BinaryAuthorization {
     ///
     /// Note that all the setters affecting `binauthz_method` are
     /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BinaryAuthorization;
+    /// let x = BinaryAuthorization::new().set_policy("example");
+    /// assert!(x.policy().is_some());
+    /// assert!(x.use_default().is_none());
+    /// ```
     pub fn set_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.binauthz_method = std::option::Option::Some(
             crate::model::binary_authorization::BinauthzMethod::Policy(v.into()),
@@ -8940,12 +12823,24 @@ impl RevisionScaling {
     }
 
     /// Sets the value of [min_instance_count][crate::model::RevisionScaling::min_instance_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionScaling;
+    /// let x = RevisionScaling::new().set_min_instance_count(42);
+    /// ```
     pub fn set_min_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_instance_count = v.into();
         self
     }
 
     /// Sets the value of [max_instance_count][crate::model::RevisionScaling::max_instance_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::RevisionScaling;
+    /// let x = RevisionScaling::new().set_max_instance_count(42);
+    /// ```
     pub fn set_max_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_instance_count = v.into();
         self
@@ -8977,6 +12872,12 @@ impl ServiceMesh {
     }
 
     /// Sets the value of [mesh][crate::model::ServiceMesh::mesh].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ServiceMesh;
+    /// let x = ServiceMesh::new().set_mesh("example");
+    /// ```
     pub fn set_mesh<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.mesh = v.into();
         self
@@ -9002,6 +12903,11 @@ pub struct ServiceScaling {
     /// Optional. The scaling mode for the service.
     pub scaling_mode: crate::model::service_scaling::ScalingMode,
 
+    /// Optional. total max instances for the service. This number of instances is
+    /// divided among all revisions with specified traffic based on the percent
+    /// of traffic they are receiving.
+    pub max_instance_count: i32,
+
     /// Optional. total instance count for the service in manual scaling mode. This
     /// number of instances is divided among all revisions with specified traffic
     /// based on the percent of traffic they are receiving.
@@ -9016,12 +12922,26 @@ impl ServiceScaling {
     }
 
     /// Sets the value of [min_instance_count][crate::model::ServiceScaling::min_instance_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ServiceScaling;
+    /// let x = ServiceScaling::new().set_min_instance_count(42);
+    /// ```
     pub fn set_min_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.min_instance_count = v.into();
         self
     }
 
     /// Sets the value of [scaling_mode][crate::model::ServiceScaling::scaling_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ServiceScaling;
+    /// use google_cloud_run_v2::model::service_scaling::ScalingMode;
+    /// let x0 = ServiceScaling::new().set_scaling_mode(ScalingMode::Automatic);
+    /// let x1 = ServiceScaling::new().set_scaling_mode(ScalingMode::Manual);
+    /// ```
     pub fn set_scaling_mode<T: std::convert::Into<crate::model::service_scaling::ScalingMode>>(
         mut self,
         v: T,
@@ -9030,7 +12950,25 @@ impl ServiceScaling {
         self
     }
 
+    /// Sets the value of [max_instance_count][crate::model::ServiceScaling::max_instance_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ServiceScaling;
+    /// let x = ServiceScaling::new().set_max_instance_count(42);
+    /// ```
+    pub fn set_max_instance_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.max_instance_count = v.into();
+        self
+    }
+
     /// Sets the value of [manual_instance_count][crate::model::ServiceScaling::manual_instance_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ServiceScaling;
+    /// let x = ServiceScaling::new().set_manual_instance_count(42);
+    /// ```
     pub fn set_manual_instance_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -9040,6 +12978,13 @@ impl ServiceScaling {
     }
 
     /// Sets or clears the value of [manual_instance_count][crate::model::ServiceScaling::manual_instance_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ServiceScaling;
+    /// let x = ServiceScaling::new().set_or_clear_manual_instance_count(Some(42));
+    /// let x = ServiceScaling::new().set_or_clear_manual_instance_count(None::<i32>);
+    /// ```
     pub fn set_or_clear_manual_instance_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -9210,6 +13155,12 @@ impl WorkerPoolScaling {
     }
 
     /// Sets the value of [manual_instance_count][crate::model::WorkerPoolScaling::manual_instance_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolScaling;
+    /// let x = WorkerPoolScaling::new().set_manual_instance_count(42);
+    /// ```
     pub fn set_manual_instance_count<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i32>,
@@ -9219,6 +13170,13 @@ impl WorkerPoolScaling {
     }
 
     /// Sets or clears the value of [manual_instance_count][crate::model::WorkerPoolScaling::manual_instance_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolScaling;
+    /// let x = WorkerPoolScaling::new().set_or_clear_manual_instance_count(Some(42));
+    /// let x = WorkerPoolScaling::new().set_or_clear_manual_instance_count(None::<i32>);
+    /// ```
     pub fn set_or_clear_manual_instance_count<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i32>,
@@ -9250,6 +13208,12 @@ impl NodeSelector {
     }
 
     /// Sets the value of [accelerator][crate::model::NodeSelector::accelerator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::NodeSelector;
+    /// let x = NodeSelector::new().set_accelerator("example");
+    /// ```
     pub fn set_accelerator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.accelerator = v.into();
         self
@@ -9315,48 +13279,99 @@ impl BuildConfig {
     }
 
     /// Sets the value of [name][crate::model::BuildConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BuildConfig;
+    /// let x = BuildConfig::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [source_location][crate::model::BuildConfig::source_location].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BuildConfig;
+    /// let x = BuildConfig::new().set_source_location("example");
+    /// ```
     pub fn set_source_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.source_location = v.into();
         self
     }
 
     /// Sets the value of [function_target][crate::model::BuildConfig::function_target].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BuildConfig;
+    /// let x = BuildConfig::new().set_function_target("example");
+    /// ```
     pub fn set_function_target<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.function_target = v.into();
         self
     }
 
     /// Sets the value of [image_uri][crate::model::BuildConfig::image_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BuildConfig;
+    /// let x = BuildConfig::new().set_image_uri("example");
+    /// ```
     pub fn set_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.image_uri = v.into();
         self
     }
 
     /// Sets the value of [base_image][crate::model::BuildConfig::base_image].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BuildConfig;
+    /// let x = BuildConfig::new().set_base_image("example");
+    /// ```
     pub fn set_base_image<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.base_image = v.into();
         self
     }
 
     /// Sets the value of [enable_automatic_updates][crate::model::BuildConfig::enable_automatic_updates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BuildConfig;
+    /// let x = BuildConfig::new().set_enable_automatic_updates(true);
+    /// ```
     pub fn set_enable_automatic_updates<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_automatic_updates = v.into();
         self
     }
 
     /// Sets the value of [worker_pool][crate::model::BuildConfig::worker_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BuildConfig;
+    /// let x = BuildConfig::new().set_worker_pool("example");
+    /// ```
     pub fn set_worker_pool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool = v.into();
         self
     }
 
     /// Sets the value of [environment_variables][crate::model::BuildConfig::environment_variables].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BuildConfig;
+    /// let x = BuildConfig::new().set_environment_variables([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_environment_variables<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9369,6 +13384,12 @@ impl BuildConfig {
     }
 
     /// Sets the value of [service_account][crate::model::BuildConfig::service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::BuildConfig;
+    /// let x = BuildConfig::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
@@ -9413,12 +13434,25 @@ impl CreateWorkerPoolRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateWorkerPoolRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateWorkerPoolRequest;
+    /// let x = CreateWorkerPoolRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [worker_pool][crate::model::CreateWorkerPoolRequest::worker_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateWorkerPoolRequest;
+    /// use google_cloud_run_v2::model::WorkerPool;
+    /// let x = CreateWorkerPoolRequest::new().set_worker_pool(WorkerPool::default()/* use setters */);
+    /// ```
     pub fn set_worker_pool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkerPool>,
@@ -9428,6 +13462,14 @@ impl CreateWorkerPoolRequest {
     }
 
     /// Sets or clears the value of [worker_pool][crate::model::CreateWorkerPoolRequest::worker_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateWorkerPoolRequest;
+    /// use google_cloud_run_v2::model::WorkerPool;
+    /// let x = CreateWorkerPoolRequest::new().set_or_clear_worker_pool(Some(WorkerPool::default()/* use setters */));
+    /// let x = CreateWorkerPoolRequest::new().set_or_clear_worker_pool(None::<WorkerPool>);
+    /// ```
     pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkerPool>,
@@ -9437,12 +13479,24 @@ impl CreateWorkerPoolRequest {
     }
 
     /// Sets the value of [worker_pool_id][crate::model::CreateWorkerPoolRequest::worker_pool_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateWorkerPoolRequest;
+    /// let x = CreateWorkerPoolRequest::new().set_worker_pool_id("example");
+    /// ```
     pub fn set_worker_pool_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.worker_pool_id = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::CreateWorkerPoolRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateWorkerPoolRequest;
+    /// let x = CreateWorkerPoolRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
@@ -9493,6 +13547,13 @@ impl UpdateWorkerPoolRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateWorkerPoolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateWorkerPoolRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9502,6 +13563,14 @@ impl UpdateWorkerPoolRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateWorkerPoolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateWorkerPoolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateWorkerPoolRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateWorkerPoolRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -9511,6 +13580,13 @@ impl UpdateWorkerPoolRequest {
     }
 
     /// Sets the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateWorkerPoolRequest;
+    /// use google_cloud_run_v2::model::WorkerPool;
+    /// let x = UpdateWorkerPoolRequest::new().set_worker_pool(WorkerPool::default()/* use setters */);
+    /// ```
     pub fn set_worker_pool<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkerPool>,
@@ -9520,6 +13596,14 @@ impl UpdateWorkerPoolRequest {
     }
 
     /// Sets or clears the value of [worker_pool][crate::model::UpdateWorkerPoolRequest::worker_pool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateWorkerPoolRequest;
+    /// use google_cloud_run_v2::model::WorkerPool;
+    /// let x = UpdateWorkerPoolRequest::new().set_or_clear_worker_pool(Some(WorkerPool::default()/* use setters */));
+    /// let x = UpdateWorkerPoolRequest::new().set_or_clear_worker_pool(None::<WorkerPool>);
+    /// ```
     pub fn set_or_clear_worker_pool<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkerPool>,
@@ -9529,18 +13613,36 @@ impl UpdateWorkerPoolRequest {
     }
 
     /// Sets the value of [validate_only][crate::model::UpdateWorkerPoolRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateWorkerPoolRequest;
+    /// let x = UpdateWorkerPoolRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [allow_missing][crate::model::UpdateWorkerPoolRequest::allow_missing].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateWorkerPoolRequest;
+    /// let x = UpdateWorkerPoolRequest::new().set_allow_missing(true);
+    /// ```
     pub fn set_allow_missing<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_missing = v.into();
         self
     }
 
     /// Sets the value of [force_new_revision][crate::model::UpdateWorkerPoolRequest::force_new_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::UpdateWorkerPoolRequest;
+    /// let x = UpdateWorkerPoolRequest::new().set_force_new_revision(true);
+    /// ```
     pub fn set_force_new_revision<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.force_new_revision = v.into();
         self
@@ -9582,24 +13684,48 @@ impl ListWorkerPoolsRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListWorkerPoolsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListWorkerPoolsRequest;
+    /// let x = ListWorkerPoolsRequest::new().set_parent("example");
+    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListWorkerPoolsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListWorkerPoolsRequest;
+    /// let x = ListWorkerPoolsRequest::new().set_page_size(42);
+    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListWorkerPoolsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListWorkerPoolsRequest;
+    /// let x = ListWorkerPoolsRequest::new().set_page_token("example");
+    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [show_deleted][crate::model::ListWorkerPoolsRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListWorkerPoolsRequest;
+    /// let x = ListWorkerPoolsRequest::new().set_show_deleted(true);
+    /// ```
     pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.show_deleted = v.into();
         self
@@ -9632,6 +13758,17 @@ impl ListWorkerPoolsResponse {
     }
 
     /// Sets the value of [worker_pools][crate::model::ListWorkerPoolsResponse::worker_pools].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListWorkerPoolsResponse;
+    /// use google_cloud_run_v2::model::WorkerPool;
+    /// let x = ListWorkerPoolsResponse::new()
+    ///     .set_worker_pools([
+    ///         WorkerPool::default()/* use setters */,
+    ///         WorkerPool::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_worker_pools<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -9643,6 +13780,12 @@ impl ListWorkerPoolsResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListWorkerPoolsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListWorkerPoolsResponse;
+    /// let x = ListWorkerPoolsResponse::new().set_next_page_token("example");
+    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -9688,6 +13831,12 @@ impl GetWorkerPoolRequest {
     }
 
     /// Sets the value of [name][crate::model::GetWorkerPoolRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::GetWorkerPoolRequest;
+    /// let x = GetWorkerPoolRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -9727,18 +13876,36 @@ impl DeleteWorkerPoolRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteWorkerPoolRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteWorkerPoolRequest;
+    /// let x = DeleteWorkerPoolRequest::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [validate_only][crate::model::DeleteWorkerPoolRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteWorkerPoolRequest;
+    /// let x = DeleteWorkerPoolRequest::new().set_validate_only(true);
+    /// ```
     pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.validate_only = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::DeleteWorkerPoolRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteWorkerPoolRequest;
+    /// let x = DeleteWorkerPoolRequest::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -9858,7 +14025,7 @@ pub struct WorkerPool {
     /// Optional. Specifies worker-pool-level scaling settings
     pub scaling: std::option::Option<crate::model::WorkerPoolScaling>,
 
-    /// Output only. The generation of this WorkerPool currently serving traffic.
+    /// Output only. The generation of this WorkerPool currently serving workloads.
     /// See comments in `reconciling` for additional information on reconciliation
     /// process in Cloud Run. Please note that unlike v1, this is an int64 value.
     /// As with most Google APIs, its JSON representation will be a `string`
@@ -9877,7 +14044,7 @@ pub struct WorkerPool {
     /// information on reconciliation process in Cloud Run.
     pub conditions: std::vec::Vec<crate::model::Condition>,
 
-    /// Output only. Name of the latest revision that is serving traffic. See
+    /// Output only. Name of the latest revision that is serving workloads. See
     /// comments in `reconciling` for additional information on reconciliation
     /// process in Cloud Run.
     pub latest_ready_revision: std::string::String,
@@ -9892,11 +14059,11 @@ pub struct WorkerPool {
     /// process in Cloud Run.
     pub instance_split_statuses: std::vec::Vec<crate::model::InstanceSplitStatus>,
 
-    /// One or more custom audiences that you want this worker pool to support.
-    /// Specify each custom audience as the full URL in a string. The custom
-    /// audiences are encoded in the token and used to authenticate requests. For
-    /// more information, see
-    /// <https://cloud.google.com/run/docs/configuring/custom-audiences>.
+    /// Output only. Indicates whether Cloud Run Threat Detection monitoring is
+    /// enabled for the parent project of this worker pool.
+    pub threat_detection_enabled: bool,
+
+    /// Not supported, and ignored by Cloud Run.
     pub custom_audiences: std::vec::Vec<std::string::String>,
 
     /// Output only. Reserved for future use.
@@ -9909,24 +14076,24 @@ pub struct WorkerPool {
     /// will asynchronously perform all necessary steps to bring the WorkerPool to
     /// the desired serving state. This process is called reconciliation. While
     /// reconciliation is in process, `observed_generation`,
-    /// `latest_ready_revison`, `traffic_statuses`, and `uri` will have transient
-    /// values that might mismatch the intended state: Once reconciliation is over
-    /// (and this field is false), there are two possible outcomes: reconciliation
-    /// succeeded and the serving state matches the WorkerPool, or there was an
-    /// error, and reconciliation failed. This state can be found in
-    /// `terminal_condition.state`.
+    /// `latest_ready_revison`, `instance_split_statuses`, and `uri` will have
+    /// transient values that might mismatch the intended state: Once
+    /// reconciliation is over (and this field is false), there are two possible
+    /// outcomes: reconciliation succeeded and the serving state matches the
+    /// WorkerPool, or there was an error, and reconciliation failed. This state
+    /// can be found in `terminal_condition.state`.
     ///
-    /// If reconciliation succeeded, the following fields will match: `traffic` and
-    /// `traffic_statuses`, `observed_generation` and `generation`,
-    /// `latest_ready_revision` and `latest_created_revision`.
+    /// If reconciliation succeeded, the following fields will match:
+    /// `instance_splits` and `instance_split_statuses`, `observed_generation` and
+    /// `generation`, `latest_ready_revision` and `latest_created_revision`.
     ///
-    /// If reconciliation failed, `traffic_statuses`, `observed_generation`, and
-    /// `latest_ready_revision` will have the state of the last serving revision,
-    /// or empty for newly created WorkerPools. Additional information on the
-    /// failure can be found in `terminal_condition` and `conditions`.
+    /// If reconciliation failed, `instance_split_statuses`, `observed_generation`,
+    /// and `latest_ready_revision` will have the state of the last serving
+    /// revision, or empty for newly created WorkerPools. Additional information on
+    /// the failure can be found in `terminal_condition` and `conditions`.
     pub reconciling: bool,
 
-    /// Output only. A system-generated fingerprint for this version of the
+    /// Optional. A system-generated fingerprint for this version of the
     /// resource. May be used to detect modification conflict during updates.
     pub etag: std::string::String,
 
@@ -9939,30 +14106,63 @@ impl WorkerPool {
     }
 
     /// Sets the value of [name][crate::model::WorkerPool::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_name("example");
+    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [description][crate::model::WorkerPool::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_description("example");
+    /// ```
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
         self
     }
 
     /// Sets the value of [uid][crate::model::WorkerPool::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_uid("example");
+    /// ```
     pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uid = v.into();
         self
     }
 
     /// Sets the value of [generation][crate::model::WorkerPool::generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_generation(42);
+    /// ```
     pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.generation = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::WorkerPool::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9975,6 +14175,15 @@ impl WorkerPool {
     }
 
     /// Sets the value of [annotations][crate::model::WorkerPool::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -9987,6 +14196,13 @@ impl WorkerPool {
     }
 
     /// Sets the value of [create_time][crate::model::WorkerPool::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use wkt::Timestamp;
+    /// let x = WorkerPool::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -9996,6 +14212,14 @@ impl WorkerPool {
     }
 
     /// Sets or clears the value of [create_time][crate::model::WorkerPool::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use wkt::Timestamp;
+    /// let x = WorkerPool::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WorkerPool::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10005,6 +14229,13 @@ impl WorkerPool {
     }
 
     /// Sets the value of [update_time][crate::model::WorkerPool::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use wkt::Timestamp;
+    /// let x = WorkerPool::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10014,6 +14245,14 @@ impl WorkerPool {
     }
 
     /// Sets or clears the value of [update_time][crate::model::WorkerPool::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use wkt::Timestamp;
+    /// let x = WorkerPool::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WorkerPool::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10023,6 +14262,13 @@ impl WorkerPool {
     }
 
     /// Sets the value of [delete_time][crate::model::WorkerPool::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use wkt::Timestamp;
+    /// let x = WorkerPool::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_delete_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10032,6 +14278,14 @@ impl WorkerPool {
     }
 
     /// Sets or clears the value of [delete_time][crate::model::WorkerPool::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use wkt::Timestamp;
+    /// let x = WorkerPool::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WorkerPool::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10041,6 +14295,13 @@ impl WorkerPool {
     }
 
     /// Sets the value of [expire_time][crate::model::WorkerPool::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use wkt::Timestamp;
+    /// let x = WorkerPool::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
     pub fn set_expire_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10050,6 +14311,14 @@ impl WorkerPool {
     }
 
     /// Sets or clears the value of [expire_time][crate::model::WorkerPool::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use wkt::Timestamp;
+    /// let x = WorkerPool::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = WorkerPool::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
     pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -10059,30 +14328,63 @@ impl WorkerPool {
     }
 
     /// Sets the value of [creator][crate::model::WorkerPool::creator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_creator("example");
+    /// ```
     pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.creator = v.into();
         self
     }
 
     /// Sets the value of [last_modifier][crate::model::WorkerPool::last_modifier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_last_modifier("example");
+    /// ```
     pub fn set_last_modifier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.last_modifier = v.into();
         self
     }
 
     /// Sets the value of [client][crate::model::WorkerPool::client].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_client("example");
+    /// ```
     pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client = v.into();
         self
     }
 
     /// Sets the value of [client_version][crate::model::WorkerPool::client_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_client_version("example");
+    /// ```
     pub fn set_client_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.client_version = v.into();
         self
     }
 
     /// Sets the value of [launch_stage][crate::model::WorkerPool::launch_stage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use api::model::LaunchStage;
+    /// let x0 = WorkerPool::new().set_launch_stage(LaunchStage::Unimplemented);
+    /// let x1 = WorkerPool::new().set_launch_stage(LaunchStage::Prelaunch);
+    /// let x2 = WorkerPool::new().set_launch_stage(LaunchStage::EarlyAccess);
+    /// ```
     pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
         mut self,
         v: T,
@@ -10092,6 +14394,13 @@ impl WorkerPool {
     }
 
     /// Sets the value of [binary_authorization][crate::model::WorkerPool::binary_authorization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::model::BinaryAuthorization;
+    /// let x = WorkerPool::new().set_binary_authorization(BinaryAuthorization::default()/* use setters */);
+    /// ```
     pub fn set_binary_authorization<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::BinaryAuthorization>,
@@ -10101,6 +14410,14 @@ impl WorkerPool {
     }
 
     /// Sets or clears the value of [binary_authorization][crate::model::WorkerPool::binary_authorization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::model::BinaryAuthorization;
+    /// let x = WorkerPool::new().set_or_clear_binary_authorization(Some(BinaryAuthorization::default()/* use setters */));
+    /// let x = WorkerPool::new().set_or_clear_binary_authorization(None::<BinaryAuthorization>);
+    /// ```
     pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::BinaryAuthorization>,
@@ -10110,6 +14427,13 @@ impl WorkerPool {
     }
 
     /// Sets the value of [template][crate::model::WorkerPool::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPool::new().set_template(WorkerPoolRevisionTemplate::default()/* use setters */);
+    /// ```
     pub fn set_template<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkerPoolRevisionTemplate>,
@@ -10119,6 +14443,14 @@ impl WorkerPool {
     }
 
     /// Sets or clears the value of [template][crate::model::WorkerPool::template].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPool::new().set_or_clear_template(Some(WorkerPoolRevisionTemplate::default()/* use setters */));
+    /// let x = WorkerPool::new().set_or_clear_template(None::<WorkerPoolRevisionTemplate>);
+    /// ```
     pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkerPoolRevisionTemplate>,
@@ -10128,6 +14460,17 @@ impl WorkerPool {
     }
 
     /// Sets the value of [instance_splits][crate::model::WorkerPool::instance_splits].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::model::InstanceSplit;
+    /// let x = WorkerPool::new()
+    ///     .set_instance_splits([
+    ///         InstanceSplit::default()/* use setters */,
+    ///         InstanceSplit::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_instance_splits<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10139,6 +14482,13 @@ impl WorkerPool {
     }
 
     /// Sets the value of [scaling][crate::model::WorkerPool::scaling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::model::WorkerPoolScaling;
+    /// let x = WorkerPool::new().set_scaling(WorkerPoolScaling::default()/* use setters */);
+    /// ```
     pub fn set_scaling<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::WorkerPoolScaling>,
@@ -10148,6 +14498,14 @@ impl WorkerPool {
     }
 
     /// Sets or clears the value of [scaling][crate::model::WorkerPool::scaling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::model::WorkerPoolScaling;
+    /// let x = WorkerPool::new().set_or_clear_scaling(Some(WorkerPoolScaling::default()/* use setters */));
+    /// let x = WorkerPool::new().set_or_clear_scaling(None::<WorkerPoolScaling>);
+    /// ```
     pub fn set_or_clear_scaling<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::WorkerPoolScaling>,
@@ -10157,12 +14515,25 @@ impl WorkerPool {
     }
 
     /// Sets the value of [observed_generation][crate::model::WorkerPool::observed_generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_observed_generation(42);
+    /// ```
     pub fn set_observed_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.observed_generation = v.into();
         self
     }
 
     /// Sets the value of [terminal_condition][crate::model::WorkerPool::terminal_condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = WorkerPool::new().set_terminal_condition(Condition::default()/* use setters */);
+    /// ```
     pub fn set_terminal_condition<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Condition>,
@@ -10172,6 +14543,14 @@ impl WorkerPool {
     }
 
     /// Sets or clears the value of [terminal_condition][crate::model::WorkerPool::terminal_condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = WorkerPool::new().set_or_clear_terminal_condition(Some(Condition::default()/* use setters */));
+    /// let x = WorkerPool::new().set_or_clear_terminal_condition(None::<Condition>);
+    /// ```
     pub fn set_or_clear_terminal_condition<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Condition>,
@@ -10181,6 +14560,17 @@ impl WorkerPool {
     }
 
     /// Sets the value of [conditions][crate::model::WorkerPool::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = WorkerPool::new()
+    ///     .set_conditions([
+    ///         Condition::default()/* use setters */,
+    ///         Condition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_conditions<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10192,6 +14582,12 @@ impl WorkerPool {
     }
 
     /// Sets the value of [latest_ready_revision][crate::model::WorkerPool::latest_ready_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_latest_ready_revision("example");
+    /// ```
     pub fn set_latest_ready_revision<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10201,6 +14597,12 @@ impl WorkerPool {
     }
 
     /// Sets the value of [latest_created_revision][crate::model::WorkerPool::latest_created_revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_latest_created_revision("example");
+    /// ```
     pub fn set_latest_created_revision<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -10210,6 +14612,17 @@ impl WorkerPool {
     }
 
     /// Sets the value of [instance_split_statuses][crate::model::WorkerPool::instance_split_statuses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::model::InstanceSplitStatus;
+    /// let x = WorkerPool::new()
+    ///     .set_instance_split_statuses([
+    ///         InstanceSplitStatus::default()/* use setters */,
+    ///         InstanceSplitStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_instance_split_statuses<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10220,7 +14633,25 @@ impl WorkerPool {
         self
     }
 
+    /// Sets the value of [threat_detection_enabled][crate::model::WorkerPool::threat_detection_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_threat_detection_enabled(true);
+    /// ```
+    pub fn set_threat_detection_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.threat_detection_enabled = v.into();
+        self
+    }
+
     /// Sets the value of [custom_audiences][crate::model::WorkerPool::custom_audiences].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_custom_audiences(["a", "b", "c"]);
+    /// ```
     pub fn set_custom_audiences<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10232,18 +14663,36 @@ impl WorkerPool {
     }
 
     /// Sets the value of [satisfies_pzs][crate::model::WorkerPool::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_satisfies_pzs(true);
+    /// ```
     pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.satisfies_pzs = v.into();
         self
     }
 
     /// Sets the value of [reconciling][crate::model::WorkerPool::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_reconciling(true);
+    /// ```
     pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.reconciling = v.into();
         self
     }
 
     /// Sets the value of [etag][crate::model::WorkerPool::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPool;
+    /// let x = WorkerPool::new().set_etag("example");
+    /// ```
     pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.etag = v.into();
         self
@@ -10327,6 +14776,9 @@ pub struct WorkerPoolRevisionTemplate {
     /// Optional. The node selector for the revision template.
     pub node_selector: std::option::Option<crate::model::NodeSelector>,
 
+    /// Optional. True if GPU zonal redundancy is disabled on this worker pool.
+    pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10336,12 +14788,27 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets the value of [revision][crate::model::WorkerPoolRevisionTemplate::revision].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPoolRevisionTemplate::new().set_revision("example");
+    /// ```
     pub fn set_revision<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.revision = v.into();
         self
     }
 
     /// Sets the value of [labels][crate::model::WorkerPoolRevisionTemplate::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPoolRevisionTemplate::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_labels<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10354,6 +14821,15 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets the value of [annotations][crate::model::WorkerPoolRevisionTemplate::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPoolRevisionTemplate::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
     pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = (K, V)>,
@@ -10366,6 +14842,13 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets the value of [vpc_access][crate::model::WorkerPoolRevisionTemplate::vpc_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use google_cloud_run_v2::model::VpcAccess;
+    /// let x = WorkerPoolRevisionTemplate::new().set_vpc_access(VpcAccess::default()/* use setters */);
+    /// ```
     pub fn set_vpc_access<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::VpcAccess>,
@@ -10375,6 +14858,14 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets or clears the value of [vpc_access][crate::model::WorkerPoolRevisionTemplate::vpc_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use google_cloud_run_v2::model::VpcAccess;
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_vpc_access(Some(VpcAccess::default()/* use setters */));
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_vpc_access(None::<VpcAccess>);
+    /// ```
     pub fn set_or_clear_vpc_access<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::VpcAccess>,
@@ -10384,12 +14875,29 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets the value of [service_account][crate::model::WorkerPoolRevisionTemplate::service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPoolRevisionTemplate::new().set_service_account("example");
+    /// ```
     pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service_account = v.into();
         self
     }
 
     /// Sets the value of [containers][crate::model::WorkerPoolRevisionTemplate::containers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use google_cloud_run_v2::model::Container;
+    /// let x = WorkerPoolRevisionTemplate::new()
+    ///     .set_containers([
+    ///         Container::default()/* use setters */,
+    ///         Container::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_containers<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10401,6 +14909,17 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets the value of [volumes][crate::model::WorkerPoolRevisionTemplate::volumes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use google_cloud_run_v2::model::Volume;
+    /// let x = WorkerPoolRevisionTemplate::new()
+    ///     .set_volumes([
+    ///         Volume::default()/* use setters */,
+    ///         Volume::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
     pub fn set_volumes<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -10412,12 +14931,25 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets the value of [encryption_key][crate::model::WorkerPoolRevisionTemplate::encryption_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPoolRevisionTemplate::new().set_encryption_key("example");
+    /// ```
     pub fn set_encryption_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.encryption_key = v.into();
         self
     }
 
     /// Sets the value of [service_mesh][crate::model::WorkerPoolRevisionTemplate::service_mesh].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use google_cloud_run_v2::model::ServiceMesh;
+    /// let x = WorkerPoolRevisionTemplate::new().set_service_mesh(ServiceMesh::default()/* use setters */);
+    /// ```
     pub fn set_service_mesh<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ServiceMesh>,
@@ -10427,6 +14959,14 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets or clears the value of [service_mesh][crate::model::WorkerPoolRevisionTemplate::service_mesh].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use google_cloud_run_v2::model::ServiceMesh;
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_service_mesh(Some(ServiceMesh::default()/* use setters */));
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_service_mesh(None::<ServiceMesh>);
+    /// ```
     pub fn set_or_clear_service_mesh<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ServiceMesh>,
@@ -10436,6 +14976,14 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets the value of [encryption_key_revocation_action][crate::model::WorkerPoolRevisionTemplate::encryption_key_revocation_action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use google_cloud_run_v2::model::EncryptionKeyRevocationAction;
+    /// let x0 = WorkerPoolRevisionTemplate::new().set_encryption_key_revocation_action(EncryptionKeyRevocationAction::PreventNew);
+    /// let x1 = WorkerPoolRevisionTemplate::new().set_encryption_key_revocation_action(EncryptionKeyRevocationAction::Shutdown);
+    /// ```
     pub fn set_encryption_key_revocation_action<
         T: std::convert::Into<crate::model::EncryptionKeyRevocationAction>,
     >(
@@ -10447,6 +14995,13 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets the value of [encryption_key_shutdown_duration][crate::model::WorkerPoolRevisionTemplate::encryption_key_shutdown_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use wkt::Duration;
+    /// let x = WorkerPoolRevisionTemplate::new().set_encryption_key_shutdown_duration(Duration::default()/* use setters */);
+    /// ```
     pub fn set_encryption_key_shutdown_duration<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -10456,6 +15011,14 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets or clears the value of [encryption_key_shutdown_duration][crate::model::WorkerPoolRevisionTemplate::encryption_key_shutdown_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use wkt::Duration;
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_encryption_key_shutdown_duration(Some(Duration::default()/* use setters */));
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_encryption_key_shutdown_duration(None::<Duration>);
+    /// ```
     pub fn set_or_clear_encryption_key_shutdown_duration<T>(
         mut self,
         v: std::option::Option<T>,
@@ -10468,6 +15031,13 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets the value of [node_selector][crate::model::WorkerPoolRevisionTemplate::node_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use google_cloud_run_v2::model::NodeSelector;
+    /// let x = WorkerPoolRevisionTemplate::new().set_node_selector(NodeSelector::default()/* use setters */);
+    /// ```
     pub fn set_node_selector<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::NodeSelector>,
@@ -10477,11 +15047,53 @@ impl WorkerPoolRevisionTemplate {
     }
 
     /// Sets or clears the value of [node_selector][crate::model::WorkerPoolRevisionTemplate::node_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// use google_cloud_run_v2::model::NodeSelector;
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_node_selector(Some(NodeSelector::default()/* use setters */));
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_node_selector(None::<NodeSelector>);
+    /// ```
     pub fn set_or_clear_node_selector<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::NodeSelector>,
     {
         self.node_selector = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::WorkerPoolRevisionTemplate::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPoolRevisionTemplate::new().set_gpu_zonal_redundancy_disabled(true);
+    /// ```
+    pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.gpu_zonal_redundancy_disabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::WorkerPoolRevisionTemplate::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::WorkerPoolRevisionTemplate;
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_gpu_zonal_redundancy_disabled(Some(false));
+    /// let x = WorkerPoolRevisionTemplate::new().set_or_clear_gpu_zonal_redundancy_disabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.gpu_zonal_redundancy_disabled = v.map(|x| x.into());
         self
     }
 }

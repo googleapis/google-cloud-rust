@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-licensemanager-v1/1.2.1)
+- Read the [crate's documentation](https://docs.rs/google-cloud-licensemanager-v1/1.3.0)
 
-[LicenseManager]: https://docs.rs/google-cloud-licensemanager-v1/1.2.1/google_cloud_licensemanager_v1/client/struct.LicenseManager.html
+[LicenseManager]: https://docs.rs/google-cloud-licensemanager-v1/1.3.0/google_cloud_licensemanager_v1/client/struct.LicenseManager.html

@@ -23,7 +23,29 @@ use tower::{Layer, Service};
 
 /// A wrapper for the attempt count to be stored in request extensions.
 #[derive(Clone, Copy, Debug)]
-pub struct AttemptCount(pub i64);
+pub struct AttemptCount(i64);
+
+impl AttemptCount {
+    pub fn new(value: i64) -> Self {
+        Self(value)
+    }
+    pub fn as_i64(&self) -> i64 {
+        self.0
+    }
+}
+
+/// A wrapper for the resource name to be stored in request extensions.
+#[derive(Clone, Debug)]
+pub struct ResourceName(String);
+
+impl ResourceName {
+    pub fn new(value: String) -> Self {
+        Self(value)
+    }
+    pub fn as_str(&self) -> &str {
+        self.0.as_str()
+    }
+}
 
 /// A type alias for the response body that can be either an instrumented body or a raw body.
 ///
@@ -162,8 +184,9 @@ where
     }
 
     fn call(&mut self, req: http::Request<B>) -> Self::Future {
-        let attempt_count = req.extensions().get::<AttemptCount>().map(|a| a.0);
-        let span = create_grpc_span(req.uri(), &self.layer.inner, attempt_count);
+        let attempt_count = req.extensions().get::<AttemptCount>().map(|a| a.as_i64());
+        let resource_name = req.extensions().get::<ResourceName>().map(|r| r.as_str());
+        let span = create_grpc_span(req.uri(), &self.layer.inner, attempt_count, resource_name);
         let future = self.inner.call(req);
         ResponseFuture {
             inner: future,
@@ -343,6 +366,7 @@ fn create_grpc_span(
     uri: &http::Uri,
     layer_inner: &TracingTowerLayerInner,
     attempt_count: Option<i64>,
+    resource_name: Option<&str>,
 ) -> tracing::Span {
     let (rpc_service, rpc_method) =
         parse_method(uri.path()).unwrap_or_else(|_| ("unknown".to_string(), "unknown".to_string()));
@@ -382,6 +406,7 @@ fn create_grpc_span(
         { GCP_CLIENT_REPO } = repo,
         { GCP_CLIENT_ARTIFACT } = artifact,
         { GCP_GRPC_RESEND_COUNT } = resend_count,
+        { GCP_RESOURCE_NAME } = resource_name,
     );
 
     span
@@ -468,7 +493,7 @@ mod tests {
         let layer =
             TracingTowerLayer::new(&endpoint_uri, "pubsub.googleapis.com".to_string(), None);
         // First attempt (0) should not have resend count
-        let _span = create_grpc_span(&uri, &layer.inner, Some(0));
+        let _span = create_grpc_span(&uri, &layer.inner, Some(0), None);
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1);
@@ -518,7 +543,7 @@ mod tests {
             Some(&TEST_INFO),
         );
         // Retry attempt (1) should have resend count 1
-        let _span = create_grpc_span(&uri, &layer.inner, Some(1));
+        let _span = create_grpc_span(&uri, &layer.inner, Some(1), None);
 
         let captured = TestLayer::capture(&guard);
         assert_eq!(captured.len(), 1);
@@ -543,6 +568,46 @@ mod tests {
             (GCP_CLIENT_ARTIFACT, "test-artifact".into()),
             (GCP_GRPC_RESEND_COUNT, 1_i64.into()),
             (OTEL_STATUS_CODE, "UNSET".into()),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v))
+        .collect();
+
+        assert_eq!(span.attributes, expected_attributes);
+    }
+
+    #[test]
+    fn test_create_grpc_span_with_resource_name() {
+        let guard = TestLayer::initialize();
+        let uri = http::Uri::from_static(
+            "https://pubsub.googleapis.com/google.pubsub.v1.Publisher/Publish",
+        );
+        let endpoint_uri = "https://pubsub.googleapis.com".parse().unwrap();
+        let layer =
+            TracingTowerLayer::new(&endpoint_uri, "pubsub.googleapis.com".to_string(), None);
+
+        let resource_name = "projects/my-project/topics/my-topic";
+        let _span = create_grpc_span(&uri, &layer.inner, None, Some(resource_name));
+
+        let captured = TestLayer::capture(&guard);
+        assert_eq!(captured.len(), 1);
+        let span = &captured[0];
+        assert_eq!(span.name, "grpc.request");
+
+        let expected_attributes: HashMap<String, AttributeValue> = [
+            (OTEL_NAME, "google.pubsub.v1.Publisher/Publish".into()),
+            (
+                otel_trace::RPC_SYSTEM,
+                crate::observability::attributes::RPC_SYSTEM_GRPC.into(),
+            ),
+            (OTEL_KIND, "Client".into()),
+            (otel_trace::RPC_SERVICE, "google.pubsub.v1.Publisher".into()),
+            (otel_trace::RPC_METHOD, "Publish".into()),
+            (otel_trace::SERVER_ADDRESS, "pubsub.googleapis.com".into()),
+            (otel_trace::SERVER_PORT, 443_i64.into()),
+            (otel_attr::URL_DOMAIN, "pubsub.googleapis.com".into()),
+            (OTEL_STATUS_CODE, "UNSET".into()),
+            (GCP_RESOURCE_NAME, resource_name.into()),
         ]
         .into_iter()
         .map(|(k, v)| (k.to_string(), v))

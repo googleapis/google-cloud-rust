@@ -20,6 +20,7 @@ use crate::model_ext::ReadRange;
 use crate::read_object::ReadObjectResponse;
 use crate::stub::ObjectDescriptor;
 use crate::{Error, Result};
+use http::HeaderMap;
 use std::sync::Arc;
 use tokio::sync::mpsc::Sender;
 
@@ -28,6 +29,7 @@ type ReadResult<T> = std::result::Result<T, ReadError>;
 #[derive(Debug)]
 pub struct ObjectDescriptorTransport {
     object: Arc<Object>,
+    headers: HeaderMap,
     tx: Sender<ActiveRead>,
 }
 
@@ -40,7 +42,7 @@ impl ObjectDescriptorTransport {
         use gaxi::prost::FromProto;
 
         let (tx, rx) = tokio::sync::mpsc::channel(100);
-        let (initial, connection) = connector.connect(Vec::new()).await?;
+        let (initial, headers, connection) = connector.connect(Vec::new()).await?;
         let object = FromProto::cnv(initial.metadata.ok_or_else(|| {
             Error::deser("initial response in bidi read must contain object metadata")
         })?)
@@ -48,7 +50,11 @@ impl ObjectDescriptorTransport {
         let object = Arc::new(object);
         let worker = super::worker::Worker::new(connector);
         let _handle = tokio::spawn(worker.run(connection, rx));
-        Ok(Self { object, tx })
+        Ok(Self {
+            object,
+            headers,
+            tx,
+        })
     }
 }
 
@@ -66,6 +72,10 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
             self.object.clone(),
             self.tx.clone(),
         )))
+    }
+
+    fn headers(&self) -> &HeaderMap {
+        &self.headers
     }
 }
 
