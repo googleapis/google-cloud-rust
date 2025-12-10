@@ -599,15 +599,12 @@ fn extract_credential_type(json: &Value) -> BuildResult<&str> {
 /// It helps avoid repetitive code in the `build_credentials` function.
 macro_rules! config_builder {
     ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
-        let builder = $builder_instance;
-        let builder = $quota_project_id_option
-            .into_iter()
-            .fold(builder, |b, qp| b.with_quota_project_id(qp));
-
-        let builder = $scopes_option
-            .into_iter()
-            .fold(builder, |b, s| $apply_scopes_closure(b, s));
-
+        let builder = config_common_builder!(
+            $builder_instance,
+            $quota_project_id_option,
+            $scopes_option,
+            $apply_scopes_closure
+        );
         builder.build_access_token_credentials()
     }};
 }
@@ -616,6 +613,18 @@ macro_rules! config_builder {
 /// specific credential builder instance and then return a signer for it.
 #[cfg(google_cloud_unstable_signed_url)]
 macro_rules! config_signer {
+    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
+        let builder = config_common_builder!(
+            $builder_instance,
+            $quota_project_id_option,
+            $scopes_option,
+            $apply_scopes_closure
+        );
+        builder.build_signer()
+    }};
+}
+
+macro_rules! config_common_builder {
     ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
         let builder = $builder_instance;
         let builder = $quota_project_id_option
@@ -626,7 +635,7 @@ macro_rules! config_signer {
             .into_iter()
             .fold(builder, |b, s| $apply_scopes_closure(b, s));
 
-        builder.build_signer()
+        builder
     }};
 }
 
