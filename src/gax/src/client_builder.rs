@@ -390,15 +390,13 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// # Example
     /// ```
     /// # use google_cloud_gax::client_builder::examples;
-    /// # use google_cloud_gax as gax;
-    /// # use google_cloud_gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use examples::Client; // Placeholder for examples
     /// let count = std::thread::available_parallelism()?;
     /// let client = Client::builder()
     ///     .with_subchannel_count(count.get())
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     #[cfg(google_cloud_unstable_storage_bidi)]
     pub fn with_subchannel_count(mut self, v: usize) -> Self {
