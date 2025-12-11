@@ -37,12 +37,6 @@ impl PendingRenameInfo {
     }
 
     /// Sets the value of [operation][crate::model::PendingRenameInfo::operation].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::PendingRenameInfo;
-    /// let x = PendingRenameInfo::new().set_operation("example");
-    /// ```
     pub fn set_operation<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.operation = v.into();
         self
@@ -90,37 +84,18 @@ impl Folder {
     }
 
     /// Sets the value of [name][crate::model::Folder::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::Folder;
-    /// let x = Folder::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [metageneration][crate::model::Folder::metageneration].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::Folder;
-    /// let x = Folder::new().set_metageneration(42);
-    /// ```
     pub fn set_metageneration<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.metageneration = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::Folder::create_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::Folder;
-    /// use wkt::Timestamp;
-    /// let x = Folder::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -130,14 +105,6 @@ impl Folder {
     }
 
     /// Sets or clears the value of [create_time][crate::model::Folder::create_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::Folder;
-    /// use wkt::Timestamp;
-    /// let x = Folder::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Folder::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -147,13 +114,6 @@ impl Folder {
     }
 
     /// Sets the value of [update_time][crate::model::Folder::update_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::Folder;
-    /// use wkt::Timestamp;
-    /// let x = Folder::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -163,14 +123,6 @@ impl Folder {
     }
 
     /// Sets or clears the value of [update_time][crate::model::Folder::update_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::Folder;
-    /// use wkt::Timestamp;
-    /// let x = Folder::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = Folder::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -180,13 +132,6 @@ impl Folder {
     }
 
     /// Sets the value of [pending_rename_info][crate::model::Folder::pending_rename_info].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::Folder;
-    /// use google_cloud_storage::model::PendingRenameInfo;
-    /// let x = Folder::new().set_pending_rename_info(PendingRenameInfo::default()/* use setters */);
-    /// ```
     pub fn set_pending_rename_info<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::PendingRenameInfo>,
@@ -196,14 +141,6 @@ impl Folder {
     }
 
     /// Sets or clears the value of [pending_rename_info][crate::model::Folder::pending_rename_info].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::Folder;
-    /// use google_cloud_storage::model::PendingRenameInfo;
-    /// let x = Folder::new().set_or_clear_pending_rename_info(Some(PendingRenameInfo::default()/* use setters */));
-    /// let x = Folder::new().set_or_clear_pending_rename_info(None::<PendingRenameInfo>);
-    /// ```
     pub fn set_or_clear_pending_rename_info<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::PendingRenameInfo>,
@@ -249,24 +186,12 @@ impl GetFolderRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFolderRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetFolderRequest;
-    /// let x = GetFolderRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::GetFolderRequest::if_metageneration_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetFolderRequest;
-    /// let x = GetFolderRequest::new().set_if_metageneration_match(42);
-    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -276,13 +201,6 @@ impl GetFolderRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::GetFolderRequest::if_metageneration_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetFolderRequest;
-    /// let x = GetFolderRequest::new().set_or_clear_if_metageneration_match(Some(42));
-    /// let x = GetFolderRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
-    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -292,12 +210,6 @@ impl GetFolderRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::GetFolderRequest::if_metageneration_not_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetFolderRequest;
-    /// let x = GetFolderRequest::new().set_if_metageneration_not_match(42);
-    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -307,13 +219,6 @@ impl GetFolderRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetFolderRequest::if_metageneration_not_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetFolderRequest;
-    /// let x = GetFolderRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
-    /// let x = GetFolderRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
-    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -323,12 +228,6 @@ impl GetFolderRequest {
     }
 
     /// Sets the value of [request_id][crate::model::GetFolderRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetFolderRequest;
-    /// let x = GetFolderRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -380,25 +279,12 @@ impl CreateFolderRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateFolderRequest::parent].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateFolderRequest;
-    /// let x = CreateFolderRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [folder][crate::model::CreateFolderRequest::folder].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateFolderRequest;
-    /// use google_cloud_storage::model::Folder;
-    /// let x = CreateFolderRequest::new().set_folder(Folder::default()/* use setters */);
-    /// ```
     pub fn set_folder<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::Folder>,
@@ -408,14 +294,6 @@ impl CreateFolderRequest {
     }
 
     /// Sets or clears the value of [folder][crate::model::CreateFolderRequest::folder].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateFolderRequest;
-    /// use google_cloud_storage::model::Folder;
-    /// let x = CreateFolderRequest::new().set_or_clear_folder(Some(Folder::default()/* use setters */));
-    /// let x = CreateFolderRequest::new().set_or_clear_folder(None::<Folder>);
-    /// ```
     pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::Folder>,
@@ -425,36 +303,18 @@ impl CreateFolderRequest {
     }
 
     /// Sets the value of [folder_id][crate::model::CreateFolderRequest::folder_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateFolderRequest;
-    /// let x = CreateFolderRequest::new().set_folder_id("example");
-    /// ```
     pub fn set_folder_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.folder_id = v.into();
         self
     }
 
     /// Sets the value of [recursive][crate::model::CreateFolderRequest::recursive].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateFolderRequest;
-    /// let x = CreateFolderRequest::new().set_recursive(true);
-    /// ```
     pub fn set_recursive<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.recursive = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::CreateFolderRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateFolderRequest;
-    /// let x = CreateFolderRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -497,24 +357,12 @@ impl DeleteFolderRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteFolderRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteFolderRequest;
-    /// let x = DeleteFolderRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::DeleteFolderRequest::if_metageneration_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteFolderRequest;
-    /// let x = DeleteFolderRequest::new().set_if_metageneration_match(42);
-    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -524,13 +372,6 @@ impl DeleteFolderRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteFolderRequest::if_metageneration_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteFolderRequest;
-    /// let x = DeleteFolderRequest::new().set_or_clear_if_metageneration_match(Some(42));
-    /// let x = DeleteFolderRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
-    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -540,12 +381,6 @@ impl DeleteFolderRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::DeleteFolderRequest::if_metageneration_not_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteFolderRequest;
-    /// let x = DeleteFolderRequest::new().set_if_metageneration_not_match(42);
-    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -555,13 +390,6 @@ impl DeleteFolderRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteFolderRequest::if_metageneration_not_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteFolderRequest;
-    /// let x = DeleteFolderRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
-    /// let x = DeleteFolderRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
-    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -571,12 +399,6 @@ impl DeleteFolderRequest {
     }
 
     /// Sets the value of [request_id][crate::model::DeleteFolderRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteFolderRequest;
-    /// let x = DeleteFolderRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -640,72 +462,36 @@ impl ListFoldersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListFoldersRequest::parent].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListFoldersRequest::page_size].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListFoldersRequest::page_token].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [prefix][crate::model::ListFoldersRequest::prefix].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_prefix("example");
-    /// ```
     pub fn set_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.prefix = v.into();
         self
     }
 
     /// Sets the value of [delimiter][crate::model::ListFoldersRequest::delimiter].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_delimiter("example");
-    /// ```
     pub fn set_delimiter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.delimiter = v.into();
         self
     }
 
     /// Sets the value of [lexicographic_start][crate::model::ListFoldersRequest::lexicographic_start].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_lexicographic_start("example");
-    /// ```
     pub fn set_lexicographic_start<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -715,12 +501,6 @@ impl ListFoldersRequest {
     }
 
     /// Sets the value of [lexicographic_end][crate::model::ListFoldersRequest::lexicographic_end].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_lexicographic_end("example");
-    /// ```
     pub fn set_lexicographic_end<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -730,12 +510,6 @@ impl ListFoldersRequest {
     }
 
     /// Sets the value of [request_id][crate::model::ListFoldersRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListFoldersRequest;
-    /// let x = ListFoldersRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -768,17 +542,6 @@ impl ListFoldersResponse {
     }
 
     /// Sets the value of [folders][crate::model::ListFoldersResponse::folders].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListFoldersResponse;
-    /// use google_cloud_storage::model::Folder;
-    /// let x = ListFoldersResponse::new()
-    ///     .set_folders([
-    ///         Folder::default()/* use setters */,
-    ///         Folder::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_folders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -790,12 +553,6 @@ impl ListFoldersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListFoldersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListFoldersResponse;
-    /// let x = ListFoldersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -856,24 +613,12 @@ impl RenameFolderRequest {
     }
 
     /// Sets the value of [name][crate::model::RenameFolderRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::RenameFolderRequest;
-    /// let x = RenameFolderRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [destination_folder_id][crate::model::RenameFolderRequest::destination_folder_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::RenameFolderRequest;
-    /// let x = RenameFolderRequest::new().set_destination_folder_id("example");
-    /// ```
     pub fn set_destination_folder_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -883,12 +628,6 @@ impl RenameFolderRequest {
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::RenameFolderRequest::if_metageneration_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::RenameFolderRequest;
-    /// let x = RenameFolderRequest::new().set_if_metageneration_match(42);
-    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -898,13 +637,6 @@ impl RenameFolderRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::RenameFolderRequest::if_metageneration_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::RenameFolderRequest;
-    /// let x = RenameFolderRequest::new().set_or_clear_if_metageneration_match(Some(42));
-    /// let x = RenameFolderRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
-    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -914,12 +646,6 @@ impl RenameFolderRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::RenameFolderRequest::if_metageneration_not_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::RenameFolderRequest;
-    /// let x = RenameFolderRequest::new().set_if_metageneration_not_match(42);
-    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -929,13 +655,6 @@ impl RenameFolderRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::RenameFolderRequest::if_metageneration_not_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::RenameFolderRequest;
-    /// let x = RenameFolderRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
-    /// let x = RenameFolderRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
-    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -945,12 +664,6 @@ impl RenameFolderRequest {
     }
 
     /// Sets the value of [request_id][crate::model::RenameFolderRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::RenameFolderRequest;
-    /// let x = RenameFolderRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -997,13 +710,6 @@ impl CommonLongRunningOperationMetadata {
     }
 
     /// Sets the value of [create_time][crate::model::CommonLongRunningOperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CommonLongRunningOperationMetadata::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1013,14 +719,6 @@ impl CommonLongRunningOperationMetadata {
     }
 
     /// Sets or clears the value of [create_time][crate::model::CommonLongRunningOperationMetadata::create_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CommonLongRunningOperationMetadata::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CommonLongRunningOperationMetadata::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1030,13 +728,6 @@ impl CommonLongRunningOperationMetadata {
     }
 
     /// Sets the value of [end_time][crate::model::CommonLongRunningOperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CommonLongRunningOperationMetadata::new().set_end_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_end_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1046,14 +737,6 @@ impl CommonLongRunningOperationMetadata {
     }
 
     /// Sets or clears the value of [end_time][crate::model::CommonLongRunningOperationMetadata::end_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CommonLongRunningOperationMetadata::new().set_or_clear_end_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CommonLongRunningOperationMetadata::new().set_or_clear_end_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1063,13 +746,6 @@ impl CommonLongRunningOperationMetadata {
     }
 
     /// Sets the value of [update_time][crate::model::CommonLongRunningOperationMetadata::update_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CommonLongRunningOperationMetadata::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1079,14 +755,6 @@ impl CommonLongRunningOperationMetadata {
     }
 
     /// Sets or clears the value of [update_time][crate::model::CommonLongRunningOperationMetadata::update_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// use wkt::Timestamp;
-    /// let x = CommonLongRunningOperationMetadata::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = CommonLongRunningOperationMetadata::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1096,36 +764,18 @@ impl CommonLongRunningOperationMetadata {
     }
 
     /// Sets the value of [r#type][crate::model::CommonLongRunningOperationMetadata::type].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// let x = CommonLongRunningOperationMetadata::new().set_type("example");
-    /// ```
     pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.r#type = v.into();
         self
     }
 
     /// Sets the value of [requested_cancellation][crate::model::CommonLongRunningOperationMetadata::requested_cancellation].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// let x = CommonLongRunningOperationMetadata::new().set_requested_cancellation(true);
-    /// ```
     pub fn set_requested_cancellation<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.requested_cancellation = v.into();
         self
     }
 
     /// Sets the value of [progress_percent][crate::model::CommonLongRunningOperationMetadata::progress_percent].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// let x = CommonLongRunningOperationMetadata::new().set_progress_percent(42);
-    /// ```
     pub fn set_progress_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.progress_percent = v.into();
         self
@@ -1161,13 +811,6 @@ impl RenameFolderMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::RenameFolderMetadata::common_metadata].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::RenameFolderMetadata;
-    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// let x = RenameFolderMetadata::new().set_common_metadata(CommonLongRunningOperationMetadata::default()/* use setters */);
-    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
@@ -1177,14 +820,6 @@ impl RenameFolderMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::RenameFolderMetadata::common_metadata].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::RenameFolderMetadata;
-    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// let x = RenameFolderMetadata::new().set_or_clear_common_metadata(Some(CommonLongRunningOperationMetadata::default()/* use setters */));
-    /// let x = RenameFolderMetadata::new().set_or_clear_common_metadata(None::<CommonLongRunningOperationMetadata>);
-    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
@@ -1194,12 +829,6 @@ impl RenameFolderMetadata {
     }
 
     /// Sets the value of [source_folder_id][crate::model::RenameFolderMetadata::source_folder_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::RenameFolderMetadata;
-    /// let x = RenameFolderMetadata::new().set_source_folder_id("example");
-    /// ```
     pub fn set_source_folder_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1209,12 +838,6 @@ impl RenameFolderMetadata {
     }
 
     /// Sets the value of [destination_folder_id][crate::model::RenameFolderMetadata::destination_folder_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::RenameFolderMetadata;
-    /// let x = RenameFolderMetadata::new().set_destination_folder_id("example");
-    /// ```
     pub fn set_destination_folder_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1264,49 +887,24 @@ impl StorageLayout {
     }
 
     /// Sets the value of [name][crate::model::StorageLayout::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::StorageLayout;
-    /// let x = StorageLayout::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [location][crate::model::StorageLayout::location].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::StorageLayout;
-    /// let x = StorageLayout::new().set_location("example");
-    /// ```
     pub fn set_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location = v.into();
         self
     }
 
     /// Sets the value of [location_type][crate::model::StorageLayout::location_type].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::StorageLayout;
-    /// let x = StorageLayout::new().set_location_type("example");
-    /// ```
     pub fn set_location_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.location_type = v.into();
         self
     }
 
     /// Sets the value of [custom_placement_config][crate::model::StorageLayout::custom_placement_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::StorageLayout;
-    /// use google_cloud_storage::model::storage_layout::CustomPlacementConfig;
-    /// let x = StorageLayout::new().set_custom_placement_config(CustomPlacementConfig::default()/* use setters */);
-    /// ```
     pub fn set_custom_placement_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::storage_layout::CustomPlacementConfig>,
@@ -1316,14 +914,6 @@ impl StorageLayout {
     }
 
     /// Sets or clears the value of [custom_placement_config][crate::model::StorageLayout::custom_placement_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::StorageLayout;
-    /// use google_cloud_storage::model::storage_layout::CustomPlacementConfig;
-    /// let x = StorageLayout::new().set_or_clear_custom_placement_config(Some(CustomPlacementConfig::default()/* use setters */));
-    /// let x = StorageLayout::new().set_or_clear_custom_placement_config(None::<CustomPlacementConfig>);
-    /// ```
     pub fn set_or_clear_custom_placement_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::storage_layout::CustomPlacementConfig>,
@@ -1333,13 +923,6 @@ impl StorageLayout {
     }
 
     /// Sets the value of [hierarchical_namespace][crate::model::StorageLayout::hierarchical_namespace].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::StorageLayout;
-    /// use google_cloud_storage::model::storage_layout::HierarchicalNamespace;
-    /// let x = StorageLayout::new().set_hierarchical_namespace(HierarchicalNamespace::default()/* use setters */);
-    /// ```
     pub fn set_hierarchical_namespace<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::storage_layout::HierarchicalNamespace>,
@@ -1349,14 +932,6 @@ impl StorageLayout {
     }
 
     /// Sets or clears the value of [hierarchical_namespace][crate::model::StorageLayout::hierarchical_namespace].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::StorageLayout;
-    /// use google_cloud_storage::model::storage_layout::HierarchicalNamespace;
-    /// let x = StorageLayout::new().set_or_clear_hierarchical_namespace(Some(HierarchicalNamespace::default()/* use setters */));
-    /// let x = StorageLayout::new().set_or_clear_hierarchical_namespace(None::<HierarchicalNamespace>);
-    /// ```
     pub fn set_or_clear_hierarchical_namespace<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::storage_layout::HierarchicalNamespace>,
@@ -1395,12 +970,6 @@ pub mod storage_layout {
         }
 
         /// Sets the value of [data_locations][crate::model::storage_layout::CustomPlacementConfig::data_locations].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::storage_layout::CustomPlacementConfig;
-        /// let x = CustomPlacementConfig::new().set_data_locations(["a", "b", "c"]);
-        /// ```
         pub fn set_data_locations<T, V>(mut self, v: T) -> Self
         where
             T: std::iter::IntoIterator<Item = V>,
@@ -1434,12 +1003,6 @@ pub mod storage_layout {
         }
 
         /// Sets the value of [enabled][crate::model::storage_layout::HierarchicalNamespace::enabled].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::storage_layout::HierarchicalNamespace;
-        /// let x = HierarchicalNamespace::new().set_enabled(true);
-        /// ```
         pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.enabled = v.into();
             self
@@ -1478,36 +1041,18 @@ impl GetStorageLayoutRequest {
     }
 
     /// Sets the value of [name][crate::model::GetStorageLayoutRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetStorageLayoutRequest;
-    /// let x = GetStorageLayoutRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [prefix][crate::model::GetStorageLayoutRequest::prefix].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetStorageLayoutRequest;
-    /// let x = GetStorageLayoutRequest::new().set_prefix("example");
-    /// ```
     pub fn set_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.prefix = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::GetStorageLayoutRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetStorageLayoutRequest;
-    /// let x = GetStorageLayoutRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1549,37 +1094,18 @@ impl ManagedFolder {
     }
 
     /// Sets the value of [name][crate::model::ManagedFolder::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ManagedFolder;
-    /// let x = ManagedFolder::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [metageneration][crate::model::ManagedFolder::metageneration].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ManagedFolder;
-    /// let x = ManagedFolder::new().set_metageneration(42);
-    /// ```
     pub fn set_metageneration<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.metageneration = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::ManagedFolder::create_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ManagedFolder;
-    /// use wkt::Timestamp;
-    /// let x = ManagedFolder::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1589,14 +1115,6 @@ impl ManagedFolder {
     }
 
     /// Sets or clears the value of [create_time][crate::model::ManagedFolder::create_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ManagedFolder;
-    /// use wkt::Timestamp;
-    /// let x = ManagedFolder::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ManagedFolder::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1606,13 +1124,6 @@ impl ManagedFolder {
     }
 
     /// Sets the value of [update_time][crate::model::ManagedFolder::update_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ManagedFolder;
-    /// use wkt::Timestamp;
-    /// let x = ManagedFolder::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1622,14 +1133,6 @@ impl ManagedFolder {
     }
 
     /// Sets or clears the value of [update_time][crate::model::ManagedFolder::update_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ManagedFolder;
-    /// use wkt::Timestamp;
-    /// let x = ManagedFolder::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = ManagedFolder::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -1675,24 +1178,12 @@ impl GetManagedFolderRequest {
     }
 
     /// Sets the value of [name][crate::model::GetManagedFolderRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetManagedFolderRequest;
-    /// let x = GetManagedFolderRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::GetManagedFolderRequest::if_metageneration_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetManagedFolderRequest;
-    /// let x = GetManagedFolderRequest::new().set_if_metageneration_match(42);
-    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1702,13 +1193,6 @@ impl GetManagedFolderRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::GetManagedFolderRequest::if_metageneration_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetManagedFolderRequest;
-    /// let x = GetManagedFolderRequest::new().set_or_clear_if_metageneration_match(Some(42));
-    /// let x = GetManagedFolderRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
-    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1718,12 +1202,6 @@ impl GetManagedFolderRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::GetManagedFolderRequest::if_metageneration_not_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetManagedFolderRequest;
-    /// let x = GetManagedFolderRequest::new().set_if_metageneration_not_match(42);
-    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1733,13 +1211,6 @@ impl GetManagedFolderRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::GetManagedFolderRequest::if_metageneration_not_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetManagedFolderRequest;
-    /// let x = GetManagedFolderRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
-    /// let x = GetManagedFolderRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
-    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1749,12 +1220,6 @@ impl GetManagedFolderRequest {
     }
 
     /// Sets the value of [request_id][crate::model::GetManagedFolderRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetManagedFolderRequest;
-    /// let x = GetManagedFolderRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1797,25 +1262,12 @@ impl CreateManagedFolderRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateManagedFolderRequest::parent].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateManagedFolderRequest;
-    /// let x = CreateManagedFolderRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [managed_folder][crate::model::CreateManagedFolderRequest::managed_folder].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateManagedFolderRequest;
-    /// use google_cloud_storage::model::ManagedFolder;
-    /// let x = CreateManagedFolderRequest::new().set_managed_folder(ManagedFolder::default()/* use setters */);
-    /// ```
     pub fn set_managed_folder<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::ManagedFolder>,
@@ -1825,14 +1277,6 @@ impl CreateManagedFolderRequest {
     }
 
     /// Sets or clears the value of [managed_folder][crate::model::CreateManagedFolderRequest::managed_folder].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateManagedFolderRequest;
-    /// use google_cloud_storage::model::ManagedFolder;
-    /// let x = CreateManagedFolderRequest::new().set_or_clear_managed_folder(Some(ManagedFolder::default()/* use setters */));
-    /// let x = CreateManagedFolderRequest::new().set_or_clear_managed_folder(None::<ManagedFolder>);
-    /// ```
     pub fn set_or_clear_managed_folder<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::ManagedFolder>,
@@ -1842,12 +1286,6 @@ impl CreateManagedFolderRequest {
     }
 
     /// Sets the value of [managed_folder_id][crate::model::CreateManagedFolderRequest::managed_folder_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateManagedFolderRequest;
-    /// let x = CreateManagedFolderRequest::new().set_managed_folder_id("example");
-    /// ```
     pub fn set_managed_folder_id<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -1857,12 +1295,6 @@ impl CreateManagedFolderRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateManagedFolderRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateManagedFolderRequest;
-    /// let x = CreateManagedFolderRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -1911,24 +1343,12 @@ impl DeleteManagedFolderRequest {
     }
 
     /// Sets the value of [name][crate::model::DeleteManagedFolderRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteManagedFolderRequest;
-    /// let x = DeleteManagedFolderRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [if_metageneration_match][crate::model::DeleteManagedFolderRequest::if_metageneration_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteManagedFolderRequest;
-    /// let x = DeleteManagedFolderRequest::new().set_if_metageneration_match(42);
-    /// ```
     pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1938,13 +1358,6 @@ impl DeleteManagedFolderRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteManagedFolderRequest::if_metageneration_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteManagedFolderRequest;
-    /// let x = DeleteManagedFolderRequest::new().set_or_clear_if_metageneration_match(Some(42));
-    /// let x = DeleteManagedFolderRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
-    /// ```
     pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1954,12 +1367,6 @@ impl DeleteManagedFolderRequest {
     }
 
     /// Sets the value of [if_metageneration_not_match][crate::model::DeleteManagedFolderRequest::if_metageneration_not_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteManagedFolderRequest;
-    /// let x = DeleteManagedFolderRequest::new().set_if_metageneration_not_match(42);
-    /// ```
     pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1969,13 +1376,6 @@ impl DeleteManagedFolderRequest {
     }
 
     /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteManagedFolderRequest::if_metageneration_not_match].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteManagedFolderRequest;
-    /// let x = DeleteManagedFolderRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
-    /// let x = DeleteManagedFolderRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
-    /// ```
     pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<i64>,
@@ -1985,24 +1385,12 @@ impl DeleteManagedFolderRequest {
     }
 
     /// Sets the value of [allow_non_empty][crate::model::DeleteManagedFolderRequest::allow_non_empty].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteManagedFolderRequest;
-    /// let x = DeleteManagedFolderRequest::new().set_allow_non_empty(true);
-    /// ```
     pub fn set_allow_non_empty<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.allow_non_empty = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DeleteManagedFolderRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DeleteManagedFolderRequest;
-    /// let x = DeleteManagedFolderRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2047,60 +1435,30 @@ impl ListManagedFoldersRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListManagedFoldersRequest::parent].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListManagedFoldersRequest;
-    /// let x = ListManagedFoldersRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListManagedFoldersRequest::page_size].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListManagedFoldersRequest;
-    /// let x = ListManagedFoldersRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListManagedFoldersRequest::page_token].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListManagedFoldersRequest;
-    /// let x = ListManagedFoldersRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [prefix][crate::model::ListManagedFoldersRequest::prefix].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListManagedFoldersRequest;
-    /// let x = ListManagedFoldersRequest::new().set_prefix("example");
-    /// ```
     pub fn set_prefix<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.prefix = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::ListManagedFoldersRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListManagedFoldersRequest;
-    /// let x = ListManagedFoldersRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2133,17 +1491,6 @@ impl ListManagedFoldersResponse {
     }
 
     /// Sets the value of [managed_folders][crate::model::ListManagedFoldersResponse::managed_folders].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListManagedFoldersResponse;
-    /// use google_cloud_storage::model::ManagedFolder;
-    /// let x = ListManagedFoldersResponse::new()
-    ///     .set_managed_folders([
-    ///         ManagedFolder::default()/* use setters */,
-    ///         ManagedFolder::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_managed_folders<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -2155,12 +1502,6 @@ impl ListManagedFoldersResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListManagedFoldersResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListManagedFoldersResponse;
-    /// let x = ListManagedFoldersResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -2221,13 +1562,6 @@ impl CreateAnywhereCacheMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::CreateAnywhereCacheMetadata::common_metadata].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheMetadata;
-    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// let x = CreateAnywhereCacheMetadata::new().set_common_metadata(CommonLongRunningOperationMetadata::default()/* use setters */);
-    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
@@ -2237,14 +1571,6 @@ impl CreateAnywhereCacheMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::CreateAnywhereCacheMetadata::common_metadata].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheMetadata;
-    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_common_metadata(Some(CommonLongRunningOperationMetadata::default()/* use setters */));
-    /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_common_metadata(None::<CommonLongRunningOperationMetadata>);
-    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
@@ -2254,12 +1580,6 @@ impl CreateAnywhereCacheMetadata {
     }
 
     /// Sets the value of [anywhere_cache_id][crate::model::CreateAnywhereCacheMetadata::anywhere_cache_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheMetadata;
-    /// let x = CreateAnywhereCacheMetadata::new().set_anywhere_cache_id("example");
-    /// ```
     pub fn set_anywhere_cache_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2269,13 +1589,6 @@ impl CreateAnywhereCacheMetadata {
     }
 
     /// Sets or clears the value of [anywhere_cache_id][crate::model::CreateAnywhereCacheMetadata::anywhere_cache_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheMetadata;
-    /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_anywhere_cache_id(Some("example"));
-    /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_anywhere_cache_id(None::<String>);
-    /// ```
     pub fn set_or_clear_anywhere_cache_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2285,12 +1598,6 @@ impl CreateAnywhereCacheMetadata {
     }
 
     /// Sets the value of [zone][crate::model::CreateAnywhereCacheMetadata::zone].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheMetadata;
-    /// let x = CreateAnywhereCacheMetadata::new().set_zone("example");
-    /// ```
     pub fn set_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2300,13 +1607,6 @@ impl CreateAnywhereCacheMetadata {
     }
 
     /// Sets or clears the value of [zone][crate::model::CreateAnywhereCacheMetadata::zone].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheMetadata;
-    /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_zone(Some("example"));
-    /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_zone(None::<String>);
-    /// ```
     pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2316,13 +1616,6 @@ impl CreateAnywhereCacheMetadata {
     }
 
     /// Sets the value of [ttl][crate::model::CreateAnywhereCacheMetadata::ttl].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheMetadata;
-    /// use wkt::Duration;
-    /// let x = CreateAnywhereCacheMetadata::new().set_ttl(Duration::default()/* use setters */);
-    /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2332,14 +1625,6 @@ impl CreateAnywhereCacheMetadata {
     }
 
     /// Sets or clears the value of [ttl][crate::model::CreateAnywhereCacheMetadata::ttl].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheMetadata;
-    /// use wkt::Duration;
-    /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
-    /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_ttl(None::<Duration>);
-    /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2349,12 +1634,6 @@ impl CreateAnywhereCacheMetadata {
     }
 
     /// Sets the value of [admission_policy][crate::model::CreateAnywhereCacheMetadata::admission_policy].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheMetadata;
-    /// let x = CreateAnywhereCacheMetadata::new().set_admission_policy("example");
-    /// ```
     pub fn set_admission_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2364,13 +1643,6 @@ impl CreateAnywhereCacheMetadata {
     }
 
     /// Sets or clears the value of [admission_policy][crate::model::CreateAnywhereCacheMetadata::admission_policy].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheMetadata;
-    /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_admission_policy(Some("example"));
-    /// let x = CreateAnywhereCacheMetadata::new().set_or_clear_admission_policy(None::<String>);
-    /// ```
     pub fn set_or_clear_admission_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2420,13 +1692,6 @@ impl UpdateAnywhereCacheMetadata {
     }
 
     /// Sets the value of [common_metadata][crate::model::UpdateAnywhereCacheMetadata::common_metadata].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheMetadata;
-    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// let x = UpdateAnywhereCacheMetadata::new().set_common_metadata(CommonLongRunningOperationMetadata::default()/* use setters */);
-    /// ```
     pub fn set_common_metadata<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
@@ -2436,14 +1701,6 @@ impl UpdateAnywhereCacheMetadata {
     }
 
     /// Sets or clears the value of [common_metadata][crate::model::UpdateAnywhereCacheMetadata::common_metadata].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheMetadata;
-    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
-    /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_common_metadata(Some(CommonLongRunningOperationMetadata::default()/* use setters */));
-    /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_common_metadata(None::<CommonLongRunningOperationMetadata>);
-    /// ```
     pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
@@ -2453,12 +1710,6 @@ impl UpdateAnywhereCacheMetadata {
     }
 
     /// Sets the value of [anywhere_cache_id][crate::model::UpdateAnywhereCacheMetadata::anywhere_cache_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheMetadata;
-    /// let x = UpdateAnywhereCacheMetadata::new().set_anywhere_cache_id("example");
-    /// ```
     pub fn set_anywhere_cache_id<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2468,13 +1719,6 @@ impl UpdateAnywhereCacheMetadata {
     }
 
     /// Sets or clears the value of [anywhere_cache_id][crate::model::UpdateAnywhereCacheMetadata::anywhere_cache_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheMetadata;
-    /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_anywhere_cache_id(Some("example"));
-    /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_anywhere_cache_id(None::<String>);
-    /// ```
     pub fn set_or_clear_anywhere_cache_id<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2484,12 +1728,6 @@ impl UpdateAnywhereCacheMetadata {
     }
 
     /// Sets the value of [zone][crate::model::UpdateAnywhereCacheMetadata::zone].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheMetadata;
-    /// let x = UpdateAnywhereCacheMetadata::new().set_zone("example");
-    /// ```
     pub fn set_zone<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2499,13 +1737,6 @@ impl UpdateAnywhereCacheMetadata {
     }
 
     /// Sets or clears the value of [zone][crate::model::UpdateAnywhereCacheMetadata::zone].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheMetadata;
-    /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_zone(Some("example"));
-    /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_zone(None::<String>);
-    /// ```
     pub fn set_or_clear_zone<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2515,13 +1746,6 @@ impl UpdateAnywhereCacheMetadata {
     }
 
     /// Sets the value of [ttl][crate::model::UpdateAnywhereCacheMetadata::ttl].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheMetadata;
-    /// use wkt::Duration;
-    /// let x = UpdateAnywhereCacheMetadata::new().set_ttl(Duration::default()/* use setters */);
-    /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2531,14 +1755,6 @@ impl UpdateAnywhereCacheMetadata {
     }
 
     /// Sets or clears the value of [ttl][crate::model::UpdateAnywhereCacheMetadata::ttl].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheMetadata;
-    /// use wkt::Duration;
-    /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
-    /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_ttl(None::<Duration>);
-    /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2548,12 +1764,6 @@ impl UpdateAnywhereCacheMetadata {
     }
 
     /// Sets the value of [admission_policy][crate::model::UpdateAnywhereCacheMetadata::admission_policy].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheMetadata;
-    /// let x = UpdateAnywhereCacheMetadata::new().set_admission_policy("example");
-    /// ```
     pub fn set_admission_policy<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2563,13 +1773,6 @@ impl UpdateAnywhereCacheMetadata {
     }
 
     /// Sets or clears the value of [admission_policy][crate::model::UpdateAnywhereCacheMetadata::admission_policy].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheMetadata;
-    /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_admission_policy(Some("example"));
-    /// let x = UpdateAnywhereCacheMetadata::new().set_or_clear_admission_policy(None::<String>);
-    /// ```
     pub fn set_or_clear_admission_policy<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<std::string::String>,
@@ -2634,37 +1837,18 @@ impl AnywhereCache {
     }
 
     /// Sets the value of [name][crate::model::AnywhereCache::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::AnywhereCache;
-    /// let x = AnywhereCache::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [zone][crate::model::AnywhereCache::zone].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::AnywhereCache;
-    /// let x = AnywhereCache::new().set_zone("example");
-    /// ```
     pub fn set_zone<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.zone = v.into();
         self
     }
 
     /// Sets the value of [ttl][crate::model::AnywhereCache::ttl].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::AnywhereCache;
-    /// use wkt::Duration;
-    /// let x = AnywhereCache::new().set_ttl(Duration::default()/* use setters */);
-    /// ```
     pub fn set_ttl<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2674,14 +1858,6 @@ impl AnywhereCache {
     }
 
     /// Sets or clears the value of [ttl][crate::model::AnywhereCache::ttl].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::AnywhereCache;
-    /// use wkt::Duration;
-    /// let x = AnywhereCache::new().set_or_clear_ttl(Some(Duration::default()/* use setters */));
-    /// let x = AnywhereCache::new().set_or_clear_ttl(None::<Duration>);
-    /// ```
     pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Duration>,
@@ -2691,12 +1867,6 @@ impl AnywhereCache {
     }
 
     /// Sets the value of [admission_policy][crate::model::AnywhereCache::admission_policy].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::AnywhereCache;
-    /// let x = AnywhereCache::new().set_admission_policy("example");
-    /// ```
     pub fn set_admission_policy<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -2706,25 +1876,12 @@ impl AnywhereCache {
     }
 
     /// Sets the value of [state][crate::model::AnywhereCache::state].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::AnywhereCache;
-    /// let x = AnywhereCache::new().set_state("example");
-    /// ```
     pub fn set_state<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.state = v.into();
         self
     }
 
     /// Sets the value of [create_time][crate::model::AnywhereCache::create_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::AnywhereCache;
-    /// use wkt::Timestamp;
-    /// let x = AnywhereCache::new().set_create_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_create_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2734,14 +1891,6 @@ impl AnywhereCache {
     }
 
     /// Sets or clears the value of [create_time][crate::model::AnywhereCache::create_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::AnywhereCache;
-    /// use wkt::Timestamp;
-    /// let x = AnywhereCache::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AnywhereCache::new().set_or_clear_create_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2751,13 +1900,6 @@ impl AnywhereCache {
     }
 
     /// Sets the value of [update_time][crate::model::AnywhereCache::update_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::AnywhereCache;
-    /// use wkt::Timestamp;
-    /// let x = AnywhereCache::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2767,14 +1909,6 @@ impl AnywhereCache {
     }
 
     /// Sets or clears the value of [update_time][crate::model::AnywhereCache::update_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::AnywhereCache;
-    /// use wkt::Timestamp;
-    /// let x = AnywhereCache::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = AnywhereCache::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -2784,12 +1918,6 @@ impl AnywhereCache {
     }
 
     /// Sets the value of [pending_update][crate::model::AnywhereCache::pending_update].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::AnywhereCache;
-    /// let x = AnywhereCache::new().set_pending_update(true);
-    /// ```
     pub fn set_pending_update<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.pending_update = v.into();
         self
@@ -2830,25 +1958,12 @@ impl CreateAnywhereCacheRequest {
     }
 
     /// Sets the value of [parent][crate::model::CreateAnywhereCacheRequest::parent].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheRequest;
-    /// let x = CreateAnywhereCacheRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [anywhere_cache][crate::model::CreateAnywhereCacheRequest::anywhere_cache].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheRequest;
-    /// use google_cloud_storage::model::AnywhereCache;
-    /// let x = CreateAnywhereCacheRequest::new().set_anywhere_cache(AnywhereCache::default()/* use setters */);
-    /// ```
     pub fn set_anywhere_cache<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnywhereCache>,
@@ -2858,14 +1973,6 @@ impl CreateAnywhereCacheRequest {
     }
 
     /// Sets or clears the value of [anywhere_cache][crate::model::CreateAnywhereCacheRequest::anywhere_cache].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheRequest;
-    /// use google_cloud_storage::model::AnywhereCache;
-    /// let x = CreateAnywhereCacheRequest::new().set_or_clear_anywhere_cache(Some(AnywhereCache::default()/* use setters */));
-    /// let x = CreateAnywhereCacheRequest::new().set_or_clear_anywhere_cache(None::<AnywhereCache>);
-    /// ```
     pub fn set_or_clear_anywhere_cache<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnywhereCache>,
@@ -2875,12 +1982,6 @@ impl CreateAnywhereCacheRequest {
     }
 
     /// Sets the value of [request_id][crate::model::CreateAnywhereCacheRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::CreateAnywhereCacheRequest;
-    /// let x = CreateAnywhereCacheRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -2925,13 +2026,6 @@ impl UpdateAnywhereCacheRequest {
     }
 
     /// Sets the value of [anywhere_cache][crate::model::UpdateAnywhereCacheRequest::anywhere_cache].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheRequest;
-    /// use google_cloud_storage::model::AnywhereCache;
-    /// let x = UpdateAnywhereCacheRequest::new().set_anywhere_cache(AnywhereCache::default()/* use setters */);
-    /// ```
     pub fn set_anywhere_cache<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::AnywhereCache>,
@@ -2941,14 +2035,6 @@ impl UpdateAnywhereCacheRequest {
     }
 
     /// Sets or clears the value of [anywhere_cache][crate::model::UpdateAnywhereCacheRequest::anywhere_cache].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheRequest;
-    /// use google_cloud_storage::model::AnywhereCache;
-    /// let x = UpdateAnywhereCacheRequest::new().set_or_clear_anywhere_cache(Some(AnywhereCache::default()/* use setters */));
-    /// let x = UpdateAnywhereCacheRequest::new().set_or_clear_anywhere_cache(None::<AnywhereCache>);
-    /// ```
     pub fn set_or_clear_anywhere_cache<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::AnywhereCache>,
@@ -2958,13 +2044,6 @@ impl UpdateAnywhereCacheRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAnywhereCacheRequest::update_mask].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAnywhereCacheRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2974,14 +2053,6 @@ impl UpdateAnywhereCacheRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateAnywhereCacheRequest::update_mask].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateAnywhereCacheRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateAnywhereCacheRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -2991,12 +2062,6 @@ impl UpdateAnywhereCacheRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateAnywhereCacheRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateAnywhereCacheRequest;
-    /// let x = UpdateAnywhereCacheRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3031,24 +2096,12 @@ impl DisableAnywhereCacheRequest {
     }
 
     /// Sets the value of [name][crate::model::DisableAnywhereCacheRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DisableAnywhereCacheRequest;
-    /// let x = DisableAnywhereCacheRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::DisableAnywhereCacheRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::DisableAnywhereCacheRequest;
-    /// let x = DisableAnywhereCacheRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3083,24 +2136,12 @@ impl PauseAnywhereCacheRequest {
     }
 
     /// Sets the value of [name][crate::model::PauseAnywhereCacheRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::PauseAnywhereCacheRequest;
-    /// let x = PauseAnywhereCacheRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::PauseAnywhereCacheRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::PauseAnywhereCacheRequest;
-    /// let x = PauseAnywhereCacheRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3135,24 +2176,12 @@ impl ResumeAnywhereCacheRequest {
     }
 
     /// Sets the value of [name][crate::model::ResumeAnywhereCacheRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ResumeAnywhereCacheRequest;
-    /// let x = ResumeAnywhereCacheRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::ResumeAnywhereCacheRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ResumeAnywhereCacheRequest;
-    /// let x = ResumeAnywhereCacheRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3186,24 +2215,12 @@ impl GetAnywhereCacheRequest {
     }
 
     /// Sets the value of [name][crate::model::GetAnywhereCacheRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetAnywhereCacheRequest;
-    /// let x = GetAnywhereCacheRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::GetAnywhereCacheRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetAnywhereCacheRequest;
-    /// let x = GetAnywhereCacheRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3244,48 +2261,24 @@ impl ListAnywhereCachesRequest {
     }
 
     /// Sets the value of [parent][crate::model::ListAnywhereCachesRequest::parent].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListAnywhereCachesRequest;
-    /// let x = ListAnywhereCachesRequest::new().set_parent("example");
-    /// ```
     pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.parent = v.into();
         self
     }
 
     /// Sets the value of [page_size][crate::model::ListAnywhereCachesRequest::page_size].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListAnywhereCachesRequest;
-    /// let x = ListAnywhereCachesRequest::new().set_page_size(42);
-    /// ```
     pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.page_size = v.into();
         self
     }
 
     /// Sets the value of [page_token][crate::model::ListAnywhereCachesRequest::page_token].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListAnywhereCachesRequest;
-    /// let x = ListAnywhereCachesRequest::new().set_page_token("example");
-    /// ```
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
         self
     }
 
     /// Sets the value of [request_id][crate::model::ListAnywhereCachesRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListAnywhereCachesRequest;
-    /// let x = ListAnywhereCachesRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -3318,17 +2311,6 @@ impl ListAnywhereCachesResponse {
     }
 
     /// Sets the value of [anywhere_caches][crate::model::ListAnywhereCachesResponse::anywhere_caches].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListAnywhereCachesResponse;
-    /// use google_cloud_storage::model::AnywhereCache;
-    /// let x = ListAnywhereCachesResponse::new()
-    ///     .set_anywhere_caches([
-    ///         AnywhereCache::default()/* use setters */,
-    ///         AnywhereCache::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
     pub fn set_anywhere_caches<T, V>(mut self, v: T) -> Self
     where
         T: std::iter::IntoIterator<Item = V>,
@@ -3340,12 +2322,6 @@ impl ListAnywhereCachesResponse {
     }
 
     /// Sets the value of [next_page_token][crate::model::ListAnywhereCachesResponse::next_page_token].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::ListAnywhereCachesResponse;
-    /// let x = ListAnywhereCachesResponse::new().set_next_page_token("example");
-    /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
         self
@@ -3416,27 +2392,12 @@ impl IntelligenceConfig {
     }
 
     /// Sets the value of [name][crate::model::IntelligenceConfig::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::IntelligenceConfig;
-    /// let x = IntelligenceConfig::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
     }
 
     /// Sets the value of [edition_config][crate::model::IntelligenceConfig::edition_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::IntelligenceConfig;
-    /// use google_cloud_storage::model::intelligence_config::EditionConfig;
-    /// let x0 = IntelligenceConfig::new().set_edition_config(EditionConfig::Inherit);
-    /// let x1 = IntelligenceConfig::new().set_edition_config(EditionConfig::Disabled);
-    /// let x2 = IntelligenceConfig::new().set_edition_config(EditionConfig::Standard);
-    /// ```
     pub fn set_edition_config<
         T: std::convert::Into<crate::model::intelligence_config::EditionConfig>,
     >(
@@ -3448,13 +2409,6 @@ impl IntelligenceConfig {
     }
 
     /// Sets the value of [update_time][crate::model::IntelligenceConfig::update_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::IntelligenceConfig;
-    /// use wkt::Timestamp;
-    /// let x = IntelligenceConfig::new().set_update_time(Timestamp::default()/* use setters */);
-    /// ```
     pub fn set_update_time<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3464,14 +2418,6 @@ impl IntelligenceConfig {
     }
 
     /// Sets or clears the value of [update_time][crate::model::IntelligenceConfig::update_time].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::IntelligenceConfig;
-    /// use wkt::Timestamp;
-    /// let x = IntelligenceConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
-    /// let x = IntelligenceConfig::new().set_or_clear_update_time(None::<Timestamp>);
-    /// ```
     pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::Timestamp>,
@@ -3481,13 +2427,6 @@ impl IntelligenceConfig {
     }
 
     /// Sets the value of [filter][crate::model::IntelligenceConfig::filter].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::IntelligenceConfig;
-    /// use google_cloud_storage::model::intelligence_config::Filter;
-    /// let x = IntelligenceConfig::new().set_filter(Filter::default()/* use setters */);
-    /// ```
     pub fn set_filter<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::intelligence_config::Filter>,
@@ -3497,14 +2436,6 @@ impl IntelligenceConfig {
     }
 
     /// Sets or clears the value of [filter][crate::model::IntelligenceConfig::filter].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::IntelligenceConfig;
-    /// use google_cloud_storage::model::intelligence_config::Filter;
-    /// let x = IntelligenceConfig::new().set_or_clear_filter(Some(Filter::default()/* use setters */));
-    /// let x = IntelligenceConfig::new().set_or_clear_filter(None::<Filter>);
-    /// ```
     pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::intelligence_config::Filter>,
@@ -3514,13 +2445,6 @@ impl IntelligenceConfig {
     }
 
     /// Sets the value of [effective_intelligence_config][crate::model::IntelligenceConfig::effective_intelligence_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::IntelligenceConfig;
-    /// use google_cloud_storage::model::intelligence_config::EffectiveIntelligenceConfig;
-    /// let x = IntelligenceConfig::new().set_effective_intelligence_config(EffectiveIntelligenceConfig::default()/* use setters */);
-    /// ```
     pub fn set_effective_intelligence_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::intelligence_config::EffectiveIntelligenceConfig>,
@@ -3530,14 +2454,6 @@ impl IntelligenceConfig {
     }
 
     /// Sets or clears the value of [effective_intelligence_config][crate::model::IntelligenceConfig::effective_intelligence_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::IntelligenceConfig;
-    /// use google_cloud_storage::model::intelligence_config::EffectiveIntelligenceConfig;
-    /// let x = IntelligenceConfig::new().set_or_clear_effective_intelligence_config(Some(EffectiveIntelligenceConfig::default()/* use setters */));
-    /// let x = IntelligenceConfig::new().set_or_clear_effective_intelligence_config(None::<EffectiveIntelligenceConfig>);
-    /// ```
     pub fn set_or_clear_effective_intelligence_config<T>(
         mut self,
         v: std::option::Option<T>,
@@ -3550,13 +2466,6 @@ impl IntelligenceConfig {
     }
 
     /// Sets the value of [trial_config][crate::model::IntelligenceConfig::trial_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::IntelligenceConfig;
-    /// use google_cloud_storage::model::intelligence_config::TrialConfig;
-    /// let x = IntelligenceConfig::new().set_trial_config(TrialConfig::default()/* use setters */);
-    /// ```
     pub fn set_trial_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::intelligence_config::TrialConfig>,
@@ -3566,14 +2475,6 @@ impl IntelligenceConfig {
     }
 
     /// Sets or clears the value of [trial_config][crate::model::IntelligenceConfig::trial_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::IntelligenceConfig;
-    /// use google_cloud_storage::model::intelligence_config::TrialConfig;
-    /// let x = IntelligenceConfig::new().set_or_clear_trial_config(Some(TrialConfig::default()/* use setters */));
-    /// let x = IntelligenceConfig::new().set_or_clear_trial_config(None::<TrialConfig>);
-    /// ```
     pub fn set_or_clear_trial_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::intelligence_config::TrialConfig>,
@@ -3622,14 +2523,6 @@ pub mod intelligence_config {
         ///
         /// Note that all the setters affecting `cloud_storage_locations` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::intelligence_config::Filter;
-        /// use google_cloud_storage::model::intelligence_config::filter::CloudStorageLocations;
-        /// let x = Filter::new().set_cloud_storage_locations(Some(
-        ///     google_cloud_storage::model::intelligence_config::filter::CloudStorageLocationsOneOf::IncludedCloudStorageLocations(CloudStorageLocations::default().into())));
-        /// ```
         pub fn set_cloud_storage_locations<
             T: std::convert::Into<
                     std::option::Option<
@@ -3664,15 +2557,6 @@ pub mod intelligence_config {
         ///
         /// Note that all the setters affecting `cloud_storage_locations` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::intelligence_config::Filter;
-        /// use google_cloud_storage::model::intelligence_config::filter::CloudStorageLocations;
-        /// let x = Filter::new().set_included_cloud_storage_locations(CloudStorageLocations::default()/* use setters */);
-        /// assert!(x.included_cloud_storage_locations().is_some());
-        /// assert!(x.excluded_cloud_storage_locations().is_none());
-        /// ```
         pub fn set_included_cloud_storage_locations<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -3711,15 +2595,6 @@ pub mod intelligence_config {
         ///
         /// Note that all the setters affecting `cloud_storage_locations` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::intelligence_config::Filter;
-        /// use google_cloud_storage::model::intelligence_config::filter::CloudStorageLocations;
-        /// let x = Filter::new().set_excluded_cloud_storage_locations(CloudStorageLocations::default()/* use setters */);
-        /// assert!(x.excluded_cloud_storage_locations().is_some());
-        /// assert!(x.included_cloud_storage_locations().is_none());
-        /// ```
         pub fn set_excluded_cloud_storage_locations<
             T: std::convert::Into<
                     std::boxed::Box<
@@ -3742,14 +2617,6 @@ pub mod intelligence_config {
         ///
         /// Note that all the setters affecting `cloud_storage_buckets` are mutually
         /// exclusive.
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::intelligence_config::Filter;
-        /// use google_cloud_storage::model::intelligence_config::filter::CloudStorageBuckets;
-        /// let x = Filter::new().set_cloud_storage_buckets(Some(
-        ///     google_cloud_storage::model::intelligence_config::filter::CloudStorageBucketsOneOf::IncludedCloudStorageBuckets(CloudStorageBuckets::default().into())));
-        /// ```
         pub fn set_cloud_storage_buckets<
             T: std::convert::Into<
                     std::option::Option<
@@ -3784,15 +2651,6 @@ pub mod intelligence_config {
         ///
         /// Note that all the setters affecting `cloud_storage_buckets` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::intelligence_config::Filter;
-        /// use google_cloud_storage::model::intelligence_config::filter::CloudStorageBuckets;
-        /// let x = Filter::new().set_included_cloud_storage_buckets(CloudStorageBuckets::default()/* use setters */);
-        /// assert!(x.included_cloud_storage_buckets().is_some());
-        /// assert!(x.excluded_cloud_storage_buckets().is_none());
-        /// ```
         pub fn set_included_cloud_storage_buckets<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
@@ -3829,15 +2687,6 @@ pub mod intelligence_config {
         ///
         /// Note that all the setters affecting `cloud_storage_buckets` are
         /// mutually exclusive.
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::intelligence_config::Filter;
-        /// use google_cloud_storage::model::intelligence_config::filter::CloudStorageBuckets;
-        /// let x = Filter::new().set_excluded_cloud_storage_buckets(CloudStorageBuckets::default()/* use setters */);
-        /// assert!(x.excluded_cloud_storage_buckets().is_some());
-        /// assert!(x.included_cloud_storage_buckets().is_none());
-        /// ```
         pub fn set_excluded_cloud_storage_buckets<
             T: std::convert::Into<
                     std::boxed::Box<crate::model::intelligence_config::filter::CloudStorageBuckets>,
@@ -3884,12 +2733,6 @@ pub mod intelligence_config {
             }
 
             /// Sets the value of [locations][crate::model::intelligence_config::filter::CloudStorageLocations::locations].
-            ///
-            /// # Example
-            /// ```ignore,no_run
-            /// # use google_cloud_storage::model::intelligence_config::filter::CloudStorageLocations;
-            /// let x = CloudStorageLocations::new().set_locations(["a", "b", "c"]);
-            /// ```
             pub fn set_locations<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -3930,12 +2773,6 @@ pub mod intelligence_config {
             }
 
             /// Sets the value of [bucket_id_regexes][crate::model::intelligence_config::filter::CloudStorageBuckets::bucket_id_regexes].
-            ///
-            /// # Example
-            /// ```ignore,no_run
-            /// # use google_cloud_storage::model::intelligence_config::filter::CloudStorageBuckets;
-            /// let x = CloudStorageBuckets::new().set_bucket_id_regexes(["a", "b", "c"]);
-            /// ```
             pub fn set_bucket_id_regexes<T, V>(mut self, v: T) -> Self
             where
                 T: std::iter::IntoIterator<Item = V>,
@@ -4047,26 +2884,12 @@ pub mod intelligence_config {
         }
 
         /// Sets the value of [effective_edition][crate::model::intelligence_config::EffectiveIntelligenceConfig::effective_edition].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::intelligence_config::EffectiveIntelligenceConfig;
-        /// use google_cloud_storage::model::intelligence_config::effective_intelligence_config::EffectiveEdition;
-        /// let x0 = EffectiveIntelligenceConfig::new().set_effective_edition(EffectiveEdition::None);
-        /// let x1 = EffectiveIntelligenceConfig::new().set_effective_edition(EffectiveEdition::Standard);
-        /// ```
         pub fn set_effective_edition<T: std::convert::Into<crate::model::intelligence_config::effective_intelligence_config::EffectiveEdition>>(mut self, v: T) -> Self{
             self.effective_edition = v.into();
             self
         }
 
         /// Sets the value of [intelligence_config][crate::model::intelligence_config::EffectiveIntelligenceConfig::intelligence_config].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::intelligence_config::EffectiveIntelligenceConfig;
-        /// let x = EffectiveIntelligenceConfig::new().set_intelligence_config("example");
-        /// ```
         pub fn set_intelligence_config<T: std::convert::Into<std::string::String>>(
             mut self,
             v: T,
@@ -4238,13 +3061,6 @@ pub mod intelligence_config {
         }
 
         /// Sets the value of [expire_time][crate::model::intelligence_config::TrialConfig::expire_time].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::intelligence_config::TrialConfig;
-        /// use wkt::Timestamp;
-        /// let x = TrialConfig::new().set_expire_time(Timestamp::default()/* use setters */);
-        /// ```
         pub fn set_expire_time<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4254,14 +3070,6 @@ pub mod intelligence_config {
         }
 
         /// Sets or clears the value of [expire_time][crate::model::intelligence_config::TrialConfig::expire_time].
-        ///
-        /// # Example
-        /// ```ignore,no_run
-        /// # use google_cloud_storage::model::intelligence_config::TrialConfig;
-        /// use wkt::Timestamp;
-        /// let x = TrialConfig::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
-        /// let x = TrialConfig::new().set_or_clear_expire_time(None::<Timestamp>);
-        /// ```
         pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<wkt::Timestamp>,
@@ -4466,13 +3274,6 @@ impl UpdateOrganizationIntelligenceConfigRequest {
     }
 
     /// Sets the value of [intelligence_config][crate::model::UpdateOrganizationIntelligenceConfigRequest::intelligence_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateOrganizationIntelligenceConfigRequest;
-    /// use google_cloud_storage::model::IntelligenceConfig;
-    /// let x = UpdateOrganizationIntelligenceConfigRequest::new().set_intelligence_config(IntelligenceConfig::default()/* use setters */);
-    /// ```
     pub fn set_intelligence_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IntelligenceConfig>,
@@ -4482,14 +3283,6 @@ impl UpdateOrganizationIntelligenceConfigRequest {
     }
 
     /// Sets or clears the value of [intelligence_config][crate::model::UpdateOrganizationIntelligenceConfigRequest::intelligence_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateOrganizationIntelligenceConfigRequest;
-    /// use google_cloud_storage::model::IntelligenceConfig;
-    /// let x = UpdateOrganizationIntelligenceConfigRequest::new().set_or_clear_intelligence_config(Some(IntelligenceConfig::default()/* use setters */));
-    /// let x = UpdateOrganizationIntelligenceConfigRequest::new().set_or_clear_intelligence_config(None::<IntelligenceConfig>);
-    /// ```
     pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IntelligenceConfig>,
@@ -4499,13 +3292,6 @@ impl UpdateOrganizationIntelligenceConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateOrganizationIntelligenceConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateOrganizationIntelligenceConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateOrganizationIntelligenceConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4515,14 +3301,6 @@ impl UpdateOrganizationIntelligenceConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateOrganizationIntelligenceConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateOrganizationIntelligenceConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateOrganizationIntelligenceConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateOrganizationIntelligenceConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4532,12 +3310,6 @@ impl UpdateOrganizationIntelligenceConfigRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateOrganizationIntelligenceConfigRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateOrganizationIntelligenceConfigRequest;
-    /// let x = UpdateOrganizationIntelligenceConfigRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4582,13 +3354,6 @@ impl UpdateFolderIntelligenceConfigRequest {
     }
 
     /// Sets the value of [intelligence_config][crate::model::UpdateFolderIntelligenceConfigRequest::intelligence_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateFolderIntelligenceConfigRequest;
-    /// use google_cloud_storage::model::IntelligenceConfig;
-    /// let x = UpdateFolderIntelligenceConfigRequest::new().set_intelligence_config(IntelligenceConfig::default()/* use setters */);
-    /// ```
     pub fn set_intelligence_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IntelligenceConfig>,
@@ -4598,14 +3363,6 @@ impl UpdateFolderIntelligenceConfigRequest {
     }
 
     /// Sets or clears the value of [intelligence_config][crate::model::UpdateFolderIntelligenceConfigRequest::intelligence_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateFolderIntelligenceConfigRequest;
-    /// use google_cloud_storage::model::IntelligenceConfig;
-    /// let x = UpdateFolderIntelligenceConfigRequest::new().set_or_clear_intelligence_config(Some(IntelligenceConfig::default()/* use setters */));
-    /// let x = UpdateFolderIntelligenceConfigRequest::new().set_or_clear_intelligence_config(None::<IntelligenceConfig>);
-    /// ```
     pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IntelligenceConfig>,
@@ -4615,13 +3372,6 @@ impl UpdateFolderIntelligenceConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateFolderIntelligenceConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateFolderIntelligenceConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateFolderIntelligenceConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4631,14 +3381,6 @@ impl UpdateFolderIntelligenceConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateFolderIntelligenceConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateFolderIntelligenceConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateFolderIntelligenceConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateFolderIntelligenceConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4648,12 +3390,6 @@ impl UpdateFolderIntelligenceConfigRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateFolderIntelligenceConfigRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateFolderIntelligenceConfigRequest;
-    /// let x = UpdateFolderIntelligenceConfigRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4698,13 +3434,6 @@ impl UpdateProjectIntelligenceConfigRequest {
     }
 
     /// Sets the value of [intelligence_config][crate::model::UpdateProjectIntelligenceConfigRequest::intelligence_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateProjectIntelligenceConfigRequest;
-    /// use google_cloud_storage::model::IntelligenceConfig;
-    /// let x = UpdateProjectIntelligenceConfigRequest::new().set_intelligence_config(IntelligenceConfig::default()/* use setters */);
-    /// ```
     pub fn set_intelligence_config<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<crate::model::IntelligenceConfig>,
@@ -4714,14 +3443,6 @@ impl UpdateProjectIntelligenceConfigRequest {
     }
 
     /// Sets or clears the value of [intelligence_config][crate::model::UpdateProjectIntelligenceConfigRequest::intelligence_config].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateProjectIntelligenceConfigRequest;
-    /// use google_cloud_storage::model::IntelligenceConfig;
-    /// let x = UpdateProjectIntelligenceConfigRequest::new().set_or_clear_intelligence_config(Some(IntelligenceConfig::default()/* use setters */));
-    /// let x = UpdateProjectIntelligenceConfigRequest::new().set_or_clear_intelligence_config(None::<IntelligenceConfig>);
-    /// ```
     pub fn set_or_clear_intelligence_config<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<crate::model::IntelligenceConfig>,
@@ -4731,13 +3452,6 @@ impl UpdateProjectIntelligenceConfigRequest {
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateProjectIntelligenceConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateProjectIntelligenceConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateProjectIntelligenceConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
-    /// ```
     pub fn set_update_mask<T>(mut self, v: T) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4747,14 +3461,6 @@ impl UpdateProjectIntelligenceConfigRequest {
     }
 
     /// Sets or clears the value of [update_mask][crate::model::UpdateProjectIntelligenceConfigRequest::update_mask].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateProjectIntelligenceConfigRequest;
-    /// use wkt::FieldMask;
-    /// let x = UpdateProjectIntelligenceConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
-    /// let x = UpdateProjectIntelligenceConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
-    /// ```
     pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
     where
         T: std::convert::Into<wkt::FieldMask>,
@@ -4764,12 +3470,6 @@ impl UpdateProjectIntelligenceConfigRequest {
     }
 
     /// Sets the value of [request_id][crate::model::UpdateProjectIntelligenceConfigRequest::request_id].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::UpdateProjectIntelligenceConfigRequest;
-    /// let x = UpdateProjectIntelligenceConfigRequest::new().set_request_id("example");
-    /// ```
     pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.request_id = v.into();
         self
@@ -4808,12 +3508,6 @@ impl GetOrganizationIntelligenceConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetOrganizationIntelligenceConfigRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetOrganizationIntelligenceConfigRequest;
-    /// let x = GetOrganizationIntelligenceConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4852,12 +3546,6 @@ impl GetFolderIntelligenceConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetFolderIntelligenceConfigRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetFolderIntelligenceConfigRequest;
-    /// let x = GetFolderIntelligenceConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
@@ -4896,12 +3584,6 @@ impl GetProjectIntelligenceConfigRequest {
     }
 
     /// Sets the value of [name][crate::model::GetProjectIntelligenceConfigRequest::name].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_storage::model::GetProjectIntelligenceConfigRequest;
-    /// let x = GetProjectIntelligenceConfigRequest::new().set_name("example");
-    /// ```
     pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.name = v.into();
         self
