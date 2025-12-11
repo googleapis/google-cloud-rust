@@ -631,8 +631,14 @@ mod tests {
         for _ in 0..3 {
             let start = tokio::time::Instant::now();
             let messages = vec![
-                PubsubMessage::new().set_data("hello".to_string()),
-                PubsubMessage::new().set_data("world".to_string()),
+                PubsubMessage::new().set_data("hello 0".to_string()),
+                PubsubMessage::new().set_data("hello 1".to_string()),
+                PubsubMessage::new()
+                    .set_data("hello 2".to_string())
+                    .set_ordering_key("ordering key 1"),
+                PubsubMessage::new()
+                    .set_data("hello 3".to_string())
+                    .set_ordering_key("ordering key 2"),
             ];
             let mut handles = Vec::new();
             for msg in messages {
@@ -651,6 +657,120 @@ mod tests {
                     delay
                 )
             }
+        }
+    }
+
+    #[tokio::test(start_paused = true)]
+    #[allow(clippy::get_first)]
+    async fn test_batching_ordering_key() {
+        // Publish messages with different ordering key and validate that they are in different batches.
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish().returning({
+            |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                assert_eq!(r.messages.len(), 2);
+                assert_eq!(
+                    r.messages.get(0).unwrap().ordering_key,
+                    r.messages.get(1).unwrap().ordering_key
+                );
+                let ids = r
+                    .messages
+                    .iter()
+                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                Ok(gax::response::Response::from(
+                    PublishResponse::new().set_message_ids(ids),
+                ))
+            }
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        // Use a low message count to trigger batch sends.
+        let message_count_threshold = 2_u32;
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            .set_message_count_threshold(message_count_threshold)
+            .set_byte_threshold(MAX_BYTES)
+            .set_delay_threshold(std::time::Duration::MAX)
+            .build();
+
+        let num_ordering_keys = 3;
+        let mut messages = Vec::new();
+        // We want the number of messages to be a multiple of num_ordering_keys
+        // and message_count_threshold. Otherwise, the final batch of each
+        // ordering key may fail the message len assertion.
+        for i in 0..(2 * message_count_threshold * num_ordering_keys) {
+            messages.push(
+                PubsubMessage::new()
+                    .set_data(format!("test message {}", i))
+                    .set_ordering_key(format!("ordering key: {}", i % num_ordering_keys)),
+            );
+        }
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg.clone());
+            handles.push((msg, handle));
+        }
+
+        for (id, rx) in handles.into_iter() {
+            let got = rx.await.expect("expected message id");
+            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            assert_eq!(got, id);
+        }
+    }
+
+    #[tokio::test(start_paused = true)]
+    #[allow(clippy::get_first)]
+    async fn test_batching_empty_ordering_key() {
+        // Publish messages with different ordering key and validate that they are in different batches.
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish().returning({
+            |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                assert_eq!(r.messages.len(), 2);
+                assert_eq!(
+                    r.messages.get(0).unwrap().ordering_key,
+                    r.messages.get(1).unwrap().ordering_key
+                );
+                let ids = r
+                    .messages
+                    .iter()
+                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                Ok(gax::response::Response::from(
+                    PublishResponse::new().set_message_ids(ids),
+                ))
+            }
+        });
+
+        let client = GapicPublisher::from_stub(mock);
+        // Use a low message count to trigger batch sends.
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            .set_message_count_threshold(2_u32)
+            .set_byte_threshold(MAX_BYTES)
+            .set_delay_threshold(std::time::Duration::MAX)
+            .build();
+
+        let messages = vec![
+            PubsubMessage::new().set_data("hello 1".to_string()),
+            PubsubMessage::new()
+                .set_data("hello 2".to_string())
+                .set_ordering_key(""),
+            PubsubMessage::new()
+                .set_data("hello 3".to_string())
+                .set_ordering_key("ordering key :1"),
+            PubsubMessage::new()
+                .set_data("hello 4".to_string())
+                .set_ordering_key("ordering key :1"),
+        ];
+
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg.clone());
+            handles.push((msg, handle));
+        }
+
+        for (id, rx) in handles.into_iter() {
+            let got = rx.await.expect("expected message id");
+            let id = String::from_utf8(id.data.to_vec()).unwrap();
+            assert_eq!(got, id);
         }
     }
 
