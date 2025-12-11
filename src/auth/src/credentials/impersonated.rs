@@ -123,7 +123,7 @@ pub(crate) const IMPERSONATED_CREDENTIAL_TYPE: &str = "imp";
 pub(crate) const DEFAULT_LIFETIME: Duration = Duration::from_secs(3600);
 pub(crate) const MSG: &str = "failed to fetch token";
 
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub(crate) enum BuilderSource {
     FromJson(Value),
     FromCredentials(Credentials),
@@ -625,18 +625,13 @@ fn build_signer_from_json(json: Value) -> BuildResult<Option<crate::signer::Sign
 
 #[cfg(google_cloud_unstable_signed_url)]
 fn extract_client_email(service_account_impersonation_url: &str) -> BuildResult<String> {
-    let parts: Vec<&str> = service_account_impersonation_url
-        .split("serviceAccounts/")
-        .collect();
-    if parts.len() != 2 {
-        return Err(BuilderError::parsing(
+    let mut parts = service_account_impersonation_url.split("/serviceAccounts/");
+    match (parts.nth(1), parts.next()) {
+        (Some(email), None) => Ok(email.trim_end_matches(":generateAccessToken").to_string()),
+        _ => Err(BuilderError::parsing(
             "invalid service account impersonation URL",
-        ));
+        )),
     }
-    let client_email = parts[1]
-        .trim_end_matches(":generateAccessToken")
-        .to_string();
-    Ok(client_email)
 }
 
 pub(crate) fn build_components_from_credentials(
@@ -2077,13 +2072,13 @@ mod tests {
 
         let server = Server::run();
         server.expect(
-            Expectation::matching(request::method_path("POST", "/token")).respond_with(
-                json_encoded(json!({
+            Expectation::matching(request::method_path("POST", "/token"))
+                .times(2..)
+                .respond_with(json_encoded(json!({
                     "access_token": "test-user-account-token",
                     "expires_in": 3600,
                     "token_type": "Bearer",
-                })),
-            ),
+                }))),
         );
         let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
             .format(&time::format_description::well_known::Rfc3339)
@@ -2093,6 +2088,7 @@ mod tests {
                 "POST",
                 "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
             ))
+            .times(2)
             .respond_with(json_encoded(json!({
                 "accessToken": "test-impersonated-token",
                 "expireTime": expire_time
@@ -2110,11 +2106,16 @@ mod tests {
                     "Bearer test-impersonated-token"
                 ))),
             ])
+            .times(2)
             .respond_with(json_encoded(json!({
                 "signedBlob": BASE64_STANDARD.encode("signed_blob"),
             }))),
         );
+        let impersonation_url = server
+            .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
+            .to_string();
 
+        // Test builder from source credentials
         let user_credential = json!({
             "type": "authorized_user",
             "client_id": "test-client-id",
@@ -2123,24 +2124,30 @@ mod tests {
             "token_uri": server.url("/token").to_string()
         });
         let source_credential =
-            crate::credentials::user_account::Builder::new(user_credential).build()?;
-
-        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
-        let mut builder = Builder::from_source_credentials(source_credential)
+            crate::credentials::user_account::Builder::new(user_credential.clone()).build()?;
+        let mut builder_from_source = Builder::from_source_credentials(source_credential)
             .with_target_principal("test-principal");
-        builder.service_account_impersonation_url = Some(
-            server
-                .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
-                .to_string(),
-        );
-        let signer = builder.build_signer_with_iam_endpoint_override(Some(endpoint))?;
+        builder_from_source.service_account_impersonation_url = Some(impersonation_url.clone());
 
-        let client_email = signer.client_email().await?;
-        assert_eq!(client_email, "test-principal");
+        // Test builder from JSON
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": impersonation_url,
+            "source_credentials": user_credential,
+        });
+        let builder_from_json = Builder::new(impersonated_credential);
 
-        let result = signer.sign(b"test").await?;
+        for builder in [builder_from_source, builder_from_json] {
+            let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+            let signer = builder.build_signer_with_iam_endpoint_override(Some(iam_endpoint))?;
 
-        assert_eq!(result.as_ref(), b"signed_blob");
+            let client_email = signer.client_email().await?;
+            assert_eq!(client_email, "test-principal");
+
+            let result = signer.sign(b"test").await?;
+            assert_eq!(result.as_ref(), b"signed_blob");
+        }
+
         Ok(())
     }
 
@@ -2175,6 +2182,37 @@ mod tests {
         let inner_signer = service_account_key.signer().unwrap();
         let inner_result = inner_signer.sign(b"test")?;
         assert_eq!(result.as_ref(), inner_result);
+
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_signed_url)]
+    #[tokio::test]
+    async fn test_impersonated_signer_with_invalid_email() -> TestResult {
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": "http://example.com/test-principal:generateIdToken",
+            "source_credentials": json!({
+                "type": "service_account",
+                "client_email": "test-client-email",
+                "private_key_id": "test-private-key-id",
+                "private_key": "test-private-key",
+                "project_id": "test-project-id",
+            }),
+        });
+
+        let error = Builder::new(impersonated_credential)
+            .build_signer()
+            .unwrap_err();
+
+        assert!(error.is_parsing());
+        assert!(
+            error
+                .to_string()
+                .contains("invalid service account impersonation URL"),
+            "error: {}",
+            error
+        );
 
         Ok(())
     }
