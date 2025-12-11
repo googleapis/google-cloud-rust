@@ -68,13 +68,10 @@ impl Worker {
     /// This method concurrently handles four main events:
     ///
     /// 1. Messages from the `Publisher` are received from the `rx` channel
-    ///    and added to the current `batch`.
-    /// 2. A timer is armed when the first message is added to a batch.
-    ///    If that timer fires, the batch is sent.
-    /// 3. A `Flush` command from the `Publisher` causes the current batch to be
-    ///    sent immediately, and all in-flight send tasks to be awaited.
-    /// 4. The `inflight` set is continuously polled to remove `JoinHandle`s for
-    ///    send tasks that have completed, preventing the set from growing indefinitely.
+    ///    and added to the message's ordering key OutstandingPublishes.
+    /// 2. A timer is continously fired to flush all pending batches.
+    /// 3. A `Flush` command from the `Publisher` causes ordering key's batch to
+    ///    be sent immediately.
     ///
     /// The loop terminates when the `rx` channel is closed, which happens when all
     /// `Publisher` clones have been dropped.
