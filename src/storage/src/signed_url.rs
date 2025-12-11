@@ -12,13 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Re-export types from `http` crate used in this module.
+/// Re-export types from the `http` crate used in this module.
 pub mod http {
     /// HTTP method for the signed URL.
     pub use http::Method;
 }
 
-/// The style of the URL to generate.
+/// Formatting style for signed URLs.
+///
+/// There are several equivalent formats for signed URLs, see the [resource path] docs for more information.
+///
+/// [resource path]: https://docs.cloud.google.com/storage/docs/authentication/canonical-requests#about-resource-path
 #[derive(Debug, Clone, Default)]
 #[allow(dead_code)]
 pub enum UrlStyle {

@@ -17,10 +17,10 @@ use auth::signer::Signer;
 use std::collections::BTreeMap;
 use tokio::time::Duration;
 
-/// Creates signed URLs.
+/// Creates [Signed URLs].
 ///
 /// This builder allows you to generate signed URLs for Google Cloud Storage objects and buckets.
-/// Signed URLs provide a way to give time-limited read or write access to specific resources
+/// [Signed URLs] provide a way to give time-limited read or write access to specific resources
 /// without sharing your credentials.
 ///
 /// # Example
@@ -41,6 +41,7 @@ use tokio::time::Duration;
 /// # Ok(())
 /// # }
 /// ```
+/// [signed urls]: https://docs.cloud.google.com/storage/docs/access-control/signed-urls
 #[derive(Debug)]
 #[allow(dead_code)]
 pub struct SignedUrlBuilder {
@@ -79,11 +80,6 @@ impl SignedUrlBuilder {
 
     /// Creates a new `SignedUrlBuilder` for a specific object.
     ///
-    /// # Arguments
-    ///
-    /// * `bucket` - The name of the bucket containing the object.
-    /// * `object` - The name of the object.
-    ///
     /// # Example
     ///
     /// ```no_run
@@ -96,7 +92,12 @@ impl SignedUrlBuilder {
     ///     .await?;
     /// # Ok(())
     /// # }
-    /// ```
+    ///```
+    ///
+    /// # Arguments
+    ///
+    /// * `bucket` - The name of the bucket containing the object.
+    /// * `object` - The name of the object.    
     pub fn for_object<B, O>(bucket: B, object: O) -> Self
     where
         B: Into<String>,
@@ -106,10 +107,6 @@ impl SignedUrlBuilder {
     }
 
     /// Creates a new `SignedUrlBuilder` for a specific bucket.
-    ///
-    /// # Arguments
-    ///
-    /// * `bucket` - The name of the bucket.
     ///
     /// # Example
     ///
@@ -124,6 +121,10 @@ impl SignedUrlBuilder {
     /// # Ok(())
     /// # }
     /// ```
+    ///
+    /// # Arguments
+    ///
+    /// * `bucket` - The name of the bucket.
     pub fn for_bucket<B>(bucket: B) -> Self
     where
         B: Into<String>,

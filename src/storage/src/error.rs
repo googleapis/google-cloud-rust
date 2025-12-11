@@ -303,7 +303,7 @@ pub enum WriteError {
 #[cfg(google_cloud_unstable_signed_url)]
 type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 
-/// Represents an error that can occur when signing a URL.
+/// Signed URL creation errors.
 #[cfg(google_cloud_unstable_signed_url)]
 #[derive(thiserror::Error, Debug)]
 #[error(transparent)]
