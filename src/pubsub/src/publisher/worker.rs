@@ -125,7 +125,7 @@ impl Worker {
                                 if !outstanding.pending_batch.is_empty() {
                                     outstanding.pending_batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
                                 }
-
+                                
                                 // Wait on all the tasks that exist right now.
                                 // We could instead tokio::spawn this as well so the publisher
                                 // can keep working on additional messages. The worker would
