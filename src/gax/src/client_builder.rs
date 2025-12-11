@@ -380,29 +380,6 @@ impl<F, Cr> ClientBuilder<F, Cr> {
         self.config.polling_backoff_policy = Some(v.into().0);
         self
     }
-
-    /// Configure the number of subchannels used by the client.
-    ///
-    /// gRPC-based clients may exhibit high latency if many requests need to be
-    /// demuxed over a single HTTP/2 connection (often called a *subchannel* in gRPC).
-    /// Using more subchannels may provide better throughput and/or latency.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gax::client_builder::examples;
-    /// # async fn sample() -> anyhow::Result<()> {
-    /// use examples::Client; // Placeholder for examples
-    /// let count = std::thread::available_parallelism()?;
-    /// let client = Client::builder()
-    ///     .with_subchannel_count(count.get())
-    ///     .build().await?;
-    /// # Ok(()) }
-    /// ```
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    pub fn with_subchannel_count(mut self, v: usize) -> Self {
-        self.config.grpc_subchannel_count = Some(v);
-        self
-    }
 }
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
@@ -727,18 +704,6 @@ pub mod examples {
                 .unwrap();
             let config = client.0;
             assert!(config.polling_backoff_policy.is_some(), "{config:?}");
-        }
-
-        #[tokio::test]
-        #[cfg(google_cloud_unstable_storage_bidi)]
-        async fn subchannel_count() {
-            let client = Client::builder()
-                .with_subchannel_count(42)
-                .build()
-                .await
-                .unwrap();
-            let config = client.0;
-            assert_eq!(config.grpc_subchannel_count, Some(42), "{config:?}");
         }
     }
 }

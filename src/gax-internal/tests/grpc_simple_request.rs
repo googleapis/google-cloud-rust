@@ -16,7 +16,7 @@
 mod tests {
     use gax::options::*;
     use gax::retry_policy::NeverRetry;
-    use google_cloud_gax_internal::grpc;
+    use google_cloud_gax_internal::{grpc, options::ClientConfig};
     use grpc_server::{builder, google, start_echo_server, start_echo_server_with_address};
 
     fn test_credentials() -> auth::credentials::Credentials {
@@ -99,12 +99,13 @@ mod tests {
         use std::collections::HashSet;
         let (endpoint, _server) = start_echo_server().await?;
 
-        let client = builder("https://test-only.googleapis.com")
-            .with_endpoint(endpoint)
-            .with_credentials(test_credentials())
-            .with_subchannel_count(16)
-            .build()
-            .await?;
+        // Use an explicit client config to set the subchannel count field.
+        let mut config = ClientConfig::default();
+        config.cred = Some(test_credentials());
+        config.endpoint = Some(endpoint.clone());
+        config.grpc_subchannel_count = Some(16);
+        let client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+
         // Make sure we can make at least one request.
         check_simple_request(client.clone()).await?;
 
