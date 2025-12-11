@@ -647,7 +647,7 @@ impl ClientBuilder {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// let client = Client::builder()
+    /// let client = Storage::builder()
     ///     .with_grpc_subchannel_count(50)
     ///     .build().await?;
     /// # Ok(()) }
