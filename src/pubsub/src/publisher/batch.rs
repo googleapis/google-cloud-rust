@@ -14,7 +14,6 @@
 
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::worker::BundledMessage;
-use futures::stream::FuturesUnordered;
 use std::sync::Arc;
 
 #[derive(Debug, Default)]
@@ -24,9 +23,9 @@ pub(crate) struct Batch {
 }
 
 impl Batch {
-    pub(crate) fn new(topic: &str) -> Self {
+    pub(crate) fn new(initial_size: u32) -> Self {
         Batch {
-            messages_byte_size: topic.len() as u32,
+            messages_byte_size: initial_size,
             ..Batch::default()
         }
     }
@@ -69,17 +68,13 @@ impl Batch {
         &mut self,
         client: GapicPublisher,
         topic: String,
-        inflight: &mut FuturesUnordered<tokio::task::JoinHandle<()>>,
-    ) {
-        if self.is_empty() {
-            return;
-        }
+    ) -> tokio::task::JoinHandle<()> {
         let batch_to_send = Self {
             messages: self.messages.drain(..).collect(),
             messages_byte_size: self.messages_byte_size,
         };
         self.messages_byte_size = 0;
-        inflight.push(tokio::spawn(batch_to_send.send(client, topic)));
+        tokio::spawn(batch_to_send.send(client, topic))
     }
 
     /// Send the batch to the service and process the results.
@@ -124,7 +119,6 @@ mod tests {
         publisher::batch::Batch,
         publisher::worker::BundledMessage,
     };
-    use futures::{StreamExt, stream::FuturesUnordered};
 
     mockall::mock! {
         #[derive(Debug)]
@@ -136,7 +130,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_push_and_flush_batch() {
-        let mut batch = Batch::new("topic");
+        let mut batch = Batch::new("topic".len() as u32);
         assert!(batch.is_empty());
 
         let (message_a, _rx_a) = create_bundled_message_from_bytes("hello");
@@ -160,12 +154,9 @@ mod tests {
             }
         });
         let client = GapicPublisher::from_stub(mock);
-        let mut inflight = FuturesUnordered::new();
-        batch.flush(client, "topic".to_string(), &mut inflight);
+        // Also apply pressure on inflight to validate the mock.
+        batch.flush(client, "topic".to_string());
         assert_eq!(batch.len(), 0);
-        assert_eq!(inflight.len(), 1);
-        // Apply pressure on inflight to validate the mock.
-        inflight.next().await.unwrap().unwrap();
     }
 
     #[tokio::test]
@@ -173,7 +164,7 @@ mod tests {
         use std::collections::HashMap;
 
         let topic = "topic";
-        let mut batch: Batch = Batch::new(topic);
+        let mut batch: Batch = Batch::new(topic.len() as u32);
         let mut expected_encoded_len = topic.len();
         assert_eq!(batch.size(), expected_encoded_len as u32);
 
@@ -206,12 +197,8 @@ mod tests {
             }
         });
         let client = GapicPublisher::from_stub(mock);
-        let mut inflight = FuturesUnordered::new();
-        batch.flush(client, "topic".to_string(), &mut inflight);
+        batch.flush(client, "topic".to_string());
         assert_eq!(batch.size(), 0);
-        assert_eq!(inflight.len(), 1);
-        // Apply pressure on inflight to validate the mock.
-        inflight.next().await.unwrap().unwrap();
     }
 
     fn create_bundled_message_from_bytes<T: Into<::bytes::Bytes>>(

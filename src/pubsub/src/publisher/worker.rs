@@ -15,8 +15,6 @@
 use super::options::BatchingOptions;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::batch::Batch;
-use futures::StreamExt as _;
-use futures::stream::FuturesUnordered;
 use std::collections::HashMap;
 use tokio::sync::{mpsc, oneshot};
 
@@ -89,21 +87,16 @@ impl Worker {
         let delay = self.batching_options.delay_threshold;
         let message_limit = self.batching_options.message_count_threshold;
         let byte_threshold = self.batching_options.byte_threshold;
-        let mut inflight = FuturesUnordered::new();
 
         let timer = tokio::time::sleep(delay);
         // Pin the timer to the stack.
         tokio::pin!(timer);
         loop {
             tokio::select! {
-                // Remove finished futures from the inflight messages.
-                _ = inflight.next(), if !inflight.is_empty() => {},
                 // Handle timer events.
                 _ = &mut timer => {
                     for (_, outstanding) in pending_batches.iter_mut() {
-                        if !outstanding.pending_batch.is_empty() {
-                            outstanding.pending_batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
-                        }
+                        outstanding.flush(self.client.clone(), self.topic_name.clone());
                     }
                     timer.as_mut().reset(tokio::time::Instant::now() + delay);
                 }
@@ -112,26 +105,13 @@ impl Worker {
                     match msg {
                         Some(ToWorker::Publish(msg)) => {
                             let ordering_key = msg.msg.ordering_key.clone();
-                            let outstanding_publishes = pending_batches.entry(ordering_key).or_insert(OutstandingPublishes::new(&self.topic_name));
-                            outstanding_publishes.pending_batch.push(msg);
-                            if outstanding_publishes.pending_batch.len() as u32 >= message_limit || outstanding_publishes.pending_batch.size() >=  byte_threshold {
-                                outstanding_publishes.pending_batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
-                            }
+                            let outstanding_publishes = pending_batches.entry(ordering_key).or_insert(OutstandingPublishes::new(&self.topic_name, message_limit, byte_threshold));
+                            outstanding_publishes.push(msg, self.client.clone(), self.topic_name.clone());
                         },
                         Some(ToWorker::Flush(tx)) => {
-                            for (_, outstanding) in pending_batches.iter_mut() {
                                 // TODO(#4012): To guarantee ordering, we should wait for the
                                 // inflight batch to complete so that messages are publish in order.
-                                if !outstanding.pending_batch.is_empty() {
-                                    outstanding.pending_batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
-                                }
-
-                                // Wait on all the tasks that exist right now.
-                                // We could instead tokio::spawn this as well so the publisher
-                                // can keep working on additional messages. The worker would
-                                // also need to keep track of any pending flushes, and make sure
-                                // all of those resolve as well.
-                                let mut flushing = std::mem::take(&mut inflight);
+                                outstanding.flush(self.client.clone(), self.topic_name.clone());
                                 while flushing.next().await.is_some() {}
                             }
                             let _ = tx.send(());
@@ -141,7 +121,7 @@ impl Worker {
                             // This isn't guaranteed to execute if a user does not .await on the
                             // corresponding PublishHandles for the batch and the program ends.
                             for (_, outstanding) in pending_batches.iter_mut() {
-                                outstanding.pending_batch.flush(self.client.clone(), self.topic_name.clone(), &mut inflight);
+                                outstanding.flush(self.client.clone(), self.topic_name.clone());
                             }
                             break;
                         }
@@ -155,15 +135,37 @@ impl Worker {
 
 #[derive(Debug, Default)]
 pub(crate) struct OutstandingPublishes {
-    pub(crate) pending_batch: Batch,
+    message_limit: u32,
+    byte_threshold: u32,
+    pending_batch: Batch,
+    inflight: Option<tokio::task::JoinHandle<()>>,
     // TODO(#4012): Track pending messages as within key message ordering is
     // not currently respected during a failure.
+    _pending_publish: Vec<BundledMessage>,
 }
 
 impl OutstandingPublishes {
-    pub(crate) fn new(topic: &str) -> Self {
+    pub(crate) fn new(topic: &str, message_limit: u32, byte_threshold: u32) -> Self {
         OutstandingPublishes {
-            pending_batch: Batch::new(topic),
+            message_limit,
+            byte_threshold,
+            pending_batch: Batch::new(topic.len() as u32),
+            ..Default::default()
+        }
+    }
+
+    pub(crate) fn push(&mut self, msg: BundledMessage, client: GapicPublisher, topic: String) {
+        self.pending_batch.push(msg);
+        if self.pending_batch.len() as u32 >= self.message_limit
+            || self.pending_batch.size() >= self.byte_threshold
+        {
+            self.inflight = Some(self.pending_batch.flush(client, topic));
+        }
+    }
+
+    pub(crate) fn flush(&mut self, client: GapicPublisher, topic: String) {
+        if !self.pending_batch.is_empty() {
+            self.inflight = Some(self.pending_batch.flush(client, topic));
         }
     }
 }
