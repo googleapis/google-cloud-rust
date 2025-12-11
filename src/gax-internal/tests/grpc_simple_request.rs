@@ -16,7 +16,9 @@
 mod tests {
     use gax::options::*;
     use gax::retry_policy::NeverRetry;
-    use google_cloud_gax_internal::{grpc, options::ClientConfig};
+    use google_cloud_gax_internal::grpc;
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::{builder, google, start_echo_server, start_echo_server_with_address};
 
     fn test_credentials() -> auth::credentials::Credentials {
