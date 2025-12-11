@@ -385,6 +385,8 @@ impl ClientBuilder {
         let mut config = ClientConfig::default();
         config.retry_policy = Some(Arc::new(crate::retry_policy::storage_default()));
         config.backoff_policy = Some(Arc::new(crate::backoff_policy::default()));
+        let count = std::thread::available_parallelism().ok();
+        config.grpc_subchannel_count = Some(count.map(|x| x.get()).unwrap_or(1));
         let common_options = CommonOptions::new();
         Self {
             config,
@@ -629,6 +631,27 @@ impl ClientBuilder {
         V: ReadResumePolicy + 'static,
     {
         self.common_options.read_resume_policy = Arc::new(v);
+        self
+    }
+
+    /// Configure the number of subchannels used by the client.
+    ///
+    /// gRPC-based clients may exhibit high latency if many requests need to be
+    /// demuxed over a single HTTP/2 connection (often called a *subchannel* in gRPC).
+    /// Using more subchannels may provide better throughput and/or latency.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Client::builder()
+    ///     .with_grpc_subchannel_count(50)
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    pub fn with_grpc_subchannel_count(mut self, v: usize) -> Self {
+        self.config.grpc_subchannel_count = Some(v);
         self
     }
 
