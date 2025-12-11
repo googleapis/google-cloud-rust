@@ -385,8 +385,11 @@ impl ClientBuilder {
         let mut config = ClientConfig::default();
         config.retry_policy = Some(Arc::new(crate::retry_policy::storage_default()));
         config.backoff_policy = Some(Arc::new(crate::backoff_policy::default()));
-        let count = std::thread::available_parallelism().ok();
-        config.grpc_subchannel_count = Some(count.map(|x| x.get()).unwrap_or(1));
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        {
+            let count = std::thread::available_parallelism().ok();
+            config.grpc_subchannel_count = Some(count.map(|x| x.get()).unwrap_or(1));
+        }
         let common_options = CommonOptions::new();
         Self {
             config,
