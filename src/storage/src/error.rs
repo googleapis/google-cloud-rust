@@ -300,6 +300,59 @@ pub enum WriteError {
     },
 }
 
+#[cfg(google_cloud_unstable_signed_url)]
+type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
+
+/// Signed URL creation errors.
+#[cfg(google_cloud_unstable_signed_url)]
+#[derive(thiserror::Error, Debug)]
+#[error(transparent)]
+pub struct SigningError(SigningErrorKind);
+
+#[cfg(google_cloud_unstable_signed_url)]
+impl SigningError {
+    pub fn is_signing(&self) -> bool {
+        matches!(self.0, SigningErrorKind::Signing(_))
+    }
+
+    pub fn is_invalid_parameter(&self) -> bool {
+        matches!(self.0, SigningErrorKind::InvalidParameter(_, _))
+    }
+
+    /// A problem to sign the URL.
+    pub(crate) fn signing<T>(source: T) -> SigningError
+    where
+        T: Into<BoxError>,
+    {
+        SigningError(SigningErrorKind::Signing(source.into()))
+    }
+
+    /// A problem to sign the URL due to invalid input.
+    #[allow(dead_code)]
+    fn invalid_parameter<S: Into<String>, T>(field: S, source: T) -> SigningError
+    where
+        T: Into<BoxError>,
+    {
+        SigningError(SigningErrorKind::InvalidParameter(
+            field.into(),
+            source.into(),
+        ))
+    }
+}
+
+#[cfg(google_cloud_unstable_signed_url)]
+#[derive(thiserror::Error, Debug)]
+#[allow(dead_code)]
+enum SigningErrorKind {
+    /// The signing operation failed.
+    #[error("signing failed: {0}")]
+    Signing(#[source] BoxError),
+
+    /// An invalid input was provided to generate a signed URL.
+    #[error("invalid `{0}` parameter: {1}")]
+    InvalidParameter(String, #[source] BoxError),
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -353,6 +406,24 @@ mod tests {
         );
         assert!(
             fmt.contains(r#"want.md5=b"\x02\x03\x04\x05""#),
+            "{value:?} => {fmt}"
+        );
+    }
+
+    #[cfg(google_cloud_unstable_signed_url)]
+    #[test]
+    fn signing_errors() {
+        let value = SigningError::signing("sign error".to_string());
+        let fmt = value.to_string();
+        assert!(
+            fmt.contains("signing failed: sign error"),
+            "{value:?} => {fmt}"
+        );
+
+        let value = SigningError::invalid_parameter("endpoint", "missing scheme".to_string());
+        let fmt = value.to_string();
+        assert!(
+            fmt.contains("invalid `endpoint` parameter: missing scheme"),
             "{value:?} => {fmt}"
         );
     }
