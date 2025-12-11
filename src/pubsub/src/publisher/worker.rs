@@ -84,7 +84,7 @@ impl Worker {
         // A dictionary of ordering key to outstanding publish operations.
         // We batch publish operations on the same ordering key together.
         // Publish without ordering keys are treated as having the key "".
-        // TODO(#4012): Remove pending_batches entries when there are no oustanding publish.
+        // TODO(#4012): Remove pending_batches entries when there are no outstanding publish.
         let mut pending_batches: HashMap<String, OutstandingPublishes> = HashMap::new();
         let delay = self.batching_options.delay_threshold;
         let message_limit = self.batching_options.message_count_threshold;
