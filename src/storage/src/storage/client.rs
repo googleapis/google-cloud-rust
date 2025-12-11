@@ -748,13 +748,42 @@ pub(crate) fn apply_customer_supplied_encryption_headers(
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use auth::credentials::anonymous::Builder as Anonymous;
     use gax::retry_result::RetryResult;
     use gax::retry_state::RetryState;
     use std::{sync::Arc, time::Duration};
 
+    #[test]
+    fn default_settings() {
+        let builder = ClientBuilder::new().with_credentials(Anonymous::new().build());
+        let config = builder.config;
+        assert!(config.retry_policy.is_some(), "{config:?}");
+        assert!(config.backoff_policy.is_some(), "{config:?}");
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        {
+            assert!(
+                config.grpc_subchannel_count.is_some_and(|v| v >= 1),
+                "{config:?}"
+            );
+        }
+    }
+
+    #[test]
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    fn subchannel_count() {
+        let builder = ClientBuilder::new()
+            .with_credentials(Anonymous::new().build())
+            .with_grpc_subchannel_count(42);
+        let config = builder.config;
+        assert!(
+            config.grpc_subchannel_count.is_some_and(|v| v == 42),
+            "{config:?}"
+        );
+    }
+
     pub(crate) fn test_builder() -> ClientBuilder {
         ClientBuilder::new()
-            .with_credentials(auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .with_endpoint("http://private.googleapis.com")
             .with_backoff_policy(
                 gax::exponential_backoff::ExponentialBackoffBuilder::new()
