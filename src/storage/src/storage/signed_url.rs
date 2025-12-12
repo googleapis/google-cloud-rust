@@ -12,32 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{error::SigningError, signed_url::UrlStyle};
+use crate::{error::SigningError, signed_url::UrlStyle, storage::client::ENCODED_CHARS};
 use auth::signer::Signer;
 use percent_encoding::{AsciiSet, utf8_percent_encode};
 use std::collections::BTreeMap;
 
-/// https://cloud.google.com/storage/docs/request-endpoints#encoding
-/// !, #, $, &, ', (, ), *, +, ,, /, :, ;, =, ?, @, [, ]
-const PATH_ENCODE_SET: AsciiSet = AsciiSet::EMPTY
-    .add(b' ')
-    .add(b'!')
-    .add(b'#')
-    .add(b'$')
-    .add(b'&')
-    .add(b'\'')
-    .add(b'(')
-    .add(b')')
-    .add(b'*')
-    .add(b'+')
-    .add(b',')
-    .add(b':')
-    .add(b';')
-    .add(b'=')
-    .add(b'?')
-    .add(b'@')
-    .add(b'[')
-    .add(b']');
+/// Same encoding set as used in https://cloud.google.com/storage/docs/request-endpoints#encoding
+/// but for signed URLs, we do not encode '/'.
+const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 
 /// Creates [Signed URLs].
 ///
@@ -95,25 +77,17 @@ impl SigningScope {
         bucket.trim_start_matches("projects/_/buckets/").to_string()
     }
 
-    fn bucket_endpoint(&self, endpoint: &str, url_style: UrlStyle) -> String {
+    fn bucket_endpoint(&self, scheme: &str, host: &str, url_style: UrlStyle) -> String {
         let bucket_name = self.bucket_name();
-        let scheme = if endpoint.starts_with("http://") {
-            "http"
-        } else {
-            "https"
-        };
-        let endpoint = endpoint
-            .trim_start_matches("http://")
-            .trim_start_matches("https://");
         match url_style {
             UrlStyle::PathStyle => {
-                format!("{scheme}://{endpoint}")
+                format!("{scheme}://{host}")
             }
             UrlStyle::BucketBoundHostname => {
-                format!("{scheme}://{endpoint}")
+                format!("{scheme}://{host}")
             }
             UrlStyle::VirtualHostedStyle => {
-                format!("{scheme}://{bucket_name}.{endpoint}")
+                format!("{scheme}://{bucket_name}.{host}")
             }
         }
     }
@@ -122,7 +96,7 @@ impl SigningScope {
         let bucket_name = self.bucket_name();
         match self {
             SigningScope::Object(_, object) => {
-                let encoded_object = utf8_percent_encode(object, &PATH_ENCODE_SET).to_string();
+                let encoded_object = utf8_percent_encode(object, &PATH_ENCODE_SET);
                 match url_style {
                     UrlStyle::PathStyle => {
                         format!("/{bucket_name}/{encoded_object}")
@@ -145,8 +119,8 @@ impl SigningScope {
         }
     }
 
-    fn canonical_url(&self, endpoint: &str, url_style: UrlStyle) -> String {
-        let bucket_endpoint = self.bucket_endpoint(endpoint, url_style.clone());
+    fn canonical_url(&self, scheme: &str, host: &str, url_style: UrlStyle) -> String {
+        let bucket_endpoint = self.bucket_endpoint(scheme, host, url_style.clone());
         let uri = self.canonical_uri(url_style.clone());
         format!("{bucket_endpoint}{uri}")
     }
@@ -395,15 +369,25 @@ impl SignedUrlBuilder {
         self
     }
 
-    fn resolve_endpoint(&self) -> String {
-        if let Some(endpoint) = self.endpoint.clone() {
-            if !endpoint.starts_with("http") {
-                return format!("https://{}", endpoint);
-            }
-            return endpoint;
-        }
+    fn resolve_endpoint_url(&self) -> Result<(url::Url, String), SigningError> {
+        let endpoint = self.resolve_endpoint();
+        let url = url::Url::parse(&endpoint)
+            .map_err(|e| SigningError::invalid_parameter("endpoint", e))?;
 
-        format!("https://storage.{}", self.universe_domain.clone())
+        let endpoint_url = url.clone();
+        let host = url
+            .host_str()
+            .ok_or_else(|| SigningError::invalid_parameter("endpoint", "invalid endpoint host"))?;
+        Ok((endpoint_url, host.to_string()))
+    }
+
+    fn resolve_endpoint(&self) -> String {
+        match self.endpoint.as_ref() {
+            Some(e) if e.starts_with("http://") => e.clone(),
+            Some(e) if e.starts_with("https://") => e.clone(),
+            Some(e) => format!("https://{}", e),
+            None => format!("https://storage.{}", self.universe_domain),
+        }
     }
 
     /// Generates the signed URL using the provided signer.
@@ -416,13 +400,11 @@ impl SignedUrlBuilder {
     ///
     /// A `Result` containing the signed URL as a `String` or a `SigningError`.
     pub async fn sign_with(self, _signer: &Signer) -> std::result::Result<String, SigningError> {
-        let endpoint = self.resolve_endpoint();
-        let canonical_url = self.scope.canonical_url(&endpoint, self.url_style.clone());
-        let endpoint_url = url::Url::parse(&canonical_url)
-            .map_err(|e| SigningError::invalid_parameter("endpoint", e))?;
-        let _endpoint_host = endpoint_url
-            .host_str()
-            .ok_or_else(|| SigningError::invalid_parameter("endpoint", "invalid endpoint host"))?;
+        let (endpoint_url, host) = self.resolve_endpoint_url()?;
+        let scheme = endpoint_url.scheme();
+        let _canonical_url = self
+            .scope
+            .canonical_url(scheme, &host, self.url_style.clone());
 
         // TODO(#3645): implement gcs logic for signed url generation.
         Err(SigningError::signing("not implemented".to_string()))
@@ -540,8 +522,10 @@ mod tests {
             builder.with_endpoint(*endpoint)
         });
 
-        let endpoint = builder.resolve_endpoint();
-        let url = builder.scope.canonical_url(&endpoint, builder.url_style);
+        let (endpoint_url, host) = builder.resolve_endpoint_url()?;
+        let url = builder
+            .scope
+            .canonical_url(endpoint_url.scheme(), &host, builder.url_style);
         assert_eq!(url, expected_url);
 
         Ok(())
