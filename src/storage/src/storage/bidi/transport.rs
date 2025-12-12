@@ -65,8 +65,12 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
 
     async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
         let (tx, rx) = tokio::sync::mpsc::channel(100);
-        let range = ActiveRead::new(tx, range.0);
-        let _error = self.tx.send(range).await;
+        let range = ActiveRead::new(tx.clone(), range.0);
+        if let Err(e) = self.tx.send(range).await {
+            let _ = tx
+                .send(Err(ReadError::CannotScheduleRangeRead(e.into())))
+                .await;
+        }
         ReadObjectResponse::new(Box::new(RangeReader::new(
             rx,
             self.object.clone(),
@@ -166,6 +170,70 @@ mod tests {
         // Because `range_end` is true, the reader should be closed.
         let got = reader.next().await.transpose()?;
         assert!(got.is_none(), "{got:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_range_error() -> anyhow::Result<()> {
+        use std::error::Error as _;
+
+        let (connect_tx, connect_rx) =
+            tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(8);
+        let initial = BidiReadObjectResponse {
+            metadata: Some(ProtoObject {
+                bucket: "projects/_/buckets/test-bucket".into(),
+                name: "test-object".into(),
+                generation: 123456,
+                ..ProtoObject::default()
+            }),
+            read_handle: Some(BidiReadHandle {
+                handle: bytes::Bytes::from_static(b"test-read-handle"),
+            }),
+            ..BidiReadObjectResponse::default()
+        };
+        connect_tx.send(Ok(initial)).await?;
+        let connect_stream = tonic::Response::from(connect_rx);
+
+        // Save the receivers sent to the mock connector.
+        let mut mock = MockTestClient::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_start()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_, _, _, _, _, _| Ok(Ok(connect_stream)));
+        let connector = mock_connector(mock);
+
+        let transport = ObjectDescriptorTransport::new(connector).await?;
+        let want = Object::new()
+            .set_bucket("projects/_/buckets/test-bucket")
+            .set_name("test-object")
+            .set_generation(123456);
+        assert_eq!(transport.object(), &want, "{transport:?}");
+
+        // Close the mock connection with an unrecoverable error.
+        // This should terminate the worker task, and the object descriptor
+        // should stop accepting requests.
+        connect_tx
+            .send(Err(tonic::Status::permission_denied("uh-oh")))
+            .await?;
+        drop(connect_tx);
+
+        // Wait for the worker to stop and drop the transport.tx receiver.
+        transport.tx.closed().await;
+
+        // Now we know this call will fail, and we verify we get the correct
+        // error.
+        let mut reader = transport.read_range(ReadRange::segment(100, 200)).await;
+        let err = reader.next().await.transpose().unwrap_err();
+        assert!(err.is_io(), "{err:?}");
+        assert!(
+            matches!(
+                err.source().and_then(|e| e.downcast_ref::<ReadError>()),
+                Some(ReadError::CannotScheduleRangeRead(_))
+            ),
+            "{err:?}"
+        );
 
         Ok(())
     }
