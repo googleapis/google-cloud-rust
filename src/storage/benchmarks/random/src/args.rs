@@ -70,6 +70,10 @@ pub struct Args {
 
     /// The protocols used by the benchmark.
     pub protocols: Vec<Protocol>,
+
+    /// The number of gRPC subchannels.
+    #[arg(long)]
+    pub grpc_subchannel_count: Option<usize>,
 }
 
 impl Args {

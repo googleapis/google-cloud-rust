@@ -51,10 +51,13 @@ async fn main() -> Result<()> {
     tracing::info!("Configuration: {args:?}");
 
     let credentials = CredentialsBuilder::default().build()?;
-    let client = Storage::builder()
-        .with_credentials(credentials.clone())
-        .build()
-        .await?;
+    let builder = Storage::builder().with_credentials(credentials.clone());
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    let builder = args
+        .grpc_subchannel_count
+        .iter()
+        .fold(builder, |b, v| b.with_grpc_subchannel_count(*v));
+    let client = builder.build().await?;
     let objects = dataset::populate(&args, credentials.clone()).await?;
     if objects.is_empty() {
         bail!("no objects in the dataset for bucket {}", args.bucket_name);
