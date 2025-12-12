@@ -17,6 +17,8 @@ mod tests {
     use gax::options::*;
     use gax::retry_policy::NeverRetry;
     use google_cloud_gax_internal::grpc;
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::{builder, google, start_echo_server, start_echo_server_with_address};
 
     fn test_credentials() -> auth::credentials::Credentials {
@@ -91,6 +93,35 @@ mod tests {
             .await?;
 
         check_simple_request(client).await
+    }
+
+    #[tokio::test]
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    async fn multiple_endpoints() -> anyhow::Result<()> {
+        use std::collections::HashSet;
+        let (endpoint, _server) = start_echo_server().await?;
+
+        // Use an explicit client config to set the subchannel count field.
+        let mut config = ClientConfig::default();
+        config.cred = Some(test_credentials());
+        config.endpoint = Some(endpoint.clone());
+        config.grpc_subchannel_count = Some(16);
+        let client = grpc::Client::new(config, "https://test-only.googleapis.com").await?;
+
+        // Make sure we can make at least one request.
+        check_simple_request(client.clone()).await?;
+
+        // Make sure not all requests use the same client address.
+        let addresses = futures::future::join_all(
+            (0..32).map(|_| send_request(client.clone(), "test message", "")),
+        )
+        .await
+        .into_iter()
+        .map(|r| r.map(|e| e.client_address))
+        .collect::<gax::Result<HashSet<_>>>()?;
+
+        assert!(addresses.len() > 1, "{addresses:?}");
+        Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]

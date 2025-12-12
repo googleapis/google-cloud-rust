@@ -14,8 +14,7 @@
 
 use super::experiment::{Experiment, Range};
 use super::sample::Attempt;
-use anyhow::Result;
-use google_cloud_auth::credentials::Credentials;
+use anyhow::{Result, bail};
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::ReadRange;
 use std::time::Instant;
@@ -25,11 +24,7 @@ pub struct Runner {
 }
 
 impl Runner {
-    pub async fn new(credentials: Credentials) -> Result<Self> {
-        let client = google_cloud_storage::client::Storage::builder()
-            .with_credentials(credentials)
-            .build()
-            .await?;
+    pub async fn new(client: Storage) -> Result<Self> {
         Ok(Self { client })
     }
 
@@ -55,6 +50,9 @@ impl Runner {
         while let Some(b) = reader.next().await.transpose()? {
             let _ = ttfb.get_or_insert(start.elapsed());
             size += b.len();
+        }
+        if size != range.read_length as usize {
+            bail!("mismatched requested vs. received size");
         }
         let ttlb = start.elapsed();
         let ttfb = ttfb.unwrap_or(ttlb);

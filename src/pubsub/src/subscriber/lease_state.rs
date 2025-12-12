@@ -106,7 +106,7 @@ where
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::super::leaser::tests::MockLeaser;
     use super::*;
 
@@ -124,7 +124,7 @@ mod tests {
         }
     }
 
-    fn test_id(v: i32) -> String {
+    pub(crate) fn test_id(v: i32) -> String {
         format!("{v:03}")
     }
 

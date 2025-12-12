@@ -425,6 +425,8 @@ pub mod internal {
         pub polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
         pub disable_automatic_decompression: bool,
         pub disable_follow_redirects: bool,
+        pub grpc_subchannel_count: Option<usize>,
+        pub grpc_request_buffer_capacity: Option<usize>,
     }
 
     impl<Cr> std::default::Default for ClientConfig<Cr> {
@@ -442,6 +444,8 @@ pub mod internal {
                 polling_backoff_policy: None,
                 disable_automatic_decompression: false,
                 disable_follow_redirects: false,
+                grpc_subchannel_count: None,
+                grpc_request_buffer_capacity: None,
             }
         }
     }

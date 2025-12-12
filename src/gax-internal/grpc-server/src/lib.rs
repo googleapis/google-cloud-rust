@@ -105,6 +105,10 @@ impl google::test::v1::echo_service_server::EchoService for Echo {
         &self,
         request: tonic::Request<EchoRequest>,
     ) -> tonic::Result<tonic::Response<EchoResponse>> {
+        let client_address = request
+            .remote_addr()
+            .map(|s| s.to_string())
+            .unwrap_or_else(|| "[not-set]".to_string());
         let (metadata, _, request) = request.into_parts();
 
         if request.message.is_empty() {
@@ -119,9 +123,10 @@ impl google::test::v1::echo_service_server::EchoService for Echo {
             tokio::time::sleep(delay).await;
         }
 
-        let response = google::test::v1::EchoResponse {
+        let response = EchoResponse {
             message: request.message,
             metadata: headers(metadata),
+            client_address,
         };
 
         Ok(tonic::Response::new(response))
@@ -167,6 +172,7 @@ async fn run_chat(
         let response = EchoResponse {
             message: request.message,
             metadata: std::mem::take(&mut headers),
+            ..EchoResponse::default()
         };
         let _ = tx.send(Ok(response)).await;
     }

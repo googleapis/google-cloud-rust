@@ -31,4 +31,5 @@ message EchoRequest {
 message EchoResponse {
   string message = 1;
   map<string, string> metadata = 2;
+  string client_address = 3;
 }

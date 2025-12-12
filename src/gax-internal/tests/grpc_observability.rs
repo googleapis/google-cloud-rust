@@ -640,4 +640,62 @@ mod tests {
 
         Ok(())
     }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn test_grpc_resource_name_in_span() -> anyhow::Result<()> {
+        use google_cloud_gax_internal::observability::attributes::keys::GCP_RESOURCE_NAME;
+
+        let (endpoint, _server) = start_echo_server().await?;
+        let guard = TestLayer::initialize();
+
+        let mut config = google_cloud_gax_internal::options::ClientConfig::default();
+        config.tracing = true;
+        config.cred = Some(test_credentials());
+        let client = grpc::Client::new(config, &endpoint).await?;
+
+        let options = RequestOptions::default();
+        let options = gax::options::internal::set_resource_name(
+            options,
+            "projects/p/locations/l/resources/r".into(),
+        );
+
+        let extensions = {
+            let mut e = tonic::Extensions::new();
+            e.insert(tonic::GrpcMethod::new("google.test.v1.EchoService", "Echo"));
+            e
+        };
+        let request = google::test::v1::EchoRequest {
+            message: "test message".into(),
+            ..Default::default()
+        };
+
+        let _ = client
+            .execute::<_, google::test::v1::EchoResponse>(
+                extensions,
+                http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Echo"),
+                request,
+                options,
+                "test-client",
+                "",
+            )
+            .await?;
+
+        let spans = TestLayer::capture(&guard);
+        let grpc_spans: Vec<_> = spans.iter().filter(|s| s.name == "grpc.request").collect();
+        assert_eq!(grpc_spans.len(), 1);
+
+        let span = &grpc_spans[0];
+        let attrs = &span.attributes;
+
+        assert_eq!(
+            attrs
+                .get(GCP_RESOURCE_NAME)
+                .expect("resource name not found"),
+            &google_cloud_test_utils::test_layer::AttributeValue::String(
+                "projects/p/locations/l/resources/r".into()
+            )
+        );
+
+        Ok(())
+    }
 }
