@@ -35,9 +35,9 @@ protobuf-src-extracted-name = 'protobuf-b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
 protobuf-src-root           = 'https://github.com/protocolbuffers/protobuf/archive/b407e8416e3893036aee5af9a12bd9b6a0e2b2e6.tar.gz'
 protobuf-src-sha256         = '55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d'
 protobuf-src-subdir         = 'src'
-conformance-extracted-name  = 'protobuf-29.3'
-conformance-root            = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
-conformance-sha256          = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
+conformance-extracted-name  = 'protobuf-b407e8416e3893036aee5af9a12bd9b6a0e2b2e6'
+conformance-root            = 'https://github.com/protocolbuffers/protobuf/archive/b407e8416e3893036aee5af9a12bd9b6a0e2b2e6.tar.gz'
+conformance-sha256          = '55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d'
 
 [codec]
 # The default version for all crates. This can be overridden in the crate's
