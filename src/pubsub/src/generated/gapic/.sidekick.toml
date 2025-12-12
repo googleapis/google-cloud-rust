@@ -46,3 +46,15 @@ copyright-year        = '2025'
 template-override     = 'templates/http-client'
 package-name-override = 'google-cloud-pubsub'
 name-overrides        = '.google.pubsub.v1.Publisher=TopicAdmin,.google.pubsub.v1.Subscriber=SubscriptionAdmin'
+
+# Documentation overrides specific to the Rust clients.
+# Dataplane operations are excluded from the TopicAdmin and SubscriptionAdmin clients.
+[[documentation-overrides]]
+id = ".google.pubsub.v1.Publisher"
+match = "The service that an application uses to manipulate topics, and to send\nmessages to a topic."
+replace = "The service that an application uses to manipulate topics."
+
+[[documentation-overrides]]
+id = ".google.pubsub.v1.Subscriber"
+match = "The service that an application uses to manipulate subscriptions and to\nconsume messages from a subscription via the `Pull` method or by\nestablishing a bi-directional stream using the `StreamingPull` method."
+replace = "The service that an application uses to manipulate subscriptions."
