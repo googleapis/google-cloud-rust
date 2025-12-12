@@ -69,7 +69,7 @@ impl Worker {
     ///
     /// 1. Messages from the `Publisher` are received from the `rx` channel
     ///    and added to the message's ordering key OutstandingPublishes.
-    /// 2. A timer is continously fired to flush all pending batches.
+    /// 2. A timer is continuously fired to flush all pending batches.
     /// 3. A `Flush` command from the `Publisher` causes ordering key's batch to
     ///    be sent immediately.
     ///
@@ -102,14 +102,21 @@ impl Worker {
                     match msg {
                         Some(ToWorker::Publish(msg)) => {
                             let ordering_key = msg.msg.ordering_key.clone();
-                            let outstanding_publishes = pending_batches.entry(ordering_key).or_insert(OutstandingPublishes::new(&self.topic_name, message_limit, byte_threshold));
+                            let outstanding_publishes =
+                                pending_batches
+                                    .entry(ordering_key)
+                                    .or_insert(OutstandingPublishes::new(
+                                        &self.topic_name,
+                                        message_limit,
+                                        byte_threshold,
+                                    ));
                             outstanding_publishes.push(msg, self.client.clone(), self.topic_name.clone());
                         },
                         Some(ToWorker::Flush(tx)) => {
-                                // TODO(#4012): To guarantee ordering, we should wait for the
-                                // inflight batch to complete so that messages are publish in order.
+                            // TODO(#4012): To guarantee ordering, we should wait for the
+                            // inflight batch to complete so that messages are publish in order.
+                            for (_, outstanding) in pending_batches.iter_mut() {
                                 outstanding.flush(self.client.clone(), self.topic_name.clone());
-                                while flushing.next().await.is_some() {}
                             }
                             let _ = tx.send(());
                         },
@@ -138,7 +145,6 @@ pub(crate) struct OutstandingPublishes {
     inflight: Option<tokio::task::JoinHandle<()>>,
     // TODO(#4012): Track pending messages as within key message ordering is
     // not currently respected during a failure.
-    _pending_publish: Vec<BundledMessage>,
 }
 
 impl OutstandingPublishes {
