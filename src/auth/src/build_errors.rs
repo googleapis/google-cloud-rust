@@ -48,7 +48,6 @@ impl Error {
         matches!(self.0, ErrorKind::MissingField(_))
     }
 
-    #[cfg(feature = "idtoken")]
     /// The credential type is not supported for the given use case.
     pub fn is_not_supported(&self) -> bool {
         matches!(self.0, ErrorKind::NotSupported(_))
