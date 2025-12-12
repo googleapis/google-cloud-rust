@@ -327,9 +327,8 @@ impl SigningError {
         SigningError(SigningErrorKind::Signing(source.into()))
     }
 
-    /// A problem to sign the URL due to invalid input.
-    #[allow(dead_code)]
-    fn invalid_parameter<S: Into<String>, T>(field: S, source: T) -> SigningError
+    /// A problem to sign the URL due to invalid input.    
+    pub(crate) fn invalid_parameter<S: Into<String>, T>(field: S, source: T) -> SigningError
     where
         T: Into<BoxError>,
     {
