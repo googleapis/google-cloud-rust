@@ -65,12 +65,11 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
 
     async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
         let (tx, rx) = tokio::sync::mpsc::channel(100);
-        let range = ActiveRead::new(tx.clone(), range.0);
-        if let Err(e) = self.tx.send(range).await {
-            let _ = tx
-                .send(Err(ReadError::CannotScheduleRangeRead(e.into())))
-                .await;
-        }
+        let range = ActiveRead::new(tx, range.0);
+        self.tx
+            .send(range)
+            .await
+            .expect("worker never exits while ObjectDescriptor is live");
         ReadObjectResponse::new(Box::new(RangeReader::new(
             rx,
             self.object.clone(),
@@ -174,7 +173,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn read_range_error() -> anyhow::Result<()> {
         use std::error::Error as _;
 
@@ -211,29 +210,46 @@ mod tests {
             .set_generation(123456);
         assert_eq!(transport.object(), &want, "{transport:?}");
 
+        let mut existing = transport.read_range(ReadRange::segment(100, 200)).await;
+
         // Close the mock connection with an unrecoverable error.
         // This should terminate the worker task, and the object descriptor
         // should stop accepting requests.
         connect_tx
             .send(Err(tonic::Status::permission_denied("uh-oh")))
             .await?;
-        drop(connect_tx);
 
-        // Wait for the worker to stop and drop the transport.tx receiver.
-        transport.tx.closed().await;
+        // Wait for the worker to stop the main loop and drop the transport.tx receiver.
+        let err = existing.next().await.transpose().unwrap_err();
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
+        assert!(
+            matches!(
+                source,
+                Some(ReadError::UnrecoverableBidiReadInterrupt(e)) if e.status().is_some()
+            ),
+            "{err:?}"
+        );
+        let got = existing.next().await;
+        assert!(got.is_none(), "{got:?}");
+
+        // Close the mock I/O stream. From this point the `transport.read_range()`
+        // calls should fail.
+        drop(connect_tx);
 
         // Now we know this call will fail, and we verify we get the correct
         // error.
         let mut reader = transport.read_range(ReadRange::segment(100, 200)).await;
         let err = reader.next().await.transpose().unwrap_err();
-        assert!(err.is_io(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
             matches!(
-                err.source().and_then(|e| e.downcast_ref::<ReadError>()),
-                Some(ReadError::CannotScheduleRangeRead(_))
+                source,
+                Some(ReadError::UnrecoverableBidiReadInterrupt(e)) if e.status().is_some()
             ),
             "{err:?}"
         );
+        let got = reader.next().await;
+        assert!(got.is_none(), "{got:?}");
 
         Ok(())
     }

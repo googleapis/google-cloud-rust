@@ -58,15 +58,15 @@ where
         // Note how this loop only exits when the `requests` queue is
         // closed. A successfully closed stream and unrecoverable errors
         // return immediately.
-        loop {
+        let error = loop {
             tokio::select! {
                 m = rx.next_message() => {
                     match self.handle_response(m).await {
                         // Successful end of stream, return without error.
-                        None => return Ok(()),
+                        None => break None,
                         // An unrecoverable in the stream or its data, return
                         // the error.
-                        Some(Err(e)) => return Err(e),
+                        Some(Err(e)) => break Some(e),
                         // New message on the stream handled successfully,
                         // continue.
                         Some(Ok(None)) => {},
@@ -79,16 +79,22 @@ where
                 },
                 r = requests.recv_many(&mut ranges, 16) => {
                     if r == 0 {
-                        break;
+                        break None;
                     };
                     self.insert_ranges(tx.clone(), std::mem::take(&mut ranges)).await;
                 },
             }
+        };
+        let Some(e) = error else {
+            // A successfully closed stream *and* there are no more readers.
+            return Ok(());
+        };
+        // Return errors for any future readers.
+        while let Some(mut r) = requests.recv().await {
+            println!("sending error after closed stream: {e:?}");
+            r.interrupted(e.clone()).await;
         }
-        // No need to continue reading. The `requests` queue closes
-        // only when the ObjectDescriptor is gone and when all the
-        // associated ReadResponseReaders are gone.
-        Ok(())
+        Err(e)
     }
 
     async fn handle_response(
@@ -163,6 +169,7 @@ where
             closing.push(active.interrupted(error.clone()));
         }
         let _ = closing.count().await;
+        guard.clear();
     }
 
     async fn insert_ranges(&mut self, tx: Sender<BidiReadObjectRequest>, readers: Vec<ActiveRead>) {
@@ -634,6 +641,7 @@ mod tests {
         );
 
         // Wait for the worker to finish.
+        drop(tx);
         let err = worker.await?.unwrap_err();
         assert_eq!(err.status(), permanent_error().status());
         Ok(())
