@@ -1324,3 +1324,8 @@ libraries:
     specification_format: openapi
     rust:
       package_name_override: secretmanager-openapi-v1
+  - name: google-cloud-accessapproval-v1
+    output: src/generated/cloud/accessapproval/v1
+    version: 0.1.0
+    copyright_year: "2025"
+    specification_format: protobuf
