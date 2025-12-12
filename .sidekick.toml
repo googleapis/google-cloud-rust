@@ -22,7 +22,7 @@ ignored-directories = [
 
 [source]
 # By default, only search in the `googleapis-root` directory.
-roots                    = 'googleapis'
+roots = 'googleapis'
 # This is the commit SHA for v0.36.2.
 showcase-extracted-name  = 'gapic-showcase-69bdd62035d793f3d23a0c960dee547023c1c5ac'
 showcase-root            = 'https://github.com/googleapis/gapic-showcase/archive/69bdd62035d793f3d23a0c960dee547023c1c5ac.tar.gz'
