@@ -21,8 +21,7 @@ should not introduce breaking changes to the client libraries.
 
 ## More Information
 
-- Read the
-  [crate's documentation](https://docs.rs/google-cloud-storage/latest/google-cloud-storage)
+- Read the [crate's documentation](https://docs.rs/google-cloud-storage/latest)
 
 [gcloud-storage]: https://crates.io/crates/gcloud-storage
 [google cloud storage]: https://cloud.google.com/storage

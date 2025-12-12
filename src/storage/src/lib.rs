@@ -38,6 +38,8 @@ pub mod object_descriptor;
 pub mod read_object;
 pub mod read_resume_policy;
 pub mod retry_policy;
+#[cfg(google_cloud_unstable_signed_url)]
+pub mod signed_url;
 pub use crate::storage::request_options;
 pub use crate::storage::streaming_source;
 

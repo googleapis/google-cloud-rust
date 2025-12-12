@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::error::SigningError;
+use crate::{error::SigningError, signed_url::UrlStyle};
 use auth::signer::Signer;
 use chrono::{DateTime, Utc};
 use percent_encoding::{AsciiSet, utf8_percent_encode};
@@ -41,8 +41,33 @@ const PATH_ENCODE_SET: AsciiSet = AsciiSet::EMPTY
     .add(b'[')
     .add(b']');
 
-/// A builder for creating signed URLs.
+/// Creates [Signed URLs].
+///
+/// This builder allows you to generate signed URLs for Google Cloud Storage objects and buckets.
+/// [Signed URLs] provide a way to give time-limited read or write access to specific resources
+/// without sharing your credentials.
+///
+/// # Example
+///
+/// ```no_run
+/// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+/// use std::time::Duration;
+/// # use auth::signer::Signer;
+///
+/// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
+/// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+///     .with_method(http::Method::GET)
+///     .with_expiration(Duration::from_secs(3600)) // 1 hour
+///     .sign_with(signer)
+///     .await?;
+///
+/// println!("Signed URL: {}", url);
+/// # Ok(())
+/// # }
+/// ```
+/// [signed urls]: https://docs.cloud.google.com/storage/docs/access-control/signed-urls
 #[derive(Debug)]
+#[allow(dead_code)]
 pub struct SignedUrlBuilder {
     scope: SigningScope,
     method: http::Method,
@@ -56,15 +81,8 @@ pub struct SignedUrlBuilder {
     url_style: UrlStyle,
 }
 
-#[derive(Debug, Clone, Default)]
-pub enum UrlStyle {
-    #[default]
-    PathStyle,
-    BucketBoundHostname,
-    VirtualHostedStyle,
-}
-
 #[derive(Debug)]
+#[allow(dead_code)]
 enum SigningScope {
     Bucket(String),
     Object(String, String),
@@ -161,6 +179,26 @@ impl SignedUrlBuilder {
         }
     }
 
+    /// Creates a new `SignedUrlBuilder` for a specific object.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+    /// # use auth::signer::Signer;
+    ///
+    /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
+    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///     .sign_with(signer)
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    ///```
+    ///
+    /// # Arguments
+    ///
+    /// * `bucket` - The name of the bucket containing the object.
+    /// * `object` - The name of the object.    
     pub fn for_object<B, O>(bucket: B, object: O) -> Self
     where
         B: Into<String>,
@@ -169,6 +207,25 @@ impl SignedUrlBuilder {
         Self::new(SigningScope::Object(bucket.into(), object.into()))
     }
 
+    /// Creates a new `SignedUrlBuilder` for a specific bucket.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+    /// # use auth::signer::Signer;
+    ///
+    /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
+    /// let url = SignedUrlBuilder::for_bucket("my-bucket")
+    ///     .sign_with(signer)
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// # Arguments
+    ///
+    /// * `bucket` - The name of the bucket.
     pub fn for_bucket<B>(bucket: B) -> Self
     where
         B: Into<String>,
@@ -183,51 +240,175 @@ impl SignedUrlBuilder {
         self
     }
 
-    /// Sets the HTTP method for the signed URL. Default is "GET".
+    /// Sets the HTTP method for the signed URL. The default is "GET".
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+    /// # use auth::signer::Signer;
+    ///
+    /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
+    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///     .with_method(http::Method::PUT)
+    ///     .sign_with(signer)
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn with_method(mut self, method: http::Method) -> Self {
         self.method = method;
         self
     }
 
-    /// Sets the expiration time for the signed URL. Default is 7 days.
+    /// Sets the expiration time for the signed URL. The default is 7 days.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+    /// use std::time::Duration;
+    /// # use auth::signer::Signer;
+    ///
+    /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
+    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///     .with_expiration(Duration::from_secs(3600))
+    ///     .sign_with(signer)
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn with_expiration(mut self, expiration: std::time::Duration) -> Self {
         self.expiration = expiration;
         self
     }
 
-    /// Sets the URL style for the signed URL. Default is `UrlStyle::PathStyle`.
+    /// Sets the URL style for the signed URL. The default is `UrlStyle::PathStyle`.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+    /// use google_cloud_storage::signed_url::UrlStyle;
+    /// # use auth::signer::Signer;
+    ///
+    /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
+    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///     .with_url_style(UrlStyle::VirtualHostedStyle)
+    ///     .sign_with(signer)
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn with_url_style(mut self, url_style: UrlStyle) -> Self {
         self.url_style = url_style;
         self
     }
 
     /// Adds a header to the signed URL.
+    ///
     /// Note: These headers must be present in the request when using the signed URL.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+    /// # use auth::signer::Signer;
+    ///
+    /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
+    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///     .with_header("content-type", "text/plain")
+    ///     .sign_with(signer)
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn with_header<K: Into<String>, V: Into<String>>(mut self, key: K, value: V) -> Self {
         self.headers.insert(key.into(), value.into());
         self
     }
 
     /// Adds a query parameter to the signed URL.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+    /// # use auth::signer::Signer;
+    ///
+    /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
+    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///     .with_query_param("generation", "1234567890")
+    ///     .sign_with(signer)
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn with_query_param<K: Into<String>, V: Into<String>>(mut self, key: K, value: V) -> Self {
         self.query_parameters.insert(key.into(), value.into());
         self
     }
 
-    /// Sets the endpoint for the signed URL. Default is "https://storage.googleapis.com".
+    /// Sets the endpoint for the signed URL. The default is "https://storage.googleapis.com".
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+    /// # use auth::signer::Signer;
+    ///
+    /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
+    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///     .with_endpoint("https://my-custom-endpoint.com")
+    ///     .sign_with(signer)
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
         self
     }
 
-    /// Sets the universe domain for the signed URL. Default is "googleapis.com".
+    /// Sets the universe domain for the signed URL. The default is "googleapis.com".
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+    /// # use auth::signer::Signer;
+    ///
+    /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
+    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///     .with_universe_domain("my-universe.com")
+    ///     .sign_with(signer)
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
         self.universe_domain = universe_domain.into();
         self
     }
 
     /// Sets the client email for the signed URL.
+    ///
     /// If not set, the email will be fetched from the signer.
+    ///
+    /// # Example
+    ///
+    /// ```no_run
+    /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+    /// # use auth::signer::Signer;
+    ///
+    /// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
+    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///     .with_client_email("my-service-account@my-project.iam.gserviceaccount.com")
+    ///     .sign_with(signer)
+    ///     .await?;
+    /// # Ok(())
+    /// # }
+    /// ```
     pub fn with_client_email<S: Into<String>>(mut self, client_email: S) -> Self {
         self.client_email = Some(client_email.into());
         self
@@ -254,12 +435,6 @@ impl SignedUrlBuilder {
         format!("https://storage.{}", self.universe_domain.clone())
     }
 
-    /// Generates the signed URL using the provided signer.
-    pub async fn sign_with(self, signer: &Signer) -> std::result::Result<String, SigningError> {
-        let components = self.sign_internal(signer).await?;
-        Ok(components.signed_url)
-    }
-
     fn canonicalize_header_value(value: &str) -> String {
         let clean_value = value.replace("\t", " ").trim().to_string();
         clean_value.split_whitespace().collect::<Vec<_>>().join(" ")
@@ -279,17 +454,17 @@ impl SignedUrlBuilder {
         let client_email = if let Some(email) = self.client_email.clone() {
             email
         } else {
-            signer.client_email().await.map_err(SigningError::Signing)?
+            signer.client_email().await.map_err(SigningError::signing)?
         };
         let credential = format!("{client_email}/{credential_scope}");
 
         let endpoint = self.resolve_endpoint();
         let canonical_url = self.scope.canonical_url(&endpoint, self.url_style.clone());
         let endpoint_url =
-            url::Url::parse(&canonical_url).map_err(|e| SigningError::InvalidEndpoint(e.into()))?;
+            url::Url::parse(&canonical_url).map_err(|e| SigningError::invalid_parameter("endpoint", e))?;
         let endpoint_host = endpoint_url
             .host_str()
-            .ok_or_else(|| SigningError::InvalidEndpoint("invalid endpoint host".into()))?;
+            .ok_or_else(|| SigningError::invalid_parameter("endpoint", "invalid endpoint host"))?;
 
         let mut headers = self.headers;
         headers.insert("host".to_string(), endpoint_host.to_string());
@@ -375,7 +550,7 @@ impl SignedUrlBuilder {
         let signature = signer
             .sign(string_to_sign.as_str())
             .await
-            .map_err(SigningError::Signing)?;
+            .map_err(SigningError::signing)?;
 
         let signature = hex::encode(signature);
 
@@ -389,6 +564,20 @@ impl SignedUrlBuilder {
             string_to_sign,
             signed_url,
         })
+    }
+
+    /// Generates the signed URL using the provided signer.
+    ///
+    /// # Arguments
+    ///
+    /// * `signer` - The signer to use for signing the URL.
+    ///
+    /// # Returns
+    ///
+    /// A `Result` containing the signed URL as a `String` or a `SigningError`.
+    pub async fn sign_with(self, signer: &Signer) -> std::result::Result<String, SigningError> {
+        let components = self.sign_internal(signer).await?;
+        Ok(components.signed_url)
     }
 }
 
@@ -411,8 +600,34 @@ mod tests {
 
         impl SigningProvider for Signer {
             async fn client_email(&self) -> auth::signer::Result<String>;
-            async fn sign(&self, _content: &[u8]) -> auth::signer::Result<bytes::Bytes>;
+            async fn sign(&self, content: &[u8]) -> auth::signer::Result<bytes::Bytes>;
         }
+    }
+
+    #[tokio::test]
+    async fn test_signed_url_builder() -> TestResult {
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .return_once(|| Ok("test@example.com".to_string()));
+        mock.expect_sign()
+            .return_once(|_content| Ok(bytes::Bytes::from("test-signature")));
+
+        let signer = Signer::from(mock);
+        let res = SignedUrlBuilder::for_object("test-bucket", "test-object")
+            .with_method(http::Method::PUT)
+            .with_expiration(Duration::from_secs(3600))
+            .with_header("x-goog-meta-test", "value")
+            .with_query_param("test", "value")
+            .with_endpoint("https://storage.googleapis.com")
+            .with_universe_domain("googleapis.com")
+            .with_client_email("test@example.com")
+            .with_url_style(UrlStyle::PathStyle)
+            .sign_with(&signer)
+            .await;
+
+        assert!(res.is_ok());
+
+        Ok(())
     }
 
     #[tokio::test]
@@ -481,10 +696,7 @@ mod tests {
             .await
             .unwrap_err();
 
-        match err {
-            SigningError::Signing(e) => assert!(e.is_sign()),
-            _ => panic!("unexpected error type: {:?}", err),
-        }
+        assert!(err.is_signing());
 
         Ok(())
     }
@@ -504,10 +716,7 @@ mod tests {
             .await
             .unwrap_err();
 
-        match err {
-            SigningError::InvalidEndpoint(_) => {}
-            _ => panic!("unexpected error type: {:?}", err),
-        }
+        assert!(err.is_invalid_parameter());
 
         Ok(())
     }

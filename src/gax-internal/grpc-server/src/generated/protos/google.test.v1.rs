@@ -15,6 +15,8 @@ pub struct EchoResponse {
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
+    #[prost(string, tag = "3")]
+    pub client_address: ::prost::alloc::string::String,
 }
 /// Generated client implementations.
 pub mod echo_service_client {
