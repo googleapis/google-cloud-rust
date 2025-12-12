@@ -54,7 +54,9 @@ tokio                      = { workspace = true, features = ["io-util"] }
 tonic.workspace            = true
 tracing.workspace          = true
 uuid.workspace             = true
+chrono                     = { workspace = true, features = ["clock"] }
 url.workspace              = true
+hex                        = { workspace = true, features = ["std"] }
 # Transitive dependencies. Used for minimal version selection.
 mime.workspace = true
 # Local crates
@@ -86,6 +88,7 @@ test-case.workspace      = true
 tempfile.workspace       = true
 tokio-test.workspace     = true
 tokio.workspace          = true
+pretty_assertions        = { workspace = true }
 # The tests use `unstable-stream`, which is not enabled by default.
 google-cloud-storage = { path = ".", features = ["unstable-stream"] }
 storage-grpc-mock    = { path = "grpc-mock" }
