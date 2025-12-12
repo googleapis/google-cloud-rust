@@ -15,9 +15,8 @@
 use super::args::Args;
 use super::experiment::{Experiment, Range};
 use super::sample::Attempt;
-use anyhow::Result;
-use anyhow::bail;
-use google_cloud_auth::credentials::Credentials;
+use anyhow::{Result, bail};
+use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::ReadRange;
 use google_cloud_storage::object_descriptor::ObjectDescriptor;
 use std::collections::HashMap;
@@ -28,11 +27,7 @@ pub struct Runner {
 }
 
 impl Runner {
-    pub async fn new(args: &Args, objects: Vec<String>, credentials: Credentials) -> Result<Self> {
-        let client = google_cloud_storage::client::Storage::builder()
-            .with_credentials(credentials)
-            .build()
-            .await?;
+    pub async fn new(args: &Args, objects: Vec<String>, client: Storage) -> Result<Self> {
         let bucket_name = format!("projects/_/buckets/{}", args.bucket_name);
         let mut descriptors = HashMap::new();
         for name in objects {

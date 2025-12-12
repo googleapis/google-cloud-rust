@@ -27,7 +27,8 @@ mod sample;
 use anyhow::{Result, bail};
 use args::Args;
 use clap::Parser;
-use google_cloud_auth::credentials::{Builder as CredentialsBuilder, Credentials};
+use google_cloud_auth::credentials::Builder as CredentialsBuilder;
+use google_cloud_storage::client::Storage;
 use sample::Sample;
 use std::time::Instant;
 use tokio::sync::mpsc;
@@ -50,6 +51,10 @@ async fn main() -> Result<()> {
     tracing::info!("Configuration: {args:?}");
 
     let credentials = CredentialsBuilder::default().build()?;
+    let client = Storage::builder()
+        .with_credentials(credentials.clone())
+        .build()
+        .await?;
     let objects = dataset::populate(&args, credentials.clone()).await?;
     if objects.is_empty() {
         bail!("no objects in the dataset for bucket {}", args.bucket_name);
@@ -61,7 +66,7 @@ async fn main() -> Result<()> {
             tokio::spawn(runner(
                 task,
                 test_start,
-                credentials.clone(),
+                client.clone(),
                 tx.clone(),
                 args.clone(),
                 objects.clone(),
@@ -89,7 +94,7 @@ async fn main() -> Result<()> {
 async fn runner(
     task: usize,
     test_start: Instant,
-    credentials: Credentials,
+    client: Storage,
     tx: mpsc::Sender<Sample>,
     args: Args,
     objects: Vec<String>,
@@ -99,9 +104,9 @@ async fn runner(
         tracing::info!("Task::run({})", task);
     }
 
-    let json = json::Runner::new(credentials.clone()).await?;
+    let json = json::Runner::new(client.clone()).await?;
     #[cfg(google_cloud_unstable_storage_bidi)]
-    let bidi = bidi::Runner::new(&args, objects.clone(), credentials.clone()).await?;
+    let bidi = bidi::Runner::new(&args, objects.clone(), client.clone()).await?;
 
     let generator = experiment::ExperimentGenerator::new(&args, objects)?;
     for iteration in 0..args.iterations {

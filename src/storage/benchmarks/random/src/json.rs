@@ -15,7 +15,6 @@
 use super::experiment::{Experiment, Range};
 use super::sample::Attempt;
 use anyhow::Result;
-use google_cloud_auth::credentials::Credentials;
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::ReadRange;
 use std::time::Instant;
@@ -25,11 +24,7 @@ pub struct Runner {
 }
 
 impl Runner {
-    pub async fn new(credentials: Credentials) -> Result<Self> {
-        let client = google_cloud_storage::client::Storage::builder()
-            .with_credentials(credentials)
-            .build()
-            .await?;
+    pub async fn new(client: Storage) -> Result<Self> {
         Ok(Self { client })
     }
 
