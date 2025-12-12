@@ -29,8 +29,7 @@
 ///
 /// # Service Description
 ///
-/// The service that an application uses to manipulate topics, and to send
-/// messages to a topic.
+/// The service that an application uses to manipulate topics.
 ///
 /// # Configuration
 ///
@@ -186,9 +185,7 @@ impl TopicAdmin {
 ///
 /// # Service Description
 ///
-/// The service that an application uses to manipulate subscriptions and to
-/// consume messages from a subscription via the `Pull` method or by
-/// establishing a bi-directional stream using the `StreamingPull` method.
+/// The service that an application uses to manipulate subscriptions.
 ///
 /// # Configuration
 ///
