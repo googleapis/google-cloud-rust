@@ -864,4 +864,96 @@ mod tests {
 
         Ok(())
     }
+
+    #[cfg(google_cloud_unstable_signed_url)]
+    #[tokio::test]
+    #[serial]
+    async fn create_signer_credentials_fallback_to_mds() -> TestResult {
+        let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _e2 = ScopedEnv::remove("HOME"); // For posix
+        let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+
+        let signer = google_cloud_auth::credentials::Builder::default().build_signer()?;
+        let fmt = format!("{signer:?}");
+        assert!(fmt.contains("MDSSigner"));
+
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_signed_url)]
+    #[tokio::test]
+    #[serial]
+    async fn create_signer_credentials_adc_service_account() -> TestResult {
+        let contents = r#"{
+            "type": "service_account",
+            "project_id": "test-project-id",
+            "private_key_id": "test-private-key-id",
+            "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
+            "client_email": "test-client-email",
+            "universe_domain": "test-universe-domain"
+        }"#;
+        let path = write_cred_json(contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let signer = google_cloud_auth::credentials::Builder::default().build_signer()?;
+        let fmt = format!("{signer:?}");
+        assert!(fmt.contains("ServiceAccountSigner"));
+
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_signed_url)]
+    #[tokio::test]
+    #[serial]
+    async fn create_signer_credentials_adc_impersonated_service_account() -> TestResult {
+        let contents = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token"
+            }
+        })
+        .to_string();
+
+        let path = write_cred_json(&contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let signer = google_cloud_auth::credentials::Builder::default().build_signer()?;
+        let fmt = format!("{signer:?}");
+        assert!(fmt.contains("IamSigner"));
+
+        Ok(())
+    }
+
+    #[cfg(google_cloud_unstable_signed_url)]
+    #[tokio::test]
+    #[serial]
+    async fn create_signer_credentials_adc_user_account_not_supported() -> TestResult {
+        let contents = r#"{
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "type": "authorized_user"
+            }"#;
+
+        let path = write_cred_json(contents);
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let err = google_cloud_auth::credentials::Builder::default()
+            .build_signer()
+            .unwrap_err();
+
+        assert!(err.is_not_supported());
+        assert!(
+            err.to_string()
+                .contains("authorized_user signer is not supported"),
+            "{}",
+            err
+        );
+
+        Ok(())
+    }
 }
