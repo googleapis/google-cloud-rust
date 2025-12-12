@@ -22,6 +22,7 @@ extend-exclude = [
   "/go.work.sum",
   "src/*/src/generated/**",
   "src/generated/**",
+  "librarian.yaml",
 ]
 
 [type.mustache]
