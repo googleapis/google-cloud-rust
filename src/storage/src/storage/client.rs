@@ -385,6 +385,11 @@ impl ClientBuilder {
         let mut config = ClientConfig::default();
         config.retry_policy = Some(Arc::new(crate::retry_policy::storage_default()));
         config.backoff_policy = Some(Arc::new(crate::backoff_policy::default()));
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        {
+            let count = std::thread::available_parallelism().ok();
+            config.grpc_subchannel_count = Some(count.map(|x| x.get()).unwrap_or(1));
+        }
         let common_options = CommonOptions::new();
         Self {
             config,
@@ -632,6 +637,27 @@ impl ClientBuilder {
         self
     }
 
+    /// Configure the number of subchannels used by the client.
+    ///
+    /// gRPC-based clients may exhibit high latency if many requests need to be
+    /// demuxed over a single HTTP/2 connection (often called a *subchannel* in gRPC).
+    /// Using more subchannels may provide better throughput and/or latency.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Storage::builder()
+    ///     .with_grpc_subchannel_count(50)
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    pub fn with_grpc_subchannel_count(mut self, v: usize) -> Self {
+        self.config.grpc_subchannel_count = Some(v);
+        self
+    }
+
     pub(crate) fn apply_default_credentials(&mut self) -> BuilderResult<()> {
         if self.config.cred.is_some() {
             return Ok(());
@@ -722,13 +748,42 @@ pub(crate) fn apply_customer_supplied_encryption_headers(
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
+    use auth::credentials::anonymous::Builder as Anonymous;
     use gax::retry_result::RetryResult;
     use gax::retry_state::RetryState;
     use std::{sync::Arc, time::Duration};
 
+    #[test]
+    fn default_settings() {
+        let builder = ClientBuilder::new().with_credentials(Anonymous::new().build());
+        let config = builder.config;
+        assert!(config.retry_policy.is_some(), "{config:?}");
+        assert!(config.backoff_policy.is_some(), "{config:?}");
+        #[cfg(google_cloud_unstable_storage_bidi)]
+        {
+            assert!(
+                config.grpc_subchannel_count.is_some_and(|v| v >= 1),
+                "{config:?}"
+            );
+        }
+    }
+
+    #[test]
+    #[cfg(google_cloud_unstable_storage_bidi)]
+    fn subchannel_count() {
+        let builder = ClientBuilder::new()
+            .with_credentials(Anonymous::new().build())
+            .with_grpc_subchannel_count(42);
+        let config = builder.config;
+        assert!(
+            config.grpc_subchannel_count.is_some_and(|v| v == 42),
+            "{config:?}"
+        );
+    }
+
     pub(crate) fn test_builder() -> ClientBuilder {
         ClientBuilder::new()
-            .with_credentials(auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .with_endpoint("http://private.googleapis.com")
             .with_backoff_policy(
                 gax::exponential_backoff::ExponentialBackoffBuilder::new()
