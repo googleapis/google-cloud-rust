@@ -85,6 +85,8 @@ where
                 },
             }
         };
+        drop(rx);
+        drop(tx);
         let Some(e) = error else {
             // A successfully closed stream *and* there are no more readers.
             return Ok(());
@@ -237,17 +239,19 @@ mod tests {
     async fn run_immediately_closed() -> anyhow::Result<()> {
         let (request_tx, _request_rx) = tokio::sync::mpsc::channel(1);
         let (response_tx, response_rx) = mock_stream();
-        let (_tx, rx) = tokio::sync::mpsc::channel(1);
+        let (tx, rx) = tokio::sync::mpsc::channel(1);
         let connection = Connection::new(request_tx, response_rx);
 
-        // Closing the stream without an error should not attempt a reconnect.
-        drop(response_tx);
         let mut mock = MockTestClient::new();
         mock.expect_start().never();
 
         let connector = mock_connector(mock);
         let worker = Worker::new(connector);
-        let result = worker.run(connection, rx).await;
+        let handle = tokio::spawn(worker.run(connection, rx));
+        // Closing the stream without an error should not attempt a reconnect.
+        drop(response_tx);
+        drop(tx);
+        let result = handle.await?;
         assert!(result.is_ok(), "{result:?}");
         Ok(())
     }
@@ -258,7 +262,7 @@ mod tests {
     async fn run_bad_response(range_end: bool) -> anyhow::Result<()> {
         let (request_tx, _request_rx) = tokio::sync::mpsc::channel(1);
         let (response_tx, response_rx) = mock_stream();
-        let (_tx, rx) = tokio::sync::mpsc::channel(1);
+        let (tx, rx) = tokio::sync::mpsc::channel(1);
         let connection = Connection::new(request_tx, response_rx);
 
         // Simulate a response for an unexpected read id.
@@ -276,7 +280,12 @@ mod tests {
 
         let connector = mock_connector(mock);
         let worker = Worker::new(connector);
-        let err = worker.run(connection, rx).await.unwrap_err();
+        let handle = tokio::spawn(worker.run(connection, rx));
+        // Wait until the response_tx/response_rx pair is closed, then close the
+        // request queue to terminate the worker thread.
+        response_tx.closed().await;
+        drop(tx);
+        let err = handle.await?.unwrap_err();
         assert!(err.is_transport(), "{err:?}");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
@@ -290,7 +299,7 @@ mod tests {
     async fn run_reconnect() -> anyhow::Result<()> {
         let (request_tx, _request_rx) = tokio::sync::mpsc::channel(1);
         let (response_tx, response_rx) = mock_stream();
-        let (_tx, rx) = tokio::sync::mpsc::channel(1);
+        let (tx, rx) = tokio::sync::mpsc::channel(1);
         let connection = Connection::new(request_tx, response_rx);
 
         // Simulate a redirect response.
@@ -298,12 +307,20 @@ mod tests {
             .send(Err(redirect_status("redirect-01")))
             .await?;
         let mut mock = MockTestClient::new();
-        mock.expect_start()
-            .return_once(|_, _, _, _, _, _| Err(permanent_error()));
+        let (reconnected_tx, reconnected_rx) = tokio::sync::oneshot::channel();
+        mock.expect_start().return_once(move |_, _, _, _, _, _| {
+            let _ = reconnected_tx.send(());
+            Err(permanent_error())
+        });
 
         let connector = mock_connector(mock);
         let worker = Worker::new(connector);
-        let err = worker.run(connection, rx).await.unwrap_err();
+        let handle = tokio::spawn(worker.run(connection, rx));
+        // Wait until the reconnect call is made, then close the
+        // request queue to terminate the worker thread.
+        reconnected_rx.await?;
+        drop(tx);
+        let err = handle.await?.unwrap_err();
         assert_eq!(err.status(), permanent_error().status());
         Ok(())
     }
