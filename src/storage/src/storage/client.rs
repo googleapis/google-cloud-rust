@@ -696,7 +696,7 @@ impl ClientBuilder {
 /// Encode the following characters when they appear in either the object name
 /// or query string of a request URL:
 ///     !, #, $, &, ', (, ), *, +, ,, /, :, ;, =, ?, @, [, ], and space characters.
-const ENCODED_CHARS: percent_encoding::AsciiSet = percent_encoding::CONTROLS
+pub(crate) const ENCODED_CHARS: percent_encoding::AsciiSet = percent_encoding::CONTROLS
     .add(b'!')
     .add(b'#')
     .add(b'$')
