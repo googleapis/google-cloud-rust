@@ -207,7 +207,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
   substitutions = {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
     _SCRIPT             = lookup(each.value, "script", "")
-    _RUST_VERSION       = lookup(each.value, "rust_version", "1.91")
+    _RUST_VERSION       = lookup(each.value, "rust_version", null)
   }
 }
 
@@ -218,7 +218,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
       config         = v.config,
       script         = try(v.script, "")
       flags          = try(v.flags, "")
-      rust_version   = try(v.rust_version, "1.91")
+      rust_version   = try(v.rust_version, null)
       included_files = try(v.included_files, [])
     }
   }
@@ -242,7 +242,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
   substitutions = {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
     _SCRIPT             = lookup(each.value, "script", "")
-    _RUST_VERSION       = lookup(each.value, "rust_version", "1.91")
+    _RUST_VERSION       = lookup(each.value, "rust_version", null)
   }
 }
 
