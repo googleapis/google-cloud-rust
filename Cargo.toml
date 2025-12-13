@@ -269,6 +269,7 @@ members = [
   "src/storage/benchmarks/random",
   "src/storage/benchmarks/w1r3",
   "src/storage/examples",
+  "src/storage/tests/scenarios",
   "src/wkt",
   "tests/endurance",
   "tests/integration",
