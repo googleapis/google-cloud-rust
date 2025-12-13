@@ -209,18 +209,6 @@ pub enum ReadError {
     #[cfg(google_cloud_unstable_storage_bidi)]
     #[error("unknown range id in bidi response: {0}")]
     UnknownBidiRangeId(i64),
-
-    /// A `read_range()` request failed because the object descriptor is closed.
-    ///
-    /// # Troubleshooting
-    ///
-    /// The object descriptor closes only when there is an unrecoverable I/O
-    /// error. Consider using a more lenient [ReadResumePolicy].
-    ///
-    /// [ReadResumePolicy]: [crate::read_resume_policy::ReadResumePolicy]
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    #[error("read worker terminated on an unrecoverable read error")]
-    CannotScheduleRangeRead(#[source] BoxedSource),
 }
 
 /// An unrecoverable problem in the upload protocol.
@@ -338,7 +326,7 @@ impl SigningError {
         SigningError(SigningErrorKind::Signing(source.into()))
     }
 
-    /// A problem to sign the URL due to invalid input.    
+    /// A problem to sign the URL due to invalid input.
     pub(crate) fn invalid_parameter<S: Into<String>, T>(field: S, source: T) -> SigningError
     where
         T: Into<BoxError>,
