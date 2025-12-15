@@ -46,7 +46,6 @@ pub(crate) mod tests {
     use tokio::sync::mpsc::Receiver;
 
     type MockStream = Receiver<tonic::Result<StreamingPullResponse>>;
-    type MockStreamSender = Receiver<tonic::Result<StreamingPullResponse>>;
 
     // Allow us to mock a tonic stream in our unit tests, using an mpsc receiver
     impl TonicStreaming for MockStream {
