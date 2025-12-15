@@ -19,12 +19,14 @@ use std::sync::Arc;
 #[derive(Debug, Default)]
 pub(crate) struct Batch {
     messages: Vec<BundledMessage>,
+    initial_size: u32,
     messages_byte_size: u32,
 }
 
 impl Batch {
     pub(crate) fn new(initial_size: u32) -> Self {
         Batch {
+            initial_size,
             messages_byte_size: initial_size,
             ..Batch::default()
         }
@@ -70,10 +72,11 @@ impl Batch {
         topic: String,
     ) -> tokio::task::JoinHandle<()> {
         let batch_to_send = Self {
+            initial_size: self.initial_size,
             messages: self.messages.drain(..).collect(),
             messages_byte_size: self.messages_byte_size,
         };
-        self.messages_byte_size = 0;
+        self.messages_byte_size = self.initial_size;
         tokio::spawn(batch_to_send.send(client, topic))
     }
 
@@ -198,7 +201,7 @@ mod tests {
         });
         let client = GapicPublisher::from_stub(mock);
         batch.flush(client, "topic".to_string());
-        assert_eq!(batch.size(), 0);
+        assert_eq!(batch.size(), "topic".len() as u32);
     }
 
     fn create_bundled_message_from_bytes<T: Into<::bytes::Bytes>>(

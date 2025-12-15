@@ -182,6 +182,8 @@ impl OutstandingPublishes {
         msg: BundledMessage,
         inflight: &mut FuturesUnordered<tokio::task::JoinHandle<()>>,
     ) {
+        // TODO(#4012): When the message increases the batch size beyond pubsub server acceptable
+        // message size (10MB), we should flush existing batch first.
         self.pending_batch.push(msg);
         if self.pending_batch.len() as u32 >= self.message_limit
             || self.pending_batch.size() >= self.byte_threshold
