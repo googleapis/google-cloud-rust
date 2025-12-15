@@ -433,7 +433,7 @@ google-cloud-speech-v2          = { version = "1", path = "src/generated/cloud/s
 google-cloud-secretmanager-v1   = { version = "1", path = "src/generated/cloud/secretmanager/v1" }
 secretmanager                   = { version = "1", path = "src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
 google-cloud-aiplatform-v1      = { version = "1", default-features = false, path = "src/generated/cloud/aiplatform/v1" }
-google-cloud-compute-v1         = { version = "1", default-features = false, path = "src/generated/cloud/compute/v1" }
+google-cloud-compute-v1         = { version = "2", default-features = false, path = "src/generated/cloud/compute/v1" }
 google-cloud-storage            = { version = "1", path = "src/storage" }
 google-cloud-pubsub             = { path = "src/pubsub" }
 google-cloud-bigquery-v2        = { version = "1", path = "src/generated/cloud/bigquery/v2" }
