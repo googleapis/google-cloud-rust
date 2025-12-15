@@ -41,7 +41,7 @@ pub struct Args {
     #[arg(long, default_value_t = 1)]
     pub task_count: usize,
 
-    /// The number of iterations for each task.
+    /// The total number of iterations across all tasks.
     #[arg(long, default_value_t = 1)]
     pub iterations: u64,
 

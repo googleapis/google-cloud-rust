@@ -32,6 +32,7 @@ use google_cloud_auth::credentials::Builder as CredentialsBuilder;
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::read_resume_policy::Recommended;
 use sample::Sample;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::time::Instant;
 use tokio::sync::mpsc;
 
@@ -44,6 +45,8 @@ const DESCRIPTION: &str = concat!(
     " The API used for the download is also selected at random.",
     " The benchmark runs multiple tasks concurrently, all running identical loops."
 );
+
+static SAMPLE_COUNT: AtomicU64 = AtomicU64::new(0);
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -117,6 +120,12 @@ async fn runner(
 
     let generator = experiment::ExperimentGenerator::new(&args, objects)?;
     for iteration in 0..args.iterations {
+        // When performing long runs with many tasks, some may become idle very
+        // early. The program finishes faster if all tasks continue doing useful
+        // work until the required number of iterations is completed.
+        if SAMPLE_COUNT.load(Ordering::Acquire) >= args.iterations {
+            break;
+        }
         let experiment = generator.generate();
         let range_count = experiment.ranges.len();
         let protocol = experiment.protocol;
@@ -159,6 +168,7 @@ async fn runner(
                         object: range.object_name,
                     }
                 });
+        SAMPLE_COUNT.fetch_add(samples.len() as u64, Ordering::SeqCst);
         for s in samples {
             let _ = tx.send(s).await;
         }
