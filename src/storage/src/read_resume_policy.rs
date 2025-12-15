@@ -146,7 +146,17 @@ fn is_transient(error: &Error) -> bool {
         e if e.is_io() => true,
         // When using gRPC the errors may include more information.
         e if e.is_transport() => true,
-        e => e.status().is_some_and(|s| s.code == Code::Unavailable),
+        e => e.status().is_some_and(|s| is_transient_code(s.code)),
+    }
+}
+
+fn is_transient_code(code: Code) -> bool {
+    // DeadlineExceeded is safe in this context because local deadline errors are not reported via e.status()
+    match code {
+        Code::Unavailable | Code::ResourceExhausted | Code::Internal | Code::DeadlineExceeded => {
+            true
+        }
+        _ => false,
     }
 }
 
@@ -264,7 +274,13 @@ mod tests {
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
         let r = policy.on_error(&ResumeQuery::new(0), http_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
-        let r = policy.on_error(&ResumeQuery::new(0), grpc_transient());
+        let r = policy.on_error(&ResumeQuery::new(0), grpc_deadline_exceeded());
+        assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
+        let r = policy.on_error(&ResumeQuery::new(0), grpc_internal());
+        assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
+        let r = policy.on_error(&ResumeQuery::new(0), grpc_resource_exhausted());
+        assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
+        let r = policy.on_error(&ResumeQuery::new(0), grpc_unavailable());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
 
         let r = policy.on_error(&ResumeQuery::new(0), http_permanent());
@@ -328,7 +344,19 @@ mod tests {
         Error::transport(http::HeaderMap::new(), "test-only")
     }
 
-    fn grpc_transient() -> Error {
+    fn grpc_deadline_exceeded() -> Error {
+        grpc_error(Code::DeadlineExceeded)
+    }
+
+    fn grpc_internal() -> Error {
+        grpc_error(Code::Internal)
+    }
+
+    fn grpc_resource_exhausted() -> Error {
+        grpc_error(Code::ResourceExhausted)
+    }
+
+    fn grpc_unavailable() -> Error {
         grpc_error(Code::Unavailable)
     }
 
