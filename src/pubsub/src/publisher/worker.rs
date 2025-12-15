@@ -74,6 +74,8 @@ impl Worker {
     /// 2. A timer is continuously fired to flush all pending batches.
     /// 3. A `Flush` command from the `Publisher` causes pending batches to
     ///    be sent immediately.
+    /// 4. The `inflight` set is continuously polled to remove `JoinHandle`s for
+    ///    send tasks that have completed, preventing the set from growing indefinitely.
     ///
     /// The loop terminates when the `rx` channel is closed, which happens when all
     /// `Publisher` clones have been dropped.
