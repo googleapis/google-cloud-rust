@@ -22,12 +22,6 @@ pub(crate) trait TonicStreaming: std::fmt::Debug + Send + 'static {
     ) -> impl Future<Output = tonic::Result<Option<StreamingPullResponse>>> + Send;
 }
 
-impl TonicStreaming for tonic::Streaming<StreamingPullResponse> {
-    async fn next_message(&mut self) -> tonic::Result<Option<StreamingPullResponse>> {
-        self.message().await
-    }
-}
-
 /// An internal trait for mocking the transport layer.
 #[async_trait::async_trait]
 pub(crate) trait Stub: std::fmt::Debug + Send + Sync {
