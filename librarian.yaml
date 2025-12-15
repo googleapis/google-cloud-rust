@@ -1683,3 +1683,8 @@ libraries:
     output: src/storage/benchmarks/w1r3
     version: 0.0.0
     copyright_year: "2025"
+  - name: google-cloud-accessapproval-v1
+    output: src/generated/cloud/accessapproval/v1
+    version: 0.1.0
+    copyright_year: "2025"
+    specification_format: protobuf

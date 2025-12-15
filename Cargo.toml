@@ -69,6 +69,7 @@ members = [
   "src/generated/apps/script/sheets",
   "src/generated/apps/script/slides",
   "src/generated/bigtable/admin/v2",
+  "src/generated/cloud/accessapproval/v1",
   "src/generated/cloud/advisorynotifications/v1",
   "src/generated/cloud/aiplatform/schema/predict/instance",
   "src/generated/cloud/aiplatform/schema/predict/params",
