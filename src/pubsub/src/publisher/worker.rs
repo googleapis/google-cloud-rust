@@ -70,7 +70,7 @@ impl Worker {
     /// 1. Messages from the `Publisher` are received from the `rx` channel
     ///    and added to the message's ordering key OutstandingPublishes.
     /// 2. A timer is continuously fired to flush all pending batches.
-    /// 3. A `Flush` command from the `Publisher` causes ordering key's batch to
+    /// 3. A `Flush` command from the `Publisher` causes pending batches to
     ///    be sent immediately.
     ///
     /// The loop terminates when the `rx` channel is closed, which happens when all
