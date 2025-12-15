@@ -617,8 +617,7 @@ pub trait BackendServices: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::backend_services::GetEffectiveSecurityPoliciesRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<wkt::Empty>>> + Send
-    {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -2344,8 +2343,7 @@ pub trait GlobalOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::global_operations::DeleteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<wkt::Empty>>> + Send
-    {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -2402,8 +2400,7 @@ pub trait GlobalOrganizationOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::global_organization_operations::DeleteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<wkt::Empty>>> + Send
-    {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -4172,8 +4169,7 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::instances::SendDiagnosticInterruptRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<wkt::Empty>>> + Send
-    {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -9923,8 +9919,7 @@ pub trait RegionOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::region_operations::DeleteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<wkt::Empty>>> + Send
-    {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
@@ -14511,8 +14506,7 @@ pub trait ZoneOperations: std::fmt::Debug + Send + Sync {
         &self,
         _req: crate::model::zone_operations::DeleteRequest,
         _options: gax::options::RequestOptions,
-    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<wkt::Empty>>> + Send
-    {
+    ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
 
