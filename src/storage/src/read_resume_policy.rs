@@ -152,12 +152,10 @@ fn is_transient(error: &Error) -> bool {
 
 fn is_transient_code(code: Code) -> bool {
     // DeadlineExceeded is safe in this context because local deadline errors are not reported via e.status()
-    match code {
-        Code::Unavailable | Code::ResourceExhausted | Code::Internal | Code::DeadlineExceeded => {
-            true
-        }
-        _ => false,
-    }
+    matches!(
+        code,
+        Code::Unavailable | Code::ResourceExhausted | Code::Internal | Code::DeadlineExceeded
+    )
 }
 
 /// A resume policy that resumes regardless of the error type.
