@@ -138,7 +138,7 @@ impl ObjectDescriptor {
     /// Create a new instance.
     pub fn new<T>(inner: T) -> Self
     where
-        T: ObjectDescriptorStub + 'static,
+        T: crate::stub::ObjectDescriptor + 'static,
     {
         Self {
             inner: Box::new(inner),
