@@ -16,7 +16,7 @@ use super::stub::Stub;
 use crate::google::pubsub::v1::StreamingPullRequest;
 use crate::{Error, Result};
 use gax::options::RequestOptions;
-use tokio::sync::mpsc::{Sender, channel};
+use tokio::sync::mpsc;
 
 /// Open a stream for the `StreamingPull` RPC.
 ///
@@ -24,13 +24,13 @@ use tokio::sync::mpsc::{Sender, channel};
 pub(crate) async fn open_stream<T>(
     inner: T,
     initial_req: StreamingPullRequest,
-) -> Result<(<T as Stub>::Stream, Sender<StreamingPullRequest>)>
+) -> Result<(<T as Stub>::Stream, mpsc::Sender<StreamingPullRequest>)>
 where
     T: Stub,
 {
     // The only writes we perform are keepalives, which are sent so infrequently
     // that we don't fear any back pressure on this channel.
-    let (request_tx, request_rx) = channel(1);
+    let (request_tx, request_rx) = mpsc::channel(1);
     request_tx.send(initial_req).await.map_err(Error::io)?;
     let stream = inner
         .streaming_pull(request_rx, RequestOptions::default())
@@ -78,10 +78,10 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn success() -> anyhow::Result<()> {
-        let (response_tx, response_rx) = channel(10);
+        let (response_tx, response_rx) = mpsc::channel(10);
         // We use this channel to surface writes (requests) from outside our
         // mock stream.
-        let (recover_writes_tx, mut recover_writes_rx) = channel(1);
+        let (recover_writes_tx, mut recover_writes_rx) = mpsc::channel(1);
 
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
