@@ -53,3 +53,6 @@ mockall.workspace    = true
 tokio-test.workspace = true
 tokio.workspace      = true
 tonic.workspace      = true
+
+[lints]
+workspace = true

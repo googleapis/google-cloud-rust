@@ -50,3 +50,6 @@ wkt.workspace   = true
 anyhow.workspace     = true
 tokio                = { workspace = true, features = ["full", "macros"] }
 tokio-test.workspace = true
+
+[lints]
+workspace = true
