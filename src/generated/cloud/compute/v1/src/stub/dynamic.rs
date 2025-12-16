@@ -684,7 +684,7 @@ pub trait BackendServices: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::backend_services::GetEffectiveSecurityPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<wkt::Empty>>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get_health(
         &self,
@@ -823,7 +823,7 @@ impl<T: super::BackendServices> BackendServices for T {
         &self,
         req: crate::model::backend_services::GetEffectiveSecurityPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<wkt::Empty>> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::get_effective_security_policies(self, req, options).await
     }
 
@@ -2886,7 +2886,7 @@ pub trait GlobalOperations: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::global_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<wkt::Empty>>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get(
         &self,
@@ -2925,7 +2925,7 @@ impl<T: super::GlobalOperations> GlobalOperations for T {
         &self,
         req: crate::model::global_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<wkt::Empty>> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete(self, req, options).await
     }
 
@@ -2965,7 +2965,7 @@ pub trait GlobalOrganizationOperations: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::global_organization_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<wkt::Empty>>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get(
         &self,
@@ -2989,7 +2989,7 @@ impl<T: super::GlobalOrganizationOperations> GlobalOrganizationOperations for T 
         &self,
         req: crate::model::global_organization_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<wkt::Empty>> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete(self, req, options).await
     }
 
@@ -4960,7 +4960,7 @@ pub trait Instances: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::instances::SendDiagnosticInterruptRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<wkt::Empty>>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn set_deletion_protection(
         &self,
@@ -5364,7 +5364,7 @@ impl<T: super::Instances> Instances for T {
         &self,
         req: crate::model::instances::SendDiagnosticInterruptRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<wkt::Empty>> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::send_diagnostic_interrupt(self, req, options).await
     }
 
@@ -12364,7 +12364,7 @@ pub trait RegionOperations: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::region_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<wkt::Empty>>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get(
         &self,
@@ -12394,7 +12394,7 @@ impl<T: super::RegionOperations> RegionOperations for T {
         &self,
         req: crate::model::region_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<wkt::Empty>> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete(self, req, options).await
     }
 
@@ -18013,7 +18013,7 @@ pub trait ZoneOperations: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::zone_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<wkt::Empty>>;
+    ) -> crate::Result<gax::response::Response<()>>;
 
     async fn get(
         &self,
@@ -18043,7 +18043,7 @@ impl<T: super::ZoneOperations> ZoneOperations for T {
         &self,
         req: crate::model::zone_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<wkt::Empty>> {
+    ) -> crate::Result<gax::response::Response<()>> {
         T::delete(self, req, options).await
     }
 

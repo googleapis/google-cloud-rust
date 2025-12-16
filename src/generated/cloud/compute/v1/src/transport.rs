@@ -2979,7 +2979,7 @@ impl super::stub::BackendServices for BackendServices {
         &self,
         req: crate::model::backend_services::GetEffectiveSecurityPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<wkt::Empty>> {
+    ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -3025,7 +3025,12 @@ impl super::stub::BackendServices for BackendServices {
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn get_health(
@@ -11093,7 +11098,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
         &self,
         req: crate::model::global_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<wkt::Empty>> {
+    ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -11145,7 +11150,12 @@ impl super::stub::GlobalOperations for GlobalOperations {
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn get(
@@ -11368,7 +11378,7 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
         &self,
         req: crate::model::global_organization_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<wkt::Empty>> {
+    ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -11414,7 +11424,12 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn get(
@@ -20322,7 +20337,7 @@ impl super::stub::Instances for Instances {
         &self,
         req: crate::model::instances::SendDiagnosticInterruptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<wkt::Empty>> {
+    ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -20384,7 +20399,12 @@ impl super::stub::Instances for Instances {
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn set_deletion_protection(
@@ -48770,7 +48790,7 @@ impl super::stub::RegionOperations for RegionOperations {
         &self,
         req: crate::model::region_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<wkt::Empty>> {
+    ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -48832,7 +48852,12 @@ impl super::stub::RegionOperations for RegionOperations {
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn get(
@@ -71186,7 +71211,7 @@ impl super::stub::ZoneOperations for ZoneOperations {
         &self,
         req: crate::model::zone_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<wkt::Empty>> {
+    ) -> Result<gax::response::Response<()>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
@@ -71248,7 +71273,12 @@ impl super::stub::ZoneOperations for ZoneOperations {
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         let body = gaxi::http::handle_empty(None::<gaxi::http::NoBody>, &method);
-        self.inner.execute(builder, body, options).await
+        self.inner.execute(builder, body, options).await.map(
+            |r: gax::response::Response<wkt::Empty>| {
+                let (parts, _) = r.into_parts();
+                gax::response::Response::from_parts(parts, ())
+            },
+        )
     }
 
     async fn get(

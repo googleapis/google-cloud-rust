@@ -681,7 +681,7 @@ where
         &self,
         req: crate::model::backend_services::GetEffectiveSecurityPoliciesRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<wkt::Empty>> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner
             .get_effective_security_policies(req, options)
             .await
@@ -2214,7 +2214,7 @@ where
         &self,
         req: crate::model::global_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<wkt::Empty>> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete(req, options).await
     }
 
@@ -2276,7 +2276,7 @@ where
         &self,
         req: crate::model::global_organization_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<wkt::Empty>> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete(req, options).await
     }
 
@@ -3843,7 +3843,7 @@ where
         &self,
         req: crate::model::instances::SendDiagnosticInterruptRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<wkt::Empty>> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.send_diagnostic_interrupt(req, options).await
     }
 
@@ -8965,7 +8965,7 @@ where
         &self,
         req: crate::model::region_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<wkt::Empty>> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete(req, options).await
     }
 
@@ -13079,7 +13079,7 @@ where
         &self,
         req: crate::model::zone_operations::DeleteRequest,
         options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<wkt::Empty>> {
+    ) -> Result<gax::response::Response<()>> {
         self.inner.delete(req, options).await
     }
 
