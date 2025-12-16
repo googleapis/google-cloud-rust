@@ -6513,6 +6513,7 @@ dependencies = [
  "futures",
  "google-cloud-gax-internal",
  "google-cloud-wkt",
+ "lazy_static",
  "prost",
  "prost-types",
  "serde",

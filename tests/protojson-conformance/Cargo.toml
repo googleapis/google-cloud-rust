@@ -24,6 +24,7 @@ anyhow.workspace      = true
 bytes.workspace       = true
 crc32c.workspace      = true
 futures.workspace     = true
+lazy_static.workspace = true
 prost.workspace       = true
 prost-types.workspace = true
 serde.workspace       = true
@@ -33,3 +34,6 @@ tokio.workspace       = true
 # Local dependencies
 wkt.workspace = true
 gaxi          = { workspace = true, features = ["_internal-grpc-client"] }
+
+[lints]
+workspace = true
