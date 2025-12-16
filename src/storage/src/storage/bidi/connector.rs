@@ -168,7 +168,7 @@ where
             .iter()
             .flat_map(|s| s.routing_token.iter())
             .fold(format!("bucket={bucket_name}"), |s, token| {
-                s + &format!(",routing_token={token}")
+                s + &format!("&routing_token={token}")
             });
 
         let (tx, rx) = tokio::sync::mpsc::channel::<BidiReadObjectRequest>(100);
@@ -409,7 +409,7 @@ mod tests {
                 );
                 assert_eq!(path.path(), "/google.storage.v2.Storage/BidiReadObject");
                 assert_eq!(header, *X_GOOG_API_CLIENT_HEADER);
-                let mut split = params.split(',').collect::<Vec<_>>();
+                let mut split = params.split('&').collect::<Vec<_>>();
                 split.sort();
                 assert_eq!(split, vec!["bucket=projects/_/buckets/test-bucket", "routing_token=test-routing-token"]);
                 save.lock().expect("never poisoned").push(rx);
