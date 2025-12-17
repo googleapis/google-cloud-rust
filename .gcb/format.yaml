@@ -91,7 +91,7 @@ steps:
       #!/usr/bin/env bash
       set -euv
       apt update && apt install -y clang-format git
-      git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' | \
+      git ls-files -z -- '*.proto' ':!:**/testdata/googleapis/**' ':!:**/grpc-mock/**' | \
         xargs -0 -r -P "$(nproc)" -n 50 clang-format -i
     waitFor: ['-']
   - name: 'python:${_PYTHON_VERSION}'

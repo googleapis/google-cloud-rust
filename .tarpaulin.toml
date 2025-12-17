@@ -23,6 +23,7 @@ packages = [
   "google-cloud-storage",
   "google-cloud-test-utils",
   "google-cloud-wkt",
+  "pubsub-grpc-mock",
   "storage-grpc-mock",
 ]
 exclude-files = [
