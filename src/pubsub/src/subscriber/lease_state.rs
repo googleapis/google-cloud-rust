@@ -128,7 +128,7 @@ pub(crate) mod tests {
         format!("{v:03}")
     }
 
-    fn test_ids(range: std::ops::Range<i32>) -> Vec<String> {
+    pub(crate) fn test_ids(range: std::ops::Range<i32>) -> Vec<String> {
         range.map(test_id).collect()
     }
 

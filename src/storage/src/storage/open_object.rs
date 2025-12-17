@@ -525,9 +525,6 @@ mod tests {
             .return_once(|_| Ok(tonic::Response::from(rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
 
-        let mut config = gaxi::options::ClientConfig::default();
-        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
-        config.endpoint = Some(endpoint.clone());
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
             .with_endpoint(endpoint.clone())
@@ -555,11 +552,4 @@ mod tests {
     #[derive(Debug)]
     struct StorageStub;
     impl crate::stub::Storage for StorageStub {}
-
-    async fn test_grpc_client() -> Result<gaxi::grpc::Client> {
-        let mut config = gaxi::options::ClientConfig::default();
-        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
-        let client = gaxi::grpc::Client::new(config, "http://storage.googleapis.com").await?;
-        Ok(client)
-    }
 }
