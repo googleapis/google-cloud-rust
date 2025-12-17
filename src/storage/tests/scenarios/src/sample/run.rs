@@ -12,15 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::KIB;
+#[cfg(google_cloud_unstable_storage_bidi)]
+use crate::MIB;
 use crate::sample::Attempt;
 use google_cloud_storage::{
     client::Storage, model::Object, model_ext::ReadRange, read_object::ReadObjectResponse,
 };
-
 use rand::prelude::IndexedRandom;
 use std::time::Instant;
 
-use crate::{KIB, MIB};
 const UPLOADID: &str = "x-guploader-uploadid";
 
 pub async fn json(client: &Storage, objects: &[Object]) -> Attempt {

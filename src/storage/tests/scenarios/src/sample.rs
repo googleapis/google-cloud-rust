@@ -94,7 +94,10 @@ impl Scenario {
             Self::OpenReadAfterDrop => run::open_read_after_drop(client, objects).await,
             #[cfg(not(google_cloud_unstable_storage_bidi))]
             _ => Attempt {
-                result: Err(anyhow::msg!("scenario {} is not implemented", self.name())),
+                result: Err(anyhow::format_err!(
+                    "scenario {} is not implemented",
+                    self.name()
+                )),
                 open_latency: Duration::ZERO,
                 object: String::new(),
                 uploadid: String::new(),
