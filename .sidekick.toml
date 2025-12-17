@@ -41,7 +41,7 @@ protobuf-src-subdir         = 'src'
 # This is the commit SHA for latest commit January 2, 2025.
 conformance-extracted-name = 'conformance-tests-16a30a163751e22a5d552dda08ff357320c4e563'
 conformance-root           = 'https://github.com/googleapis/conformance-tests/archive/16a30a163751e22a5d552dda08ff357320c4e563.tar.gz'
-conformance-sha256         = '55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d'
+conformance-sha256         = 'be2400a53e6950070b9e1164f3adc52084c6d9174f55a1dd02cf86d6df1ec3f6'
 
 [codec]
 # The default version for all crates. This can be overridden in the crate's
