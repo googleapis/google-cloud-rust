@@ -4138,6 +4138,7 @@ dependencies = [
  "mockall",
  "prost",
  "prost-types",
+ "pubsub-grpc-mock",
  "reqwest",
  "serde",
  "serde_json",
@@ -6519,6 +6520,27 @@ dependencies = [
  "serde_json",
  "serde_with",
  "tokio",
+]
+
+[[package]]
+name = "pubsub-grpc-mock"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "http",
+ "mockall",
+ "pastey",
+ "prost",
+ "prost-build",
+ "prost-types",
+ "serde_json",
+ "test-case",
+ "tokio",
+ "tokio-stream",
+ "tonic",
+ "tonic-prost",
+ "tonic-prost-build",
 ]
 
 [[package]]
