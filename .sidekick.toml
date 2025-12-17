@@ -38,9 +38,9 @@ protobuf-src-extracted-name = 'protobuf-b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
 protobuf-src-root           = 'https://github.com/protocolbuffers/protobuf/archive/b407e8416e3893036aee5af9a12bd9b6a0e2b2e6.tar.gz'
 protobuf-src-sha256         = '55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d'
 protobuf-src-subdir         = 'src'
-# This is the commit SHA for v29.3.
-conformance-extracted-name = 'protobuf-b407e8416e3893036aee5af9a12bd9b6a0e2b2e6'
-conformance-root           = 'https://github.com/protocolbuffers/protobuf/archive/b407e8416e3893036aee5af9a12bd9b6a0e2b2e6.tar.gz'
+# This is the commit SHA for latest commit January 2, 2025.
+conformance-extracted-name = 'conformance-tests-16a30a163751e22a5d552dda08ff357320c4e563'
+conformance-root           = 'https://github.com/googleapis/conformance-tests/archive/16a30a163751e22a5d552dda08ff357320c4e563.tar.gz'
 conformance-sha256         = '55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d'
 
 [codec]
