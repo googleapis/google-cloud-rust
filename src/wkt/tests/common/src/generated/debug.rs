@@ -31,6 +31,7 @@ impl std::fmt::Debug for super::MessageWithEnum {
     }
 }
 
+
 impl std::fmt::Debug for super::MessageWithOneOf {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageWithOneOf");
@@ -263,6 +264,7 @@ impl std::fmt::Debug for super::message_with_recursion::NonRecursive {
         debug_struct.finish()
     }
 }
+
 
 impl std::fmt::Debug for super::MessageWithValue {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
