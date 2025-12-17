@@ -87,6 +87,9 @@ session-entity-types = []
 # Enables `client::Versions` and all the types it depends on.
 versions = []
 
+[package.metadata.docs.rs]
+all-features = true
+
 [dependencies]
 async-trait.workspace = true
 bytes.workspace      = true

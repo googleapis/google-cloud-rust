@@ -93,6 +93,9 @@ user-event-service = []
 # Enables `client::UserLicenseService` and all the types it depends on.
 user-license-service = []
 
+[package.metadata.docs.rs]
+all-features = true
+
 [dependencies]
 api.workspace        = true
 async-trait.workspace = true
