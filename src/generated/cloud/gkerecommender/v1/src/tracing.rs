@@ -37,6 +37,36 @@ impl<T> super::stub::GkeInferenceQuickstart for GkeInferenceQuickstart<T>
 where
     T: super::stub::GkeInferenceQuickstart + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn fetch_models(
+        &self,
+        req: crate::model::FetchModelsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FetchModelsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "GkeInferenceQuickstart",
+            "::fetch_models"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "fetch_models",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .fetch_models(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn fetch_models(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<crate::model::FetchModelsResponse>> {
         self.inner.fetch_models(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn fetch_model_servers(
+        &self,
+        req: crate::model::FetchModelServersRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FetchModelServersResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "GkeInferenceQuickstart",
+            "::fetch_model_servers"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "fetch_model_servers",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .fetch_model_servers(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn fetch_model_servers(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::FetchModelServersResponse>> {
         self.inner.fetch_model_servers(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn fetch_model_server_versions(
+        &self,
+        req: crate::model::FetchModelServerVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FetchModelServerVersionsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "GkeInferenceQuickstart",
+            "::fetch_model_server_versions"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "fetch_model_server_versions",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .fetch_model_server_versions(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn fetch_model_server_versions(
         &self,
@@ -63,7 +151,36 @@ where
     ) -> Result<gax::response::Response<crate::model::FetchModelServerVersionsResponse>> {
         self.inner.fetch_model_server_versions(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn fetch_profiles(
+        &self,
+        req: crate::model::FetchProfilesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FetchProfilesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "GkeInferenceQuickstart",
+            "::fetch_profiles"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "fetch_profiles",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .fetch_profiles(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn fetch_profiles(
         &self,
@@ -72,7 +189,36 @@ where
     ) -> Result<gax::response::Response<crate::model::FetchProfilesResponse>> {
         self.inner.fetch_profiles(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn generate_optimized_manifest(
+        &self,
+        req: crate::model::GenerateOptimizedManifestRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::GenerateOptimizedManifestResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "GkeInferenceQuickstart",
+            "::generate_optimized_manifest"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "generate_optimized_manifest",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .generate_optimized_manifest(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn generate_optimized_manifest(
         &self,
@@ -81,7 +227,36 @@ where
     ) -> Result<gax::response::Response<crate::model::GenerateOptimizedManifestResponse>> {
         self.inner.generate_optimized_manifest(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn fetch_benchmarking_data(
+        &self,
+        req: crate::model::FetchBenchmarkingDataRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FetchBenchmarkingDataResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "GkeInferenceQuickstart",
+            "::fetch_benchmarking_data"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "fetch_benchmarking_data",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .fetch_benchmarking_data(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn fetch_benchmarking_data(
         &self,
@@ -89,5 +264,21 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FetchBenchmarkingDataResponse>> {
         self.inner.fetch_benchmarking_data(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "gkerecommender";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "gkerecommender";
+            info
+        };
     }
 }

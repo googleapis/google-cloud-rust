@@ -37,6 +37,36 @@ impl<T> super::stub::KeyDashboardService for KeyDashboardService<T>
 where
     T: super::stub::KeyDashboardService + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_crypto_keys(
+        &self,
+        req: crate::model::ListCryptoKeysRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListCryptoKeysResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KeyDashboardService",
+            "::list_crypto_keys"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_crypto_keys",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_crypto_keys(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_crypto_keys(
         &self,
@@ -69,6 +99,36 @@ impl<T> super::stub::KeyTrackingService for KeyTrackingService<T>
 where
     T: super::stub::KeyTrackingService + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_protected_resources_summary(
+        &self,
+        req: crate::model::GetProtectedResourcesSummaryRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ProtectedResourcesSummary>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KeyTrackingService",
+            "::get_protected_resources_summary"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_protected_resources_summary",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .get_protected_resources_summary(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_protected_resources_summary(
         &self,
@@ -79,7 +139,36 @@ where
             .get_protected_resources_summary(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn search_protected_resources(
+        &self,
+        req: crate::model::SearchProtectedResourcesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "KeyTrackingService",
+            "::search_protected_resources"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "search_protected_resources",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .search_protected_resources(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn search_protected_resources(
         &self,
@@ -87,5 +176,21 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchProtectedResourcesResponse>> {
         self.inner.search_protected_resources(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "kmsinventory";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "kmsinventory";
+            info
+        };
     }
 }

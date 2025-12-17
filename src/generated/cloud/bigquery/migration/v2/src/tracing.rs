@@ -37,6 +37,36 @@ impl<T> super::stub::MigrationService for MigrationService<T>
 where
     T: super::stub::MigrationService + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_migration_workflow(
+        &self,
+        req: crate::model::CreateMigrationWorkflowRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::MigrationWorkflow>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "MigrationService",
+            "::create_migration_workflow"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_migration_workflow",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .create_migration_workflow(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_migration_workflow(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<crate::model::MigrationWorkflow>> {
         self.inner.create_migration_workflow(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_migration_workflow(
+        &self,
+        req: crate::model::GetMigrationWorkflowRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::MigrationWorkflow>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "MigrationService",
+            "::get_migration_workflow"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_migration_workflow",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_migration_workflow(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_migration_workflow(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::MigrationWorkflow>> {
         self.inner.get_migration_workflow(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_migration_workflows(
+        &self,
+        req: crate::model::ListMigrationWorkflowsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListMigrationWorkflowsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "MigrationService",
+            "::list_migration_workflows"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_migration_workflows",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_migration_workflows(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_migration_workflows(
         &self,
@@ -63,7 +151,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListMigrationWorkflowsResponse>> {
         self.inner.list_migration_workflows(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_migration_workflow(
+        &self,
+        req: crate::model::DeleteMigrationWorkflowRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "MigrationService",
+            "::delete_migration_workflow"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_migration_workflow",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_migration_workflow(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_migration_workflow(
         &self,
@@ -72,7 +189,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_migration_workflow(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn start_migration_workflow(
+        &self,
+        req: crate::model::StartMigrationWorkflowRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "MigrationService",
+            "::start_migration_workflow"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "start_migration_workflow",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .start_migration_workflow(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn start_migration_workflow(
         &self,
@@ -81,7 +227,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.start_migration_workflow(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_migration_subtask(
+        &self,
+        req: crate::model::GetMigrationSubtaskRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::MigrationSubtask>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "MigrationService",
+            "::get_migration_subtask"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_migration_subtask",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_migration_subtask(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_migration_subtask(
         &self,
@@ -90,7 +265,36 @@ where
     ) -> Result<gax::response::Response<crate::model::MigrationSubtask>> {
         self.inner.get_migration_subtask(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_migration_subtasks(
+        &self,
+        req: crate::model::ListMigrationSubtasksRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListMigrationSubtasksResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "MigrationService",
+            "::list_migration_subtasks"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_migration_subtasks",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_migration_subtasks(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_migration_subtasks(
         &self,
@@ -98,5 +302,21 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListMigrationSubtasksResponse>> {
         self.inner.list_migration_subtasks(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "bigquerymigration";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "bigquerymigration";
+            info
+        };
     }
 }

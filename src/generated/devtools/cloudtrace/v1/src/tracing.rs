@@ -37,6 +37,36 @@ impl<T> super::stub::TraceService for TraceService<T>
 where
     T: super::stub::TraceService + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_traces(
+        &self,
+        req: crate::model::ListTracesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListTracesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TraceService",
+            "::list_traces"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_traces",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_traces(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_traces(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListTracesResponse>> {
         self.inner.list_traces(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_trace(
+        &self,
+        req: crate::model::GetTraceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Trace>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TraceService",
+            "::get_trace"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_trace",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_trace(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_trace(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Trace>> {
         self.inner.get_trace(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn patch_traces(
+        &self,
+        req: crate::model::PatchTracesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "TraceService",
+            "::patch_traces"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "patch_traces",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .patch_traces(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn patch_traces(
         &self,
@@ -62,5 +150,21 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         self.inner.patch_traces(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "cloudtrace";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "cloudtrace";
+            info
+        };
     }
 }

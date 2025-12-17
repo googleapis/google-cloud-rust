@@ -37,6 +37,36 @@ impl<T> super::stub::AccessApproval for AccessApproval<T>
 where
     T: super::stub::AccessApproval + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_approval_requests(
+        &self,
+        req: crate::model::ListApprovalRequestsMessage,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListApprovalRequestsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AccessApproval",
+            "::list_approval_requests"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_approval_requests",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_approval_requests(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_approval_requests(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListApprovalRequestsResponse>> {
         self.inner.list_approval_requests(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_approval_request(
+        &self,
+        req: crate::model::GetApprovalRequestMessage,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AccessApproval",
+            "::get_approval_request"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_approval_request",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_approval_request(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_approval_request(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
         self.inner.get_approval_request(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn approve_approval_request(
+        &self,
+        req: crate::model::ApproveApprovalRequestMessage,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AccessApproval",
+            "::approve_approval_request"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "approve_approval_request",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .approve_approval_request(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn approve_approval_request(
         &self,
@@ -63,7 +151,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
         self.inner.approve_approval_request(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn dismiss_approval_request(
+        &self,
+        req: crate::model::DismissApprovalRequestMessage,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AccessApproval",
+            "::dismiss_approval_request"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "dismiss_approval_request",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .dismiss_approval_request(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn dismiss_approval_request(
         &self,
@@ -72,7 +189,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
         self.inner.dismiss_approval_request(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn invalidate_approval_request(
+        &self,
+        req: crate::model::InvalidateApprovalRequestMessage,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AccessApproval",
+            "::invalidate_approval_request"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "invalidate_approval_request",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .invalidate_approval_request(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn invalidate_approval_request(
         &self,
@@ -81,7 +227,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ApprovalRequest>> {
         self.inner.invalidate_approval_request(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_access_approval_settings(
+        &self,
+        req: crate::model::GetAccessApprovalSettingsMessage,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AccessApproval",
+            "::get_access_approval_settings"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_access_approval_settings",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_access_approval_settings(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_access_approval_settings(
         &self,
@@ -90,7 +265,36 @@ where
     ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
         self.inner.get_access_approval_settings(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_access_approval_settings(
+        &self,
+        req: crate::model::UpdateAccessApprovalSettingsMessage,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AccessApprovalSettings>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AccessApproval",
+            "::update_access_approval_settings"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_access_approval_settings",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_access_approval_settings(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_access_approval_settings(
         &self,
@@ -101,7 +305,36 @@ where
             .update_access_approval_settings(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_access_approval_settings(
+        &self,
+        req: crate::model::DeleteAccessApprovalSettingsMessage,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AccessApproval",
+            "::delete_access_approval_settings"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_access_approval_settings",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_access_approval_settings(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_access_approval_settings(
         &self,
@@ -112,7 +345,36 @@ where
             .delete_access_approval_settings(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_access_approval_service_account(
+        &self,
+        req: crate::model::GetAccessApprovalServiceAccountMessage,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AccessApprovalServiceAccount>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "AccessApproval",
+            "::get_access_approval_service_account"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_access_approval_service_account",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_access_approval_service_account(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_access_approval_service_account(
         &self,
@@ -122,5 +384,21 @@ where
         self.inner
             .get_access_approval_service_account(req, options)
             .await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "accessapproval";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "accessapproval";
+            info
+        };
     }
 }

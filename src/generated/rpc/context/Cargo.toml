@@ -26,6 +26,9 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[lints]
+workspace = true
+
 [dependencies]
 bytes.workspace      = true
 serde.workspace      = true

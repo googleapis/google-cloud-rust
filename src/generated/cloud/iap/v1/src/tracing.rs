@@ -37,6 +37,36 @@ impl<T> super::stub::IdentityAwareProxyAdminService for IdentityAwareProxyAdminS
 where
     T: super::stub::IdentityAwareProxyAdminService + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyAdminService",
+            "::set_iam_policy"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "set_iam_policy",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .set_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn set_iam_policy(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.set_iam_policy(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyAdminService",
+            "::get_iam_policy"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_iam_policy",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_iam_policy(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_iam_policy(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         self.inner.get_iam_policy(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyAdminService",
+            "::test_iam_permissions"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "test_iam_permissions",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .test_iam_permissions(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn test_iam_permissions(
         &self,
@@ -63,7 +151,36 @@ where
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_iap_settings(
+        &self,
+        req: crate::model::GetIapSettingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IapSettings>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyAdminService",
+            "::get_iap_settings"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_iap_settings",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_iap_settings(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_iap_settings(
         &self,
@@ -72,7 +189,36 @@ where
     ) -> Result<gax::response::Response<crate::model::IapSettings>> {
         self.inner.get_iap_settings(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_iap_settings(
+        &self,
+        req: crate::model::UpdateIapSettingsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IapSettings>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyAdminService",
+            "::update_iap_settings"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_iap_settings",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_iap_settings(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_iap_settings(
         &self,
@@ -81,7 +227,36 @@ where
     ) -> Result<gax::response::Response<crate::model::IapSettings>> {
         self.inner.update_iap_settings(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn validate_iap_attribute_expression(
+        &self,
+        req: crate::model::ValidateIapAttributeExpressionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ValidateIapAttributeExpressionResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyAdminService",
+            "::validate_iap_attribute_expression"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "validate_iap_attribute_expression",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .validate_iap_attribute_expression(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn validate_iap_attribute_expression(
         &self,
@@ -92,7 +267,36 @@ where
             .validate_iap_attribute_expression(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_tunnel_dest_groups(
+        &self,
+        req: crate::model::ListTunnelDestGroupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListTunnelDestGroupsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyAdminService",
+            "::list_tunnel_dest_groups"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_tunnel_dest_groups",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_tunnel_dest_groups(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_tunnel_dest_groups(
         &self,
@@ -101,7 +305,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListTunnelDestGroupsResponse>> {
         self.inner.list_tunnel_dest_groups(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_tunnel_dest_group(
+        &self,
+        req: crate::model::CreateTunnelDestGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyAdminService",
+            "::create_tunnel_dest_group"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_tunnel_dest_group",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_tunnel_dest_group(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_tunnel_dest_group(
         &self,
@@ -110,7 +343,36 @@ where
     ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
         self.inner.create_tunnel_dest_group(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_tunnel_dest_group(
+        &self,
+        req: crate::model::GetTunnelDestGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyAdminService",
+            "::get_tunnel_dest_group"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_tunnel_dest_group",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_tunnel_dest_group(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_tunnel_dest_group(
         &self,
@@ -119,7 +381,36 @@ where
     ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
         self.inner.get_tunnel_dest_group(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_tunnel_dest_group(
+        &self,
+        req: crate::model::DeleteTunnelDestGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyAdminService",
+            "::delete_tunnel_dest_group"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_tunnel_dest_group",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_tunnel_dest_group(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_tunnel_dest_group(
         &self,
@@ -128,7 +419,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.delete_tunnel_dest_group(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_tunnel_dest_group(
+        &self,
+        req: crate::model::UpdateTunnelDestGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TunnelDestGroup>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyAdminService",
+            "::update_tunnel_dest_group"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_tunnel_dest_group",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_tunnel_dest_group(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_tunnel_dest_group(
         &self,
@@ -161,6 +481,36 @@ impl<T> super::stub::IdentityAwareProxyOAuthService for IdentityAwareProxyOAuthS
 where
     T: super::stub::IdentityAwareProxyOAuthService + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_brands(
+        &self,
+        req: crate::model::ListBrandsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListBrandsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyOAuthService",
+            "::list_brands"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_brands",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_brands(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_brands(
         &self,
@@ -169,7 +519,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListBrandsResponse>> {
         self.inner.list_brands(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_brand(
+        &self,
+        req: crate::model::CreateBrandRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Brand>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyOAuthService",
+            "::create_brand"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_brand",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_brand(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_brand(
         &self,
@@ -178,7 +557,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Brand>> {
         self.inner.create_brand(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_brand(
+        &self,
+        req: crate::model::GetBrandRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Brand>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyOAuthService",
+            "::get_brand"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_brand",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_brand(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_brand(
         &self,
@@ -187,7 +595,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Brand>> {
         self.inner.get_brand(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn create_identity_aware_proxy_client(
+        &self,
+        req: crate::model::CreateIdentityAwareProxyClientRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyOAuthService",
+            "::create_identity_aware_proxy_client"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "create_identity_aware_proxy_client",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .create_identity_aware_proxy_client(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn create_identity_aware_proxy_client(
         &self,
@@ -198,7 +635,36 @@ where
             .create_identity_aware_proxy_client(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_identity_aware_proxy_clients(
+        &self,
+        req: crate::model::ListIdentityAwareProxyClientsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListIdentityAwareProxyClientsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyOAuthService",
+            "::list_identity_aware_proxy_clients"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_identity_aware_proxy_clients",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_identity_aware_proxy_clients(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_identity_aware_proxy_clients(
         &self,
@@ -209,7 +675,36 @@ where
             .list_identity_aware_proxy_clients(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_identity_aware_proxy_client(
+        &self,
+        req: crate::model::GetIdentityAwareProxyClientRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyOAuthService",
+            "::get_identity_aware_proxy_client"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_identity_aware_proxy_client",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_identity_aware_proxy_client(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_identity_aware_proxy_client(
         &self,
@@ -220,7 +715,36 @@ where
             .get_identity_aware_proxy_client(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn reset_identity_aware_proxy_client_secret(
+        &self,
+        req: crate::model::ResetIdentityAwareProxyClientSecretRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::IdentityAwareProxyClient>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyOAuthService",
+            "::reset_identity_aware_proxy_client_secret"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "reset_identity_aware_proxy_client_secret",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .reset_identity_aware_proxy_client_secret(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn reset_identity_aware_proxy_client_secret(
         &self,
@@ -231,7 +755,36 @@ where
             .reset_identity_aware_proxy_client_secret(req, options)
             .await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn delete_identity_aware_proxy_client(
+        &self,
+        req: crate::model::DeleteIdentityAwareProxyClientRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "IdentityAwareProxyOAuthService",
+            "::delete_identity_aware_proxy_client"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "delete_identity_aware_proxy_client",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .delete_identity_aware_proxy_client(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn delete_identity_aware_proxy_client(
         &self,
@@ -241,5 +794,21 @@ where
         self.inner
             .delete_identity_aware_proxy_client(req, options)
             .await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "iap";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "iap";
+            info
+        };
     }
 }

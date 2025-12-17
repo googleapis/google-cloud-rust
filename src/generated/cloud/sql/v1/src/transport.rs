@@ -34,7 +34,15 @@ impl std::fmt::Debug for SqlBackupRunsService {
 
 impl SqlBackupRunsService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -49,7 +57,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/backupRuns/{}",
@@ -63,10 +71,11 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                     )?,
                     try_match(Some(&req).map(|m| &m.id), &[Segment::SingleWildcard])?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/backupRuns/{id}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -94,6 +103,8 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -115,7 +126,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/backupRuns/{}",
@@ -129,10 +140,11 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                     )?,
                     try_match(Some(&req).map(|m| &m.id), &[Segment::SingleWildcard])?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/backupRuns/{id}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -160,6 +172,8 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -181,7 +195,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/backupRuns",
@@ -194,10 +208,11 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/backupRuns";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -219,6 +234,8 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -240,7 +257,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/backupRuns",
@@ -253,12 +270,13 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/backupRuns";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("maxResults", &req.max_results)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -280,6 +298,8 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -309,7 +329,15 @@ impl std::fmt::Debug for SqlConnectService {
 
 impl SqlConnectService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -324,7 +352,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/connectSettings",
@@ -337,6 +365,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/connectSettings";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
@@ -352,7 +381,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -374,6 +403,8 @@ impl super::stub::SqlConnectService for SqlConnectService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -395,7 +426,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}:generateEphemeralCert",
@@ -408,10 +439,12 @@ impl super::stub::SqlConnectService for SqlConnectService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}:generateEphemeralCert";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -433,6 +466,8 @@ impl super::stub::SqlConnectService for SqlConnectService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -462,7 +497,15 @@ impl std::fmt::Debug for SqlDatabasesService {
 
 impl SqlDatabasesService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -477,7 +520,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
@@ -494,10 +537,12 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}/databases/{database}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -525,6 +570,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -546,7 +593,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
@@ -563,10 +610,12 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}/databases/{database}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -594,6 +643,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -615,7 +666,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases",
@@ -628,10 +679,11 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/databases";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -653,6 +705,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -674,7 +728,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases",
@@ -687,10 +741,11 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/databases";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -712,6 +767,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -733,7 +790,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
@@ -750,10 +807,12 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}/databases/{database}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -781,6 +840,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -802,7 +863,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
@@ -819,10 +880,12 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}/databases/{database}";
 
                 let builder = self.inner.builder(reqwest::Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PUT)))
+                Some(builder.map(|b| (b, reqwest::Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -850,6 +913,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -879,7 +944,15 @@ impl std::fmt::Debug for SqlFlagsService {
 
 impl SqlFlagsService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -892,14 +965,15 @@ impl super::stub::SqlFlagsService for SqlFlagsService {
     ) -> Result<gax::response::Response<crate::model::FlagsListResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = "/v1/flags".to_string();
+                let path_template = "/v1/flags";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("databaseVersion", &req.database_version)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -909,6 +983,8 @@ impl super::stub::SqlFlagsService for SqlFlagsService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -938,7 +1014,15 @@ impl std::fmt::Debug for SqlInstancesService {
 
 impl SqlInstancesService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -953,7 +1037,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/addServerCa",
@@ -966,10 +1050,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/addServerCa";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -991,6 +1076,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1012,7 +1099,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/clone",
@@ -1025,10 +1112,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/clone";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1050,6 +1138,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1071,7 +1161,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}",
@@ -1084,10 +1174,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1109,6 +1200,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1130,7 +1223,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/demoteMaster",
@@ -1143,10 +1236,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/demoteMaster";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1168,6 +1262,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1189,7 +1285,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/demote",
@@ -1202,10 +1298,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/demote";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1227,6 +1324,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1248,7 +1347,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/export",
@@ -1261,10 +1360,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/export";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1286,6 +1386,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1307,7 +1409,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/failover",
@@ -1320,10 +1422,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/failover";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1345,6 +1448,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1366,7 +1471,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/reencrypt",
@@ -1379,10 +1484,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/reencrypt";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1404,6 +1510,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1425,7 +1533,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}",
@@ -1438,10 +1546,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1463,6 +1572,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1484,7 +1595,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/import",
@@ -1497,10 +1608,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/import";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1522,6 +1634,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1543,7 +1657,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances",
@@ -1552,10 +1666,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1571,6 +1686,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1592,7 +1709,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances",
@@ -1601,13 +1718,14 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("maxResults", &req.max_results)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1623,6 +1741,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1644,7 +1764,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/listServerCas",
@@ -1657,10 +1777,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/listServerCas";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1682,6 +1803,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1703,7 +1826,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}",
@@ -1716,10 +1839,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}";
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
+                Some(builder.map(|b| (b, reqwest::Method::PATCH, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1741,6 +1865,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1762,7 +1888,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/promoteReplica",
@@ -1775,11 +1901,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/promoteReplica";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("failover", &req.failover)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1801,6 +1928,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1822,7 +1951,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/switchover",
@@ -1835,6 +1964,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/switchover";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = (|| {
@@ -1850,7 +1980,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1872,6 +2002,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1893,7 +2025,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/resetSslConfig",
@@ -1906,10 +2038,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/resetSslConfig";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1931,6 +2064,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1952,7 +2087,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/restart",
@@ -1965,10 +2100,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/restart";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1990,6 +2126,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2011,7 +2149,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/restoreBackup",
@@ -2024,10 +2162,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/restoreBackup";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2049,6 +2188,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2070,7 +2211,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/rotateServerCa",
@@ -2083,10 +2224,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/rotateServerCa";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2108,6 +2250,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2129,7 +2273,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/startReplica",
@@ -2142,10 +2286,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/startReplica";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2167,6 +2312,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2188,7 +2335,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/stopReplica",
@@ -2201,10 +2348,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/stopReplica";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2226,6 +2374,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2247,7 +2397,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/truncateLog",
@@ -2260,10 +2410,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/truncateLog";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2285,6 +2436,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2306,7 +2459,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}",
@@ -2319,10 +2472,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}";
 
                 let builder = self.inner.builder(reqwest::Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PUT)))
+                Some(builder.map(|b| (b, reqwest::Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2344,6 +2498,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2365,7 +2521,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/createEphemeral",
@@ -2378,10 +2534,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/createEphemeral";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2403,6 +2560,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2424,7 +2583,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/rescheduleMaintenance",
@@ -2437,10 +2596,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}/rescheduleMaintenance";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2462,6 +2623,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2484,7 +2647,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/verifyExternalSyncSettings",
@@ -2497,10 +2660,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}/verifyExternalSyncSettings";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2522,6 +2687,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2543,7 +2710,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/startExternalSync",
@@ -2556,10 +2723,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/startExternalSync";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2581,6 +2749,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2602,7 +2772,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/performDiskShrink",
@@ -2615,10 +2785,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/performDiskShrink";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2640,6 +2811,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2662,7 +2835,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/getDiskShrinkConfig",
@@ -2675,10 +2848,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}/getDiskShrinkConfig";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2700,6 +2875,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2721,7 +2898,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/resetReplicaSize",
@@ -2734,10 +2911,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/resetReplicaSize";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2759,6 +2937,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2781,7 +2961,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/getLatestRecoveryTime",
@@ -2794,10 +2974,12 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}/getLatestRecoveryTime";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2819,6 +3001,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2840,7 +3024,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/acquireSsrsLease",
@@ -2853,10 +3037,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/acquireSsrsLease";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2878,6 +3063,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2899,7 +3086,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/releaseSsrsLease",
@@ -2912,10 +3099,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/releaseSsrsLease";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2937,6 +3125,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2966,7 +3156,15 @@ impl std::fmt::Debug for SqlOperationsService {
 
 impl SqlOperationsService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -2981,7 +3179,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/operations/{}",
@@ -2994,10 +3192,11 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/operations/{operation}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3019,6 +3218,8 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3040,7 +3241,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/operations",
@@ -3049,13 +3250,14 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/operations";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("instance", &req.instance)]);
                 let builder = builder.query(&[("maxResults", &req.max_results)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3071,6 +3273,8 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3092,7 +3296,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/operations/{}/cancel",
@@ -3105,10 +3309,11 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/operations/{operation}/cancel";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3130,6 +3335,8 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3164,7 +3371,15 @@ impl std::fmt::Debug for SqlSslCertsService {
 
 impl SqlSslCertsService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -3179,7 +3394,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/sslCerts/{}",
@@ -3196,10 +3411,12 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}/sslCerts/{sha1_fingerprint}";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3227,6 +3444,8 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3248,7 +3467,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/sslCerts/{}",
@@ -3265,10 +3484,12 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template =
+                    "/v1/projects/{project}/instances/{instance}/sslCerts/{sha1_fingerprint}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3296,6 +3517,8 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3317,7 +3540,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/sslCerts",
@@ -3330,10 +3553,11 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/sslCerts";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3355,6 +3579,8 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3376,7 +3602,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/sslCerts",
@@ -3389,10 +3615,11 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/sslCerts";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3414,6 +3641,8 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3443,7 +3672,15 @@ impl std::fmt::Debug for SqlTiersService {
 
 impl SqlTiersService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -3458,7 +3695,7 @@ impl super::stub::SqlTiersService for SqlTiersService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/tiers",
@@ -3467,10 +3704,11 @@ impl super::stub::SqlTiersService for SqlTiersService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/tiers";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3486,6 +3724,8 @@ impl super::stub::SqlTiersService for SqlTiersService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3515,7 +3755,15 @@ impl std::fmt::Debug for SqlUsersService {
 
 impl SqlUsersService {
     pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
+        #[cfg(google_cloud_unstable_tracing)]
+        let tracing_is_enabled = gaxi::options::tracing_enabled(&config);
         let inner = gaxi::http::ReqwestClient::new(config, crate::DEFAULT_HOST).await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        let inner = if tracing_is_enabled {
+            inner.with_instrumentation(&super::tracing::info::INSTRUMENTATION_CLIENT_INFO)
+        } else {
+            inner
+        };
         Ok(Self { inner })
     }
 }
@@ -3530,7 +3778,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users",
@@ -3543,12 +3791,13 @@ impl super::stub::SqlUsersService for SqlUsersService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/users";
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("host", &req.host)]);
                 let builder = builder.query(&[("name", &req.name)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
+                Some(builder.map(|b| (b, reqwest::Method::DELETE, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3570,6 +3819,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3591,7 +3842,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users/{}",
@@ -3608,11 +3859,12 @@ impl super::stub::SqlUsersService for SqlUsersService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/users/{name}";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("host", &req.host)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3640,6 +3892,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3661,7 +3915,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users",
@@ -3674,10 +3928,11 @@ impl super::stub::SqlUsersService for SqlUsersService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/users";
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::POST)))
+                Some(builder.map(|b| (b, reqwest::Method::POST, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3699,6 +3954,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3720,7 +3977,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users",
@@ -3733,10 +3990,11 @@ impl super::stub::SqlUsersService for SqlUsersService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/users";
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::GET)))
+                Some(builder.map(|b| (b, reqwest::Method::GET, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3758,6 +4016,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3779,7 +4039,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let (builder, method) = None
+        let (builder, method, _path_template) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users",
@@ -3792,12 +4052,13 @@ impl super::stub::SqlUsersService for SqlUsersService {
                         &[Segment::SingleWildcard]
                     )?,
                 );
+                let path_template = "/v1/projects/{project}/instances/{instance}/users";
 
                 let builder = self.inner.builder(reqwest::Method::PUT, path);
                 let builder = builder.query(&[("host", &req.host)]);
                 let builder = builder.query(&[("name", &req.name)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, reqwest::Method::PUT)))
+                Some(builder.map(|b| (b, reqwest::Method::PUT, path_template)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3819,6 +4080,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = gax::options::internal::set_path_template(options, _path_template);
         let options = gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

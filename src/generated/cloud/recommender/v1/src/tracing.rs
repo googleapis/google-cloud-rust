@@ -37,6 +37,36 @@ impl<T> super::stub::Recommender for Recommender<T>
 where
     T: super::stub::Recommender + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_insights(
+        &self,
+        req: crate::model::ListInsightsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListInsightsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::list_insights"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_insights",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .list_insights(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_insights(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListInsightsResponse>> {
         self.inner.list_insights(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_insight(
+        &self,
+        req: crate::model::GetInsightRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Insight>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::get_insight"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_insight",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_insight(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_insight(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Insight>> {
         self.inner.get_insight(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn mark_insight_accepted(
+        &self,
+        req: crate::model::MarkInsightAcceptedRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Insight>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::mark_insight_accepted"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "mark_insight_accepted",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .mark_insight_accepted(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn mark_insight_accepted(
         &self,
@@ -63,7 +151,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Insight>> {
         self.inner.mark_insight_accepted(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn list_recommendations(
+        &self,
+        req: crate::model::ListRecommendationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListRecommendationsResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::list_recommendations"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "list_recommendations",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .list_recommendations(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn list_recommendations(
         &self,
@@ -72,7 +189,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ListRecommendationsResponse>> {
         self.inner.list_recommendations(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_recommendation(
+        &self,
+        req: crate::model::GetRecommendationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::get_recommendation"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_recommendation",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_recommendation(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_recommendation(
         &self,
@@ -81,7 +227,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         self.inner.get_recommendation(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn mark_recommendation_dismissed(
+        &self,
+        req: crate::model::MarkRecommendationDismissedRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::mark_recommendation_dismissed"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "mark_recommendation_dismissed",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .mark_recommendation_dismissed(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn mark_recommendation_dismissed(
         &self,
@@ -90,7 +265,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         self.inner.mark_recommendation_dismissed(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn mark_recommendation_claimed(
+        &self,
+        req: crate::model::MarkRecommendationClaimedRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::mark_recommendation_claimed"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "mark_recommendation_claimed",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .mark_recommendation_claimed(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn mark_recommendation_claimed(
         &self,
@@ -99,7 +303,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         self.inner.mark_recommendation_claimed(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn mark_recommendation_succeeded(
+        &self,
+        req: crate::model::MarkRecommendationSucceededRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::mark_recommendation_succeeded"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "mark_recommendation_succeeded",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .mark_recommendation_succeeded(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn mark_recommendation_succeeded(
         &self,
@@ -108,7 +341,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         self.inner.mark_recommendation_succeeded(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn mark_recommendation_failed(
+        &self,
+        req: crate::model::MarkRecommendationFailedRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Recommendation>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::mark_recommendation_failed"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "mark_recommendation_failed",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .mark_recommendation_failed(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn mark_recommendation_failed(
         &self,
@@ -117,7 +379,36 @@ where
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
         self.inner.mark_recommendation_failed(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_recommender_config(
+        &self,
+        req: crate::model::GetRecommenderConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::get_recommender_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_recommender_config",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_recommender_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_recommender_config(
         &self,
@@ -126,7 +417,36 @@ where
     ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
         self.inner.get_recommender_config(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_recommender_config(
+        &self,
+        req: crate::model::UpdateRecommenderConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::update_recommender_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_recommender_config",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_recommender_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_recommender_config(
         &self,
@@ -135,7 +455,36 @@ where
     ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
         self.inner.update_recommender_config(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn get_insight_type_config(
+        &self,
+        req: crate::model::GetInsightTypeConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::get_insight_type_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "get_insight_type_config",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .get_insight_type_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn get_insight_type_config(
         &self,
@@ -144,7 +493,36 @@ where
     ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         self.inner.get_insight_type_config(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn update_insight_type_config(
+        &self,
+        req: crate::model::UpdateInsightTypeConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Recommender",
+            "::update_insight_type_config"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "update_insight_type_config",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .update_insight_type_config(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn update_insight_type_config(
         &self,
@@ -152,5 +530,21 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
         self.inner.update_insight_type_config(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "recommender";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "recommender";
+            info
+        };
     }
 }

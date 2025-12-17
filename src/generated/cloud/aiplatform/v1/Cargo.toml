@@ -26,6 +26,9 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[lints]
+workspace = true
+
 [features]
 default = [
     "data-foundry-service",

@@ -37,6 +37,36 @@ impl<T> super::stub::Publisher for Publisher<T>
 where
     T: super::stub::Publisher + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn publish(
+        &self,
+        req: crate::model::PublishRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::PublishResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Publisher",
+            "::publish"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "publish",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .publish(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn publish(
         &self,
@@ -69,6 +99,36 @@ impl<T> super::stub::Subscriber for Subscriber<T>
 where
     T: super::stub::Subscriber + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn modify_ack_deadline(
+        &self,
+        req: crate::model::ModifyAckDeadlineRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Subscriber",
+            "::modify_ack_deadline"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "modify_ack_deadline",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .modify_ack_deadline(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn modify_ack_deadline(
         &self,
@@ -77,7 +137,36 @@ where
     ) -> Result<gax::response::Response<()>> {
         self.inner.modify_ack_deadline(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn acknowledge(
+        &self,
+        req: crate::model::AcknowledgeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "Subscriber",
+            "::acknowledge"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "acknowledge",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .acknowledge(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn acknowledge(
         &self,
@@ -85,5 +174,21 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         self.inner.acknowledge(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "pubsub";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "pubsub";
+            info
+        };
     }
 }

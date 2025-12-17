@@ -37,6 +37,36 @@ impl<T> super::stub::QuotaController for QuotaController<T>
 where
     T: super::stub::QuotaController + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn allocate_quota(
+        &self,
+        req: crate::model::AllocateQuotaRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AllocateQuotaResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "QuotaController",
+            "::allocate_quota"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "allocate_quota",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .allocate_quota(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn allocate_quota(
         &self,
@@ -69,6 +99,36 @@ impl<T> super::stub::ServiceController for ServiceController<T>
 where
     T: super::stub::ServiceController + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn check(
+        &self,
+        req: crate::model::CheckRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::CheckResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ServiceController",
+            "::check"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "check",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .check(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn check(
         &self,
@@ -77,7 +137,36 @@ where
     ) -> Result<gax::response::Response<crate::model::CheckResponse>> {
         self.inner.check(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn report(
+        &self,
+        req: crate::model::ReportRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ReportResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "ServiceController",
+            "::report"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "report",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .report(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn report(
         &self,
@@ -85,5 +174,21 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ReportResponse>> {
         self.inner.report(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "servicecontrol";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "servicecontrol";
+            info
+        };
     }
 }

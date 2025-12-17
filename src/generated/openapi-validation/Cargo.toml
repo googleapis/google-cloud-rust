@@ -27,6 +27,9 @@ categories.workspace   = true
 rust-version.workspace = true
 publish                = false
 
+[lints]
+workspace = true
+
 [dependencies]
 async-trait.workspace = true
 bytes.workspace      = true

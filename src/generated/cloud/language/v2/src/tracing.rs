@@ -37,6 +37,36 @@ impl<T> super::stub::LanguageService for LanguageService<T>
 where
     T: super::stub::LanguageService + std::fmt::Debug + Send + Sync,
 {
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn analyze_sentiment(
+        &self,
+        req: crate::model::AnalyzeSentimentRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "LanguageService",
+            "::analyze_sentiment"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "analyze_sentiment",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
+
+        let result = self
+            .inner
+            .analyze_sentiment(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn analyze_sentiment(
         &self,
@@ -45,7 +75,36 @@ where
     ) -> Result<gax::response::Response<crate::model::AnalyzeSentimentResponse>> {
         self.inner.analyze_sentiment(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn analyze_entities(
+        &self,
+        req: crate::model::AnalyzeEntitiesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "LanguageService",
+            "::analyze_entities"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "analyze_entities",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .analyze_entities(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn analyze_entities(
         &self,
@@ -54,7 +113,36 @@ where
     ) -> Result<gax::response::Response<crate::model::AnalyzeEntitiesResponse>> {
         self.inner.analyze_entities(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn classify_text(
+        &self,
+        req: crate::model::ClassifyTextRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ClassifyTextResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "LanguageService",
+            "::classify_text"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "classify_text",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .classify_text(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn classify_text(
         &self,
@@ -63,7 +151,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ClassifyTextResponse>> {
         self.inner.classify_text(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn moderate_text(
+        &self,
+        req: crate::model::ModerateTextRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ModerateTextResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "LanguageService",
+            "::moderate_text"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "moderate_text",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .moderate_text(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn moderate_text(
         &self,
@@ -72,7 +189,36 @@ where
     ) -> Result<gax::response::Response<crate::model::ModerateTextResponse>> {
         self.inner.moderate_text(req, options).await
     }
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn annotate_text(
+        &self,
+        req: crate::model::AnnotateTextRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AnnotateTextResponse>> {
+        use tracing::Instrument;
+        let span_name = concat!(
+            env!("CARGO_PKG_NAME"),
+            "::client::",
+            "LanguageService",
+            "::annotate_text"
+        );
+        let client_request_span = gaxi::observability::create_client_request_span(
+            span_name,
+            "annotate_text",
+            &info::INSTRUMENTATION_CLIENT_INFO,
+        );
 
+        let result = self
+            .inner
+            .annotate_text(req, options)
+            .instrument(client_request_span.clone())
+            .await;
+
+        gaxi::observability::record_client_request_span(&result, &client_request_span);
+        result
+    }
+
+    #[cfg(not(google_cloud_unstable_tracing))]
     #[tracing::instrument(ret)]
     async fn annotate_text(
         &self,
@@ -80,5 +226,21 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnnotateTextResponse>> {
         self.inner.annotate_text(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "language";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "language";
+            info
+        };
     }
 }
