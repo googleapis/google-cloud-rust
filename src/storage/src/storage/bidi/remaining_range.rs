@@ -47,12 +47,9 @@ impl RemainingRange {
         match current {
             RequestedRange::Tail(_) => NormalizedRange::new(response.read_offset),
 
-            RequestedRange::Offset(offset) if response.read_offset as u64 != offset => {
-                Err(ReadError::OutOfOrderBidiResponse {
-                    got: response.read_offset,
-                    expected: offset as i64,
-                })
-            }
+            RequestedRange::Offset(offset) if response.read_offset as u64 != offset => Err(
+                ReadError::bidi_out_of_order(offset as i64, response.read_offset),
+            ),
             RequestedRange::Offset(_) => NormalizedRange::new(response.read_offset),
 
             RequestedRange::Segment { limit, .. }
@@ -63,12 +60,9 @@ impl RemainingRange {
                     expected: limit,
                 })
             }
-            RequestedRange::Segment { offset, .. } if response.read_offset as u64 != offset => {
-                Err(ReadError::OutOfOrderBidiResponse {
-                    got: response.read_offset,
-                    expected: offset as i64,
-                })
-            }
+            RequestedRange::Segment { offset, .. } if response.read_offset as u64 != offset => Err(
+                ReadError::bidi_out_of_order(offset as i64, response.read_offset),
+            ),
             RequestedRange::Segment { limit: 0_u64, .. } => {
                 NormalizedRange::new(response.read_offset)
             }
@@ -142,20 +136,14 @@ mod tests {
         let mut remaining = RemainingRange::Requested(ReadRange::offset(100).0);
         let result = remaining.update(proto_range(200, 25));
         assert!(
-            matches!(
-                result,
-                Err(ReadError::OutOfOrderBidiResponse { got, expected }) if got == 200 && expected == 100
-            ),
+            matches!(result, Err(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{result:?}"
         );
 
         let mut remaining = RemainingRange::Requested(ReadRange::segment(100, 200).0);
         let result = remaining.update(proto_range(200, 25));
         assert!(
-            matches!(
-                result,
-                Err(ReadError::OutOfOrderBidiResponse { got, expected }) if got == 200 && expected == 100
-            ),
+            matches!(result, Err(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{result:?}"
         );
 
@@ -175,10 +163,7 @@ mod tests {
         let mut remaining = RemainingRange::Normalized(NormalizedRange::new(100)?);
         let result = remaining.update(proto_range(200, 25));
         assert!(
-            matches!(
-                result,
-                Err(ReadError::OutOfOrderBidiResponse { got, expected }) if got == 200 && expected == 100
-            ),
+            matches!(result, Err(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{result:?}"
         );
 

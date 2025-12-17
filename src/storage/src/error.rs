@@ -139,76 +139,24 @@ pub enum ReadError {
     ///
     /// # Troubleshooting
     ///
-    /// This indicates a bug in the service or a corrupted message in
-    /// transit Please contact [Google Cloud support] with as much detail as
-    /// possible.
+    /// This indicates a bug in the client, the service, or a message corrupted
+    /// while in transit. Please [open an issue] or contact [Google Cloud support]
+    /// with as much detail as possible.
     ///
     /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues/new/choose
     /// [Google Cloud support]: https://cloud.google.com/support
     #[cfg(google_cloud_unstable_storage_bidi)]
-    #[error("invalid offset in bidi response: {0}")]
-    BadOffsetInBidiResponse(i64),
+    #[error("the bidi streaming read response is invalid: {0}")]
+    InvalidBidiStreamingReadResponse(#[source] BoxedSource),
+}
 
-    /// A bidi read received an invalid length.
-    ///
-    /// # Troubleshooting
-    ///
-    /// This indicates a bug in the service or a corrupted message in
-    /// transit. Please contact [Google Cloud support] with as much detail as
-    /// possible.
-    ///
-    /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues/new/choose
-    /// [Google Cloud support]: https://cloud.google.com/support
+impl ReadError {
     #[cfg(google_cloud_unstable_storage_bidi)]
-    #[error("invalid length in bidi response: {0}")]
-    BadLengthInBidiResponse(i64),
-
-    /// A bidi read without a valid range.
-    ///
-    /// # Troubleshooting
-    ///
-    /// This indicates a bug in the service or a corrupted message in
-    /// transit Please contact [Google Cloud support] with as much detail as
-    /// possible.
-    ///
-    /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues/new/choose
-    /// [Google Cloud support]: https://cloud.google.com/support
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    #[error("missing range in bidi response")]
-    MissingRangeInBidiResponse,
-
-    /// An out of order bidi read.
-    ///
-    /// # Troubleshooting
-    ///
-    /// The client library received an out-of-sequence range of data. This
-    /// indicates a bug in the service or the client library.
-    ///
-    /// Please [open an issue] with as much detail as possible or contact
-    /// [Google Cloud support].
-    ///
-    /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues/new/choose
-    /// [Google Cloud support]: https://cloud.google.com/support
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    #[error("out of order bidi response, expected offset={expected}, got={got}")]
-    OutOfOrderBidiResponse { got: i64, expected: i64 },
-
-    /// The service returned a range id unknown to the client library.
-    ///
-    /// # Troubleshooting
-    ///
-    /// In bidi reads the application may issue multiple concurrent reads for
-    /// different ranges of the same object. The client library assigns ids to
-    /// each range. This indicates a bug in the service or the client library.
-    ///
-    /// Please [open an issue] with as much detail as possible or contact
-    /// [Google Cloud support].
-    ///
-    /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues/new/choose
-    /// [Google Cloud support]: https://cloud.google.com/support
-    #[cfg(google_cloud_unstable_storage_bidi)]
-    #[error("unknown range id in bidi response: {0}")]
-    UnknownBidiRangeId(i64),
+    pub(crate) fn bidi_out_of_order(expected: i64, got: i64) -> Self {
+        Self::InvalidBidiStreamingReadResponse(
+            format!("message offset mismatch, expected={expected}, got={got}").into(),
+        )
+    }
 }
 
 /// An unrecoverable problem in the upload protocol.

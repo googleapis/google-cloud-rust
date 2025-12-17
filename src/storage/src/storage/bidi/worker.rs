@@ -202,19 +202,23 @@ where
     ) -> ReadResult<()> {
         let range = response
             .read_range
-            .ok_or(ReadError::MissingRangeInBidiResponse)?;
+            .ok_or(ReadError::InvalidBidiStreamingReadResponse(
+                "missing range".into(),
+            ))?;
         let handler = if response.range_end {
-            let mut pending = ranges
-                .lock()
-                .await
-                .remove(&range.read_id)
-                .ok_or(ReadError::UnknownBidiRangeId(range.read_id))?;
+            let mut pending = ranges.lock().await.remove(&range.read_id).ok_or(
+                ReadError::InvalidBidiStreamingReadResponse(
+                    format!("unknown read id ({})", range.read_id).into(),
+                ),
+            )?;
             pending.handle_data(response.checksummed_data, range, true)?
         } else {
             let mut guard = ranges.lock().await;
-            let pending = guard
-                .get_mut(&range.read_id)
-                .ok_or(ReadError::UnknownBidiRangeId(range.read_id))?;
+            let pending = guard.get_mut(&range.read_id).ok_or(
+                ReadError::InvalidBidiStreamingReadResponse(
+                    format!("unknown read id ({}", range.read_id).into(),
+                ),
+            )?;
             pending.handle_data(response.checksummed_data, range, false)?
         };
         handler.send().await;
@@ -289,7 +293,7 @@ mod tests {
         assert!(err.is_transport(), "{err:?}");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
-            matches!(source, Some(ReadError::UnknownBidiRangeId(r)) if *r == -123),
+            matches!(source, Some(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{err:?}"
         );
         Ok(())
@@ -889,7 +893,7 @@ mod tests {
         assert!(err.is_transport(), "{err:?}");
         let source = err.source().and_then(|e| e.downcast_ref::<ReadError>());
         assert!(
-            matches!(source, Some(ReadError::UnknownBidiRangeId(r)) if *r == -123456),
+            matches!(source, Some(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{err:?}"
         );
         Ok(())
