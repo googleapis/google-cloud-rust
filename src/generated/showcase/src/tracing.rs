@@ -53,7 +53,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "repeat_data_body",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -91,7 +91,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "repeat_data_body_info",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -129,7 +129,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "repeat_data_query",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -167,7 +167,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "repeat_data_simple_path",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -205,7 +205,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "repeat_data_path_resource",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -243,7 +243,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "repeat_data_path_trailing_resource",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -283,7 +283,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "repeat_data_body_put",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -321,7 +321,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "repeat_data_body_patch",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -359,7 +359,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_enum",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -397,7 +397,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "verify_enum",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -435,7 +435,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -473,7 +473,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -511,7 +511,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "set_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -549,7 +549,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -587,7 +587,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "test_iam_permissions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -625,7 +625,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -663,7 +663,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -701,7 +701,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -739,7 +739,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -796,7 +796,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "echo",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -834,7 +834,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "echo_error_details",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -872,7 +872,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "fail_echo_with_details",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -910,7 +910,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "paged_expand",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -948,7 +948,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "paged_expand_legacy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -986,7 +986,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "paged_expand_legacy_mapped",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1019,7 +1019,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "wait",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1052,7 +1052,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "block",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1090,7 +1090,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1128,7 +1128,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1166,7 +1166,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "set_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1204,7 +1204,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1242,7 +1242,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "test_iam_permissions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1280,7 +1280,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1318,7 +1318,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1356,7 +1356,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1394,7 +1394,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1470,7 +1470,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_user",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1508,7 +1508,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_user",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1546,7 +1546,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_user",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1584,7 +1584,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_user",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1622,7 +1622,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_users",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1660,7 +1660,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1698,7 +1698,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1736,7 +1736,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "set_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1774,7 +1774,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1812,7 +1812,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "test_iam_permissions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1850,7 +1850,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1888,7 +1888,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1926,7 +1926,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -1964,7 +1964,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2026,7 +2026,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_room",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2064,7 +2064,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_room",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2102,7 +2102,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_room",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2140,7 +2140,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_room",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2178,7 +2178,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_rooms",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2216,7 +2216,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_blurb",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2254,7 +2254,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_blurb",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2292,7 +2292,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "update_blurb",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2330,7 +2330,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_blurb",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2368,7 +2368,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_blurbs",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2406,7 +2406,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "search_blurbs",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2444,7 +2444,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2482,7 +2482,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2520,7 +2520,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "set_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2558,7 +2558,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2596,7 +2596,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "test_iam_permissions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2634,7 +2634,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2672,7 +2672,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2710,7 +2710,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2748,7 +2748,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2824,7 +2824,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_sequence",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2862,7 +2862,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_streaming_sequence",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2900,7 +2900,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_sequence_report",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2938,7 +2938,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_streaming_sequence_report",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -2976,7 +2976,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "attempt_sequence",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3014,7 +3014,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3052,7 +3052,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3090,7 +3090,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "set_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3128,7 +3128,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3166,7 +3166,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "test_iam_permissions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3204,7 +3204,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3242,7 +3242,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3280,7 +3280,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3318,7 +3318,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3380,7 +3380,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "create_session",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3418,7 +3418,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_session",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3456,7 +3456,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_sessions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3494,7 +3494,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_session",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3532,7 +3532,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "report_session",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3570,7 +3570,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_tests",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3608,7 +3608,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_test",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3646,7 +3646,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "verify_test",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3684,7 +3684,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_locations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3722,7 +3722,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_location",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3760,7 +3760,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "set_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3798,7 +3798,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_iam_policy",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3836,7 +3836,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "test_iam_permissions",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3874,7 +3874,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "list_operations",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3912,7 +3912,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "get_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3950,7 +3950,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "delete_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -3988,7 +3988,7 @@ where
         let client_request_span = gaxi::observability::create_client_request_span(
             span_name,
             "cancel_operation",
-            &crate::info::INSTRUMENTATION_CLIENT_INFO,
+            &info::INSTRUMENTATION_CLIENT_INFO,
         );
 
         let result = self
@@ -4009,5 +4009,21 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         self.inner.cancel_operation(req, options).await
+    }
+}
+
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod info {
+    const NAME: &str = env!("CARGO_PKG_NAME");
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION_CLIENT_INFO: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "showcase";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "localhost:7469";
+            info
+        };
     }
 }

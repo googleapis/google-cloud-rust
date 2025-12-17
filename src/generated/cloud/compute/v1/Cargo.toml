@@ -254,6 +254,9 @@ zone-operations = []
 # Enables `client::Zones` and all the types it depends on.
 zones = []
 
+[package.metadata.docs.rs]
+all-features = true
+
 [dependencies]
 async-trait.workspace = true
 bytes.workspace      = true

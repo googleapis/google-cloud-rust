@@ -81,6 +81,9 @@ versions = []
 # Enables `client::Webhooks` and all the types it depends on.
 webhooks = []
 
+[package.metadata.docs.rs]
+all-features = true
+
 [dependencies]
 async-trait.workspace = true
 bytes.workspace      = true
