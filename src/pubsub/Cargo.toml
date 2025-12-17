@@ -53,6 +53,7 @@ mockall.workspace    = true
 tokio-test.workspace = true
 tokio.workspace      = true
 tonic.workspace      = true
+pubsub-grpc-mock     = { path = "grpc-mock" }
 
 [lints]
 workspace = true
