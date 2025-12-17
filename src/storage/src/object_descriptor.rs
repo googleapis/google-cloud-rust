@@ -136,6 +136,9 @@ impl ObjectDescriptor {
     }
 
     /// Create a new instance.
+    ///
+    /// Application developers should only need to create an `ObjectDescriptor`
+    /// in unit tests.
     pub fn new<T>(inner: T) -> Self
     where
         T: crate::stub::ObjectDescriptor + 'static,
