@@ -38,7 +38,7 @@ mod info {
 /// Implements [Publisher](super::stub::Publisher) using a Tonic-generated client.
 #[derive(Clone)]
 pub struct Publisher {
-    inner: gaxi::grpc::Client,
+    pub(crate) inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Publisher {
@@ -99,7 +99,7 @@ impl super::stub::Publisher for Publisher {
 /// Implements [Subscriber](super::stub::Subscriber) using a Tonic-generated client.
 #[derive(Clone)]
 pub struct Subscriber {
-    inner: gaxi::grpc::Client,
+    pub(crate) inner: gaxi::grpc::Client,
 }
 
 impl std::fmt::Debug for Subscriber {
