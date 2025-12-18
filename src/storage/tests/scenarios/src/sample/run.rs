@@ -162,7 +162,7 @@ pub async fn open_read_after_drop(client: &Storage, objects: &[Object]) -> Attem
         Ok(d) => {
             let open_latency = start.elapsed();
             let uploadid = uploadid(Some(d.headers())).unwrap_or_default();
-            let reader = d.read_range(ReadRange::offset(4 * MIB as u64)).await;
+            let reader = d.read_range(ReadRange::head(4 * MIB as u64)).await;
             drop(d);
             let count = read_all(reader).await;
             Attempt {
