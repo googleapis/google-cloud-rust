@@ -63,9 +63,9 @@ mod tests {
         #[derive(Debug)]
         Descriptor {}
         impl gcs::stub::ObjectDescriptor for Descriptor {
-            fn object(&self) -> &Object;
+            fn object(&self) -> Object;
             async fn read_range(&self, range: ReadRange) -> ReadObjectResponse;
-            fn headers(&self) -> &HeaderMap;
+            fn headers(&self) -> HeaderMap;
         }
     }
 
@@ -191,7 +191,7 @@ mod tests {
             .open_object("projects/_/buckets/my-bucket", "my-object")
             .send()
             .await?;
-        assert_eq!(&object, descriptor.object());
+        assert_eq!(object, descriptor.object());
 
         let mut reader = descriptor.read_range(ReadRange::offset(123)).await;
         assert_eq!(&highlights, &reader.object());

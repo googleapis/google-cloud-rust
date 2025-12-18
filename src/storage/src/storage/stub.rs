@@ -93,7 +93,7 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
 /// with this trait or its implementations.
 pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
     /// The implementation for [ObjectDescriptor::object][Descriptor::object].
-    fn object(&self) -> &Object;
+    fn object(&self) -> Object;
 
     /// The implementation for [ObjectDescriptor::read_range][Descriptor::read_range].
     fn read_range(
@@ -102,7 +102,7 @@ pub trait ObjectDescriptor: std::fmt::Debug + Send + Sync {
     ) -> impl Future<Output = ReadObjectResponse> + Send + Sync;
 
     /// The implementation for [ObjectDescriptor::headers][Descriptor::headers].
-    fn headers(&self) -> &HeaderMap;
+    fn headers(&self) -> HeaderMap;
 }
 
 async fn unimplemented_stub<T>() -> gax::Result<T> {

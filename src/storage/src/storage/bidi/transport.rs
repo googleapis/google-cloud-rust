@@ -59,8 +59,8 @@ impl ObjectDescriptorTransport {
 }
 
 impl ObjectDescriptor for ObjectDescriptorTransport {
-    fn object(&self) -> &Object {
-        self.object.as_ref()
+    fn object(&self) -> Object {
+        self.object.as_ref().clone()
     }
 
     async fn read_range(&self, range: ReadRange) -> ReadObjectResponse {
@@ -77,8 +77,8 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
         )))
     }
 
-    fn headers(&self) -> &HeaderMap {
-        &self.headers
+    fn headers(&self) -> HeaderMap {
+        self.headers.clone()
     }
 }
 
@@ -127,7 +127,7 @@ mod tests {
             .set_bucket("projects/_/buckets/test-bucket")
             .set_name("test-object")
             .set_generation(123456);
-        assert_eq!(transport.object(), &want, "{transport:?}");
+        assert_eq!(transport.object(), want, "{transport:?}");
 
         // At this point the mock has executed and we can fetch the data it
         // captured:
@@ -208,7 +208,7 @@ mod tests {
             .set_bucket("projects/_/buckets/test-bucket")
             .set_name("test-object")
             .set_generation(123456);
-        assert_eq!(transport.object(), &want, "{transport:?}");
+        assert_eq!(transport.object(), want, "{transport:?}");
 
         let mut existing = transport.read_range(ReadRange::segment(100, 200)).await;
 
