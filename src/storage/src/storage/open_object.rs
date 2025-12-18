@@ -13,8 +13,9 @@
 // limitations under the License.
 
 use crate::Result;
-use crate::model_ext::{KeyAes256, OpenObjectRequest};
+use crate::model_ext::{KeyAes256, OpenObjectRequest, ReadRange};
 use crate::object_descriptor::ObjectDescriptor;
+use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::request_options::RequestOptions;
 use std::sync::Arc;
@@ -65,6 +66,39 @@ where
     pub async fn send(self) -> Result<ObjectDescriptor> {
         let (descriptor, _) = self.stub.open_object(self.request, self.options).await?;
         Ok(descriptor)
+    }
+
+    /// Sends the request, returning a new object descriptor and reader.
+    ///
+    /// Example:
+    /// ```ignore
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::model_ext::ReadRange;
+    /// let (descriptor, mut reader) = client
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object.parquet")
+    ///     .send_and_read(ReadRange::tail(32))
+    ///     .await?;
+    /// println!("object metadata={:?}", descriptor.object());
+    /// let data = reader.next().await.transpose()?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// This method allows applications to open an object and simulatenously
+    /// issue an initial read request. This may be useful when opening objects
+    /// that have metadata information in a footer or header.
+    pub async fn send_and_read(
+        mut self,
+        range: ReadRange,
+    ) -> Result<(ObjectDescriptor, ReadObjectResponse)> {
+        self.request.ranges.push(range);
+        let (descriptor, mut readers) = self.stub.open_object(self.request, self.options).await?;
+        if readers.len() == 1 {
+            return Ok((descriptor, readers.pop().unwrap()));
+        }
+        // Even if the service returns multiple read ranges, with different ids,
+        // the code in the library will return an error and close the stream.
+        unreachable!("the stub cannot create more readers")
     }
 }
 
@@ -368,7 +402,10 @@ mod tests {
     use gax::retry_policy::NeverRetry;
     use http::HeaderValue;
     use static_assertions::assert_impl_all;
-    use storage_grpc_mock::google::storage::v2::{BidiReadObjectResponse, Object as ProtoObject};
+    use storage_grpc_mock::google::storage::v2::{
+        BidiReadObjectResponse, ChecksummedData, Object as ProtoObject, ObjectRangeData,
+        ReadRange as ProtoRange,
+    };
     use storage_grpc_mock::{MockStorage, start};
 
     // Verify `open_object()` meets normal Send, Sync, requirements.
@@ -582,6 +619,69 @@ mod tests {
             "headers={:?}",
             descriptor.headers()
         );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn send_and_read() -> anyhow::Result<()> {
+        use storage_grpc_mock::{MockStorage, start};
+
+        let (tx, rx) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(1);
+        let payload = Vec::from_iter((0..32).map(|i| i as u8));
+        let initial = BidiReadObjectResponse {
+            metadata: Some(ProtoObject {
+                bucket: "projects/_/buckets/test-bucket".to_string(),
+                name: "test-object".to_string(),
+                generation: 123456,
+                ..ProtoObject::default()
+            }),
+            object_data_ranges: vec![ObjectRangeData {
+                read_range: Some(ProtoRange {
+                    read_id: 0_i64,
+                    ..ProtoRange::default()
+                }),
+                range_end: true,
+                checksummed_data: Some(ChecksummedData {
+                    content: payload.clone(),
+                    crc32c: None,
+                }),
+            }],
+            ..BidiReadObjectResponse::default()
+        };
+        tx.send(Ok(initial.clone())).await?;
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object()
+            .return_once(|_| Ok(tonic::Response::from(rx)));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+
+        let client = Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .build()
+            .await?;
+
+        let (descriptor, mut reader) = client
+            .open_object("projects/_/buckets/test-bucket", "test-object")
+            .send_and_read(ReadRange::tail(32))
+            .await?;
+        let want = Object::new()
+            .set_bucket("projects/_/buckets/test-bucket")
+            .set_name("test-object")
+            .set_generation(123456);
+        assert_eq!(descriptor.object(), want, "{descriptor:?}");
+        assert_eq!(
+            descriptor.headers().get("content-type"),
+            Some(&HeaderValue::from_static("application/grpc")),
+            "headers={:?}",
+            descriptor.headers()
+        );
+
+        let mut got_payload = Vec::new();
+        while let Some(chunk) = reader.next().await.transpose()? {
+            got_payload.extend_from_slice(&chunk);
+        }
+        assert_eq!(got_payload, payload);
         Ok(())
     }
 
