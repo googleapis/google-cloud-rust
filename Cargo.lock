@@ -4144,6 +4144,7 @@ dependencies = [
  "serde_json",
  "serde_with",
  "tokio",
+ "tokio-stream",
  "tokio-test",
  "tokio-util",
  "tonic",
