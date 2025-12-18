@@ -227,7 +227,7 @@ mod tests {
             .handle_data(Some(data), proto_range, false)
             .unwrap_err();
         assert!(
-            matches!(err, ReadError::OutOfOrderBidiResponse{ ref got, ref expected } if *got == 25 && *expected == 0),
+            matches!(err, ReadError::InvalidBidiStreamingReadResponse(_)),
             "err={err:?} range={range:?}"
         );
         Ok(())
@@ -239,7 +239,9 @@ mod tests {
         let requested = ReadRange::all().0;
         let mut range = ActiveRead::new(tx, requested);
         range
-            .handle_error(ReadError::MissingRangeInBidiResponse)
+            .handle_error(ReadError::InvalidBidiStreamingReadResponse(
+                "test-only".into(),
+            ))
             .await;
         let got = rx
             .recv()
@@ -247,7 +249,7 @@ mod tests {
             .expect("the active reader propagates error messages")
             .unwrap_err();
         assert!(
-            matches!(got, ReadError::MissingRangeInBidiResponse),
+            matches!(got, ReadError::InvalidBidiStreamingReadResponse(_)),
             "{got:?}"
         );
 
@@ -256,7 +258,9 @@ mod tests {
         let _guard = tracing::subscriber::set_default(capture.clone());
         rx.close();
         range
-            .handle_error(ReadError::MissingRangeInBidiResponse)
+            .handle_error(ReadError::InvalidBidiStreamingReadResponse(
+                "test-only".into(),
+            ))
             .await;
         let events = capture.events();
         let got = events

@@ -47,7 +47,9 @@ impl NormalizedRange {
     /// Creates a new unbounded range starting at a given offset.
     pub fn new(offset: i64) -> ReadResult<Self> {
         if offset < 0 {
-            return Err(ReadError::BadOffsetInBidiResponse(offset));
+            return Err(ReadError::InvalidBidiStreamingReadResponse(
+                format!("invalid offset ({offset})").into(),
+            ));
         }
         Ok(Self {
             offset,
@@ -58,7 +60,9 @@ impl NormalizedRange {
     /// Sets the length.
     pub fn with_length(mut self, length: i64) -> ReadResult<Self> {
         if length < 0 {
-            return Err(ReadError::BadLengthInBidiResponse(length));
+            return Err(ReadError::InvalidBidiStreamingReadResponse(
+                format!("invalid length ({length})").into(),
+            ));
         }
         self.length = Some(length);
         Ok(self)
@@ -95,10 +99,7 @@ impl NormalizedRange {
     pub fn update(&mut self, response: ProtoRange) -> ReadResult<()> {
         let update = NormalizedRange::from_proto(response)?;
         if update.offset != self.offset {
-            return Err(ReadError::OutOfOrderBidiResponse {
-                got: update.offset,
-                expected: self.offset,
-            });
+            return Err(ReadError::bidi_out_of_order(self.offset, update.offset));
         }
         self.length = match (self.length, update.length) {
             (None, _) => None,
@@ -160,7 +161,7 @@ mod tests {
     fn bad_offset() {
         let got = NormalizedRange::new(-100);
         assert!(
-            matches!(got, Err(ReadError::BadOffsetInBidiResponse(_))),
+            matches!(got, Err(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{got:?}"
         );
     }
@@ -196,7 +197,7 @@ mod tests {
     fn bad_length() -> anyhow::Result<()> {
         let got = NormalizedRange::new(100)?.with_length(-50);
         assert!(
-            matches!(got, Err(ReadError::BadLengthInBidiResponse(_))),
+            matches!(got, Err(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{got:?}"
         );
         Ok(())
@@ -216,14 +217,14 @@ mod tests {
         let response = proto_range(50, 0);
         let got = normalized.update(response);
         assert!(
-            matches!(got, Err(ReadError::OutOfOrderBidiResponse { .. })),
+            matches!(got, Err(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{got:?}"
         );
 
         let response = proto_range(200, 0);
         let got = normalized.update(response);
         assert!(
-            matches!(got, Err(ReadError::OutOfOrderBidiResponse { .. })),
+            matches!(got, Err(ReadError::InvalidBidiStreamingReadResponse(_))),
             "{got:?}"
         );
         Ok(())
