@@ -146,6 +146,22 @@ impl Speech {
     /// exist.
     ///
     /// [google.cloud.speech.v2.Recognizer]: crate::model::Recognizer
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_recognizer()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_recognizer(&self) -> super::builder::speech::GetRecognizer {
         super::builder::speech::GetRecognizer::new(self.inner.clone())
     }
@@ -203,6 +219,22 @@ impl Speech {
 
     /// Performs synchronous Speech recognition: receive results after all audio
     /// has been sent and processed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .recognize()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn recognize(&self) -> super::builder::speech::Recognize {
         super::builder::speech::Recognize::new(self.inner.clone())
     }
@@ -227,6 +259,22 @@ impl Speech {
     /// Returns the requested [Config][google.cloud.speech.v2.Config].
     ///
     /// [google.cloud.speech.v2.Config]: crate::model::Config
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_config(&self) -> super::builder::speech::GetConfig {
         super::builder::speech::GetConfig::new(self.inner.clone())
     }
@@ -234,6 +282,22 @@ impl Speech {
     /// Updates the [Config][google.cloud.speech.v2.Config].
     ///
     /// [google.cloud.speech.v2.Config]: crate::model::Config
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_config(&self) -> super::builder::speech::UpdateConfig {
         super::builder::speech::UpdateConfig::new(self.inner.clone())
     }
@@ -264,6 +328,22 @@ impl Speech {
     /// [CustomClass][google.cloud.speech.v2.CustomClass].
     ///
     /// [google.cloud.speech.v2.CustomClass]: crate::model::CustomClass
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_custom_class()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_custom_class(&self) -> super::builder::speech::GetCustomClass {
         super::builder::speech::GetCustomClass::new(self.inner.clone())
     }
@@ -345,6 +425,22 @@ impl Speech {
     /// [PhraseSet][google.cloud.speech.v2.PhraseSet].
     ///
     /// [google.cloud.speech.v2.PhraseSet]: crate::model::PhraseSet
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_phrase_set()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_phrase_set(&self) -> super::builder::speech::GetPhraseSet {
         super::builder::speech::GetPhraseSet::new(self.inner.clone())
     }
@@ -406,6 +502,22 @@ impl Speech {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::speech::GetLocation {
         super::builder::speech::GetLocation::new(self.inner.clone())
     }
@@ -420,6 +532,22 @@ impl Speech {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::speech::GetOperation {
         super::builder::speech::GetOperation::new(self.inner.clone())
     }
@@ -427,6 +555,21 @@ impl Speech {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::speech::DeleteOperation {
         super::builder::speech::DeleteOperation::new(self.inner.clone())
     }
@@ -434,6 +577,21 @@ impl Speech {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_speech_v2::client::Speech;
+    /// async fn sample(
+    ///    client: &Speech
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::speech::CancelOperation {
         super::builder::speech::CancelOperation::new(self.inner.clone())
     }

@@ -19,3 +19,4 @@ service-config = 'google/cloud/speech/v2/speech_v2.yaml'
 [codec]
 version        = '1.3.0'
 copyright-year = '2025'
+generate-rpc-samples = 'true'

@@ -19,3 +19,4 @@ service-config = 'google/cloud/secretmanager/v1/secretmanager_v1.yaml'
 [codec]
 version        = '1.2.0'
 copyright-year = '2024'
+generate-rpc-samples = 'true'
