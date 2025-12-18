@@ -54,7 +54,7 @@ mod tests {
                 &self,
                 _request: OpenObjectRequest,
                 _options: RequestOptions,
-            ) -> Result<ObjectDescriptor>;
+            ) -> Result<(ObjectDescriptor, Vec<ReadObjectResponse>)>;
         }
     }
 
@@ -184,7 +184,7 @@ mod tests {
 
         let mut mock = MockStorage::new();
         mock.expect_open_object()
-            .return_once(move |_, _| Ok(ObjectDescriptor::new(mock_descriptor)));
+            .return_once(move |_, _| Ok((ObjectDescriptor::new(mock_descriptor), Vec::new())));
 
         let client = gcs::client::Storage::from_stub(mock);
         let descriptor = client

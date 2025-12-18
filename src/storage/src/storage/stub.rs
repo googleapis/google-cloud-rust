@@ -79,8 +79,9 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         &self,
         _request: OpenObjectRequest,
         _options: RequestOptions,
-    ) -> impl std::future::Future<Output = Result<Descriptor>> + Send {
-        unimplemented_stub::<Descriptor>()
+    ) -> impl std::future::Future<Output = Result<(Descriptor, Vec<ReadObjectResponse>)>> + Send
+    {
+        unimplemented_stub::<(Descriptor, Vec<ReadObjectResponse>)>()
     }
 }
 

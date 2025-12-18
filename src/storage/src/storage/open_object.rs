@@ -63,7 +63,8 @@ where
     /// # Ok(()) }
     /// ```
     pub async fn send(self) -> Result<ObjectDescriptor> {
-        self.stub.open_object(self.request, self.options).await
+        let (descriptor, _) = self.stub.open_object(self.request, self.options).await?;
+        Ok(descriptor)
     }
 }
 
