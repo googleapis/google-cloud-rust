@@ -29,6 +29,7 @@ copyright-year        = '2025'
 template-override     = 'templates/grpc-client'
 package-name-override = 'google-cloud-pubsub'
 has-veneer            = 'true'
+extend-grpc-transport = 'true'
 # Most messages generated here are internal and doctest
 # fails to test internal types because it can't see them.
 # At the moment we won't generate samples for packages
