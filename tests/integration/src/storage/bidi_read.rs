@@ -36,7 +36,7 @@ pub async fn run(bucket_name: &str) -> anyhow::Result<()> {
     want.event_based_hold = want.event_based_hold.or(Some(false));
     // There is a submillisecond difference, maybe rounding?
     want.finalize_time = got.finalize_time;
-    assert_eq!(got, &want);
+    assert_eq!(got, want);
 
     let mut reader = open.read_range(ReadRange::head(100)).await;
     let mut count = 0_usize;

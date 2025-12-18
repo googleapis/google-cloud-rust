@@ -77,7 +77,7 @@ impl ObjectDescriptor {
     /// # Ok(()) }
     /// ```
     ///
-    pub fn object(&self) -> &Object {
+    pub fn object(&self) -> Object {
         self.inner.object()
     }
 
@@ -122,8 +122,8 @@ impl ObjectDescriptor {
     /// # async fn sample() -> anyhow::Result<()> {
     /// let descriptor = open();
     /// // Often useful when troubleshooting problems with Google Support.
-    /// let header = descriptor.headers().get("x-guploader-uploadid");
-    /// println!("debugging header = {:?}", header);
+    /// let headers = descriptor.headers();
+    /// println!("debugging header = {:?}", headers.get("x-guploader-uploadid"));
     ///
     /// fn open() -> ObjectDescriptor {
     /// # panic!()
@@ -131,7 +131,7 @@ impl ObjectDescriptor {
     /// }
     /// # Ok(()) }
     /// ```
-    pub fn headers(&self) -> &HeaderMap {
+    pub fn headers(&self) -> HeaderMap {
         self.inner.headers()
     }
 
@@ -178,8 +178,8 @@ mod tests {
         mock.expect_headers().times(1).return_const(headers.clone());
 
         let descriptor = ObjectDescriptor::new(mock);
-        assert_eq!(descriptor.object(), &object);
-        assert_eq!(descriptor.headers(), &headers);
+        assert_eq!(descriptor.object(), object);
+        assert_eq!(descriptor.headers(), headers);
 
         let _reader = descriptor.read_range(ReadRange::segment(100, 200)).await;
         Ok(())
@@ -190,9 +190,9 @@ mod tests {
         Descriptor {}
 
         impl crate::stub::ObjectDescriptor for Descriptor {
-            fn object(&self) -> &Object;
+            fn object(&self) -> Object;
             async fn read_range(&self, range: ReadRange) -> ReadObjectResponse;
-            fn headers(&self) -> &HeaderMap;
+            fn headers(&self) -> HeaderMap;
         }
     }
 

@@ -404,7 +404,7 @@ mod tests {
             .set_name("test-object")
             .set_generation(123456)
             .set_size(42);
-        assert_eq!(got, &want);
+        assert_eq!(got, want);
 
         Ok(())
     }
@@ -539,7 +539,7 @@ mod tests {
             .set_bucket("projects/_/buckets/test-bucket")
             .set_name("test-object")
             .set_generation(123456);
-        assert_eq!(descriptor.object(), &want, "{descriptor:?}");
+        assert_eq!(descriptor.object(), want, "{descriptor:?}");
         assert_eq!(
             descriptor.headers().get("content-type"),
             Some(&HeaderValue::from_static("application/grpc")),
