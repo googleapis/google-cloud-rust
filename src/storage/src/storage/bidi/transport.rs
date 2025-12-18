@@ -60,6 +60,9 @@ impl ObjectDescriptorTransport {
 
 impl ObjectDescriptor for ObjectDescriptorTransport {
     fn object(&self) -> Object {
+        // self.object is Arc<Object>, calling `.clone()` directly would clone
+        // the `Arc<>`. Calling `.as_ref()` returns `&Object` and then we can
+        // clone.
         self.object.as_ref().clone()
     }
 
