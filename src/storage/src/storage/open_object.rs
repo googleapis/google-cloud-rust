@@ -13,8 +13,10 @@
 // limitations under the License.
 
 use crate::Result;
-use crate::model_ext::{KeyAes256, OpenObjectRequest};
+use crate::error::ReadError;
+use crate::model_ext::{KeyAes256, OpenObjectRequest, ReadRange};
 use crate::object_descriptor::ObjectDescriptor;
+use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::request_options::RequestOptions;
 use std::sync::Arc;
@@ -65,6 +67,20 @@ where
     pub async fn send(self) -> Result<ObjectDescriptor> {
         let (descriptor, _) = self.stub.open_object(self.request, self.options).await?;
         Ok(descriptor)
+    }
+
+    pub(crate) async fn send_and_read(
+        mut self,
+        range: ReadRange,
+    ) -> Result<(ObjectDescriptor, ReadObjectResponse)> {
+        self.request.ranges.push(range);
+        let (descriptor, mut readers) = self.stub.open_object(self.request, self.options).await?;
+        if readers.len() == 1 {
+            return Ok((descriptor, readers.pop().unwrap()));
+        }
+        Err(crate::Error::io(
+            ReadError::InvalidBidiStreamingReadResponse("reader count mismatch".into()),
+        ))
     }
 }
 

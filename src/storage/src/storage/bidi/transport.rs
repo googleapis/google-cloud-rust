@@ -16,7 +16,7 @@ use super::active_read::ActiveRead;
 use super::range_reader::RangeReader;
 use crate::error::ReadError;
 use crate::model::Object;
-use crate::model_ext::ReadRange;
+use crate::model_ext::{ReadRange, RequestedRange};
 use crate::read_object::ReadObjectResponse;
 use crate::stub::ObjectDescriptor;
 use crate::{Error, Result};
@@ -34,7 +34,10 @@ pub struct ObjectDescriptorTransport {
 }
 
 impl ObjectDescriptorTransport {
-    pub async fn new<T>(mut connector: super::connector::Connector<T>) -> Result<Self>
+    pub async fn new<T>(
+        mut connector: super::connector::Connector<T>,
+        ranges: Vec<ReadRange>,
+    ) -> Result<(Self, Vec<ReadObjectResponse>)>
     where
         T: super::Client + Clone + Sync,
         <T as super::Client>::Stream: super::TonicStreaming + Send + Sync,
@@ -42,19 +45,45 @@ impl ObjectDescriptorTransport {
         use gaxi::prost::FromProto;
 
         let (tx, rx) = tokio::sync::mpsc::channel(100);
-        let (initial, headers, connection) = connector.connect(Vec::new()).await?;
+        let requested_ranges = ranges.into_iter().map(|r| r.0).collect::<Vec<_>>();
+        let proto_ranges = requested_ranges
+            .iter()
+            .enumerate()
+            .map(|(id, r)| r.as_proto(id as i64))
+            .collect::<Vec<_>>();
+        let (initial, headers, connection) = connector.connect(proto_ranges).await?;
         let object = FromProto::cnv(initial.metadata.ok_or_else(|| {
             Error::deser("initial response in bidi read must contain object metadata")
         })?)
         .expect("transforming from proto Object never fails");
         let object = Arc::new(object);
-        let worker = super::worker::Worker::new(connector);
+        let (active, readers) = Self::map_ranges(requested_ranges, &tx, &object);
+        let worker = super::worker::Worker::new(connector, active);
         let _handle = tokio::spawn(worker.run(connection, rx));
-        Ok(Self {
-            object,
-            headers,
-            tx,
-        })
+        Ok((
+            Self {
+                object,
+                headers,
+                tx,
+            },
+            readers,
+        ))
+    }
+
+    fn map_ranges(
+        ranges: Vec<RequestedRange>,
+        requests: &Sender<ActiveRead>,
+        object: &Arc<Object>,
+    ) -> (Vec<ActiveRead>, Vec<ReadObjectResponse>) {
+        ranges
+            .into_iter()
+            .map(|r| {
+                let (tx, rx) = tokio::sync::mpsc::channel(100);
+                let active = ActiveRead::new(tx, r);
+                let reader = RangeReader::new(rx, object.clone(), requests.clone());
+                (active, ReadObjectResponse::new(Box::new(reader)))
+            })
+            .unzip()
     }
 }
 
@@ -125,7 +154,7 @@ mod tests {
         });
         let connector = mock_connector(mock);
 
-        let transport = ObjectDescriptorTransport::new(connector).await?;
+        let (transport, _) = ObjectDescriptorTransport::new(connector, Vec::new()).await?;
         let want = Object::new()
             .set_bucket("projects/_/buckets/test-bucket")
             .set_name("test-object")
@@ -206,7 +235,7 @@ mod tests {
             .return_once(move |_, _, _, _, _, _| Ok(Ok(connect_stream)));
         let connector = mock_connector(mock);
 
-        let transport = ObjectDescriptorTransport::new(connector).await?;
+        let (transport, _) = ObjectDescriptorTransport::new(connector, Vec::new()).await?;
         let want = Object::new()
             .set_bucket("projects/_/buckets/test-bucket")
             .set_name("test-object")
@@ -264,7 +293,9 @@ mod tests {
             .return_once(move |_, _, _, _, _, _| Err(permanent_error()));
         let connector = mock_connector(mock);
 
-        let err = ObjectDescriptorTransport::new(connector).await.unwrap_err();
+        let err = ObjectDescriptorTransport::new(connector, Vec::new())
+            .await
+            .unwrap_err();
         assert_eq!(err.status(), permanent_error().status(), "{err:?}");
         Ok(())
     }
@@ -288,7 +319,9 @@ mod tests {
             .return_once(move |_, _, _, _, _, _| Ok(Ok(connect_stream)));
         let connector = mock_connector(mock);
 
-        let err = ObjectDescriptorTransport::new(connector).await.unwrap_err();
+        let err = ObjectDescriptorTransport::new(connector, Vec::new())
+            .await
+            .unwrap_err();
         assert!(err.is_deserialization(), "{err:?}");
         Ok(())
     }

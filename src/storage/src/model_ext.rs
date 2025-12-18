@@ -169,7 +169,7 @@ impl std::fmt::Display for KeyAes256 {
 /// defines a type-safe interface to represent only valid ranges.
 ///
 /// [ReadObject]: crate::builder::storage::ReadObject
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct ReadRange(pub(crate) RequestedRange);
 
 impl ReadRange {
