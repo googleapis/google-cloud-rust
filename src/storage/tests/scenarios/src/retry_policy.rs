@@ -19,7 +19,7 @@ use google_cloud_gax::retry_state::RetryState;
 use google_cloud_gax::throttle_result::ThrottleResult;
 use std::time::Duration;
 
-/// Instrume a [RetryPolicy] to log when the client needs to resume.
+/// Instrument a [RetryPolicy] to log when the client needs to resume.
 #[derive(Debug)]
 pub struct Instrumented<T> {
     inner: T,

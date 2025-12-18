@@ -16,8 +16,6 @@ use crate::sample::Scenario;
 
 use anyhow::bail;
 use clap::Parser;
-use humantime::parse_duration;
-use std::time::Duration;
 
 /// Configuration options for the benchmark.
 #[derive(Clone, Debug, Parser)]
@@ -44,18 +42,6 @@ pub struct Args {
     /// The number of iterations for the test.
     #[arg(long, default_value_t = 1)]
     pub iterations: u64,
-
-    /// The rampup period between new tasks.
-    #[arg(long, value_parser = parse_duration, default_value = "500ms")]
-    pub rampup_period: Duration,
-
-    /// The maximum number of sequential read batches.
-    #[arg(long, default_value_t = 1)]
-    pub max_sequential_batches: usize,
-
-    /// The maximum number of reads in each batch.
-    #[arg(long, default_value_t = 1)]
-    pub max_concurrent_reads: usize,
 
     /// The number of gRPC subchannels.
     #[arg(long)]

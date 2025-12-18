@@ -95,7 +95,8 @@ pub async fn open_read(client: &Storage, objects: &[Object]) -> Attempt {
     match result {
         Ok(d) => {
             let open_latency = start.elapsed();
-            let reader = d.read_range(ReadRange::offset(2 * MIB as u64)).await;
+            // Read at least 4MiB so the first `next()` does not contain all the data.
+            let reader = d.read_range(ReadRange::head(4 * MIB as u64)).await;
             let count = read_all(reader).await;
             Attempt {
                 open_latency,
@@ -127,13 +128,14 @@ pub async fn open_read_discard(client: &Storage, objects: &[Object]) -> Attempt 
     match result {
         Ok(d) => {
             let open_latency = start.elapsed();
-            let mut reader = d.read_range(ReadRange::offset(2 * MIB as u64)).await;
-            let _first = reader.next().await.transpose();
+            // Read at least 4MiB so the first `next()` does not contain all the data.
+            let mut reader = d.read_range(ReadRange::head(4 * MIB as u64)).await;
+            let first = reader.next().await.transpose();
             Attempt {
                 open_latency,
                 object: object.name.clone(),
                 uploadid: uploadid(Some(d.headers())).unwrap_or_default(),
-                result: Ok(()),
+                result: first.map(|_| ()).map_err(anyhow::Error::from),
             }
         }
         Err(e) => Attempt {
@@ -160,7 +162,7 @@ pub async fn open_read_after_drop(client: &Storage, objects: &[Object]) -> Attem
         Ok(d) => {
             let open_latency = start.elapsed();
             let uploadid = uploadid(Some(d.headers())).unwrap_or_default();
-            let reader = d.read_range(ReadRange::offset(2 * MIB as u64)).await;
+            let reader = d.read_range(ReadRange::offset(4 * MIB as u64)).await;
             drop(d);
             let count = read_all(reader).await;
             Attempt {

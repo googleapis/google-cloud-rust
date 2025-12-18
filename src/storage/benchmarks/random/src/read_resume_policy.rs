@@ -15,7 +15,7 @@
 use google_cloud_gax::retry_result::RetryResult;
 use google_cloud_storage::read_resume_policy::ReadResumePolicy;
 
-/// Instrume a [ReadResumePolicy] to log when the client needs to resume.
+/// Instrument a [ReadResumePolicy] to log when the client needs to resume.
 #[derive(Debug)]
 pub struct Instrumented<T> {
     inner: T,
