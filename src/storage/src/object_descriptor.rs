@@ -122,8 +122,8 @@ impl ObjectDescriptor {
     /// # async fn sample() -> anyhow::Result<()> {
     /// let descriptor = open();
     /// // Often useful when troubleshooting problems with Google Support.
-    /// let header = descriptor.headers().get("x-guploader-uploadid");
-    /// println!("debugging header = {:?}", header);
+    /// let headers = descriptor.headers();
+    /// println!("debugging header = {:?}", headers.get("x-guploader-uploadid"));
     ///
     /// fn open() -> ObjectDescriptor {
     /// # panic!()
