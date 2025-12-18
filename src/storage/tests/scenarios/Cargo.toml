@@ -1,0 +1,50 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[package]
+name                 = "storage-scenarios"
+version              = "0.0.0"
+publish              = false
+edition.workspace    = true
+authors.workspace    = true
+license.workspace    = true
+repository.workspace = true
+keywords.workspace   = true
+categories.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow.workspace               = true
+bytes.workspace                = true
+clap                           = { workspace = true, features = ["derive", "help", "std", "usage"] }
+futures.workspace              = true
+google-cloud-auth.workspace    = true
+google-cloud-gax.workspace     = true
+google-cloud-storage.workspace = true
+http.workspace                 = true
+humantime.workspace            = true
+parse-size.workspace           = true
+pin-project.workspace          = true
+rand.workspace                 = true
+regex.workspace                = true
+tokio                          = { workspace = true, features = ["macros"] }
+tokio-metrics                  = { workspace = true, features = ["rt"] }
+tracing.workspace              = true
+tracing-log                    = { workspace = true, features = ["log-tracer", "std"] }
+tracing-subscriber             = { workspace = true, features = ["fmt", "std"] }
+
+[dev-dependencies]
+test-case.workspace = true
