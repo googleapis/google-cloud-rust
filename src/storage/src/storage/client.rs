@@ -639,19 +639,27 @@ impl ClientBuilder {
 
     /// Configure the number of subchannels used by the client.
     ///
-    /// gRPC-based clients may exhibit high latency if many requests need to be
-    /// demuxed over a single HTTP/2 connection (often called a *subchannel* in gRPC).
-    /// Using more subchannels may provide better throughput and/or latency.
-    ///
     /// # Example
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample() -> anyhow::Result<()> {
+    /// // By default the client uses `count` subchannels.
+    /// let count = std::thread::available_parallelism()?.get();
     /// let client = Storage::builder()
-    ///     .with_grpc_subchannel_count(50)
-    ///     .build().await?;
+    ///     .with_grpc_subchannel_count(std::cmp::max(1, count / 2))
+    ///     .build()
+    ///     .await?;
     /// # Ok(()) }
     /// ```
+    ///
+    /// gRPC-based clients may exhibit high latency if many requests need to be
+    /// demuxed over a single HTTP/2 connection (often called a *subchannel* in gRPC).
+    /// Consider using more subchannels if your application makes many
+    /// concurrent requests. Consider using fewer subchannels if your
+    /// application needs the file descriptors for other purposes.
+    ///
+    /// Keep in mind that Google Cloud limits the number of concurrent RPCs in
+    /// a single connection to about 100.
     #[cfg(google_cloud_unstable_storage_bidi)]
     pub fn with_grpc_subchannel_count(mut self, v: usize) -> Self {
         self.config.grpc_subchannel_count = Some(v);
