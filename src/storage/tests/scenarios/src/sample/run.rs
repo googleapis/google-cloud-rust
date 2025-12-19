@@ -69,7 +69,7 @@ pub async fn open(client: &Storage, objects: &[Object]) -> Attempt {
         Ok(d) => Attempt {
             open_latency: start.elapsed(),
             object: object.name.clone(),
-            uploadid: uploadid(Some(d.headers())).unwrap_or_default(),
+            uploadid: uploadid(Some(&d.headers())).unwrap_or_default(),
             result: Ok(()),
         },
         Err(e) => Attempt {
@@ -101,7 +101,7 @@ pub async fn open_read(client: &Storage, objects: &[Object]) -> Attempt {
             Attempt {
                 open_latency,
                 object: object.name.clone(),
-                uploadid: uploadid(Some(d.headers())).unwrap_or_default(),
+                uploadid: uploadid(Some(&d.headers())).unwrap_or_default(),
                 result: count.map(|_| ()),
             }
         }
@@ -134,7 +134,7 @@ pub async fn open_read_discard(client: &Storage, objects: &[Object]) -> Attempt 
             Attempt {
                 open_latency,
                 object: object.name.clone(),
-                uploadid: uploadid(Some(d.headers())).unwrap_or_default(),
+                uploadid: uploadid(Some(&d.headers())).unwrap_or_default(),
                 result: first.map(|_| ()).map_err(anyhow::Error::from),
             }
         }
@@ -161,7 +161,7 @@ pub async fn open_read_after_drop(client: &Storage, objects: &[Object]) -> Attem
     match result {
         Ok(d) => {
             let open_latency = start.elapsed();
-            let uploadid = uploadid(Some(d.headers())).unwrap_or_default();
+            let uploadid = uploadid(Some(&d.headers())).unwrap_or_default();
             let reader = d.read_range(ReadRange::head(4 * MIB as u64)).await;
             drop(d);
             let count = read_all(reader).await;
