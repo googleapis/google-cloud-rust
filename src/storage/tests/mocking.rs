@@ -24,7 +24,6 @@ mod tests {
     use gcs::read_object::ReadObjectResponse;
     use gcs::request_options::RequestOptions;
     use gcs::streaming_source::{BytesSource, Payload, Seek, StreamingSource};
-    #[cfg(google_cloud_unstable_storage_bidi)]
     use gcs::{
         model_ext::{OpenObjectRequest, ReadRange},
         object_descriptor::{HeaderMap, ObjectDescriptor},
@@ -49,7 +48,6 @@ mod tests {
                 _req: WriteObjectRequest,
                 _options: RequestOptions,
             ) -> Result<Object>;
-            #[cfg(google_cloud_unstable_storage_bidi)]
             async fn open_object(
                 &self,
                 _request: OpenObjectRequest,
@@ -58,7 +56,6 @@ mod tests {
         }
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
     mockall::mock! {
         #[derive(Debug)]
         Descriptor {}
@@ -145,7 +142,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[cfg(google_cloud_unstable_storage_bidi)]
     async fn mock_open_object_fail() {
         let status = Status::default().set_code(Code::Aborted);
         let want = status.clone();
@@ -162,7 +158,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[cfg(google_cloud_unstable_storage_bidi)]
     async fn mock_open_object_success() -> anyhow::Result<()> {
         const LAZY: &str = "the quick brown fox jumps over the lazy dog";
         let object = Object::new().set_etag("custom-etag");

@@ -36,7 +36,7 @@ these instructions may help:
 Start the program and use different files for `stdout` vs. `stderr`:
 
 ```shell
-TS=$(date +%s); RUSTFLAGS="--cfg google_cloud_unstable_storage_bidi -C target-cpu=native" \
+TS=$(date +%s); RUSTFLAGS="-C target-cpu=native" \
     cargo run --release --package storage-scenarios -- \
     --bucket-name ${BUCKET_NAME} \
     --task-count=32 \

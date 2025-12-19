@@ -12,11 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(
-    test,
-    google_cloud_unstable_storage_bidi,
-    feature = "_internal-grpc-client"
-))]
+#[cfg(all(test, feature = "_internal-grpc-client"))]
 mod tests {
     use gax::options::*;
     use gax::retry_policy::NeverRetry;

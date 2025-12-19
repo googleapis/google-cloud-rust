@@ -18,7 +18,6 @@ use crate::model_ext::WriteObjectRequest;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::request_options::RequestOptions;
 use crate::streaming_source::{Seek, StreamingSource};
-#[cfg(google_cloud_unstable_storage_bidi)]
 use crate::{
     model_ext::{OpenObjectRequest, ReadRange},
     object_descriptor::HeaderMap,
@@ -73,7 +72,6 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         unimplemented_stub::<Object>()
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
     /// Implements [crate::client::Storage::open_object].
     fn open_object(
         &self,
@@ -85,7 +83,6 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
     }
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 /// Defines the trait used to implement [crate::object_descriptor::ObjectDescriptor].
 ///
 /// Application developers may need to implement this trait to mock

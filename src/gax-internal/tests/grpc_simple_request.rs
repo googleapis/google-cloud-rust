@@ -17,7 +17,6 @@ mod tests {
     use gax::options::*;
     use gax::retry_policy::NeverRetry;
     use google_cloud_gax_internal::grpc;
-    #[cfg(google_cloud_unstable_storage_bidi)]
     use google_cloud_gax_internal::options::ClientConfig;
     use grpc_server::{builder, google, start_echo_server, start_echo_server_with_address};
 
@@ -96,7 +95,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[cfg(google_cloud_unstable_storage_bidi)]
     async fn multiple_endpoints() -> anyhow::Result<()> {
         use std::collections::HashSet;
         let (endpoint, _server) = start_echo_server().await?;

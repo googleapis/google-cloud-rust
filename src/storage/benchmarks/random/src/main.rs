@@ -15,7 +15,6 @@
 //! Benchmark random-reads using the Cloud Storage client library for Rust.
 
 mod args;
-#[cfg(google_cloud_unstable_storage_bidi)]
 mod bidi;
 mod dataset;
 mod experiment;
@@ -59,7 +58,6 @@ async fn main() -> Result<()> {
     let builder = Storage::builder()
         .with_credentials(credentials.clone())
         .with_read_resume_policy(Instrumented::new(Recommended));
-    #[cfg(google_cloud_unstable_storage_bidi)]
     let builder = args
         .grpc_subchannel_count
         .iter()
@@ -115,7 +113,6 @@ async fn runner(
     }
 
     let json = json::Runner::new(client.clone()).await?;
-    #[cfg(google_cloud_unstable_storage_bidi)]
     let bidi = bidi::Runner::new(&args, objects.clone(), client.clone()).await?;
 
     let generator = experiment::ExperimentGenerator::new(&args, objects)?;
@@ -133,7 +130,6 @@ async fn runner(
         let start = Instant::now();
         let attempts = match experiment.protocol {
             Protocol::Json => json.iteration(&experiment).await,
-            #[cfg(google_cloud_unstable_storage_bidi)]
             Protocol::Bidi => bidi.iteration(&experiment).await,
         };
         let elapsed = start.elapsed();

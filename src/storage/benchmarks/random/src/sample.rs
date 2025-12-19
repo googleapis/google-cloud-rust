@@ -70,7 +70,6 @@ impl Sample {
 #[derive(clap::ValueEnum, Clone, Copy, Debug, PartialEq)]
 pub enum Protocol {
     /// Use bidirectional streaming RPC.
-    #[cfg(google_cloud_unstable_storage_bidi)]
     Bidi,
     /// Use JSON ranged reads.
     Json,
@@ -79,7 +78,6 @@ pub enum Protocol {
 impl Protocol {
     pub fn name(&self) -> &str {
         match self {
-            #[cfg(google_cloud_unstable_storage_bidi)]
             Self::Bidi => "bidi",
             Self::Json => "json",
         }
