@@ -19,9 +19,7 @@ use crate::error::KeyAes256Error;
 use base64::{Engine, prelude::BASE64_STANDARD};
 use sha2::{Digest, Sha256};
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 mod open_object_request;
-#[cfg(google_cloud_unstable_storage_bidi)]
 pub use open_object_request::OpenObjectRequest;
 
 /// ObjectHighlights contains select metadata from a [crate::model::Object].

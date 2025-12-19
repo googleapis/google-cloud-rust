@@ -359,7 +359,6 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[cfg(google_cloud_unstable_storage_bidi)]
     async fn test_grpc_streaming_span() -> anyhow::Result<()> {
         use google_cloud_gax_internal::observability::attributes::keys::*;
         use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
@@ -457,7 +456,6 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[cfg(google_cloud_unstable_storage_bidi)]
     async fn test_grpc_streaming_error() -> anyhow::Result<()> {
         use google_cloud_gax_internal::observability::attributes::keys::*;
         use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};

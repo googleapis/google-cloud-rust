@@ -84,24 +84,10 @@ impl Scenario {
     pub async fn run(&self, _args: &Args, client: &Storage, objects: &[Object]) -> Attempt {
         match self {
             Self::Json => run::json(client, objects).await,
-            #[cfg(google_cloud_unstable_storage_bidi)]
             Self::Open => run::open(client, objects).await,
-            #[cfg(google_cloud_unstable_storage_bidi)]
             Self::OpenRead => run::open_read(client, objects).await,
-            #[cfg(google_cloud_unstable_storage_bidi)]
             Self::OpenReadDiscard => run::open_read_discard(client, objects).await,
-            #[cfg(google_cloud_unstable_storage_bidi)]
             Self::OpenReadAfterDrop => run::open_read_after_drop(client, objects).await,
-            #[cfg(not(google_cloud_unstable_storage_bidi))]
-            _ => Attempt {
-                result: Err(anyhow::format_err!(
-                    "scenario {} is not implemented",
-                    self.name()
-                )),
-                open_latency: Duration::ZERO,
-                object: String::new(),
-                uploadid: String::new(),
-            },
         }
     }
 }

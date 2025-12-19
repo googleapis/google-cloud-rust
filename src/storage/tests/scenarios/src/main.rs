@@ -73,7 +73,6 @@ async fn main() -> anyhow::Result<()> {
         .with_retry_policy(retry_policy::Instrumented::new(
             RetryableErrors.with_time_limit(Duration::from_secs(300)),
         ));
-    #[cfg(google_cloud_unstable_storage_bidi)]
     let builder = args
         .grpc_subchannel_count
         .iter()

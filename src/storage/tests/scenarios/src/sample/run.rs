@@ -12,10 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::KIB;
-#[cfg(google_cloud_unstable_storage_bidi)]
-use crate::MIB;
 use crate::sample::Attempt;
+use crate::{KIB, MIB};
 use google_cloud_storage::{
     client::Storage, model::Object, model_ext::ReadRange, read_object::ReadObjectResponse,
 };
@@ -54,7 +52,6 @@ pub async fn json(client: &Storage, objects: &[Object]) -> Attempt {
     }
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 pub async fn open(client: &Storage, objects: &[Object]) -> Attempt {
     let object = objects
         .choose(&mut rand::rng())
@@ -81,7 +78,6 @@ pub async fn open(client: &Storage, objects: &[Object]) -> Attempt {
     }
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 pub async fn open_read(client: &Storage, objects: &[Object]) -> Attempt {
     let object = objects
         .choose(&mut rand::rng())
@@ -114,7 +110,6 @@ pub async fn open_read(client: &Storage, objects: &[Object]) -> Attempt {
     }
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 pub async fn open_read_discard(client: &Storage, objects: &[Object]) -> Attempt {
     let object = objects
         .choose(&mut rand::rng())
@@ -147,7 +142,6 @@ pub async fn open_read_discard(client: &Storage, objects: &[Object]) -> Attempt 
     }
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 pub async fn open_read_after_drop(client: &Storage, objects: &[Object]) -> Attempt {
     let object = objects
         .choose(&mut rand::rng())

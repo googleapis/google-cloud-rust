@@ -131,7 +131,6 @@ pub enum ReadError {
     BadHeaderFormat(&'static str, #[source] BoxedSource),
 
     /// A bidi read was interrupted with an unrecoverable error.
-    #[cfg(google_cloud_unstable_storage_bidi)]
     #[error("cannot recover from an underlying read error: {0}")]
     UnrecoverableBidiReadInterrupt(#[source] std::sync::Arc<crate::Error>),
 
@@ -145,13 +144,11 @@ pub enum ReadError {
     ///
     /// [open an issue]: https://github.com/googleapis/google-cloud-rust/issues/new/choose
     /// [Google Cloud support]: https://cloud.google.com/support
-    #[cfg(google_cloud_unstable_storage_bidi)]
     #[error("the bidi streaming read response is invalid: {0}")]
     InvalidBidiStreamingReadResponse(#[source] BoxedSource),
 }
 
 impl ReadError {
-    #[cfg(google_cloud_unstable_storage_bidi)]
     pub(crate) fn bidi_out_of_order(expected: i64, got: i64) -> Self {
         Self::InvalidBidiStreamingReadResponse(
             format!("message offset mismatch, expected={expected}, got={got}").into(),

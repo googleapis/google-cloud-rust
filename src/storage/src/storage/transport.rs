@@ -21,7 +21,6 @@ use crate::storage::perform_upload::PerformUpload;
 use crate::storage::read_object::Reader;
 use crate::storage::request_options::RequestOptions;
 use crate::storage::streaming_source::{Seek, StreamingSource};
-#[cfg(google_cloud_unstable_storage_bidi)]
 use crate::{
     google::storage::v2::BidiReadObjectSpec, model_ext::OpenObjectRequest,
     object_descriptor::ObjectDescriptor, storage::bidi::connector::Connector,
@@ -100,7 +99,6 @@ impl super::stub::Storage for Storage {
             .await
     }
 
-    #[cfg(google_cloud_unstable_storage_bidi)]
     async fn open_object(
         &self,
         request: OpenObjectRequest,
