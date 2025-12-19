@@ -87,7 +87,7 @@ pub async fn send_and_read(client: &Storage, bucket_name: &str) -> anyhow::Resul
         data.extend_from_slice(&r);
     }
     assert_eq!(count, 100_usize);
-    assert_eq!(data, payload[(payload.len() - 100)..].as_bytes());
+    assert_eq!(data, &payload.as_bytes()[(payload.len() - 100)..]);
 
     Ok(())
 }
