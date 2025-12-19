@@ -42,7 +42,6 @@ pub struct OpenObject<S = crate::storage::transport::Storage> {
     stub: Arc<S>,
     request: OpenObjectRequest,
     options: RequestOptions,
-    reconnect_attempts: u32,
 }
 
 impl<S> OpenObject<S>
@@ -82,7 +81,6 @@ impl<S> OpenObject<S> {
             request,
             options,
             stub,
-            reconnect_attempts: 0_u32,
         }
     }
 

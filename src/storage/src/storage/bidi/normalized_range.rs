@@ -76,10 +76,6 @@ impl NormalizedRange {
         }
     }
 
-    pub fn offset(&self) -> i64 {
-        self.offset
-    }
-
     pub fn length(&self) -> Option<i64> {
         self.length
     }
@@ -90,10 +86,6 @@ impl NormalizedRange {
             read_offset: self.offset,
             read_length: self.length.unwrap_or_default(),
         }
-    }
-
-    pub fn matching_offset(&self, requested_offset: u64) -> bool {
-        self.offset as u64 == requested_offset
     }
 
     pub fn update(&mut self, response: ProtoRange) -> ReadResult<()> {
@@ -140,7 +132,6 @@ mod tests {
             length: None,
         };
         assert_eq!(got, want);
-        assert_eq!(got.offset(), 100, "{got:?}");
         assert!(got.length().is_none(), "{got:?}");
 
         let proto = got.as_proto(123456);
@@ -150,9 +141,6 @@ mod tests {
             read_length: 0,
         };
         assert_eq!(proto, want);
-
-        assert!(got.matching_offset(100_u64), "{got:?}");
-        assert!(!got.matching_offset(105_u64), "{got:?}");
 
         Ok(())
     }
@@ -176,7 +164,6 @@ mod tests {
             length: Some(50),
         };
         assert_eq!(got, want);
-        assert_eq!(got.offset(), 100, "{got:?}");
         assert_eq!(got.length(), Some(50), "{got:?}");
 
         let proto = got.as_proto(123456);
@@ -186,9 +173,6 @@ mod tests {
             read_length: 50,
         };
         assert_eq!(proto, want);
-
-        assert!(got.matching_offset(100_u64), "{got:?}");
-        assert!(!got.matching_offset(105_u64), "{got:?}");
 
         Ok(())
     }
@@ -235,15 +219,15 @@ mod tests {
         let mut normalized = NormalizedRange::new(100)?.with_length(200)?;
         let response = proto_range(100, 25);
         normalized.update(response)?;
-        assert_eq!((normalized.offset(), normalized.length()), (125, Some(175)));
+        assert_eq!((normalized.offset, normalized.length()), (125, Some(175)));
 
         let response = proto_range(125, 50);
         normalized.update(response)?;
-        assert_eq!((normalized.offset(), normalized.length()), (175, Some(125)));
+        assert_eq!((normalized.offset, normalized.length()), (175, Some(125)));
 
         let response = proto_range(175, 0);
         normalized.update(response)?;
-        assert_eq!((normalized.offset(), normalized.length()), (175, Some(125)));
+        assert_eq!((normalized.offset, normalized.length()), (175, Some(125)));
         Ok(())
     }
 
@@ -252,15 +236,15 @@ mod tests {
         let mut normalized = NormalizedRange::new(100)?;
         let response = proto_range(100, 25);
         normalized.update(response)?;
-        assert_eq!((normalized.offset(), normalized.length()), (125, None));
+        assert_eq!((normalized.offset, normalized.length()), (125, None));
 
         let response = proto_range(125, 50);
         normalized.update(response)?;
-        assert_eq!((normalized.offset(), normalized.length()), (175, None));
+        assert_eq!((normalized.offset, normalized.length()), (175, None));
 
         let response = proto_range(175, 0);
         normalized.update(response)?;
-        assert_eq!((normalized.offset(), normalized.length()), (175, None));
+        assert_eq!((normalized.offset, normalized.length()), (175, None));
         Ok(())
     }
 
