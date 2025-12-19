@@ -69,7 +69,22 @@ where
         Ok(descriptor)
     }
 
-    pub(crate) async fn send_and_read(
+    /// Sends the request, returning a new object descriptor and reader.
+    ///
+    /// Example:
+    /// ```ignore
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::model_ext::ReadRange;
+    /// let (descriptor, mut reader) = client
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send_and_read(ReadRange::tail(32))
+    ///     .await?;
+    /// println!("object metadata={:?}", descriptor.object());
+    /// let data = reader.next().await.transpose()?;
+    /// # Ok(()) }
+    /// ```
+    pub async fn send_and_read(
         mut self,
         range: ReadRange,
     ) -> Result<(ObjectDescriptor, ReadObjectResponse)> {

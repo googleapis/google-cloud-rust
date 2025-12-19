@@ -106,7 +106,7 @@ where
         Err(e)
     }
 
-    async fn handle_response(
+    pub async fn handle_response(
         &mut self,
         message: tonic::Result<Option<BidiReadObjectResponse>>,
     ) -> Option<LoopResult<Option<Connection<C::Stream>>>> {
@@ -114,14 +114,23 @@ where
             Ok(r) => r,
             Err(status) => return self.reconnect(status).await,
         };
+        match self.handle_response_success(response).await {
+            Err(e) => Some(Err(e)),
+            Ok(_) => Some(Ok(None)),
+        }
+    }
 
+    pub async fn handle_response_success(
+        &mut self,
+        response: BidiReadObjectResponse,
+    ) -> LoopResult<()> {
         if let Err(e) = self.handle_ranges(response.object_data_ranges).await {
             // An error in the response. These are not recoverable.
             let error = Arc::new(e);
             self.close_readers(error.clone()).await;
-            return Some(Err(error));
+            return Err(error);
         }
-        Some(Ok(None))
+        Ok(())
     }
 
     async fn handle_ranges(&self, data: Vec<ObjectRangeData>) -> crate::Result<()> {

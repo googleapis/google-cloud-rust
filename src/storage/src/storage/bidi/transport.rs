@@ -51,14 +51,18 @@ impl ObjectDescriptorTransport {
             .enumerate()
             .map(|(id, r)| r.as_proto(id as i64))
             .collect::<Vec<_>>();
-        let (initial, headers, connection) = connector.connect(proto_ranges).await?;
-        let object = FromProto::cnv(initial.metadata.ok_or_else(|| {
+        let (mut initial, headers, connection) = connector.connect(proto_ranges).await?;
+        let object = FromProto::cnv(initial.metadata.take().ok_or_else(|| {
             Error::deser("initial response in bidi read must contain object metadata")
         })?)
         .expect("transforming from proto Object never fails");
         let object = Arc::new(object);
         let (active, readers) = Self::map_ranges(requested_ranges, &tx, &object);
-        let worker = super::worker::Worker::new(connector, active);
+        let mut worker = super::worker::Worker::new(connector, active);
+        worker
+            .handle_response_success(initial)
+            .await
+            .map_err(Error::io)?;
         let _handle = tokio::spawn(worker.run(connection, rx));
         Ok((
             Self {
