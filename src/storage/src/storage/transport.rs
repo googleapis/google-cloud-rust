@@ -105,11 +105,11 @@ impl super::stub::Storage for Storage {
         &self,
         request: OpenObjectRequest,
         options: RequestOptions,
-    ) -> Result<ObjectDescriptor> {
+    ) -> Result<(ObjectDescriptor, Vec<ReadObjectResponse>)> {
         let spec = BidiReadObjectSpec::from(request);
         let connector = Connector::new(spec, options, self.inner.grpc.clone());
         let transport = ObjectDescriptorTransport::new(connector).await?;
 
-        Ok(ObjectDescriptor::new(transport))
+        Ok((ObjectDescriptor::new(transport), Vec::new()))
     }
 }
