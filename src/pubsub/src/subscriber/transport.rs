@@ -14,6 +14,7 @@
 
 use super::stub::Stub;
 use crate::Result;
+use crate::generated::gapic_dataplane::stub::dynamic::Subscriber as GapicStub;
 use crate::generated::gapic_dataplane::transport::Subscriber as Transport;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use tokio::sync::mpsc::Receiver;
@@ -63,6 +64,22 @@ impl Stub for Transport {
                 "",
             )
             .await
+    }
+
+    async fn modify_ack_deadline(
+        &self,
+        req: crate::model::ModifyAckDeadlineRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        GapicStub::modify_ack_deadline(self, req, options).await
+    }
+
+    async fn acknowledge(
+        &self,
+        req: crate::model::AcknowledgeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        GapicStub::acknowledge(self, req, options).await
     }
 }
 
@@ -124,6 +141,38 @@ mod tests {
         drop(response_tx);
         assert_eq!(stream.next().await.transpose()?, None);
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn modify_ack_deadline() -> anyhow::Result<()> {
+        let mut mock = MockSubscriber::new();
+        mock.expect_modify_ack_deadline()
+            .return_once(|_| Ok(tonic::Response::from(())));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = test_transport(endpoint).await?;
+        let _ = Stub::modify_ack_deadline(
+            &transport,
+            crate::model::ModifyAckDeadlineRequest::new(),
+            gax::options::RequestOptions::default(),
+        )
+        .await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn acknowledge() -> anyhow::Result<()> {
+        let mut mock = MockSubscriber::new();
+        mock.expect_acknowledge()
+            .return_once(|_| Ok(tonic::Response::from(())));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = test_transport(endpoint).await?;
+        let _ = Stub::acknowledge(
+            &transport,
+            crate::model::AcknowledgeRequest::new(),
+            gax::options::RequestOptions::default(),
+        )
+        .await?;
         Ok(())
     }
 }

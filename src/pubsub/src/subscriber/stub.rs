@@ -26,12 +26,23 @@ pub(crate) trait TonicStreaming: std::fmt::Debug + Send + 'static {
 #[async_trait::async_trait]
 pub(crate) trait Stub: std::fmt::Debug + Send + Sync {
     type Stream: Sized;
-
     async fn streaming_pull(
         &self,
         request_rx: Receiver<StreamingPullRequest>,
         _options: gax::options::RequestOptions,
     ) -> Result<tonic::Response<Self::Stream>>;
+
+    async fn modify_ack_deadline(
+        &self,
+        _req: crate::model::ModifyAckDeadlineRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>>;
+
+    async fn acknowledge(
+        &self,
+        _req: crate::model::AcknowledgeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>>;
 }
 
 #[cfg(test)]
@@ -59,6 +70,15 @@ pub(crate) mod tests {
                 request_rx: Receiver<StreamingPullRequest>,
                 _options: gax::options::RequestOptions,
             ) -> Result<tonic::Response<MockStream>>;
+            async fn modify_ack_deadline(&self,
+                _req: crate::model::ModifyAckDeadlineRequest,
+                _options: gax::options::RequestOptions,
+            ) -> Result<gax::response::Response<()>>;
+            async fn acknowledge(
+                &self,
+                _req: crate::model::AcknowledgeRequest,
+                _options: gax::options::RequestOptions,
+            ) -> Result<gax::response::Response<()>>;
         }
     }
 }
