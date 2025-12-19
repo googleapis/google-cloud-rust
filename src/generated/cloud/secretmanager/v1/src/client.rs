@@ -195,14 +195,13 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
-    /// use google_cloud_secretmanager_v1::model::GetSecretRequest;
     /// async fn sample(
     ///    client: &SecretManagerService,
-    ///    request: GetSecretRequest,
+    ///    resource_name: &str
     /// ) -> gax::Result<()> {
     ///     let response = client
     ///         .get_secret()
-    ///         .with_request(request)
+    ///         .set_name(resource_name)
     ///         .send()
     ///         .await?;
     ///     println!("response {:?}", response);
@@ -280,14 +279,13 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
-    /// use google_cloud_secretmanager_v1::model::GetSecretVersionRequest;
     /// async fn sample(
     ///    client: &SecretManagerService,
-    ///    request: GetSecretVersionRequest,
+    ///    resource_name: &str
     /// ) -> gax::Result<()> {
     ///     let response = client
     ///         .get_secret_version()
-    ///         .with_request(request)
+    ///         .set_name(resource_name)
     ///         .send()
     ///         .await?;
     ///     println!("response {:?}", response);
