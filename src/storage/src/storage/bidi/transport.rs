@@ -14,7 +14,6 @@
 
 use super::active_read::ActiveRead;
 use super::range_reader::RangeReader;
-use crate::error::ReadError;
 use crate::model::Object;
 use crate::model_ext::ReadRange;
 use crate::read_object::ReadObjectResponse;
@@ -23,8 +22,6 @@ use crate::{Error, Result};
 use http::HeaderMap;
 use std::sync::Arc;
 use tokio::sync::mpsc::Sender;
-
-type ReadResult<T> = std::result::Result<T, ReadError>;
 
 #[derive(Debug)]
 pub struct ObjectDescriptorTransport {
@@ -89,6 +86,7 @@ impl ObjectDescriptor for ObjectDescriptorTransport {
 mod tests {
     use super::super::mocks::{MockTestClient, mock_connector};
     use super::*;
+    use crate::error::ReadError;
     use crate::google::storage::v2::{
         BidiReadHandle, BidiReadObjectResponse, ChecksummedData, Object as ProtoObject,
         ObjectRangeData, ReadRange as ProtoRange,
