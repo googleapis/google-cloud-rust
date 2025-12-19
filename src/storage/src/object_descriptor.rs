@@ -18,6 +18,7 @@ use crate::model::Object;
 use crate::model_ext::ReadRange;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::bidi::stub::dynamic::ObjectDescriptor as ObjectDescriptorStub;
+use std::sync::Arc;
 
 /// The `open_object()` metadata attributes.
 pub use http::HeaderMap;
@@ -55,9 +56,9 @@ pub use http::HeaderMap;
 /// You should actively read from all concurrent reads: the client library uses
 /// separate buffers for each `read_range()` call, but once a buffer is full the
 /// library will stop delivering data to **all** the concurrent reads.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct ObjectDescriptor {
-    inner: Box<dyn ObjectDescriptorStub>,
+    inner: Arc<dyn ObjectDescriptorStub>,
 }
 
 impl ObjectDescriptor {
@@ -144,7 +145,7 @@ impl ObjectDescriptor {
         T: crate::stub::ObjectDescriptor + 'static,
     {
         Self {
-            inner: Box::new(inner),
+            inner: Arc::new(inner),
         }
     }
 }
@@ -156,6 +157,12 @@ mod tests {
     use crate::read_object::ReadObjectResponse;
     use http::{HeaderName, HeaderValue};
     use mockall::mock;
+    use static_assertions::assert_impl_all;
+
+    #[test]
+    fn impls() {
+        assert_impl_all!(ObjectDescriptor: Clone, std::fmt::Debug);
+    }
 
     // Verify this can be mocked inside the crate.
     // TODO(#3838) - support mocking outside the crate too.

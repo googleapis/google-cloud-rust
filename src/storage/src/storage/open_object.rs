@@ -339,31 +339,32 @@ mod tests {
     use anyhow::Result;
     use auth::credentials::anonymous::Builder as Anonymous;
     use http::HeaderValue;
+    use static_assertions::assert_impl_all;
     use storage_grpc_mock::google::storage::v2::{BidiReadObjectResponse, Object as ProtoObject};
     use storage_grpc_mock::{MockStorage, start};
 
     // Verify `open_object()` meets normal Send, Sync, requirements.
     #[tokio::test]
-    async fn test_open_object_is_send_and_static() -> Result<()> {
+    async fn traits() -> Result<()> {
+        assert_impl_all!(OpenObject: Clone, std::fmt::Debug);
+        assert_impl_all!(OpenObject: Send, Sync);
+
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
 
         fn need_send<T: Send>(_val: &T) {}
-        fn need_sync<T: Sync>(_val: &T) {}
         fn need_static<T: 'static>(_val: &T) {}
 
-        let open = client.read_object("projects/_/buckets/test-bucket", "test-object");
-        need_send(&open);
-        need_sync(&open);
+        let open = client.open_object("projects/_/buckets/test-bucket", "test-object");
         need_static(&open);
 
-        let open = client
+        let fut = client
             .open_object("projects/_/buckets/test-bucket", "test-object")
             .send();
-        need_send(&open);
-        need_static(&open);
+        need_send(&fut);
+        need_static(&fut);
         Ok(())
     }
 
