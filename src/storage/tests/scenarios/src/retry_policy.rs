@@ -32,6 +32,14 @@ where
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
+
+    fn log(&self, msg: &str, state: &RetryState, error: &Error) {
+        let bt = std::backtrace::Backtrace::force_capture();
+        tracing::info!(
+            "retry policy {msg}, state: {state:?}, elapsed: {:?}, error: {error:?}, backtrace: {bt:#?}",
+            state.start.elapsed()
+        )
+    }
 }
 
 impl<T> RetryPolicy for Instrumented<T>
@@ -41,15 +49,9 @@ where
     fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
         let result = self.inner.on_error(state, error);
         match &result {
-            RetryResult::Continue(e) => {
-                tracing::info!("retry policy continues, state: {state:?}, error: {e:?}")
-            }
-            RetryResult::Exhausted(e) => {
-                tracing::info!("retry policy exhausted, state: {state:?}, error: {e:?}")
-            }
-            RetryResult::Permanent(e) => {
-                tracing::info!("retry policy permanent error, state: {state:?}, error: {e:?}")
-            }
+            RetryResult::Continue(e) => self.log("continues", state, e),
+            RetryResult::Exhausted(e) => self.log("exhausted", state, e),
+            RetryResult::Permanent(e) => self.log("permanent", state, e),
         }
         result
     }
@@ -57,12 +59,8 @@ where
     fn on_throttle(&self, state: &RetryState, error: Error) -> ThrottleResult {
         let result = self.inner.on_throttle(state, error);
         match &result {
-            ThrottleResult::Continue(e) => {
-                tracing::info!("retry policy continues on throttle, state: {state:?}, error: {e:?}")
-            }
-            ThrottleResult::Exhausted(e) => {
-                tracing::info!("retry policy exhausted on throttle, state: {state:?}, error: {e:?}")
-            }
+            ThrottleResult::Continue(e) => self.log("continues on throttle", state, e),
+            ThrottleResult::Exhausted(e) => self.log("exhausted on throttle", state, e),
         }
         result
     }
