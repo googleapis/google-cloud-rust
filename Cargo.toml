@@ -328,7 +328,7 @@ prost-types           = { default-features = false, version = "0.14" }
 rand                  = { default-features = false, version = "0.9.2" }
 reqwest               = { default-features = false, version = "0.12.24", features = ["json"] }
 rustls                = { default-features = false, version = "0.23" }
-rustls-pki-types      = { default-features = false, version = "1.13" }
+rustls-pemfile        = { default-features = false, version = "2" }
 semver                = { default-features = false, version = "1.0.21" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
 serde_json            = { default-features = false, version = "1.0.132", features = ["std"] }
