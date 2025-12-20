@@ -16,6 +16,8 @@ use crate::sample::Scenario;
 
 use anyhow::bail;
 use clap::Parser;
+use humantime::parse_duration;
+use std::time::Duration;
 
 /// Configuration options for the benchmark.
 #[derive(Clone, Debug, Parser)]
@@ -38,6 +40,10 @@ pub struct Args {
     /// The number of concurrent tasks running the test.
     #[arg(long, default_value_t = 1)]
     pub task_count: usize,
+
+    /// The rampup period between new tasks.
+    #[arg(long, value_parser = parse_duration, default_value = "500ms")]
+    pub rampup_period: Duration,
 
     /// The number of iterations for the test.
     #[arg(long, default_value_t = 1)]

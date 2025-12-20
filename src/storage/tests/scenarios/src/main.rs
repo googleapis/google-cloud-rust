@@ -133,8 +133,9 @@ async fn runner(
     args: Args,
     objects: Vec<Object>,
 ) -> anyhow::Result<()> {
+    tokio::time::sleep(args.rampup_period * task as u32).await;
     if task % 128 == 0 {
-        tracing::info!("Task::run({})", task);
+        tracing::info!("runner({})", task);
     }
 
     for iteration in 0..args.iterations {
